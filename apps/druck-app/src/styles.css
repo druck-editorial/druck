@@ -1,0 +1,104 @@
+.demo-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--color-surface, #fff);
+  border-bottom: 1px solid var(--color-hairline, rgba(0,0,0,0.06));
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+}
+
+.demo-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.demo-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.demo-logo {
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: var(--color-text, #1a1612);
+}
+
+.demo-tab {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-text-secondary, #4a463f);
+  transition: background 0.15s, color 0.15s;
+}
+
+.demo-tab:hover {
+  background: var(--color-hairline, rgba(0,0,0,0.06));
+}
+
+.demo-tab.active {
+  background: var(--accent, #3A5A6D);
+  color: #fff;
+}
+
+.demo-reading-info {
+  font-size: 12px;
+  color: var(--color-text-muted, #6b665d);
+}
+
+.theme-btn {
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-hairline, rgba(0,0,0,0.06));
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text-muted, #6b665d);
+}
+
+.theme-btn:hover {
+  background: var(--color-surface-alt, #f0eeeb);
+}
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent, #3A5A6D);
+  z-index: 200;
+  transition: width 0.1s;
+}
+
+.demo-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: var(--color-text-muted, #6b665d);
+  font-family: system-ui, sans-serif;
+}
+
+[data-theme="dark"] .demo-nav {
+  background: var(--color-surface, #1a1a1a);
+  border-color: var(--color-hairline, rgba(255,255,255,0.06));
+}
+
+[data-theme="dark"] .theme-btn {
+  background: var(--color-surface, #1a1a1a);
+  border-color: var(--color-hairline, rgba(255,255,255,0.06));
+}

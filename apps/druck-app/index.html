@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Druck — Editorial Rendering</title>
+  <link rel="stylesheet" href="/article.css">
+  <style>
+    body { margin: 0; background: var(--color-bg, #f6f4f1); font-family: system-ui; }
+    [data-theme="dark"] body { background: var(--color-bg, #111); }
+  </style>
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('druck-theme');
+        if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+        if (t) document.documentElement.dataset.theme = t;
+      } catch(e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.tsx"></script>
+  <script src="/assets/js/article-progress.js" defer></script>
+  <script src="/assets/js/article-effects.js" defer></script>
+</body>
+</html>
