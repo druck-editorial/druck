@@ -27,6 +27,9 @@ const CATEGORIES = [
   { name: 'Weekly', color: '#4a5a6e' },
 ];
 
+// Load the initial article on mount
+loadArticle(activeSlug.value);
+
 async function loadArticle(slug: string): Promise<void> {
   if (articles.has(slug) && activeSlug.value === slug) return;
 
