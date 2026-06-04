@@ -1,0 +1,15 @@
+{
+  "name": "druck-workspace",
+  "private": true,
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {
+    "dev": "pnpm --filter @druck/app dev",
+    "build": "pnpm --filter @druck/app build",
+    "engine:build": "pnpm --filter @druck/engine build",
+    "widget:build": "pnpm --filter @druck/widget build",
+    "analytics:build": "pnpm --filter @druck/analytics build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint"
+  }
+}
