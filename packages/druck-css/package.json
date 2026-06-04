@@ -1,0 +1,7 @@
+{
+  "name": "@druck/css",
+  "version": "0.1.0",
+  "main": "article.css",
+  "style": "article.css",
+  "files": ["article.css"]
+}
