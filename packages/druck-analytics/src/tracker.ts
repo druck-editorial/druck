@@ -1,6 +1,12 @@
 import type { AnalyticsConfig, ReadingEvent, ReadingSession } from './types.js';
 
-const DEFAULT_CONFIG: Required<AnalyticsConfig> = {
+type MergedConfig = Omit<Required<AnalyticsConfig>, 'onDepth' | 'onActiveReading' | 'onChapterRead'> & {
+  onDepth?: (depthPercent: number) => void;
+  onActiveReading?: (activeSec: number) => void;
+  onChapterRead?: (title: string) => void;
+};
+
+const DEFAULT_CONFIG: MergedConfig = {
   endpoint: '',
   sendOn: 'pagehide',
   intervalMs: 30000,
@@ -10,7 +16,7 @@ const DEFAULT_CONFIG: Required<AnalyticsConfig> = {
 };
 
 export class ReadingTracker {
-  #config: Required<AnalyticsConfig>;
+  #config: MergedConfig;
   #events: ReadingEvent[] = [];
   #session: ReadingSession;
   #activeStart = 0;
@@ -20,6 +26,7 @@ export class ReadingTracker {
   #elementTimers = new Map<string, number>();
   #sentMilestones = new Set<number>();
   #intervalId?: ReturnType<typeof setInterval>;
+  #tickId?: ReturnType<typeof setInterval>;
 
   constructor(articleRoot: HTMLElement, slug: string, config?: AnalyticsConfig) {
     this.#config = { ...DEFAULT_CONFIG, ...config };
@@ -39,6 +46,7 @@ export class ReadingTracker {
     this.#trackActivity();
     this.#trackDepth();
     this.#setupSend();
+    this.#startActiveReadingTick();
   }
 
   #observeElements(): void {
@@ -139,6 +147,7 @@ export class ReadingTracker {
             timestamp: Date.now(),
             detail: title,
           });
+          this.#config.onChapterRead?.(title);
         }
       }
     }, this.#config.chapterReadThresholdMs);
@@ -185,6 +194,7 @@ export class ReadingTracker {
       if (totalScroll <= 0) return;
       const depth = Math.min(100, Math.max(0, (visibleTop / totalScroll) * 100));
       this.#session.maxDepthPercent = Math.max(this.#session.maxDepthPercent, depth);
+      this.#config.onDepth?.(this.#session.maxDepthPercent);
 
       for (const milestone of this.#config.depthMilestones) {
         if (depth >= milestone && !this.#sentMilestones.has(milestone)) {
@@ -242,7 +252,15 @@ export class ReadingTracker {
   destroy(): void {
     this.#observer?.disconnect();
     if (this.#intervalId) clearInterval(this.#intervalId);
+    if (this.#tickId) clearInterval(this.#tickId);
     this.#send();
+  }
+
+  #startActiveReadingTick(): void {
+    this.#tickId = setInterval(() => {
+      const ms = this.#session.activeReadingMs + (this.#isActive ? Date.now() - this.#activeStart : 0);
+      this.#config.onActiveReading?.(Math.round(ms / 1000));
+    }, 1000);
   }
 }
 

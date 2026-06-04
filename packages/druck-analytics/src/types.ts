@@ -25,4 +25,7 @@ export interface AnalyticsConfig {
   depthMilestones?: number[];
   chapterReadThresholdMs?: number;
   debounceMs?: number;
+  onDepth?: (depthPercent: number) => void;
+  onActiveReading?: (activeSec: number) => void;
+  onChapterRead?: (title: string) => void;
 }
