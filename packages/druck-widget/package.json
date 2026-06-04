@@ -1,0 +1,14 @@
+{
+  "name": "@druck/widget",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/druck-widget.js",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc && node scripts/bundle.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}
