@@ -53,6 +53,9 @@ export interface ArticleData {
   publishedAt: string;
   readingTime: string;
   heroImage: string;
+  heroImageAlt?: string;
+  heroImageWidth?: number;
+  heroImageHeight?: number;
   heroCaption?: string;
 
   byline?: {
