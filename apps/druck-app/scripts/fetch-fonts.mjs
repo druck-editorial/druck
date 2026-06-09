@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const FONTS_DIR = join(import.meta.dirname, '../public/fonts');
@@ -18,6 +18,7 @@ const GENERAL_SANS_FACES = `
 @font-face {
   font-family: 'gs-fallback';
   src: local('Arial');
+  font-display: swap;
   size-adjust: 100%;
   ascent-override: 96%;
   descent-override: 24%;
@@ -29,6 +30,7 @@ const FALLBACK_METRICS = `
 @font-face {
   font-family: 'pjs-fallback';
   src: local('Arial Bold');
+  font-display: swap;
   size-adjust: 103%;
   ascent-override: 97%;
   descent-override: 25%;
@@ -37,6 +39,7 @@ const FALLBACK_METRICS = `
 @font-face {
   font-family: 'ss4-fallback';
   src: local('Georgia');
+  font-display: swap;
   size-adjust: 99%;
   ascent-override: 92%;
   descent-override: 26%;
@@ -53,7 +56,7 @@ async function fetchCss(families) {
 }
 
 async function localizeCss(css) {
-  const urls = [...new Set([...css.matchAll(/url\((https:[^)]+\.woff2)\)/g)].map((m) => m[1]))];
+  const urls = [...new Set([...css.matchAll(/url\(['"]?(https:[^'")]+\.woff2)['"]?\)/g)].map((m) => m[1]))];
   const urlToName = new Map();
   for (const url of urls) {
     const basename = url.split('/').pop();
@@ -67,9 +70,11 @@ async function localizeCss(css) {
   }
   let out = css;
   for (const [url, name] of urlToName) {
-    const file = await fetch(url, { headers: { 'user-agent': UA } });
-    if (!file.ok) throw new Error(`font download ${file.status}: ${url}`);
-    writeFileSync(join(FONTS_DIR, name), Buffer.from(await file.arrayBuffer()));
+    if (!existsSync(join(FONTS_DIR, name))) {
+      const file = await fetch(url, { headers: { 'user-agent': UA } });
+      if (!file.ok) throw new Error(`font download ${file.status}: ${url}`);
+      writeFileSync(join(FONTS_DIR, name), Buffer.from(await file.arrayBuffer()));
+    }
     out = out.replaceAll(url, `/fonts/${name}`);
   }
   out = out.replace(/,\s*url\(https:[^)]+\.woff\)[^;]*/g, '');

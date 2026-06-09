@@ -229,6 +229,7 @@
 @font-face {
   font-family: 'gs-fallback';
   src: local('Arial');
+  font-display: swap;
   size-adjust: 100%;
   ascent-override: 96%;
   descent-override: 24%;
@@ -238,6 +239,7 @@
 @font-face {
   font-family: 'pjs-fallback';
   src: local('Arial Bold');
+  font-display: swap;
   size-adjust: 103%;
   ascent-override: 97%;
   descent-override: 25%;
@@ -246,6 +248,7 @@
 @font-face {
   font-family: 'ss4-fallback';
   src: local('Georgia');
+  font-display: swap;
   size-adjust: 99%;
   ascent-override: 92%;
   descent-override: 26%;
