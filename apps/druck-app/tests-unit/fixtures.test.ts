@@ -23,7 +23,7 @@ describe('sample-data fixtures', () => {
     test(`${name} carries required article fields`, () => {
       const data = JSON.parse(readFileSync(join(FIXTURES_DIR, name), 'utf8'));
       for (const field of REQUIRED_ARTICLE_FIELDS) {
-        expect(data[field], `${name} missing ${field}`).toBeTruthy();
+        expect(data[field] !== undefined && data[field] !== null, `${name} missing ${field}`).toBe(true);
       }
     });
   }
