@@ -5,6 +5,7 @@ import {
   renderHeroMagazinePane,
   renderSpecimenPanel,
   buildLandingHtml,
+  renderColophonScores,
 } from './render-bands.mjs';
 
 const FIXTURES_DIR = join(import.meta.dirname, '../public/sample-data');
@@ -100,5 +101,25 @@ describe('buildLandingHtml', () => {
     const html = await buildLandingHtml(template, FIXTURES_DIR);
     expect((html.match(/specimen-panel"[^>]* hidden>/g) ?? []).length).toBe(4);
     expect(html).not.toMatch(/lang="en"[^>]* hidden>/);
+  });
+});
+
+describe('renderColophonScores', () => {
+  test('renders four rings with measured values', () => {
+    const html = renderColophonScores({
+      scores: { performance: 100, accessibility: 100, 'best-practices': 100, seo: 100 },
+      totalTransferKB: 212,
+      lighthouseVersion: '13.0.0',
+      measuredAt: '2026-06-09',
+    });
+    expect(html.match(/class="ring"/g)).toHaveLength(4);
+    expect(html).toContain('212');
+    expect(html).toContain('13.0.0');
+  });
+
+  test('renders pending state when no summary exists', () => {
+    const html = renderColophonScores(null);
+    expect(html.match(/class="ring"/g)).toHaveLength(4);
+    expect(html).toContain('not yet measured');
   });
 });

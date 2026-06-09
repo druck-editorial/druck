@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-surface="paper">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Druck — Editorial Rendering</title>
-  <link rel="stylesheet" href="/article.css">
+  <title>Druck — Structure in, magazine out</title>
+  <meta name="description" content="Druck is an editorial rendering engine: structured article JSON in, magazine-quality pages out. Formats, multilingual typography, reading analytics, embeddable widgets. MIT.">
+  <meta name="author" content="Artem Iagovdik <artyom.yagovdik@gmail.com>">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf8f5">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0c0c0e">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script>
     (function() {
       try {
@@ -16,9 +23,189 @@
   </script>
 </head>
 <body>
-  <div id="app"></div>
-  <script type="module" src="/src/main.tsx"></script>
-  <script src="/assets/js/article-progress.js" defer></script>
-  <script src="/assets/js/article-effects.js" defer></script>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="demo-nav" aria-label="Main">
+    <div class="demo-nav-left">
+      <span class="demo-logo">Dr<span class="demo-logo-accent">u</span>ck</span>
+    </div>
+    <div class="demo-nav-right">
+      <button class="theme-btn" data-island="theme" aria-label="Toggle color theme">
+        <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div class="reading-progress" data-island="rail" aria-hidden="true"></div>
+
+  <main id="main">
+    <section class="band band-hero" data-surface="paper" aria-labelledby="hero-heading">
+      <div class="demo-hero-text">
+        <div class="demo-hero-tag"><span class="demo-hero-tag-dot"></span>Editorial Rendering</div>
+        <h1 id="hero-heading" class="demo-hero-h1">Structure in,<br><em>magazine out</em></h1>
+        <p class="demo-hero-body">Druck turns structured article data into magazine-quality pages. Formats, per-language typography, reading analytics, and embeddable widgets — extracted from a pipeline that rendered thousands of production articles before it had a name.</p>
+        <div class="demo-hero-cta-row">
+          <button class="demo-cta" data-island="copy" data-copy-text="pnpm add @druck/engine">
+            <code>pnpm add @druck/engine</code>
+            <span class="icon-slot" data-icon="copy" aria-hidden="true"></span>
+          </button>
+          <a class="demo-cta demo-cta-ghost" href="https://github.com/druck-editorial/druck" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+      <div class="hero-stage" data-island="sequence">
+        <div class="hero-pane hero-pane-json" aria-label="The article source data">
+          <div class="pane-chrome">feature.json</div>
+          <pre class="json-pane"><code><!--druck:hero-json--></code></pre>
+        </div>
+        <div class="hero-pane hero-pane-mag" aria-label="The rendered magazine page">
+          <div class="pane-chrome">rendered</div>
+          <!--druck:hero-magazine-->
+        </div>
+        <button class="replay-btn" data-role="replay" hidden>
+          <span class="icon-slot" data-icon="arrow-counter-clockwise" aria-hidden="true"></span>
+          Replay
+        </button>
+      </div>
+    </section>
+
+    <section class="band band-formats" data-surface="paper" aria-labelledby="formats-heading">
+      <h2 id="formats-heading" class="band-title">One story, <em>three</em> magazines</h2>
+      <p class="band-lede">The same JSON, three editorial registers. The engine decides layout; you decide judgment.</p>
+      <div class="format-switch" data-island="switcher" data-switch="format" role="radiogroup" aria-label="Article format">
+        <button role="radio" aria-checked="true" data-value="feature">Feature</button>
+        <button role="radio" aria-checked="false" data-value="quick_take">Quick Take</button>
+        <button role="radio" aria-checked="false" data-value="wire">Wire</button>
+      </div>
+      <p class="format-caption" data-format="feature">Feature: chapters, key points, the full editorial chrome.</p>
+      <p class="format-caption" data-format="quick_take" hidden>Quick Take: one chapter, two hundred words, same care.</p>
+      <p class="format-caption" data-format="wire" hidden>Wire: dateline and lede, no chrome, costs nothing to produce.</p>
+      <div class="format-stage" aria-live="polite">
+        <!--druck:format-panels-->
+      </div>
+    </section>
+
+    <section class="band band-langs" data-surface="paper" aria-labelledby="langs-heading">
+      <h2 id="langs-heading" class="band-title">Five languages, <em>real</em> rules</h2>
+      <p class="band-lede">Not translation — typesetting. Each locale carries its own hyphenation, quotes, and rhythm.</p>
+      <div class="lang-switch" data-island="switcher" data-switch="lang" role="radiogroup" aria-label="Specimen language">
+        <button role="radio" aria-checked="true" data-value="en">EN</button>
+        <button role="radio" aria-checked="false" data-value="de">DE</button>
+        <button role="radio" aria-checked="false" data-value="fr">FR</button>
+        <button role="radio" aria-checked="false" data-value="es">ES</button>
+        <button role="radio" aria-checked="false" data-value="ja">JA</button>
+      </div>
+      <div class="specimen-stage" aria-live="polite">
+        <!--druck:specimens-->
+      </div>
+    </section>
+
+    <section class="band band-article" data-surface="paper" aria-labelledby="article-heading">
+      <h2 id="article-heading" class="band-title">The full <em>article</em>, live</h2>
+      <p class="band-lede">Rendered by the engine at build time. Pick an accent — every category carries its own.</p>
+      <div class="accent-switch" data-island="switcher" data-switch="accent" role="radiogroup" aria-label="Category accent">
+        <button role="radio" aria-checked="true" data-value="cat-ai">AI</button>
+        <button role="radio" aria-checked="false" data-value="cat-security">Security</button>
+        <button role="radio" aria-checked="false" data-value="cat-dev-tools">Dev Tools</button>
+        <button role="radio" aria-checked="false" data-value="cat-infrastructure">Infrastructure</button>
+        <button role="radio" aria-checked="false" data-value="cat-business">Business</button>
+        <button role="radio" aria-checked="false" data-value="cat-science">Science</button>
+        <button role="radio" aria-checked="false" data-value="cat-policy">Policy</button>
+        <button role="radio" aria-checked="false" data-value="cat-weekly">Weekly</button>
+      </div>
+      <div class="demo-article-frame band4-article" data-island="analytics">
+        <!--druck:band4-article-->
+      </div>
+      <aside class="demo-analytics" aria-labelledby="analytics-title">
+        <div class="demo-analytics-title" id="analytics-title">Reading analytics — watching you read, right now</div>
+        <p class="analytics-privacy">@druck/analytics is tracking your reading of the article above. Nothing leaves this page.</p>
+        <div class="demo-analytics-grid">
+          <div class="demo-analytics-metric">
+            <div class="demo-analytics-metric-label">Scroll depth</div>
+            <div class="demo-analytics-metric-value"><span data-metric="depth">0</span><span class="demo-analytics-metric-unit">%</span></div>
+            <div class="demo-depth-track"><div class="demo-depth-fill" data-metric="depth-fill"></div></div>
+          </div>
+          <div class="demo-analytics-metric">
+            <div class="demo-analytics-metric-label">Active reading</div>
+            <div class="demo-analytics-metric-value" data-metric="time">0s</div>
+          </div>
+          <div class="demo-analytics-metric">
+            <div class="demo-analytics-metric-label">Chapters read</div>
+            <div class="demo-analytics-metric-value"><span data-metric="chapters">0</span><span class="demo-analytics-metric-unit">/ 3</span></div>
+          </div>
+          <div class="demo-analytics-metric">
+            <div class="demo-analytics-metric-label">Milestones</div>
+            <div class="demo-analytics-metric-value" data-metric="milestone">&ndash;</div>
+          </div>
+        </div>
+        <div class="visually-hidden" role="status" data-metric="announcer"></div>
+      </aside>
+    </section>
+
+    <section class="band band-wild" data-surface="ink" aria-labelledby="wild-heading" data-island="embeds">
+      <h2 id="wild-heading" class="band-title">In the <em>wild</em></h2>
+      <p class="band-lede">Four publications that do not exist, running one widget that does. Host styles clash on purpose; the article inside never flinches.</p>
+      <div class="frames">
+        <article class="frame frame--music" aria-label="PHONOGRAPH, a music magazine">
+          <div class="frame-chrome"><span class="dots" aria-hidden="true"></span><span class="frame-host">phonograph.fm</span></div>
+          <header class="frame-masthead">PHONOGRAPH<nav aria-hidden="true"><span>Reviews</span><span>Lists</span><span>Live</span></nav></header>
+          <div class="frame-viewport">
+            <druck-article data-src="/sample-data/frame-music.json" css-url="/article.css" accent="#e0402e"></druck-article>
+          </div>
+          <p class="frame-caption">Archivo Black mastheads &middot; hot red &middot; quick_take</p>
+        </article>
+        <article class="frame frame--fashion" aria-label="ATELIER, a fashion magazine">
+          <div class="frame-chrome"><span class="dots" aria-hidden="true"></span><span class="frame-host">atelier-journal.com</span></div>
+          <header class="frame-masthead">A T E L I E R<nav aria-hidden="true"><span>Collections</span><span>Essays</span></nav></header>
+          <div class="frame-viewport">
+            <druck-article data-src="/sample-data/frame-fashion.json" css-url="/article.css" accent="#1c1a18"></druck-article>
+          </div>
+          <p class="frame-caption">Bodoni Moda display &middot; near-black &middot; quick_take</p>
+        </article>
+        <article class="frame frame--tech" aria-label="deploy.log, a tech blog">
+          <div class="frame-chrome"><span class="dots" aria-hidden="true"></span><span class="frame-host">deploy.log</span></div>
+          <header class="frame-masthead">deploy.log<nav aria-hidden="true"><span>posts</span><span>rss</span></nav></header>
+          <div class="frame-viewport">
+            <druck-article data-src="/sample-data/wire.json" css-url="/article.css" accent="#2a9d8f"></druck-article>
+          </div>
+          <p class="frame-caption">Space Grotesk + Plex Mono &middot; teal &middot; wire</p>
+        </article>
+        <article class="frame frame--markets" aria-label="LEDGERLINE, a markets daily published from a Telegram channel">
+          <div class="frame-chrome"><span class="dots" aria-hidden="true"></span><span class="frame-host">t.me/ledgerline &rarr; ledgerline.site</span></div>
+          <div class="channel-strip" aria-hidden="true">
+            <span class="bubble">BTC holding the shelf. ETF flows +6 days.</span>
+            <span class="bubble">$2.1B net in. Funding flat.</span>
+            <span class="bubble">Full brief &rarr;</span>
+          </div>
+          <header class="frame-masthead">LEDGERLINE<nav aria-hidden="true"><span>Briefs</span><span>Data</span></nav></header>
+          <div class="frame-viewport">
+            <druck-article data-src="/sample-data/frame-markets.json" css-url="/article.css" accent="#1f9d63"></druck-article>
+          </div>
+          <p class="frame-caption">They post in Telegram. Readers get a magazine. &middot; wire</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band band-colophon" data-surface="ink" aria-labelledby="colophon-heading">
+      <h2 id="colophon-heading" class="band-title">Colophon</h2>
+      <!--druck:colophon-scores-->
+      <p class="colophon-claim">Rendered output requires zero JavaScript. This page's interactivity ships as small islands; the article you read above arrived as static HTML. View source — it is all there.</p>
+      <div class="colophon-snippet">
+        <pre><code>&lt;druck-article src="story.json"&gt;&lt;/druck-article&gt;</code></pre>
+        <button class="demo-cta demo-cta-ghost" data-island="copy" data-copy-text='<druck-article src="story.json"></druck-article>'>
+          <span class="icon-slot" data-icon="copy" aria-hidden="true"></span>Copy
+        </button>
+      </div>
+      <p class="colophon-links">
+        <a href="https://github.com/druck-editorial/druck" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <span>&middot;</span><span>MIT</span><span>&middot;</span>
+        <code>pnpm add @druck/engine</code>
+      </p>
+    </section>
+  </main>
+
+  <footer class="demo-footer">
+    Druck — the editorial rendering layer extracted from <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>.
+    &copy; 2026 Artem Iagovdik &middot; MIT.
+  </footer>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

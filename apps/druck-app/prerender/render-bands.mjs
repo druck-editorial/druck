@@ -99,7 +99,40 @@ function renderFormatPanel(slug, data, checked) {
   );
 }
 
-export async function buildLandingHtml(template, fixturesDir) {
+const RING_CATEGORIES = [
+  ['performance', 'Performance'],
+  ['accessibility', 'Accessibility'],
+  ['best-practices', 'Best Practices'],
+  ['seo', 'SEO'],
+];
+const RING_RADIUS = 26;
+const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
+
+function renderRing(label, score) {
+  const value = score ?? null;
+  const dash = value === null ? 0 : (value / 100) * RING_CIRCUMFERENCE;
+  const display = value === null ? '&ndash;' : String(value);
+  return (
+    `<figure class="ring" role="img" aria-label="Lighthouse ${label}: ${value === null ? 'not yet measured' : value}">` +
+    `<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">` +
+    `<circle cx="32" cy="32" r="${RING_RADIUS}" class="ring-track"/>` +
+    `<circle cx="32" cy="32" r="${RING_RADIUS}" class="ring-fill" stroke-dasharray="${dash.toFixed(1)} ${RING_CIRCUMFERENCE.toFixed(1)}"/>` +
+    `<text x="32" y="37" text-anchor="middle" class="ring-value">${display}</text>` +
+    `</svg>` +
+    `<figcaption>${label}</figcaption>` +
+    `</figure>`
+  );
+}
+
+export function renderColophonScores(summary) {
+  const rings = RING_CATEGORIES.map(([key, label]) => renderRing(label, summary?.scores?.[key] ?? null)).join('');
+  const method = summary
+    ? `Measured with Lighthouse ${escapeHtml(summary.lighthouseVersion)}, mobile profile, static production build, ${escapeHtml(summary.measuredAt)}. Initial transfer ${escapeHtml(String(summary.totalTransferKB))} KB.`
+    : 'Scores not yet measured for this revision. Run node scripts/audit.mjs.';
+  return `<div class="rings">${rings}</div><p class="colophon-method">${method}</p>`;
+}
+
+export async function buildLandingHtml(template, fixturesDir, auditSummary = null) {
   const feature = await readFixture(fixturesDir, 'feature.json');
 
   const formatPanels = [];
@@ -125,5 +158,6 @@ export async function buildLandingHtml(template, fixturesDir) {
     .replace('<!--druck:hero-magazine-->', () => heroMagazine)
     .replace('<!--druck:format-panels-->', () => formatPanelsHtml)
     .replace('<!--druck:specimens-->', () => specimensRendered)
-    .replace('<!--druck:band4-article-->', () => band4);
+    .replace('<!--druck:band4-article-->', () => band4)
+    .replace('<!--druck:colophon-scores-->', () => renderColophonScores(auditSummary));
 }

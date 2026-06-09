@@ -11,5 +11,5 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist"
   },
-  "include": ["src", "tests-unit"]
+  "include": ["src", "tests-unit", "prerender"]
 }
