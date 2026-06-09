@@ -22,6 +22,12 @@ describe('tokenizeJsonForPane', () => {
     expect(html).not.toContain('<script>');
     expect(html).toContain('&lt;script&gt;');
   });
+
+  test('emits jk and js classes for keys and string values', () => {
+    const html = tokenizeJsonForPane('{\n  "title": "Hello"\n}');
+    expect(html).toContain('class="jk"');
+    expect(html).toContain('class="js"');
+  });
 });
 
 describe('renderHeroMagazinePane', () => {
@@ -81,5 +87,18 @@ describe('buildLandingHtml', () => {
 
   test('throws on a missing fixture directory', async () => {
     await expect(buildLandingHtml('<!--druck:band4-article-->', '/nonexistent')).rejects.toThrow();
+  });
+
+  test('first specimen panel is visible and the other four are hidden', async () => {
+    const template = [
+      '<!--druck:hero-json-->',
+      '<!--druck:hero-magazine-->',
+      '<!--druck:format-panels-->',
+      '<!--druck:specimens-->',
+      '<!--druck:band4-article-->',
+    ].join('\n');
+    const html = await buildLandingHtml(template, FIXTURES_DIR);
+    expect((html.match(/specimen-panel"[^>]* hidden>/g) ?? []).length).toBe(4);
+    expect(html).not.toMatch(/lang="en"[^>]* hidden>/);
   });
 });

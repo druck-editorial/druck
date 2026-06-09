@@ -3,7 +3,6 @@ import { join } from 'node:path';
 import { renderArticle } from '@druck/engine';
 
 const TOP_LEVEL_KEY_PATTERN = /^\s{2}"([a-zA-Z]+)"/;
-const TOKEN_PATTERN = /("(?:[^"\\]|\\.)*")(\s*:)?|(-?\d+\.?\d*)|([{}\[\],:])/g;
 const HERO_JSON_MAX_LINES = 22;
 const FORMAT_SLUGS = ['feature', 'slm-quick-take', 'slm-wire'];
 const SPECIMEN_LANGS = ['en', 'de', 'fr', 'es', 'ja'];
@@ -17,12 +16,21 @@ function escapeHtml(text) {
 }
 
 function tokenizeLine(line) {
-  return escapeHtml(line).replace(TOKEN_PATTERN, (match, str, colon, num, punct) => {
-    if (str) return colon ? `<i class="jk">${str}</i>${colon}` : `<i class="js">${str}</i>`;
-    if (num) return `<i class="jn">${num}</i>`;
-    if (punct) return `<i class="jp">${punct}</i>`;
-    return match;
-  });
+  const pattern = /("(?:[^"\\]|\\.)*")(\s*:)?|(-?\d+\.?\d*)|([{}\[\],:])/g;
+  let lastIndex = 0;
+  let result = '';
+  let match;
+  while ((match = pattern.exec(line)) !== null) {
+    result += escapeHtml(line.slice(lastIndex, match.index));
+    const [whole, str, colon, num, punct] = match;
+    if (str && colon) result += `<i class="jk">${escapeHtml(str)}</i>${colon}`;
+    else if (str) result += `<i class="js">${escapeHtml(str)}</i>`;
+    else if (num) result += `<i class="jn">${escapeHtml(num)}</i>`;
+    else if (punct) result += `<i class="jp">${escapeHtml(punct)}</i>`;
+    else result += escapeHtml(whole);
+    lastIndex = match.index + whole.length;
+  }
+  return result + escapeHtml(line.slice(lastIndex));
 }
 
 export function tokenizeJsonForPane(source) {
@@ -41,7 +49,7 @@ function titleWithAccent(title, accentWord) {
   if (!accentWord) return safe;
   const safeWord = escapeHtml(accentWord);
   if (!safe.includes(safeWord)) return safe;
-  return safe.replace(safeWord, `<em class="accent-word">${safeWord}</em>`);
+  return safe.replace(safeWord, () => `<em class="accent-word">${safeWord}</em>`);
 }
 
 function firstChapterExcerpt(data) {
@@ -62,9 +70,9 @@ export function renderHeroMagazinePane(data) {
   );
 }
 
-export function renderSpecimenPanel(specimen) {
+export function renderSpecimenPanel(specimen, visible = false) {
   return (
-    `<article class="specimen-panel" lang="${escapeHtml(specimen.lang)}" data-lang="${escapeHtml(specimen.lang)}" hidden>` +
+    `<article class="specimen-panel" lang="${escapeHtml(specimen.lang)}" data-lang="${escapeHtml(specimen.lang)}"${visible ? '' : ' hidden'}>` +
     `<h3 class="specimen-headline">${escapeHtml(specimen.headline)}</h3>` +
     `<p class="specimen-body">${escapeHtml(specimen.body)}</p>` +
     `<blockquote class="specimen-quote">${escapeHtml(specimen.quote)}</blockquote>` +
@@ -100,17 +108,22 @@ export async function buildLandingHtml(template, fixturesDir) {
     formatPanels.push(renderFormatPanel(slug, fixture.data, index === 0));
   }
 
-  const specimens = [];
-  for (const lang of SPECIMEN_LANGS) {
-    const fixture = await readFixture(fixturesDir, `specimen.${lang}.json`);
-    specimens.push(renderSpecimenPanel(fixture.data));
-  }
-  const specimensHtml = specimens.join('').replace('hidden>', '>');
+  const specimensHtml = SPECIMEN_LANGS.map((lang, i) => {
+    return readFixture(fixturesDir, `specimen.${lang}.json`).then(
+      (fixture) => renderSpecimenPanel(fixture.data, i === 0),
+    );
+  });
+  const specimensRendered = (await Promise.all(specimensHtml)).join('');
+
+  const heroJson = tokenizeJsonForPane(feature.raw);
+  const heroMagazine = renderHeroMagazinePane(feature.data);
+  const formatPanelsHtml = formatPanels.join('');
+  const band4 = renderArticle(feature.data);
 
   return template
-    .replace('<!--druck:hero-json-->', tokenizeJsonForPane(feature.raw))
-    .replace('<!--druck:hero-magazine-->', renderHeroMagazinePane(feature.data))
-    .replace('<!--druck:format-panels-->', formatPanels.join(''))
-    .replace('<!--druck:specimens-->', specimensHtml)
-    .replace('<!--druck:band4-article-->', renderArticle(feature.data));
+    .replace('<!--druck:hero-json-->', () => heroJson)
+    .replace('<!--druck:hero-magazine-->', () => heroMagazine)
+    .replace('<!--druck:format-panels-->', () => formatPanelsHtml)
+    .replace('<!--druck:specimens-->', () => specimensRendered)
+    .replace('<!--druck:band4-article-->', () => band4);
 }
