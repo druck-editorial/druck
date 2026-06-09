@@ -1,0 +1,9 @@
+{
+  "lang": "es",
+  "label": "Español",
+  "headline": "La tipografía es la voz de la página",
+  "body": "La RAE prefiere las comillas angulares para el primer nivel de cita, y el español pide un interlineado generoso: las ascendentes y los acentos necesitan aire. Un párrafo bien compuesto se reconoce antes de leerlo.",
+  "quote": "«La página habla antes de que se lea una sola palabra».",
+  "rule": "line-height: 1.78; quotes: '«' '»';",
+  "ruleLabel": "Comillas angulares, interlineado 1,78"
+}
