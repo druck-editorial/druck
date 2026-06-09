@@ -5,5 +5,15 @@
   "license": "MIT",
   "main": "article.css",
   "style": "article.css",
-  "files": ["article.css"]
+  "files": [
+    "article.css",
+    "tokens.css",
+    "hero.css",
+    "body.css",
+    "components.css",
+    "wire.css",
+    "weekly.css",
+    "language.css",
+    "theme.css"
+  ]
 }

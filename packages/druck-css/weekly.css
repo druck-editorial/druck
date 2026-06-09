@@ -1,0 +1,346 @@
+
+.article-shell .editors-note,
+.article-shell .key-points { display: none; }
+.article-shell.cat-weekly .key-points { display: block; }
+
+
+/* === Weekly recap section accents === */
+.article-shell.cat-weekly .recap-section[data-accent="ai"] { --section-accent: #5F5AAF; }
+.article-shell.cat-weekly .recap-section[data-accent="security"] { --section-accent: #C2513D; }
+.article-shell.cat-weekly .recap-section[data-accent="dev-tools"] { --section-accent: #74A889; }
+.article-shell.cat-weekly .recap-section[data-accent="infrastructure"] { --section-accent: #5BA6A6; }
+.article-shell.cat-weekly .recap-section[data-accent="business"] { --section-accent: #805F00; }
+.article-shell.cat-weekly .recap-section[data-accent="big-tech"] { --section-accent: #5BA6A6; }
+.article-shell.cat-weekly .recap-section[data-accent="policy"] { --section-accent: #7a5a30; }
+.article-shell.cat-weekly .recap-section[data-accent="science"] { --section-accent: #2c7d72; }
+.article-shell.cat-weekly .recap-section { --section-accent: #4a5a6e; }
+.article-shell.cat-weekly .chapter-panel { margin: 0 0 56px 0; padding: 0; background: none; }
+.article-shell.cat-weekly .chapter-panel::before { display: none; }
+.article-shell.cat-weekly .chapter-head { max-width: 680px; margin: 0 auto 32px; text-align: center; padding: 0 22px; }
+.article-shell.cat-weekly .recap-section .recap-section-title { color: var(--section-accent); }
+.article-shell.cat-weekly .recap-section .recap-article-badge { background: color-mix(in srgb, var(--section-accent) 8%, transparent); color: var(--section-accent); }
+.article-shell.cat-weekly .recap-section .key-points .lbl { color: var(--section-accent); }
+.article-shell.cat-weekly .recap-section .know-card .lbl { color: var(--section-accent); }
+
+/* Weekly: brand / tool / language / model highlights need a visible register
+   on the serif body. The default 500 weight from the article rules is too
+   subtle inside .recap-section-narrative, .recap-thesis, and .chapter-body —
+   bump the weight and tint with the section accent so named entities and
+   tools actually read as highlighted at a glance. */
+.article-shell.cat-weekly :is(.recap-thesis, .recap-section-narrative, .chapter-body, .pull-quote, .kp-item, .know-card) strong.kw-co {
+  font-weight: 600;
+  color: var(--section-accent, var(--accent, inherit));
+}
+.article-shell.cat-weekly :is(.recap-thesis, .recap-section-narrative, .chapter-body, .pull-quote, .kp-item, .know-card) :is(strong.kw-lang, strong.kw-tool, strong.kw-model) {
+  font-weight: 700;
+  color: var(--section-accent, var(--accent, inherit));
+}
+.article-shell.cat-weekly .pull-quote { border-left: none; font-family: var(--font-serif, 'Source Serif 4', serif); font-size: 1.25rem; line-height: 1.4; text-align: center; margin: 2rem auto; max-width: 32em; padding: 0; color: var(--section-accent, var(--accent)); font-style: normal; }
+
+/* === Weekly recap hero === */
+.article-shell.cat-weekly .recap-hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+.article-shell.cat-weekly .recap-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: brightness(0.8) contrast(1.05); transition: filter 800ms ease-out; }
+.article-shell.cat-weekly .recap-hero-bg.is-visible { filter: brightness(1) contrast(1) saturate(1); }
+.article-shell.cat-weekly .recap-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.1) 100%); }
+.article-shell.cat-weekly .recap-hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 24px 80px; text-align: center; }
+.article-shell.cat-weekly .recap-label { font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+.article-shell.cat-weekly .recap-headline { font-family: var(--font-heading); font-size: clamp(2.5rem, 1rem + 5vw, 5rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin-bottom: 16px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.article-shell.cat-weekly .recap-subheadline { font-family: var(--font-body); font-size: 1.1rem; line-height: 1.5; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; }
+.article-shell.cat-weekly .recap-body { max-width: 680px; margin: 0 auto; padding: 80px 24px 120px; }
+.article-shell.cat-weekly .recap-section { margin-bottom: 56px; }
+.article-shell.cat-weekly .recap-articles { display: flex; flex-direction: column; gap: 12px; }
+.article-shell.cat-weekly .recap-article { display: flex; align-items: stretch; gap: 14px; padding: 0; border-radius: var(--radius-sm); background: var(--color-surface-alt); border: 1px solid var(--color-border); text-decoration: none; color: inherit; transition: border-color var(--transition-base), transform var(--transition-base); overflow: hidden; }
+.article-shell.cat-weekly .recap-article:hover { border-color: var(--color-border-hover); transform: translateY(-1px); }
+.article-shell.cat-weekly .recap-article-thumb { display: block; width: 96px; flex-shrink: 0; background-size: cover; background-position: center; background-color: var(--color-bg); align-self: stretch; }
+.article-shell.cat-weekly .recap-article-meta { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 12px 16px 12px 0; min-width: 0; }
+.article-shell.cat-weekly .recap-article:not(:has(.recap-article-thumb)) .recap-article-meta { padding: 12px 16px; }
+.article-shell.cat-weekly .recap-article-title { font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; color: var(--color-text-primary); line-height: 1.35; }
+.article-shell.cat-weekly .recap-article-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.article-shell.cat-weekly .recap-article-source { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); white-space: nowrap; }
+.article-shell.cat-weekly .recap-article-badge { font-family: var(--font-mono); font-size: 0.55rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 100px; background: color-mix(in srgb, var(--section-accent) 8%, transparent); color: var(--section-accent); white-space: nowrap; }
+@media (max-width: 640px) {
+  .article-shell.cat-weekly .recap-article-thumb { width: 80px; }
+}
+.article-shell.cat-weekly .recap-footer { max-width: 680px; margin: 0 auto; padding: 32px 24px 96px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-top: 1px solid var(--color-hairline); }
+.article-shell.cat-weekly { padding-bottom: 64px; }
+.article-shell.cat-weekly .recap-more { margin-top: 0; padding: clamp(40px, 6vw, 72px) 22px clamp(48px, 7vw, 88px); background: var(--color-bg); }
+.article-shell.cat-weekly .recap-more .similar-head { max-width: 1100px; margin: 0 auto 24px; padding: 0 4px; }
+.article-shell.cat-weekly .recap-more .similar-head h2 { font-family: var(--font-heading); font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.015em; margin: 0; }
+.article-shell.cat-weekly .recap-more .lbl { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); margin-bottom: 8px; }
+.article-shell.cat-weekly .recap-cta { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; transition: opacity var(--transition-base); }
+.article-shell.cat-weekly .recap-cta:hover { opacity: 0.7; }
+.article-shell.cat-weekly .recap-footer-links { display: flex; gap: 20px; }
+.article-shell.cat-weekly .recap-footer-links a { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); text-decoration: none; transition: color var(--transition-base); }
+.article-shell.cat-weekly .recap-footer-links a:hover { color: var(--accent); }
+@media (max-width: 600px) {
+  .article-shell.cat-weekly .recap-hero { align-items: flex-start; padding-top: 64px; min-height: 0; }
+  .article-shell.cat-weekly .recap-hero-content { padding: 48px 16px; }
+  .article-shell.cat-weekly .recap-body { padding: 48px 16px 80px; }
+  .article-shell.cat-weekly .recap-footer { flex-direction: column; gap: 16px; align-items: flex-start; padding: 32px 16px 48px; }
+  .article-shell.cat-weekly .recap-article { flex-wrap: wrap; }
+}
+
+/* === Share bar === */
+.share-bar { display: flex; align-items: center; gap: 8px; max-width: 680px; margin: 0 auto 80px; padding: 0 24px; font-family: var(--font-serif); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); cursor: pointer; transition: opacity var(--transition-base); }
+.share-bar:hover { opacity: 0.8; }
+.share-bar svg { width: 16px; height: 16px; }
+
+/* ── Low-quality source image editorial filters ── */
+.article-shell[data-source-filter="0"] .article-hero-img img,
+.post-simple[data-source-filter="0"] .post-simple-img img {
+  filter: grayscale(1) contrast(1.1) brightness(0.9) blur(1.2px);
+}
+.article-shell[data-source-filter="1"] .article-hero-img img,
+.post-simple[data-source-filter="1"] .post-simple-img img {
+  filter: grayscale(0.9) sepia(0.15) contrast(1.1) brightness(0.9) blur(1.2px);
+}
+.article-shell[data-source-filter="2"] .article-hero-img img,
+.post-simple[data-source-filter="2"] .post-simple-img img {
+  filter: grayscale(1) contrast(1.2) brightness(0.9) blur(1.2px);
+}
+
+.article-shell[data-source-filter="0"] .article-hero-img img.is-visible,
+.post-simple[data-source-filter="0"] .post-simple-img img.is-visible {
+  filter: grayscale(1) contrast(1.1) brightness(0.9);
+}
+.article-shell[data-source-filter="1"] .article-hero-img img.is-visible,
+.post-simple[data-source-filter="1"] .post-simple-img img.is-visible {
+  filter: grayscale(0.9) sepia(0.15) contrast(1.1) brightness(0.9);
+}
+.article-shell[data-source-filter="2"] .article-hero-img img.is-visible,
+.post-simple[data-source-filter="2"] .post-simple-img img.is-visible {
+  filter: grayscale(1) contrast(1.2) brightness(0.9);
+}
+
+[data-theme="dark"] .article-shell[data-source-filter="0"] .article-hero-img img,
+[data-theme="dark"] .post-simple[data-source-filter="0"] .post-simple-img img {
+  filter: grayscale(1) contrast(1.1) brightness(0.78) blur(1.2px);
+}
+[data-theme="dark"] .article-shell[data-source-filter="1"] .article-hero-img img,
+[data-theme="dark"] .post-simple[data-source-filter="1"] .post-simple-img img {
+  filter: grayscale(0.9) sepia(0.12) contrast(1.1) brightness(0.78) blur(1.2px);
+}
+[data-theme="dark"] .article-shell[data-source-filter="2"] .article-hero-img img,
+[data-theme="dark"] .post-simple[data-source-filter="2"] .post-simple-img img {
+  filter: grayscale(1) contrast(1.2) brightness(0.78) blur(1.2px);
+}
+
+[data-theme="dark"] .article-shell[data-source-filter="0"] .article-hero-img img.is-visible,
+[data-theme="dark"] .post-simple[data-source-filter="0"] .post-simple-img img.is-visible {
+  filter: grayscale(1) contrast(1.1) brightness(0.78);
+}
+[data-theme="dark"] .article-shell[data-source-filter="1"] .article-hero-img img.is-visible,
+[data-theme="dark"] .post-simple[data-source-filter="1"] .post-simple-img img.is-visible {
+  filter: grayscale(0.9) sepia(0.12) contrast(1.1) brightness(0.78);
+}
+[data-theme="dark"] .article-shell[data-source-filter="2"] .article-hero-img img.is-visible,
+[data-theme="dark"] .post-simple[data-source-filter="2"] .post-simple-img img.is-visible {
+  filter: grayscale(1) contrast(1.2) brightness(0.78);
+}
+
+/* === Language tiers === */
+
+:root {
+  --font-cjk: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', 'Noto Sans JP', system-ui, sans-serif;
+}
+
+html:is([lang="de"], [lang="nl"], [lang="fi"], [lang="pl"]) :is(.article-shell, .post-simple) {
+  --type-headline-scale: 0.92;
+  --type-headline-tracking: -0.018em;
+  --type-headline-leading: 1.08;
+  --type-headline-weight: 750;
+  --type-headline-max: 20ch;
+  --type-section-tracking: -0.012em;
+  --type-section-leading: 1.18;
+  --type-section-max: 26ch;
+  --type-meta-tracking-wide: 0.22em;
+  --type-meta-tracking-med: 0.14em;
+  --type-meta-tracking-narrow: 0.1em;
+}
+
+
+.article-shell.cat-weekly .recap-section[data-accent="ai"]             { --section-accent: color-mix(in oklab, #5F5AAF 65%, #4a5a6e 35%); }
+.article-shell.cat-weekly .recap-section[data-accent="security"]       { --section-accent: color-mix(in oklab, #C2513D 65%, #4a5a6e 35%); }
+.article-shell.cat-weekly .recap-section[data-accent="dev-tools"]      { --section-accent: color-mix(in oklab, #74A889 65%, #4a5a6e 35%); }
+.article-shell.cat-weekly .recap-section[data-accent="infrastructure"] { --section-accent: color-mix(in oklab, #5BA6A6 65%, #4a5a6e 35%); }
+.article-shell.cat-weekly .recap-section[data-accent="business"]       { --section-accent: color-mix(in oklab, #805F00 65%, #4a5a6e 35%); }
+.article-shell.cat-weekly .recap-section[data-accent="big-tech"]       { --section-accent: color-mix(in oklab, #5BA6A6 65%, #4a5a6e 35%); }
+.article-shell.cat-weekly .recap-section[data-accent="policy"]         { --section-accent: color-mix(in oklab, #7a5a30 65%, #4a5a6e 35%); }
+.article-shell.cat-weekly .recap-section[data-accent="science"]        { --section-accent: color-mix(in oklab, #2c7d72 65%, #4a5a6e 35%); }
+[data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="ai"]             { --section-accent: color-mix(in oklab, #A9A6E8 70%, #8ba4b8 30%); }
+[data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="security"]       { --section-accent: color-mix(in oklab, #E07070 70%, #8ba4b8 30%); }
+[data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="dev-tools"]      { --section-accent: color-mix(in oklab, #93C4A8 70%, #8ba4b8 30%); }
+[data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="infrastructure"] { --section-accent: color-mix(in oklab, #7BC4C4 70%, #8ba4b8 30%); }
+[data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="business"]       { --section-accent: color-mix(in oklab, #D4A520 70%, #8ba4b8 30%); }
+[data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="big-tech"]       { --section-accent: color-mix(in oklab, #7BC4C4 70%, #8ba4b8 30%); }
+[data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="policy"]         { --section-accent: color-mix(in oklab, #c79e6a 70%, #8ba4b8 30%); }
+[data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="science"]        { --section-accent: color-mix(in oklab, #5fc7b8 70%, #8ba4b8 30%); }
+
+.article-shell.cat-weekly .recap-thesis,
+.article-shell.cat-weekly .recap-section-narrative,
+.article-shell.cat-weekly .chapter-body {
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
+  font-size: 1.075rem;
+  line-height: 1.72;
+  color: var(--color-text);
+}
+.article-shell.cat-weekly .recap-thesis {
+  font-size: 1.2rem;
+  line-height: 1.65;
+  color: color-mix(in oklab, var(--color-text) 92%, var(--color-text-secondary) 8%);
+  max-width: 36em;
+  margin: 0 auto 56px;
+  padding-top: 8px;
+}
+.article-shell.cat-weekly .recap-thesis p { margin: 0 0 1.25em; }
+.article-shell.cat-weekly .recap-thesis p:first-of-type::first-letter {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2.6em;
+  line-height: 0.9;
+  float: left;
+  margin: 0.05em 0.12em 0 -0.05em;
+  color: color-mix(in oklab, var(--accent) 75%, var(--color-text) 25%);
+}
+.article-shell.cat-weekly .recap-section-narrative p { margin: 0 0 1.2em; }
+
+.article-shell.cat-weekly .recap-body { padding-top: clamp(56px, 7vw, 96px); }
+.article-shell.cat-weekly .recap-body::before {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 2px;
+  margin: 0 auto 28px;
+  background: color-mix(in oklab, var(--accent) 55%, transparent);
+  border-radius: 2px;
+}
+
+.article-shell.cat-weekly .recap-subheadline {
+  color: rgba(255,255,255,0.82);
+  line-height: 1.6;
+  max-width: 36em;
+  font-size: clamp(1.05rem, 0.85rem + 0.5vw, 1.18rem);
+}
+
+.article-shell.cat-weekly .key-points { margin: 40px 0; }
+.article-shell.cat-weekly .key-points .lbl { margin-bottom: 18px; }
+.article-shell.cat-weekly .kp-item {
+  padding: 14px 0;
+  gap: 20px;
+  grid-template-columns: 44px 1fr;
+}
+.article-shell.cat-weekly .kp-item .n { font-size: 30px; }
+.article-shell.cat-weekly .kp-item p { font-size: 15.5px; line-height: 1.6; }
+
+.article-shell.cat-weekly .recap-section { margin-bottom: 44px; }
+.article-shell.cat-weekly .chapter-panel { margin: 0 0 40px 0; }
+
+/* JA hero: smaller font + auto-phrase wrap. Mixed Latin+CJK at 5rem
+   forces katakana runs to break across ー, violating kinsoku-shori. */
+html[lang="ja"] .article-shell.cat-weekly .recap-headline {
+  font-size: clamp(1.7rem, 0.8rem + 2.6vw, 2.9rem);
+  line-height: 1.34;
+  letter-spacing: 0.005em;
+  word-break: auto-phrase;
+  line-break: strict;
+  overflow-wrap: normal;
+  text-wrap: pretty;
+  max-width: 26em;
+  margin-left: auto;
+  margin-right: auto;
+}
+@supports not (word-break: auto-phrase) {
+  html[lang="ja"] .article-shell.cat-weekly .recap-headline {
+    word-break: keep-all;
+  }
+}
+html[lang="ja"] .article-shell.cat-weekly .recap-hero-content { max-width: 880px; }
+
+/* JA body: word-break:normal lets CJK break naturally between chars;
+   overflow-wrap:anywhere was breaking Latin tokens mid-word. */
+html[lang="ja"] .article-shell.cat-weekly .recap-thesis,
+html[lang="ja"] .article-shell.cat-weekly .recap-section-narrative,
+html[lang="ja"] .article-shell.cat-weekly .chapter-body,
+html[lang="ja"] .article-shell.cat-weekly .kp-item p,
+html[lang="ja"] .article-shell.cat-weekly .know-card p {
+  word-break: normal;
+  overflow-wrap: break-word;
+  line-break: strict;
+  hyphens: manual;
+  text-spacing-trim: space-all;
+  font-feature-settings: "palt" 1, "kern" 1;
+  font-family: var(--font-cjk);
+  font-size: 1rem;
+  line-height: 1.92;
+  letter-spacing: 0.008em;
+  max-width: 36em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.article-shell.cat-weekly .recap-article:not(:has(.recap-article-thumb)) {
+  display: flex;
+  align-items: stretch;
+  padding: 0;
+}
+.article-shell.cat-weekly .recap-article:not(:has(.recap-article-thumb))::before {
+  content: "";
+  display: block;
+  width: 4px;
+  flex-shrink: 0;
+  background: color-mix(in oklab, var(--section-accent) 60%, transparent);
+  align-self: stretch;
+}
+.article-shell.cat-weekly .recap-article:not(:has(.recap-article-thumb)) .recap-article-meta {
+  padding: 14px 18px;
+}
+
+.article-shell.cat-weekly .recap-more .similar-grid { gap: 18px; }
+.article-shell.cat-weekly .recap-more .similar-card {
+  border-radius: var(--radius-md, 10px);
+  border: 1px solid var(--color-hairline);
+  background: var(--color-surface);
+  overflow: hidden;
+  transition: transform 220ms ease-out, border-color 220ms ease-out;
+}
+.article-shell.cat-weekly .recap-more .similar-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--accent) 35%, var(--color-hairline) 65%);
+}
+.article-shell.cat-weekly .recap-more .similar-card .sc-img {
+  aspect-ratio: 16 / 9;
+  background-color: color-mix(in oklab, var(--accent) 8%, transparent);
+}
+.article-shell.cat-weekly .recap-more .similar-card:not(:has(.sc-img))::before {
+  content: "";
+  display: block;
+  aspect-ratio: 16 / 9;
+  background:
+    radial-gradient(circle at 30% 40%, color-mix(in oklab, var(--accent) 12%, transparent) 0%, transparent 60%),
+    color-mix(in oklab, var(--accent) 5%, var(--color-surface) 95%);
+  border-bottom: 1px solid var(--color-hairline);
+}
+.article-shell.cat-weekly .recap-more .similar-card .sc-body {
+  padding: 14px 16px 18px;
+  gap: 6px;
+}
+.article-shell.cat-weekly .recap-more .similar-card .sc-cat {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 2px;
+}
+.article-shell.cat-weekly .recap-more .similar-card .sc-title {
+  font-family: var(--font-serif, 'Source Serif 4', serif);
+  font-size: 1.0rem;
+  line-height: 1.32;
+  font-weight: 600;
+}
+.article-shell.cat-weekly .recap-more .similar-card .sc-summary {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+

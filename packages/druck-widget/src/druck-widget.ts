@@ -46,7 +46,8 @@ class DruckArticleElement extends HTMLElement {
   }
 
   #getCssUrl(): string {
-    return this.getAttribute(CSS_URL_ATTR) || DEFAULT_CSS_URL;
+    const attr = this.getAttribute(CSS_URL_ATTR);
+    return (attr ? safeUrl(attr) : '') || DEFAULT_CSS_URL;
   }
 
   #applyContainerAttrs(): void {

@@ -1,0 +1,71 @@
+/* === Druck article — base tokens === */
+.article-shell {
+  --color-bg: #f6f4f1;
+  --color-surface: #ffffff;
+  --color-text: #1a1612;
+  --color-text-secondary: #4a463f;
+  --color-text-muted: #6b665d;
+  --color-text-faint: #8a857a;
+  --color-hairline: rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  --font-body: 'General Sans', -apple-system, "SF Pro Text", system-ui, sans-serif;
+  --font-accent: "Times New Roman", Georgia, serif;
+  /* Source Serif 4 is self-hosted with unicode-range subsets in fonts.css. */
+  --font-serif: 'Source Serif 4', Charter, 'Iowan Old Style', Georgia, serif;
+
+  --accent: #3A5A6D;
+  --accent-tint: rgba(58, 90, 109, 0.05);
+  --accent-wash: rgba(58, 90, 109, 0.11);
+}
+
+/* === Per-category palette === */
+.article-shell.cat-ai,             .post-simple.cat-ai             { --accent:#5F5AAF; --accent-tint:rgba(95,90,175,0.05);   --accent-wash:rgba(95,90,175,0.12); }
+.article-shell.cat-security,       .post-simple.cat-security       { --accent:#9D3F2E; --accent-tint:rgba(157,63,46,0.05);   --accent-wash:rgba(157,63,46,0.12); }
+.article-shell.cat-dev-tools,      .post-simple.cat-dev-tools      { --accent:#477259; --accent-tint:rgba(71,114,89,0.05);  --accent-wash:rgba(71,114,89,0.12); }
+.article-shell.cat-infrastructure, .post-simple.cat-infrastructure { --accent:#20756D; --accent-tint:rgba(32,117,109,0.05);   --accent-wash:rgba(32,117,109,0.12); }
+.article-shell.cat-business,       .post-simple.cat-business       { --accent:#805F00; --accent-tint:rgba(128,95,0,0.05);  --accent-wash:rgba(128,95,0,0.12); }
+.article-shell.cat-big-tech,       .post-simple.cat-big-tech       { --accent:#20756D; --accent-tint:rgba(32,117,109,0.05);   --accent-wash:rgba(32,117,109,0.12); }
+.article-shell.cat-policy,         .post-simple.cat-policy         { --accent:#5F4425; --accent-tint:rgba(95,68,37,0.05);   --accent-wash:rgba(95,68,37,0.12); }
+.article-shell.cat-science,        .post-simple.cat-science        { --accent:#216B61; --accent-tint:rgba(33,107,97,0.05);  --accent-wash:rgba(33,107,97,0.12); }
+.article-shell.cat-weekly,          .post-simple.cat-weekly          { --accent:#40546A; --accent-tint:rgba(64,84,106,0.05);   --accent-wash:rgba(64,84,106,0.12); }
+
+/* === Reset === */
+.article-shell, .article-shell *, .article-shell *::before, .article-shell *::after { box-sizing: border-box; }
+.article-shell { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; overflow-wrap: anywhere; }
+
+/* === Typography tokens === */
+.article-shell, .post-simple {
+  --type-headline-font: var(--font-heading);
+  --type-headline-scale: 1;
+  --type-headline-tracking: -0.045em;
+  --type-headline-leading: 1.02;
+  --type-headline-weight: 800;
+  --type-headline-max: 18ch;
+
+  --type-accent-font: var(--font-accent);
+  --type-accent-style: italic;
+  --type-accent-weight: 400;
+  --type-accent-tracking: -0.02em;
+
+  --type-deck-leading: 1.45;
+  --type-deck-weight: 400;
+
+  --type-body-font: var(--font-body);
+  --type-body-weight: 400;
+  --type-body-leading: 1.78;
+
+  --type-lead-weight: 500;
+  --type-lead-tracking: -0.012em;
+  --type-lead-leading: 1.5;
+
+  --type-meta-tracking-wide: 0.32em;
+  --type-meta-tracking-med: 0.22em;
+  --type-meta-tracking-narrow: 0.18em;
+
+  --type-section-tracking: -0.03em;
+  --type-section-leading: 1.1;
+  --type-section-weight: 720;
+  --type-section-max: 24ch;
+}
