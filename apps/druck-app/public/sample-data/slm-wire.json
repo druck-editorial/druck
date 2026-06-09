@@ -9,8 +9,8 @@
   "readingTime": "1 min read",
   "heroImage": "/img/slm-hero.webp",
   "heroImageAlt": "Low-poly illustration of an open backpack holding a laptop and chips, a faceted cathedral city rising from it",
-  "heroImageWidth": 991,
-  "heroImageHeight": 871,
+  "heroImageWidth": 1536,
+  "heroImageHeight": 1024,
   "bodyHtml": "<p>Production AI workloads are consolidating on small language models, with sub-10B systems now handling the majority of shipped inference across classification, extraction, and routing tasks. Teams report cost reductions of an order of magnitude against frontier-model baselines with no measurable quality loss on scoped tasks.</p><p>The shift follows a now-standard pattern: prototype on the largest available model, define the task envelope, then distill until the quality curve breaks. Deployment increasingly lands on-device or in-VPC, removing the data-residency objections that stalled enterprise rollouts through 2024.</p>",
   "pullQuote": "Prototype big, measure the task, distill until quality breaks.",
   "whyItMatters": "The economics of shipped AI are being set by small models, not frontier ones, and pricing pressure flows downhill from there."

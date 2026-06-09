@@ -10,8 +10,8 @@
   "readingTime": "8 min read",
   "heroImage": "/img/slm-hero.webp",
   "heroImageAlt": "Low-poly illustration of an open backpack holding a laptop and chips, a faceted cathedral city rising from it",
-  "heroImageWidth": 991,
-  "heroImageHeight": 871,
+  "heroImageWidth": 1536,
+  "heroImageHeight": 1024,
   "lens": "second_order",
   "lensRationale": "The real story is not the models themselves but what they unlock in edge deployment and data sovereignty",
   "chapters": [
