@@ -69,7 +69,7 @@ function renderKnowCards(known?: KnowCard, unknown?: KnowCard): string {
   const u = unknown?.items ?? [];
   if (!k.length && !u.length) return '';
   return (
-    '<aside class="know-cards">' +
+    '<aside class="know-cards" role="note">' +
     renderKnowCard(k, 'What we know', 'yes') +
     renderKnowCard(u, "What we don't", 'no') +
     '</aside>'
@@ -80,7 +80,7 @@ function renderEditorsNote(angle?: string, sourceCount?: number): string {
   if (!angle) return '';
   const siteName = 'Druck';
   return (
-    '<aside class="editors-note">' +
+    '<aside class="editors-note" role="note">' +
     "<span class=\"lbl\">Editor's note</span> " +
     `Written by ${siteName}'s editorial agent from <b>${sourceCount ?? 1} sources</b>. ` +
     `<b>${siteName}'s angle:</b> ${escapeHtml(angle)}` +
@@ -211,7 +211,7 @@ function renderWireArticle(data: ArticleData, ctx: RenderContext): string {
       : '') +
 
     (data.whyItMatters
-      ? `<aside class="editors-note"><span class="lbl">Why it matters</span> ${escapeHtml(data.whyItMatters)}</aside>`
+      ? `<aside class="editors-note" role="note"><span class="lbl">Why it matters</span> ${escapeHtml(data.whyItMatters)}</aside>`
       : '') +
 
     renderRelated(data.related) +

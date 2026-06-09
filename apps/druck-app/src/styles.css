@@ -4,7 +4,7 @@
   --demo-surface-raised: #f5f3f0;
   --demo-text: #18181b;
   --demo-text-secondary: #3f3f46;
-  --demo-text-muted: #71717a;
+  --demo-text-muted: #66666f;
   --demo-text-faint: #a1a1aa;
   --demo-hairline: rgba(0, 0, 0, 0.06);
   --demo-hairline-strong: rgba(0, 0, 0, 0.12);
@@ -26,7 +26,7 @@
   --demo-surface-raised: #1e1e22;
   --demo-text: #f0f0f2;
   --demo-text-secondary: #b0b0ba;
-  --demo-text-muted: #64647a;
+  --demo-text-muted: #8a8a9a;
   --demo-text-faint: #3e3e50;
   --demo-hairline: rgba(255, 255, 255, 0.06);
   --demo-hairline-strong: rgba(255, 255, 255, 0.12);
@@ -117,8 +117,8 @@ body {
   outline-offset: 2px;
 }
 
-[data-theme="dark"] .theme-btn svg.sun { display: none; }
-:not([data-theme="dark"]) .theme-btn svg.moon { display: none; }
+html[data-theme="dark"] .theme-btn svg.sun { display: none; }
+html:not([data-theme="dark"]) .theme-btn svg.moon { display: none; }
 
 .demo-hero {
   position: relative;
