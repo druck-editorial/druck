@@ -10,6 +10,10 @@ import type {
 } from './types.js';
 import { escapeHtml, sanitizeInline, transformInlineBlocks } from './format.js';
 
+function safeDimension(value: number | undefined, fallback: number): number {
+  return Number.isFinite(value) ? Math.trunc(value as number) : fallback;
+}
+
 function titleWithAccent(title: string, accentWord?: string): string {
   const safe = escapeHtml(title);
   if (!accentWord) return safe;
@@ -171,7 +175,7 @@ function renderFeatureArticle(data: ArticleData, ctx: RenderContext): string {
     '</div>' +
     '</header>' +
 
-    `<figure class="article-hero-img"><img src="${escapeHtml(data.heroImage)}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" width="${data.heroImageWidth ?? 1920}" height="${data.heroImageHeight ?? 1080}"></figure>` +
+    `<figure class="article-hero-img"><img src="${escapeHtml(data.heroImage)}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" width="${safeDimension(data.heroImageWidth, 1920)}" height="${safeDimension(data.heroImageHeight, 1080)}"></figure>` +
 
     renderEditorsNote(data.editorsNote, data.sourceCount) +
 
@@ -198,7 +202,7 @@ function renderWireArticle(data: ArticleData, ctx: RenderContext): string {
     `<div class="post-simple-meta"><span>${escapeHtml(data.publishedAt)}</span><span>${escapeHtml(data.readingTime)}</span></div>` +
     '</header>' +
 
-    `<figure class="post-simple-img"><img src="${escapeHtml(data.heroImage)}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" decoding="async" width="${data.heroImageWidth ?? 1600}" height="${data.heroImageHeight ?? 900}"></figure>` +
+    `<figure class="post-simple-img"><img src="${escapeHtml(data.heroImage)}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" decoding="async" width="${safeDimension(data.heroImageWidth, 1600)}" height="${safeDimension(data.heroImageHeight, 900)}"></figure>` +
 
     `<div class="post-simple-body">${bodyHtml}</div>` +
 

@@ -42,4 +42,23 @@ describe('hero image attributes', () => {
     expect(html).toContain('width="1920"');
     expect(html).toContain('height="1049"');
   });
+
+  test('escapes html-special characters in heroImageAlt', () => {
+    const html = renderArticle(buildArticle({ heroImageAlt: '"onload="alert(1)' }));
+    expect(html).not.toContain('"onload=');
+    expect(html).toContain('&quot;');
+  });
+
+  test('rejects non-numeric hero dimensions to prevent attribute injection', () => {
+    const malicious = { heroImageWidth: '800" onload="alert(1)' } as unknown as Partial<ArticleData>;
+    const html = renderArticle(buildArticle(malicious));
+    expect(html).not.toContain('onload=');
+    expect(html).toContain('width="1920"');
+  });
+
+  test('falls back to wire template dimensions when fields absent', () => {
+    const html = renderArticle(buildArticle({ format: 'wire', bodyHtml: '<p>Wire body</p>', chapters: undefined }));
+    expect(html).toContain('width="1600"');
+    expect(html).toContain('height="900"');
+  });
 });
