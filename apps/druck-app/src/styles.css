@@ -92,8 +92,8 @@ body {
   background: var(--demo-surface);
   border: 1px solid var(--demo-hairline);
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -215,6 +215,7 @@ html:not([data-theme="dark"]) .theme-btn svg.moon { display: none; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-height: 44px;
   padding: 10px 24px;
   border-radius: var(--demo-radius);
   background: var(--demo-text);
@@ -307,10 +308,11 @@ html:not([data-theme="dark"]) .theme-btn svg.moon { display: none; }
 
 .demo-analytics-metric-value {
   font-family: 'Source Serif 4', Charter, Georgia, serif;
-  font-size: 26px;
+  font-size: clamp(20px, 3vw, 26px);
   font-weight: 700;
   color: var(--demo-text);
   line-height: 1.2;
+  white-space: nowrap;
   transition: color var(--demo-transition);
 }
 
