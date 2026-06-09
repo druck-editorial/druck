@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { renderArticle } from './render.js';
+import { renderArticle, renderCard } from './render.js';
 import type { ArticleData } from './types.js';
 
 function buildArticle(overrides: Partial<ArticleData> = {}): ArticleData {
@@ -60,5 +60,35 @@ describe('hero image attributes', () => {
     const html = renderArticle(buildArticle({ format: 'wire', bodyHtml: '<p>Wire body</p>', chapters: undefined }));
     expect(html).toContain('width="1600"');
     expect(html).toContain('height="900"');
+  });
+});
+
+describe('renderCard', () => {
+  test('emits card markup with category class and kicker', () => {
+    const html = renderCard(buildArticle({ format: 'quick_take' }));
+    expect(html).toContain('class="druck-card cat-ai"');
+    expect(html).toContain('class="card-thumb"');
+    expect(html).toContain('class="card-title"');
+    expect(html).toContain('ai');
+    expect(html).toContain('Quick Take');
+    expect(html).toContain('Test Story');
+    expect(html).toContain('A subtitle');
+  });
+
+  test('uses shareUrl as href when present', () => {
+    const html = renderCard(buildArticle({ shareUrl: '/articles/test/' }));
+    expect(html).toContain('href="/articles/test/"');
+  });
+
+  test('falls back to slug hash when shareUrl absent', () => {
+    const html = renderCard(buildArticle());
+    expect(html).toContain('href="#test-story"');
+  });
+
+  test('escapes title and subtitle in card output', () => {
+    const html = renderCard(buildArticle({ title: '<script>', subtitle: '"alert"' }));
+    expect(html).not.toContain('<script>');
+    expect(html).toContain('&lt;script&gt;');
+    expect(html).toContain('&quot;alert&quot;');
   });
 });

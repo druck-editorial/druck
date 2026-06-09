@@ -22,8 +22,11 @@ describe('sample-data fixtures', () => {
   for (const name of fixtureFiles.filter((n) => !n.startsWith('specimen.'))) {
     test(`${name} carries required article fields`, () => {
       const data = JSON.parse(readFileSync(join(FIXTURES_DIR, name), 'utf8'));
-      for (const field of REQUIRED_ARTICLE_FIELDS) {
-        expect(data[field] !== undefined && data[field] !== null, `${name} missing ${field}`).toBe(true);
+      const items = Array.isArray(data) ? data : [data];
+      for (const item of items) {
+        for (const field of REQUIRED_ARTICLE_FIELDS) {
+          expect(item[field] !== undefined && item[field] !== null, `${name} missing ${field}`).toBe(true);
+        }
       }
     });
   }

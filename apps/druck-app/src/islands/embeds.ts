@@ -12,6 +12,9 @@ async function activate(band: HTMLElement): Promise<void> {
   for (const widget of band.querySelectorAll<HTMLElement>('druck-article[data-src]')) {
     widget.setAttribute('src', widget.dataset.src ?? '');
   }
+  for (const widget of band.querySelectorAll<HTMLElement>('druck-feed[data-src]')) {
+    widget.setAttribute('src', widget.dataset.src ?? '');
+  }
 }
 
 export function initEmbeds(band: HTMLElement): void {

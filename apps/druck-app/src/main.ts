@@ -53,8 +53,9 @@ for (const switcher of document.querySelectorAll<HTMLElement>('[data-island="swi
 
 initSurfaces();
 
-const embedsBand = document.querySelector<HTMLElement>('[data-island="embeds"]');
-if (embedsBand) initEmbeds(embedsBand);
+for (const embedsBand of document.querySelectorAll<HTMLElement>('[data-island="embeds"]')) {
+  initEmbeds(embedsBand);
+}
 
 const articleRoot = document.querySelector<HTMLElement>('.band4-article .article-shell');
 if (articleRoot) initAnalyticsPanel(articleRoot);

@@ -253,6 +253,25 @@ export function renderWeekly(data: WeeklyData, opts?: RenderOptions): string {
   );
 }
 
+export function renderCard(data: ArticleData, opts?: RenderOptions): string {
+  const catClass = categoryClass(data.category);
+  const titleHtml = titleWithAccent(data.title, data.titleAccentWord);
+  const fLabel = formatLabel(data.format);
+  const href = data.shareUrl ?? `#${data.slug}`;
+
+  return (
+    `<a class="druck-card ${catClass}" href="${escapeHtml(href)}">` +
+    `<figure class="card-thumb"><img src="${escapeHtml(data.heroImage)}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="lazy" width="400" height="225"></figure>` +
+    `<div class="card-text">` +
+    `<div class="card-kicker">${escapeHtml(data.category)}${fLabel ? ` <span class="sep">&middot;</span> ${fLabel}` : ''}</div>` +
+    `<h3 class="card-title">${titleHtml}</h3>` +
+    `<p class="card-subtitle">${escapeHtml(data.subtitle)}</p>` +
+    `<div class="card-meta"><time>${escapeHtml(data.publishedAt)}</time><span>${escapeHtml(data.readingTime)}</span></div>` +
+    `</div>` +
+    `</a>`
+  );
+}
+
 function renderWeeklySection(section: WeeklySection): string {
   const narrativeHtml = transformInlineBlocks(section.narrative);
   const keyPointsHtml = renderKeyPoints(section.keyPoints);

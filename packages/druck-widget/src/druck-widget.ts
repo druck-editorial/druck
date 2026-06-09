@@ -84,3 +84,4 @@ if (!customElements.get('druck-article')) {
 }
 
 export { DruckArticleElement };
+import './druck-feed.js';

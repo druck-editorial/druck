@@ -140,6 +140,18 @@
       </div>
     </section>
 
+    <section class="band band-feed" data-surface="paper" aria-labelledby="feed-heading" data-island="embeds">
+      <h2 id="feed-heading" class="band-title">Latest <em>stories</em></h2>
+      <p class="band-lede">A living feed rendered by the engine — cards from structured JSON, not copy-pasted markup.</p>
+      <druck-feed
+        data-src="/sample-data/feed.json"
+        css-url="/feed.css"
+        columns="3"
+        theme="light"
+      ></druck-feed>
+      <p class="frame-caption">&lt;druck-feed src="feed.json" css-url="/feed.css"&gt; — editorial cards, zero layout shift.</p>
+    </section>
+
     <section class="band band-wild" data-surface="ink" aria-labelledby="wild-heading" data-island="embeds">
       <h2 id="wild-heading" class="band-title">In the <em>wild</em></h2>
       <p class="band-lede">Four publications that do not exist, running one widget that does. Host styles clash on purpose; the article inside never flinches.</p>
