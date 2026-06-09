@@ -132,6 +132,7 @@ test.describe('band 5 widgets in the wild', () => {
 
   test('surface turns ink at band 5 and back to paper at the hero', async ({ page }) => {
     await page.goto('/');
+    await expect(page.locator('html')).toHaveAttribute('data-surface', 'paper');
     await page.locator('.band-wild').scrollIntoViewIfNeeded();
     await expect(page.locator('html')).toHaveAttribute('data-surface', 'ink');
     await page.locator('.band-hero').scrollIntoViewIfNeeded();
@@ -188,7 +189,7 @@ test.describe('chrome', () => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
     await page.goto('http://localhost:4173/');
-    await expect(page.locator('.band')).toHaveCount(6);
+    await expect(page.locator('.band')).toHaveCount(7);
     await expect(page.locator('.band4-article .article-shell')).toBeVisible();
     await context.close();
   });

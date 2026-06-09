@@ -9,3 +9,4 @@ _site/
 *.tsbuildinfo
 coverage/
 apps/druck-app/audit/lighthouse.json
+test-results/
