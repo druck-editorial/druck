@@ -77,9 +77,15 @@ importers:
         specifier: workspace:*
         version: link:../druck-engine
     devDependencies:
+      happy-dom:
+        specifier: ^17.0.0
+        version: 17.6.3
       typescript:
         specifier: ^5.8.0
         version: 5.9.3
+      vitest:
+        specifier: ^3.2.0
+        version: 3.2.6(@types/node@25.9.2)(happy-dom@17.6.3)
 
 packages:
 

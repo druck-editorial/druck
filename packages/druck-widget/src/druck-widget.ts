@@ -1,5 +1,5 @@
 import type { ArticleData, RenderOptions } from '@druck/engine';
-import { renderArticle } from '@druck/engine';
+import { renderArticle, safeUrl, escapeHtml } from '@druck/engine';
 
 const CSS_URL_ATTR = 'css-url';
 const DEFAULT_CSS_URL = 'https://unpkg.com/@druck/css/article.css';
@@ -60,7 +60,9 @@ class DruckArticleElement extends HTMLElement {
 
   async #loadAndRender(src: string): Promise<void> {
     try {
-      const res = await fetch(src);
+      const safeSrc = safeUrl(src);
+      if (!safeSrc) throw new Error('Invalid source URL');
+      const res = await fetch(safeSrc);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data: ArticleData = await res.json();
       this.#applyContainerAttrs();
@@ -72,9 +74,10 @@ class DruckArticleElement extends HTMLElement {
       this.#articleContainer.innerHTML = renderArticle(data, opts);
       this.dispatchEvent(new CustomEvent('druck:rendered', { bubbles: true, detail: { slug: data.slug } }));
     } catch (err) {
+      const msg = escapeHtml((err as Error).message);
       this.#articleContainer.innerHTML =
-        `<div style="padding:24px;color:#999;font-family:system-ui">Failed to load article: ${(err as Error).message}</div>`;
-      this.dispatchEvent(new CustomEvent('druck:error', { bubbles: true, detail: { error: (err as Error).message } }));
+        `<div style="padding:24px;color:#999;font-family:system-ui">Failed to load article: ${msg}</div>`;
+      this.dispatchEvent(new CustomEvent('druck:error', { bubbles: true, detail: { error: msg } }));
     }
   }
 }

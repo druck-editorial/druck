@@ -16,4 +16,4 @@ export type {
 } from './types.js';
 
 export { renderArticle, renderCard } from './render.js';
-export { transformInlineBlocks, sanitizeInline } from './format.js';
+export { transformInlineBlocks, sanitizeInline, escapeHtml, safeUrl } from './format.js';

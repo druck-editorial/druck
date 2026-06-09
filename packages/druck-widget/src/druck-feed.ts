@@ -1,5 +1,5 @@
 import type { ArticleData, RenderOptions } from '@druck/engine';
-import { renderCard } from '@druck/engine';
+import { renderCard, safeUrl, escapeHtml } from '@druck/engine';
 
 const CSS_URL_ATTR = 'css-url';
 const DEFAULT_FEED_CSS_URL = 'https://unpkg.com/@druck/css/feed.css';
@@ -44,7 +44,8 @@ class DruckFeedElement extends HTMLElement {
   }
 
   #getCssUrl(): string {
-    return this.getAttribute(CSS_URL_ATTR) || DEFAULT_FEED_CSS_URL;
+    const attr = this.getAttribute(CSS_URL_ATTR);
+    return (attr ? safeUrl(attr) : '') || DEFAULT_FEED_CSS_URL;
   }
 
   #applyContainerAttrs(): void {
@@ -58,7 +59,9 @@ class DruckFeedElement extends HTMLElement {
 
   async #loadAndRender(src: string): Promise<void> {
     try {
-      const res = await fetch(src);
+      const safeSrc = safeUrl(src);
+      if (!safeSrc) throw new Error('Invalid source URL');
+      const res = await fetch(safeSrc);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const items: ArticleData[] = await res.json();
       if (!Array.isArray(items)) throw new Error('Expected JSON array');
@@ -81,12 +84,13 @@ class DruckFeedElement extends HTMLElement {
         })
       );
     } catch (err) {
+      const msg = escapeHtml((err as Error).message);
       this.#feedContainer.innerHTML =
-        `<div style="padding:24px;color:#999;font-family:system-ui">Failed to load feed: ${(err as Error).message}</div>`;
+        `<div style="padding:24px;color:#999;font-family:system-ui">Failed to load feed: ${msg}</div>`;
       this.dispatchEvent(
         new CustomEvent('druck:feed-error', {
           bubbles: true,
-          detail: { error: (err as Error).message },
+          detail: { error: msg },
         })
       );
     }
