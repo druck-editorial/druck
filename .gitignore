@@ -6,4 +6,5 @@ _site/
 .env.*
 !.env.example
 .DS_Store
-*.tsbuildinfocoverage/
+*.tsbuildinfo
+coverage/
