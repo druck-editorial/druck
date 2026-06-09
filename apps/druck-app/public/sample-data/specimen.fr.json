@@ -3,7 +3,7 @@
   "label": "Français",
   "headline": "La typographie est la voix de la page",
   "body": "La tradition française exige une espace fine insécable à l'intérieur des guillemets et devant la ponctuation haute. Sans elle, le texte perd son rythme ; avec elle, chaque citation respire comme il se doit.",
-  "quote": "« La page parle avant même qu'on la lise. »",
+  "quote": "« La page parle avant même qu'on la lise. »",
   "rule": "quotes: '« ' ' »'; hyphens: manual (headlines);",
   "ruleLabel": "Guillemets avec espace fine insécable"
 }
