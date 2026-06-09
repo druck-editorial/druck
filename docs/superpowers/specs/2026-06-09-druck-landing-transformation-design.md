@@ -71,7 +71,7 @@ Sequence: plays once when the band enters the viewport (IntersectionObserver), t
 
 Rules: transform and opacity only; every slot pre-sized so layout never shifts (CLS 0); one Replay ghost button after the sequence finishes; sequence never blocks interaction.
 
-Reduced motion: no animation. Both panes render in their complete final state with two or three static connector annotations (line marker on the left, matching marker on the right). The story is still told.
+Reduced motion: no animation. Both panes render in their complete final state; the persistent key tinting in the JSON pane carries the correspondence between source lines and rendered elements. The story is still told.
 
 Failure behavior: the hero's final state is prerendered (see Technical), so it never depends on a runtime fetch. If the fixture fetch backing the animation fails, the sequence is skipped and the static final state simply stands — no error surface needed here.
 
@@ -83,7 +83,7 @@ One caption line per format states the judgment in plain words (for example: Wir
 
 Semantics: the control is a `radiogroup` with arrow-key navigation and visible focus rings; the preview region carries `aria-live="polite"`. Preview min-height is fixed per breakpoint so switching never shifts layout.
 
-Failure behavior: format switching is the one place the page fetches and renders fixtures at runtime. Any fetch or parse failure renders a designed error card in the preview region naming the failure (file, and position for JSON parse errors) instead of a spinner. The loading path gains a catch branch; the transition flag always resolves.
+Failure behavior: all three format panels are prerendered at build time, so band 2 performs no runtime fetch. A broken fixture fails the build inside the prerender step with the file named — earlier and louder than any runtime error card. The only runtime fixture fetches on the page are the band-5 widgets, which carry the widget's built-in error state.
 
 New fixture required: `quick_take.json` (same story as `feature.json`, quick_take format).
 
@@ -97,7 +97,7 @@ Not full translated articles: one compact specimen per language — headline, on
 - ES: RAE quote glyphs, 1.78 body line-height.
 - JA: system CJK stack, kinsoku line-breaking, bold color shift instead of italics.
 
-Each specimen carries a small annotation naming the actual CSS rule at work (for example `hyphenate-limit-chars: 10 5 5`). Switcher: five chips [EN DE FR ES JA], instant content swap, fixed min-height. Chips are buttons with `aria-pressed`, 44px touch targets.
+Each specimen carries a small annotation naming the actual CSS rule at work (for example `hyphenate-limit-chars: 10 5 5`). Switcher: five chips [EN DE FR ES JA], instant content swap, fixed min-height. All page switchers (formats, languages, accents) share one radiogroup pattern with arrow-key navigation and 44px touch targets.
 
 New fixtures required: `specimen.{en,de,es,fr,ja}.json`. Content drafted during implementation; DE sanity-checked by the owner. The JA specimen uses the system CJK stack — no CJK font is self-hosted (same decision as the source system, for page-weight reasons; this is acceptable because the specimen demonstrates layout rules, not a shipped font).
 
@@ -131,7 +131,7 @@ The widget's built-in error state covers fetch failures inside frames.
 Styled as a fine-book colophon: hairline rule, small caps, quiet. Contents:
 
 1. Four inline-SVG rings showing the measured Lighthouse scores (Performance, Accessibility, Best Practices, SEO), with measurement method and date printed beneath (tool version, static production build, throttling profile). Numbers are real measurements, refreshed when the page changes materially. If any category measures below 100 at release time, the real number ships and the gap becomes a tracked bug — the colophon never lies.
-2. Weight receipt: CSS size, HTML size, and the line "0 KB JavaScript required for rendered output" (true of engine output; the landing's own interactive JS is listed honestly alongside).
+2. Weight receipt: the measured initial transfer size from the audit, and the line "0 KB JavaScript required for rendered output" (true of engine output; the landing's own island JS is acknowledged honestly alongside).
 3. Embed snippet: one-line `<druck-article>` usage with a copy button.
 4. Install command repeated, GitHub link, MIT license.
 5. View-source invitation, which the prerendering makes true.
@@ -145,7 +145,7 @@ Styled as a fine-book colophon: hairline rule, small caps, quiet. Contents:
 
 ## Technical architecture
 
-Prerender: a build step (node script run after `vite build`) imports `@druck/engine`, renders the band-4 article and the hero's final-state markup from the fixtures, and injects them into the built `index.html`. LCP is served as static HTML and CSS. The Preact app hydrates interactivity (sequence, toggles, accents, analytics, theme) on top of the prerendered content without re-rendering it from scratch on boot — the page must not flash or shift when JS arrives.
+Prerender: a Vite `transformIndexHtml` plugin imports `@druck/engine` and renders every band's article content from the fixtures into the page — identically in dev and build. LCP is served as static HTML and CSS. Interactivity ships as small vanilla TypeScript islands (sequence, switchers, surfaces, embeds, analytics, theme) that attach to the prerendered content without re-rendering it — the page must not flash or shift when JS arrives, and renders completely with JS disabled. Preact is removed; the islands replace the app shell.
 
 Fonts: the CSS references three core families that were never loaded — Plus Jakarta Sans (headings), General Sans (body), Source Serif 4 (serif body and accents). All three are self-hosted as woff2, latin + latin-ext. Preload exactly two files (heading weight, serif body regular). `font-display: swap` with `size-adjust` fallback metrics so the swap causes no layout shift. Band 5 adds four theme families — Archivo Black, Bodoni Moda, Space Grotesk, IBM Plex Mono — declared in a separate stylesheet that lazy-loads when the band approaches, excluded from the initial-load budget. Bunny Fonts and Fontshare serve as download sources only (owner decision 2026-06-09); at runtime every font serves from our origin. No CDN requests.
 
@@ -155,7 +155,7 @@ Budgets (verified by a repeatable check, runnable locally or in CI — see Testi
 
 ## Bug fixes folded into this work
 
-1. `loadArticle` missing catch path (infinite spinner on any fetch/parse failure) → catch branch plus the band-2 error card state; prerendered regions never depend on runtime fetch.
+1. `loadArticle` missing catch path (infinite spinner on any fetch/parse failure) → the class of bug is eliminated: all page content is prerendered at build time (broken fixtures fail the build), and the only runtime fetches are band-5 widgets with their built-in error state.
 2. Mobile bottom tab bar visible on desktop viewports → removed entirely (superseded by band 2).
 3. `favicon.ico` 404 → SVG favicon derived from the wordmark, plus fallback ico.
 4. Unsplash hot-linked images → self-hosted (above).
