@@ -17,11 +17,9 @@
     "@druck/analytics": "workspace:*",
     "@druck/css": "workspace:*",
     "@druck/engine": "workspace:*",
-    "@preact/signals": "^2.0.0",
-    "preact": "^10.26.0"
+    "@druck/widget": "workspace:*"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.10.0",
     "@types/node": "^25.9.2",
     "@vitest/coverage-v8": "^3.2.0",
     "happy-dom": "^17.0.0",

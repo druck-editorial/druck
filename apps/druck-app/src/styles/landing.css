@@ -18,6 +18,22 @@ html[data-surface="ink"] .demo-nav { background: color-mix(in oklab, var(--ink-b
 html[data-surface="ink"] .demo-logo { color: var(--ink-text); }
 html[data-surface="ink"] .theme-btn { color: var(--ink-text); border-color: var(--ink-hairline); }
 
+[data-surface="ink"] {
+  background: var(--ink-bg);
+  color: var(--ink-text);
+}
+[data-surface="ink"] .band-title { color: var(--ink-text); }
+[data-surface="ink"] .band-title em { color: #e8a18f; }
+[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
+[data-surface="ink"] .colophon-claim { color: var(--ink-text); }
+[data-surface="ink"] .colophon-snippet { border-color: var(--ink-hairline); }
+[data-surface="ink"] .colophon-snippet pre { color: var(--ink-text); }
+[data-surface="ink"] .colophon-links { color: var(--ink-text-secondary); }
+[data-surface="ink"] .colophon-links a { color: var(--ink-text); }
+[data-surface="ink"] .colophon-method { color: var(--ink-text-secondary); }
+[data-surface="ink"] .ring { color: var(--ink-text-secondary); }
+[data-surface="ink"] .ring-value { fill: var(--ink-text); }
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -70,9 +86,10 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .hero-mag .article-kicker { margin-bottom: 0; }
 .hero-mag .article-deck { margin: 0 0 14px; font-size: 14px; max-width: none; text-align: left; }
 
-.hx { opacity: 0; transform: translateY(10px); }
-.hero-stage[data-state="playing"] .hx, .hero-stage[data-state="done"] .hx { transition: opacity var(--seq-step-ms) var(--ease-out), transform var(--seq-step-ms) var(--ease-out); }
-.hx.on { opacity: 1; transform: none; }
+.hx { opacity: 1; }
+.hero-stage[data-state="playing"] .hx { opacity: 0; transform: translateY(10px); }
+.hero-stage[data-state="playing"] .hx.on,
+.hero-stage[data-state="done"] .hx { opacity: 1; transform: none; transition: opacity var(--seq-step-ms) var(--ease-out), transform var(--seq-step-ms) var(--ease-out); }
 .hero-stage[data-state="static"] .hx { opacity: 1; transform: none; }
 .replay-btn { position: absolute; right: 12px; bottom: 12px; display: inline-flex; gap: 8px; align-items: center; padding: 8px 14px; border: 1px solid var(--demo-hairline-strong); border-radius: 999px; background: var(--demo-surface); color: var(--demo-text-secondary); cursor: pointer; font-size: 12.5px; }
 .replay-btn:hover { color: var(--demo-text); }

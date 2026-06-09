@@ -10,6 +10,9 @@
     "build": "tsc && node scripts/bundle.mjs",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@druck/engine": "workspace:*"
+  },
   "devDependencies": {
     "typescript": "^5.8.0"
   }

@@ -1,7 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { defineConfig } from 'vite';
-import preact from '@preact/preset-vite';
 import { buildLandingHtml } from './prerender/render-bands.mjs';
 
 const FIXTURES_DIR = join(import.meta.dirname, 'public/sample-data');
@@ -26,6 +25,6 @@ function druckPrerender() {
 }
 
 export default defineConfig({
-  plugins: [preact(), druckPrerender()],
+  plugins: [druckPrerender()],
   server: { port: 3111 },
 });
