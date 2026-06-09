@@ -1,6 +1,8 @@
 {
   "name": "@druck/widget",
   "version": "0.1.0",
+  "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/druck-widget.js",
   "files": ["dist"],
