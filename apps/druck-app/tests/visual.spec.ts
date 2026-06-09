@@ -41,7 +41,8 @@ for (const viewport of VIEWPORTS) {
         await page.evaluate((selector) => {
           document.querySelector(selector)?.scrollIntoView({ block: 'start', inline: 'nearest' });
         }, band.selector);
-        await expect(locator).toHaveScreenshot(`${band.name}-${viewport.name}-${theme}.png`, {
+        await expect(locator).toBeVisible();
+        await expect(page).toHaveScreenshot(`${band.name}-${viewport.name}-${theme}.png`, {
           animations: 'disabled',
           maxDiffPixelRatio: 0.02,
           mask: [

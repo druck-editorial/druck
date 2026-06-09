@@ -1,0 +1,12 @@
+{
+  "scores": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "totalTransferKB": 142,
+  "lighthouseVersion": "13.4.0",
+  "measuredAt": "2026-06-09",
+  "profile": "local-preview"
+}

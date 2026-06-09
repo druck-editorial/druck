@@ -35,6 +35,33 @@ test.describe('band 2 formats', () => {
     await expect(page.locator('.format-caption[data-format="wire"]')).toBeVisible();
     await expect(page.locator('.format-panel[data-format="wire"] .post-simple')).toBeVisible();
   });
+
+  test('format panels expand into the page without nested scrolling', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.band-formats').scrollIntoViewIfNeeded();
+
+    for (const label of ['Feature', 'Quick Take', 'Wire']) {
+      await page.getByRole('radio', { name: label }).click();
+      const metrics = await page.locator('.format-panel:visible').evaluate((panel) => {
+        const stage = panel.closest('.format-stage');
+        return {
+          panelOverflowY: getComputedStyle(panel).overflowY,
+          panelClientHeight: panel.clientHeight,
+          panelScrollHeight: panel.scrollHeight,
+          stageOverflow: stage ? getComputedStyle(stage).overflow : '',
+        };
+      });
+      expect(metrics.panelOverflowY).toBe('visible');
+      expect(metrics.stageOverflow).toBe('visible');
+      expect(metrics.panelScrollHeight).toBe(metrics.panelClientHeight);
+    }
+  });
+
+  test('serves the supplied SLM hero at high enough fidelity', async ({ page }) => {
+    const response = await page.request.get('/img/slm-hero.webp');
+    expect(response.ok()).toBe(true);
+    expect((await response.body()).byteLength).toBeGreaterThan(500_000);
+  });
 });
 
 test.describe('band 3 languages', () => {
@@ -71,6 +98,17 @@ test.describe('band 4 article, accents, analytics', () => {
     await page.mouse.wheel(0, 900);
     await expect(page.locator('[data-metric="depth"]')).not.toHaveText('0', { timeout: 8000 });
   });
+
+  test('live article expands into the page without nested scrolling', async ({ page }) => {
+    await page.goto('/');
+    const metrics = await page.locator('.band4-article').evaluate((panel) => ({
+      overflowY: getComputedStyle(panel).overflowY,
+      clientHeight: panel.clientHeight,
+      scrollHeight: panel.scrollHeight,
+    }));
+    expect(metrics.overflowY).toBe('visible');
+    expect(metrics.scrollHeight).toBe(metrics.clientHeight);
+  });
 });
 
 test.describe('band 5 widgets in the wild', () => {
@@ -98,6 +136,22 @@ test.describe('band 5 widgets in the wild', () => {
     await expect(page.locator('html')).toHaveAttribute('data-surface', 'ink');
     await page.locator('.band-hero').scrollIntoViewIfNeeded();
     await expect(page.locator('html')).toHaveAttribute('data-surface', 'paper');
+  });
+
+  test('publication frames expand into the page without nested scrolling', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.band-wild').scrollIntoViewIfNeeded();
+    const frames = await page.locator('.frame-viewport').evaluateAll((panels) => {
+      return panels.map((panel) => ({
+        overflowY: getComputedStyle(panel).overflowY,
+        clientHeight: panel.clientHeight,
+        scrollHeight: panel.scrollHeight,
+      }));
+    });
+    for (const metrics of frames) {
+      expect(metrics.overflowY).toBe('visible');
+      expect(metrics.scrollHeight).toBe(metrics.clientHeight);
+    }
   });
 });
 

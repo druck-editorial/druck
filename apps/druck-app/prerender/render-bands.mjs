@@ -124,10 +124,15 @@ function renderRing(label, score) {
   );
 }
 
+function auditProfileLabel(profile) {
+  if (profile === 'local-preview') return 'local preview profile';
+  return 'mobile profile';
+}
+
 export function renderColophonScores(summary) {
   const rings = RING_CATEGORIES.map(([key, label]) => renderRing(label, summary?.scores?.[key] ?? null)).join('');
   const method = summary
-    ? `Measured with Lighthouse ${escapeHtml(summary.lighthouseVersion)}, mobile profile, static production build, ${escapeHtml(summary.measuredAt)}. Initial transfer ${escapeHtml(String(summary.totalTransferKB))} KB.`
+    ? `Measured with Lighthouse ${escapeHtml(summary.lighthouseVersion)}, ${auditProfileLabel(summary.profile)}, static production build, ${escapeHtml(summary.measuredAt)}. Initial transfer ${escapeHtml(String(summary.totalTransferKB))} KB.`
     : 'Scores not yet measured for this revision. Run node scripts/audit.mjs.';
   return `<div class="rings">${rings}</div><p class="colophon-method">${method}</p>`;
 }

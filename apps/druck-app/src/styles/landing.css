@@ -27,6 +27,10 @@ html[data-surface="ink"] .theme-btn:hover { background: var(--ink-surface); }
   background: var(--ink-bg);
   color: var(--ink-text);
 }
+[data-surface="paper"] {
+  background: var(--demo-bg);
+  color: var(--demo-text);
+}
 [data-surface="ink"] .band-title { color: var(--ink-text); }
 [data-surface="ink"] .band-title em { color: #e8a18f; }
 [data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
@@ -81,8 +85,9 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .band-hero .demo-hero-text { grid-column: 1; }
 .hero-pane { border: 1px solid var(--demo-hairline-strong); border-radius: var(--demo-radius-lg); overflow: hidden; background: var(--demo-surface); box-shadow: var(--demo-shadow-md); }
 .pane-chrome { font: 500 11px/1 'IBM Plex Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 14px; border-bottom: 1px solid var(--demo-hairline); color: var(--demo-text-muted); }
-.json-pane { margin: 0; padding: 14px; font: 400 11.5px/1.7 ui-monospace, 'SF Mono', Menlo, monospace; overflow: hidden; max-height: 520px; }
+.json-pane { margin: 0; padding: 14px; font: 400 11.5px/1.7 ui-monospace, 'SF Mono', Menlo, monospace; overflow: hidden; max-height: 520px; white-space: pre-wrap; }
 .json-pane .jl { display: block; padding: 0 6px; border-radius: 4px; overflow-wrap: anywhere; transition: background var(--demo-transition); }
+.json-pane i { overflow-wrap: anywhere; word-break: break-word; }
 .json-pane .jl.lit { background: rgba(184, 74, 52, 0.14); }
 .json-pane .jk { color: #8a4a3a; font-style: normal; }
 .json-pane .js { color: #3a5a6d; font-style: normal; }
@@ -131,8 +136,8 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 }
 
 .format-caption { font-size: 13.5px; color: var(--demo-text-muted); margin: 0 0 20px; }
-.format-stage { position: relative; min-height: 640px; border: 1px solid var(--demo-hairline-strong); border-radius: var(--demo-radius-lg); overflow: hidden; background: var(--demo-surface); }
-.format-panel { max-height: 640px; overflow-y: auto; opacity: 1; transition: opacity 200ms var(--ease-out); }
+.format-stage { position: relative; border: 1px solid var(--demo-hairline-strong); border-radius: var(--demo-radius-lg); background: var(--demo-surface); }
+.format-panel { opacity: 1; transition: opacity 200ms var(--ease-out); }
 .format-panel[hidden] { display: none; }
 .format-panel.leaving { opacity: 0; }
 
@@ -160,7 +165,7 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 }
 .specimen-panel[lang="ja"] .specimen-body { line-height: 1.88; letter-spacing: 0.012em; }
 
-.band4-article { max-height: 760px; overflow-y: auto; }
+.band4-article { overflow: visible; }
 .band4-article .article-shell { transition: none; }
 .analytics-privacy { font-size: 12.5px; color: var(--demo-text-muted); margin: 4px 0 16px; }
 
@@ -171,7 +176,7 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .frame-host { font: 400 11px/1 ui-monospace, Menlo, monospace; color: var(--ink-text-secondary); }
 .frame-masthead { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 18px; border-bottom: 1px solid var(--ink-hairline); color: var(--ink-text); }
 .frame-masthead nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-text-secondary); }
-.frame-viewport { height: 460px; overflow-y: auto; background: #fdfcfa; }
+.frame-viewport { background: #fdfcfa; }
 .frame-caption { font-size: 12px; color: var(--ink-text-secondary); padding: 12px 18px; margin: 0; }
 .channel-strip { display: flex; gap: 8px; padding: 12px 14px 0; flex-wrap: wrap; }
 .channel-strip .bubble { font-size: 11.5px; color: var(--ink-text); background: rgba(42, 171, 238, 0.14); border: 1px solid rgba(42, 171, 238, 0.25); padding: 6px 12px; border-radius: 12px 12px 12px 3px; }
@@ -208,9 +213,6 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 @media (max-width: 767px) {
   .json-pane { max-height: 180px; }
   .json-pane .jl:nth-child(n+7) { display: none; }
-  .format-stage { min-height: 480px; }
-  .format-panel { max-height: 480px; }
-  .frame-viewport { height: 380px; }
   .frame-masthead nav { display: none; }
   .rings { display: grid; grid-template-columns: repeat(2, max-content); justify-content: center; }
 }

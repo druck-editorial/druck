@@ -111,10 +111,12 @@ describe('renderColophonScores', () => {
       totalTransferKB: 212,
       lighthouseVersion: '13.0.0',
       measuredAt: '2026-06-09',
+      profile: 'local-preview',
     });
     expect(html.match(/class="ring"/g)).toHaveLength(4);
     expect(html).toContain('212');
     expect(html).toContain('13.0.0');
+    expect(html).toContain('local preview profile');
   });
 
   test('renders pending state when no summary exists', () => {
