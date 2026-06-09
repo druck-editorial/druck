@@ -91,4 +91,22 @@ describe('renderCard', () => {
     expect(html).toContain('&lt;script&gt;');
     expect(html).toContain('&quot;alert&quot;');
   });
+
+  test('strips javascript: URLs from card href', () => {
+    const html = renderCard(buildArticle({ shareUrl: 'javascript:alert(1)' }));
+    expect(html).not.toContain('javascript:');
+    expect(html).toContain('href="\#"');
+  });
+
+  test('strips data: URLs from hero image src', () => {
+    const html = renderArticle(buildArticle({ heroImage: 'data:image/svg+xml,<svg></svg>' }));
+    expect(html).not.toContain('data:');
+    expect(html).toContain('src=""');
+  });
+
+  test('preserves safe relative and absolute URLs', () => {
+    const html = renderCard(buildArticle({ shareUrl: '/articles/safe/', heroImage: 'https://example.com/img.webp' }));
+    expect(html).toContain('href="/articles/safe/"');
+    expect(html).toContain('src="https://example.com/img.webp"');
+  });
 });

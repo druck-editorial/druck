@@ -118,4 +118,8 @@ function transformInlineBlocks(bodyHtml: string): string {
     });
 }
 
-export { escapeHtml, sanitizeInline, transformInlineBlocks };
+function safeUrl(url: string): string {
+  return SAFE_HREF_RE.test(url) ? url : '';
+}
+
+export { escapeHtml, sanitizeInline, transformInlineBlocks, safeUrl };
