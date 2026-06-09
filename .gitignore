@@ -10,3 +10,5 @@ _site/
 coverage/
 apps/druck-app/audit/lighthouse.json
 test-results/
+
+.superpowers/
