@@ -1,7 +1,7 @@
 # Druck Landing — The Transformation
 
 Date: 2026-06-09
-Status: approved direction, pending spec review
+Status: approved, amended same day after review (embed showcase band, scroll surfaces, type themes, font sourcing)
 Scope: redesign of the druck-app landing page (apps/druck-app) into a live feature-demonstration page. Engine, CSS, widget, and analytics packages change only where this page needs small additive extensions.
 
 ## Context
@@ -32,21 +32,26 @@ Druck ships the editorial taste as code: schema + renderer + typography + analyt
 
 - No localized UI chrome (page chrome stays English).
 - No CMS adapters, hosted service, or pricing content.
-- No hostile-CSS live embed demo (snippet only; live demo deferred).
-- No scroll-scrubbed animation. The hero sequence is stepped autoplay.
+- No scroll-scrubbed animation. The hero sequence is stepped autoplay; the surface shift is a class transition, not a scrub.
+- No runtime CDN dependencies of any kind. Bunny Fonts and Fontshare are download sources only; every byte serves from our origin.
 - Repo publication and the GitHub org are out of scope; CTA hrefs stay pointed at github.com/druck-editorial/druck.
 
 ## Page architecture
 
-One scrolling page, five bands inside `main`, each band a `section` with `aria-labelledby`:
+One scrolling page, six bands inside `main`, each band a `section` with `aria-labelledby`:
 
 1. Nav (persistent): wordmark, theme toggle. The Feature/Wire tabs leave the nav; format switching moves to band 2 where it has context. Reading-progress rail stays.
 2. Band 1 — Hero: the transformation.
 3. Band 2 — One story, three formats.
 4. Band 3 — Five languages, real rules.
 5. Band 4 — Full rendered article + live category accents + reading analytics.
-6. Band 5 — Colophon.
-7. Footer (one line, unchanged in spirit).
+6. Band 5 — In the wild: live widget embeds in three contrasting publications.
+7. Band 6 — Colophon.
+8. Footer (one line, unchanged in spirit).
+
+Mobile is first-class: every band defines its under-768 layout (hero panes stack with a six-line JSON excerpt, format control goes full-width, specimens and frames stack single-column with reduced fixed heights, colophon rings form a two-by-two grid). Lighthouse is measured on the mobile profile. Touch targets stay at or above 44px and nothing scrolls horizontally at 320px.
+
+Surface system: each band declares `data-surface="paper"` or `data-surface="ink"`. Bands 1–4 are paper (they follow the global theme). Band 5 and band 6 are ink — dark editorial surfaces in both themes, by art direction. An IntersectionObserver eases the page background and text tokens between surfaces as a dark band approaches (a 400ms class transition on the root, background and color only). Under `prefers-reduced-motion` the switch is instant. The global theme toggle keeps working: paper bands follow it, ink bands stay ink. Contrast is audited per surface.
 
 Removed: the four static showcase cards, the inert category-chip strip (chips move into band 4 and become controls), the View Demo scroll button, the mobile bottom tab bar (band 2's format control replaces its purpose on all viewports).
 
@@ -104,7 +109,24 @@ Category accent chips relocate here, above the article, and become controls: sel
 
 The analytics panel keeps its four metrics and gains the honest frame: a title naming what is happening (the package is tracking the visitor's own reading of the article above, right now) and one line stating that nothing leaves the page. Depth milestones (25/50/75/100) are announced through a throttled `aria-live="polite"` region; continuous values update visually without announcements.
 
-## Band 5 — Colophon
+## Band 5 — In the wild
+
+Three miniature publications, each a believable mock site frame with its own masthead, chrome, type theme, accent, and story topic — and inside each one, the real `@druck/widget` (`<druck-article>`, Shadow DOM) rendering live. The frames' host styles deliberately clash; the article interior stays pristine. That is the embed pitch demonstrated, not described.
+
+| Frame | Direction | Masthead (fictional) | Type theme | Accent | Story |
+|---|---|---|---|---|---|
+| A | Music press (Pitchfork register) | PHONOGRAPH | Archivo Black mastheads, General Sans body | hot red | Album review (quick_take) with an inline score stat |
+| B | Fashion magazine | ATELIER | Bodoni Moda didone display, airy tracking | near-black | Trend essay (quick_take) |
+| C | Tech blog | deploy.log | Space Grotesk display, IBM Plex Mono meta | teal | The existing wire story (model launch) |
+| D | Crypto-markets daily, published from a Telegram channel | LEDGERLINE | Core families, IBM Plex Mono numbers | market green | Morning brief (wire) with stat asides; a strip of channel-post bubbles above the frame shows the source — channel in, magazine out |
+
+Frame D carries the Telegram story: the author posts in their channel, readers get a magazine. The strip-to-frame composition makes the source visible. The full channel importer (mapping channel posts to ArticleData as a self-serve flow) is a separate follow-up product — see Deferred.
+
+Each frame is a fixed-height browser-style window with its own internal scroll, so the page never shifts as widgets render and visitors can actually read inside the frames. Type themes are CSS custom-property overrides on the embed host (`--type-headline-font` and friends pierce the shadow boundary by inheritance); theme fonts and the widget module lazy-load when the band approaches, keeping the initial-load Lighthouse run clean. Widgets receive `css-url="/article.css"` so nothing touches unpkg. Each frame is labeled with the tokens that produced it — same engine, same schema, three different publications.
+
+The widget's built-in error state covers fetch failures inside frames.
+
+## Band 6 — Colophon
 
 Styled as a fine-book colophon: hairline rule, small caps, quiet. Contents:
 
@@ -119,17 +141,17 @@ Styled as a fine-book colophon: hairline rule, small caps, quiet. Contents:
 - `ArticleData` gains optional `heroImageAlt`, `heroImageWidth`, `heroImageHeight`. The renderer emits `alt`, `width`, `height` on hero images when present. Backward compatible: absent fields render as today.
 - All fixture images become self-hosted AVIF or WebP files under `public/`, sourced from the owner's Sonto-generated hero archive (owned art, on-brand provenance). No Unsplash hot-links remain.
 - All fixtures gain `heroImageAlt` text.
-- New fixtures: `quick_take.json`, five `specimen.*.json`.
+- New fixtures: `slm-quick-take.json` and `slm-wire.json` (band 2 renders the same story in all three formats, so the feature story gets compact quick_take and wire versions), five `specimen.*.json`, and three band-5 frame stories (`frame-music.json`, `frame-fashion.json`, `frame-markets.json`). Frame C reuses the existing `wire.json`. Topics are deliberately diverse — music, fashion, tech, finance — so the embeds read as different publications, not one demo repeated.
 
 ## Technical architecture
 
 Prerender: a build step (node script run after `vite build`) imports `@druck/engine`, renders the band-4 article and the hero's final-state markup from the fixtures, and injects them into the built `index.html`. LCP is served as static HTML and CSS. The Preact app hydrates interactivity (sequence, toggles, accents, analytics, theme) on top of the prerendered content without re-rendering it from scratch on boot — the page must not flash or shift when JS arrives.
 
-Fonts: self-host woff2 subsets of General Sans (Fontshare license) and Source Serif 4 (OFL), latin + latin-ext. Preload exactly two files (display weight, body regular). `font-display: swap` with `size-adjust` fallback metrics so the swap causes no layout shift. No CDN font requests.
+Fonts: the CSS references three core families that were never loaded — Plus Jakarta Sans (headings), General Sans (body), Source Serif 4 (serif body and accents). All three are self-hosted as woff2, latin + latin-ext. Preload exactly two files (heading weight, serif body regular). `font-display: swap` with `size-adjust` fallback metrics so the swap causes no layout shift. Band 5 adds four theme families — Archivo Black, Bodoni Moda, Space Grotesk, IBM Plex Mono — declared in a separate stylesheet that lazy-loads when the band approaches, excluded from the initial-load budget. Bunny Fonts and Fontshare serve as download sources only (owner decision 2026-06-09); at runtime every font serves from our origin. No CDN requests.
 
 Theme: the existing inline pre-mount theme script stays. JSON syntax tint, ring colors, and all new band surfaces define dark-theme variants; both themes are audited for contrast.
 
-Budgets (verified by a repeatable check, runnable locally or in CI — see Testing): total transfer below 250 KB excluding hero images; each hero image at or below 120 KB with explicit dimensions; landing JS at or below 80 KB gzipped.
+Budgets (verified by a repeatable check, runnable locally or in CI — see Testing): initial-load transfer below 250 KB excluding hero images; each hero image at or below 120 KB with explicit dimensions; initial landing JS at or below 80 KB gzipped. Band-5 lazy assets (widget module, theme fonts, frame fixtures, the shared article.css the widgets link) load on approach and are budgeted separately at or below 300 KB.
 
 ## Bug fixes folded into this work
 
@@ -156,11 +178,11 @@ Budgets (verified by a repeatable check, runnable locally or in CI — see Testi
 
 1. Fixture validity: a vitest that JSON-parses every file in `sample-data/` (the test that would have caught the shipped parse error).
 2. Prerender script test: renders fixtures and asserts expected markers exist in the output HTML.
-3. Playwright visual: 320, 375, 768, 1024, 1440 — both themes — reduced-motion on and off for band 1. Screenshot suite per band.
+3. Playwright visual: 320, 375, 768, 1024, 1440 — both themes — reduced-motion on and off for band 1 and the surface transition. Screenshot suite per band, including all three band-5 frames after their widgets render.
 4. axe-core run with zero violations as the pass bar.
 5. Lighthouse CI against the served production build: assert 100 in all four categories and assert the transfer budgets.
 6. Keyboard walk-through checklist executed manually once per release of this page.
 
 ## Deferred
 
-Hostile-CSS live embed demo, before/after scrubber, scroll-driven hero variant, localized chrome, per-language full articles, repo publication.
+Before/after scrubber, scroll-driven hero variant, localized chrome, per-language full articles, repo publication, and the Telegram channel importer (channel posts mapped to ArticleData as a self-serve channel-to-magazine flow — strong product direction, needs its own spec).
