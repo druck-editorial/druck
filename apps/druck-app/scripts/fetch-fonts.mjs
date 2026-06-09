@@ -8,6 +8,23 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 C
 const CORE_FAMILIES = 'plus-jakarta-sans:800|source-serif-4:400,400i,600';
 const THEME_FAMILIES = 'archivo-black:400|bodoni-moda:600,700|space-grotesk:500,700|ibm-plex-mono:400';
 
+const GENERAL_SANS_FACES = `
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'gs-fallback';
+  src: local('Arial');
+  size-adjust: 100%;
+  ascent-override: 96%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+`;
+
 const FALLBACK_METRICS = `
 @font-face {
   font-family: 'pjs-fallback';
@@ -56,6 +73,7 @@ async function localizeCss(css) {
     out = out.replaceAll(url, `/fonts/${name}`);
   }
   out = out.replace(/,\s*url\(https:[^)]+\.woff\)[^;]*/g, '');
+  out = out.replace(/ +$/gm, '');
   return out;
 }
 
@@ -66,7 +84,7 @@ function stripComments(css) {
 mkdirSync(FONTS_DIR, { recursive: true });
 const coreCss = stripComments(await localizeCss(await fetchCss(CORE_FAMILIES)));
 const themeCss = stripComments(await localizeCss(await fetchCss(THEME_FAMILIES)));
-writeFileSync(join(STYLES_DIR, 'fonts.css'), coreCss + FALLBACK_METRICS);
+writeFileSync(join(STYLES_DIR, 'fonts.css'), coreCss + GENERAL_SANS_FACES + FALLBACK_METRICS);
 writeFileSync(join(STYLES_DIR, 'fonts-themes.css'), themeCss);
 const count = [...coreCss.matchAll(/\/fonts\//g)].length + [...themeCss.matchAll(/\/fonts\//g)].length;
 console.log(`fonts written: ${count} files referenced`);
