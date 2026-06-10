@@ -1,5 +1,5 @@
 interface SwitcherOptions {
-  datasetKey: string;
+  datasetKey?: string;
   onChange?: (value: string) => void;
 }
 
@@ -16,8 +16,11 @@ export function initSwitcher(root: HTMLElement, options: SwitcherOptions): void 
       radio.setAttribute('aria-checked', String(radio === target));
       radio.tabIndex = radio === target ? 0 : -1;
     }
-    for (const panel of document.querySelectorAll<HTMLElement>(`[data-${options.datasetKey}]`)) {
-      panel.hidden = panel.dataset[options.datasetKey] !== value;
+    if (options.datasetKey) {
+      const key = options.datasetKey;
+      for (const panel of document.querySelectorAll<HTMLElement>(`[data-${key}]`)) {
+        panel.hidden = panel.dataset[key] !== value;
+      }
     }
     options.onChange?.(value);
   };

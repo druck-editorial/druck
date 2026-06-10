@@ -10,10 +10,9 @@ const VIEWPORTS = [
 
 const BANDS = [
   { name: 'hero', selector: '.band-hero' },
-  { name: 'formats', selector: '.band-formats' },
-  { name: 'langs', selector: '.band-langs' },
-  { name: 'article', selector: '.band-article' },
   { name: 'wild', selector: '.band-wild' },
+  { name: 'frontpage', selector: '.band-frontpage' },
+  { name: 'range', selector: '.band-range' },
   { name: 'colophon', selector: '.band-colophon' },
 ] as const;
 
@@ -31,6 +30,7 @@ for (const viewport of VIEWPORTS) {
       await page.addInitScript((value) => {
         localStorage.setItem('druck-theme', value);
       }, theme);
+      await page.route('https://sonto.tech/**', (route) => route.abort());
       await page.goto('/');
       await page.addStyleTag({
         content: '.demo-nav,.reading-progress,.skip-link{visibility:hidden!important}',
@@ -50,6 +50,8 @@ for (const viewport of VIEWPORTS) {
             page.locator('[data-metric="time"]'),
             page.locator('[data-metric="chapters"]'),
             page.locator('[data-metric="milestone"]'),
+            page.locator('[data-line="depth"]'),
+            page.locator('[data-line="time"]'),
           ],
         });
       }

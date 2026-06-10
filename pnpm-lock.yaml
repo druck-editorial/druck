@@ -10,16 +10,16 @@ importers:
 
   apps/druck-app:
     dependencies:
-      '@druck/analytics':
+      '@druck-editorial/analytics':
         specifier: workspace:*
         version: link:../../packages/druck-analytics
-      '@druck/css':
+      '@druck-editorial/css':
         specifier: workspace:*
         version: link:../../packages/druck-css
-      '@druck/engine':
+      '@druck-editorial/engine':
         specifier: workspace:*
         version: link:../../packages/druck-engine
-      '@druck/widget':
+      '@druck-editorial/widget':
         specifier: workspace:*
         version: link:../../packages/druck-widget
     devDependencies:
@@ -73,7 +73,7 @@ importers:
 
   packages/druck-widget:
     dependencies:
-      '@druck/engine':
+      '@druck-editorial/engine':
         specifier: workspace:*
         version: link:../druck-engine
     devDependencies:

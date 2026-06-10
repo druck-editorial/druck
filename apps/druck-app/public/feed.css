@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 @media (min-width: 640px) {
@@ -24,6 +25,7 @@
   color: inherit;
   background: var(--color-surface, #fff);
   border: 1px solid var(--color-border, rgba(0,0,0,0.08));
+  border-top: 2px solid var(--accent, #b84a34);
   border-radius: 0;
   overflow: hidden;
   transition: transform 150ms ease, box-shadow 150ms ease;
@@ -51,11 +53,13 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 300ms ease;
+  filter: saturate(0.72) contrast(1.05) brightness(0.96);
+  transition: transform 300ms ease, filter 300ms ease;
 }
 
 .druck-card:hover .card-thumb img {
   transform: scale(1.03);
+  filter: saturate(0.9) contrast(1.05) brightness(0.98);
 }
 
 .card-text {
@@ -70,8 +74,8 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-accent, #b84a34);
+  letter-spacing: 0.06em;
+  color: var(--accent, #b84a34);
 }
 
 .card-kicker .sep {
@@ -108,7 +112,8 @@
 .card-meta {
   font-family: var(--font-sans, system-ui);
   font-size: 0.75rem;
-  color: var(--color-text-muted, #888);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted, #767676);
   display: flex;
   gap: 0.75rem;
   margin-top: auto;
@@ -116,13 +121,31 @@
 }
 
 /* Category accents */
-.cat-ai .card-kicker { color: var(--cat-ai, #2563eb); }
-.cat-dev .card-kicker { color: var(--cat-dev, #059669); }
-.cat-business .card-kicker { color: var(--cat-business, #d97706); }
-.cat-science .card-kicker { color: var(--cat-science, #7c3aed); }
-.cat-general .card-kicker { color: var(--cat-general, #4b5563); }
+.druck-card.cat-ai, .df-hero-card.cat-ai { --accent: #5F5AAF; }
+.druck-card.cat-security, .df-hero-card.cat-security { --accent: #9D3F2E; }
+.druck-card.cat-dev-tools, .df-hero-card.cat-dev-tools { --accent: #477259; }
+.druck-card.cat-dev, .df-hero-card.cat-dev { --accent: #2F6B4F; }
+.druck-card.cat-infrastructure, .df-hero-card.cat-infrastructure { --accent: #20756D; }
+.druck-card.cat-business, .df-hero-card.cat-business { --accent: #805F00; }
+.druck-card.cat-policy, .df-hero-card.cat-policy { --accent: #5F4425; }
+.druck-card.cat-startup, .df-hero-card.cat-startup { --accent: #B0531F; }
+.druck-card.cat-science, .df-hero-card.cat-science { --accent: #216B61; }
+.druck-card.cat-weekly, .df-hero-card.cat-weekly { --accent: #40546A; }
+.druck-card.cat-general, .df-hero-card.cat-general { --accent: #4b5563; }
 
 /* Dark theme */
+[data-theme="dark"] .druck-card.cat-ai, [data-theme="dark"] .df-hero-card.cat-ai { --accent: #A9A6E8; }
+[data-theme="dark"] .druck-card.cat-security, [data-theme="dark"] .df-hero-card.cat-security { --accent: #E07070; }
+[data-theme="dark"] .druck-card.cat-dev-tools, [data-theme="dark"] .df-hero-card.cat-dev-tools { --accent: #93C4A8; }
+[data-theme="dark"] .druck-card.cat-dev, [data-theme="dark"] .df-hero-card.cat-dev { --accent: #7FBF9B; }
+[data-theme="dark"] .druck-card.cat-infrastructure, [data-theme="dark"] .df-hero-card.cat-infrastructure { --accent: #7BC4C4; }
+[data-theme="dark"] .druck-card.cat-business, [data-theme="dark"] .df-hero-card.cat-business { --accent: #D4A520; }
+[data-theme="dark"] .druck-card.cat-policy, [data-theme="dark"] .df-hero-card.cat-policy { --accent: #c79e6a; }
+[data-theme="dark"] .druck-card.cat-startup, [data-theme="dark"] .df-hero-card.cat-startup { --accent: #E08B4F; }
+[data-theme="dark"] .druck-card.cat-science, [data-theme="dark"] .df-hero-card.cat-science { --accent: #5fc7b8; }
+[data-theme="dark"] .druck-card.cat-weekly, [data-theme="dark"] .df-hero-card.cat-weekly { --accent: #8ba4b8; }
+[data-theme="dark"] .druck-card.cat-general, [data-theme="dark"] .df-hero-card.cat-general { --accent: #9aa1ab; }
+
 [data-theme="dark"] .druck-card {
   background: var(--color-surface-dark, #1a1a1a);
   border-color: var(--color-border-dark, rgba(255,255,255,0.08));
@@ -137,7 +160,12 @@
 }
 
 [data-theme="dark"] .card-meta {
-  color: var(--color-text-muted-dark, #777);
+  color: var(--color-text-muted-dark, #999);
+}
+
+[data-theme="dark"] .df-row--brief time {
+  opacity: 1;
+  color: #888;
 }
 
 [data-theme="dark"] .druck-card:hover {
@@ -152,4 +180,32 @@
     transition: none;
     transform: none;
   }
+}
+
+/* Front-page layout */
+.druck-front-page { display: flex; flex-direction: column; gap: 1.5rem; }
+.df-row--feature { display: grid; grid-template-columns: 3fr 2fr; gap: 1.5rem; }
+.df-row--triple { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+.df-hero-card { position: relative; display: block; min-height: clamp(320px, 42vh, 480px); overflow: hidden; color: #fff; text-decoration: none; }
+.df-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8) contrast(1.05); }
+.df-hero-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0) 100%); }
+.df-hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding: 24px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.df-hero-text .card-kicker { color: rgba(255,255,255,0.85); }
+.df-hero-title { font-size: clamp(22px, 3vw, 34px); line-height: 1.15; margin: 6px 0; }
+.df-hero-sub { font-size: 15px; opacity: 0.92; max-width: 60ch; margin: 0; }
+
+.df-hot { display: inline-block; background: rgba(12,12,14,0.85); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 999px; margin-bottom: 8px; }
+.df-hot::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #e0452c; margin-right: 5px; vertical-align: 1px; }
+
+.df-row--brief { border: 1px solid var(--color-border, rgba(0,0,0,0.08)); background: var(--color-surface, #fff); padding: 14px 18px; }
+.df-brief-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; margin-bottom: 10px; }
+.df-row--brief ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.df-row--brief a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; text-decoration: none; color: inherit; }
+.df-row--brief a:hover .df-brief-title { text-decoration: underline; }
+.df-row--brief time { color: var(--color-text-muted, #767676); font-size: 12px; white-space: nowrap; }
+
+@media (max-width: 800px) {
+  .df-row--feature, .df-row--triple { grid-template-columns: 1fr; }
+  .df-hero-card { min-height: clamp(260px, 48vh, 380px); }
 }

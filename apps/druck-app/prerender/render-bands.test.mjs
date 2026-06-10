@@ -3,10 +3,20 @@ import { join } from 'node:path';
 import {
   tokenizeJsonForPane,
   renderHeroMagazinePane,
-  renderSpecimenPanel,
   buildLandingHtml,
   renderColophonScores,
 } from './render-bands.mjs';
+
+const MARKER_TEMPLATE = [
+  '__DRUCK_INSTALL_CMD__',
+  '__DRUCK_GITHUB_URL__',
+  '__DRUCK_GITHUB_PROFILE__',
+  '<!--druck:hero-json-->',
+  '<!--druck:hero-magazine-->',
+  '<!--druck:front-page-->',
+  '<!--druck:range-panels-->',
+  '<!--druck:colophon-scores-->',
+].join('\n');
 
 const FIXTURES_DIR = join(import.meta.dirname, '../public/sample-data');
 
@@ -55,52 +65,28 @@ describe('renderHeroMagazinePane', () => {
   });
 });
 
-describe('renderSpecimenPanel', () => {
-  test('scopes language and shows the css rule', () => {
-    const html = renderSpecimenPanel({
-      lang: 'de',
-      label: 'Deutsch',
-      headline: 'Kopfzeile',
-      body: 'Text',
-      quote: 'Zitat',
-      rule: 'hyphens: auto;',
-      ruleLabel: 'Trennung',
-    });
-    expect(html).toContain('lang="de"');
-    expect(html).toContain('hyphens: auto;');
-  });
-});
-
 describe('buildLandingHtml', () => {
-  test('replaces every marker against real fixtures', async () => {
-    const template = [
-      '<!--druck:hero-json-->',
-      '<!--druck:hero-magazine-->',
-      '<!--druck:format-panels-->',
-      '<!--druck:specimens-->',
-      '<!--druck:band4-article-->',
-    ].join('\n');
-    const html = await buildLandingHtml(template, FIXTURES_DIR);
+  test('replaces every marker and token against real fixtures', async () => {
+    const html = await buildLandingHtml(MARKER_TEMPLATE, FIXTURES_DIR);
     expect(html).not.toContain('<!--druck:');
-    expect(html).toContain('article-shell');
+    expect(html).not.toContain('__DRUCK_');
+    expect(html).toContain('druck-front-page');
     expect(html).toContain('specimen-panel');
+    expect(html).toContain('pnpm add @druck-editorial/engine');
   });
 
   test('throws on a missing fixture directory', async () => {
-    await expect(buildLandingHtml('<!--druck:band4-article-->', '/nonexistent')).rejects.toThrow();
+    await expect(buildLandingHtml('<!--druck:front-page-->', '/nonexistent')).rejects.toThrow();
   });
 
-  test('first specimen panel is visible and the other four are hidden', async () => {
-    const template = [
-      '<!--druck:hero-json-->',
-      '<!--druck:hero-magazine-->',
-      '<!--druck:format-panels-->',
-      '<!--druck:specimens-->',
-      '<!--druck:band4-article-->',
-    ].join('\n');
-    const html = await buildLandingHtml(template, FIXTURES_DIR);
-    expect((html.match(/specimen-panel"[^>]* hidden>/g) ?? []).length).toBe(4);
-    expect(html).not.toMatch(/lang="en"[^>]* hidden>/);
+  test('only the en feature specimen panel is visible', async () => {
+    const html = await buildLandingHtml(MARKER_TEMPLATE, FIXTURES_DIR);
+    const panels = html.match(/<article class="specimen-panel"[^>]*>/g) ?? [];
+    expect(panels).toHaveLength(15);
+    const visible = panels.filter((tag) => !tag.includes(' hidden'));
+    expect(visible).toHaveLength(1);
+    expect(visible[0]).toContain('data-lang="en"');
+    expect(visible[0]).toContain('data-format="feature"');
   });
 });
 

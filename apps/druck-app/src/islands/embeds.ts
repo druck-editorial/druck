@@ -1,4 +1,9 @@
 const THEME_FONTS_ID = 'druck-theme-fonts';
+const FEED_DEFERRED_ATTRS = ['fallback-src', 'layout', 'css-url', 'src'];
+
+function toDatasetKey(attr: string): string {
+  return attr.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
+}
 
 async function activate(band: HTMLElement): Promise<void> {
   if (!document.getElementById(THEME_FONTS_ID)) {
@@ -8,12 +13,15 @@ async function activate(band: HTMLElement): Promise<void> {
     link.href = new URL('../styles/fonts-themes.css', import.meta.url).href;
     document.head.appendChild(link);
   }
-  await import('@druck/widget');
+  await import('@druck-editorial/widget');
   for (const widget of band.querySelectorAll<HTMLElement>('druck-article[data-src]')) {
     widget.setAttribute('src', widget.dataset.src ?? '');
   }
   for (const widget of band.querySelectorAll<HTMLElement>('druck-feed[data-src]')) {
-    widget.setAttribute('src', widget.dataset.src ?? '');
+    for (const attr of FEED_DEFERRED_ATTRS) {
+      const value = widget.dataset[toDatasetKey(attr)];
+      if (value != null) widget.setAttribute(attr, value);
+    }
   }
 }
 

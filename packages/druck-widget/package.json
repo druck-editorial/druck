@@ -1,18 +1,28 @@
 {
-  "name": "@druck/widget",
+  "name": "@druck-editorial/widget",
   "version": "0.1.0",
+  "description": "Custom elements that render druck articles and front pages anywhere: druck-article, druck-feed.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
   "license": "MIT",
   "type": "module",
   "main": "./dist/druck-widget.js",
+  "sideEffects": true,
   "files": ["dist"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/druck-editorial/druck.git",
+    "directory": "packages/druck-widget"
+  },
+  "homepage": "https://github.com/druck-editorial/druck",
+  "keywords": ["editorial", "typography", "rendering", "magazine", "web-components"],
+  "publishConfig": { "access": "public" },
   "scripts": {
     "build": "tsc && node scripts/bundle.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },
   "dependencies": {
-    "@druck/engine": "workspace:*"
+    "@druck-editorial/engine": "workspace:*"
   },
   "devDependencies": {
     "happy-dom": "^17.0.0",

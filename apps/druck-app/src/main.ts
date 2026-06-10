@@ -1,7 +1,8 @@
 import './styles/fonts.css';
 import './styles.css';
 import './styles/landing.css';
-import '@druck/css/article.css';
+import '@druck-editorial/css/article.css';
+import '@druck-editorial/css/feed.css';
 import copyIcon from './icons/copy.svg?raw';
 import replayIcon from './icons/arrow-counter-clockwise.svg?raw';
 import { initThemeToggle } from './islands/theme.js';
@@ -11,7 +12,7 @@ import { initSequence } from './islands/sequence.js';
 import { initSwitcher } from './islands/switcher.js';
 import { initSurfaces } from './islands/surfaces.js';
 import { initEmbeds } from './islands/embeds.js';
-import { initAnalyticsPanel } from './islands/analyticsPanel.js';
+import { initColophonLine } from './islands/colophonLine.js';
 
 const ICONS: Record<string, string> = {
   copy: copyIcon,
@@ -35,20 +36,19 @@ if (rail) initProgressRail(rail);
 const stage = document.querySelector<HTMLElement>('[data-island="sequence"]');
 if (stage) initSequence(stage);
 
+const rangeStage = document.querySelector<HTMLElement>('.range-stage');
+const rangePanels = rangeStage ? [...rangeStage.querySelectorAll<HTMLElement>('.specimen-panel')] : [];
+const rangeState = { format: 'feature', lang: 'en' };
+const applyRange = (): void => {
+  for (const panel of rangePanels) {
+    panel.hidden = !(panel.dataset.format === rangeState.format && panel.dataset.lang === rangeState.lang);
+  }
+};
 for (const switcher of document.querySelectorAll<HTMLElement>('[data-island="switcher"]')) {
   const kind = switcher.dataset.switch;
-  if (kind === 'format') initSwitcher(switcher, { datasetKey: 'format' });
-  if (kind === 'lang') initSwitcher(switcher, { datasetKey: 'lang' });
-  if (kind === 'accent') {
-    initSwitcher(switcher, {
-      datasetKey: 'accent-unused',
-      onChange: (value) => {
-        const shell = document.querySelector('.band4-article .article-shell');
-        if (!shell) return;
-        shell.className = shell.className.replace(/\bcat-[\w-]+\b/, value);
-      },
-    });
-  }
+  if (kind === 'range-format') initSwitcher(switcher, { onChange: (value) => { rangeState.format = value; applyRange(); } });
+  if (kind === 'range-lang') initSwitcher(switcher, { onChange: (value) => { rangeState.lang = value; applyRange(); } });
+  if (kind === 'range-accent') initSwitcher(switcher, { onChange: (value) => { if (rangeStage) rangeStage.className = rangeStage.className.replace(/\bcat-[\w-]+\b/, value); } });
 }
 
 initSurfaces();
@@ -57,5 +57,5 @@ for (const embedsBand of document.querySelectorAll<HTMLElement>('[data-island="e
   initEmbeds(embedsBand);
 }
 
-const articleRoot = document.querySelector<HTMLElement>('.band4-article .article-shell');
-if (articleRoot) initAnalyticsPanel(articleRoot);
+const colophonLine = document.querySelector<HTMLElement>('[data-island="colophon-line"]');
+if (colophonLine) initColophonLine(colophonLine);

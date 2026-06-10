@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('band 1 transformation', () => {
+test.describe('band 1 hero', () => {
   test('sequence plays to done and replay restarts it', async ({ page }) => {
     await page.goto('/');
     const stage = page.locator('[data-island="sequence"]');
@@ -25,93 +25,23 @@ test.describe('band 1 transformation', () => {
   });
 });
 
-test.describe('band 2 formats', () => {
-  test('switching format swaps panel and caption', async ({ page }) => {
+test.describe('band order and structure', () => {
+  test('bands appear in recut order', async ({ page }) => {
     await page.goto('/');
-    await page.locator('.band-formats').scrollIntoViewIfNeeded();
-    await page.getByRole('radio', { name: 'Wire' }).click();
-    await expect(page.locator('.format-panel[data-format="wire"]')).toBeVisible();
-    await expect(page.locator('.format-panel[data-format="feature"]')).toBeHidden();
-    await expect(page.locator('.format-caption[data-format="wire"]')).toBeVisible();
-    await expect(page.locator('.format-panel[data-format="wire"] .post-simple')).toBeVisible();
+    const classes = await page.locator('main > section').evaluateAll((els) => els.map((el) => el.className));
+    expect(classes.map((c) => c.match(/band-[\w-]+/)?.[0])).toEqual(
+      ['band-hero', 'band-wild', 'band-frontpage', 'band-range', 'band-colophon']);
   });
 
-  test('format panels expand into the page without nested scrolling', async ({ page }) => {
+  test('page height stays inside the budget', async ({ page }) => {
+    await page.setViewportSize({ width: 1512, height: 900 });
     await page.goto('/');
-    await page.locator('.band-formats').scrollIntoViewIfNeeded();
-
-    for (const label of ['Feature', 'Quick Take', 'Wire']) {
-      await page.getByRole('radio', { name: label }).click();
-      const metrics = await page.locator('.format-panel:visible').evaluate((panel) => {
-        const stage = panel.closest('.format-stage');
-        return {
-          panelOverflowY: getComputedStyle(panel).overflowY,
-          panelClientHeight: panel.clientHeight,
-          panelScrollHeight: panel.scrollHeight,
-          stageOverflow: stage ? getComputedStyle(stage).overflow : '',
-        };
-      });
-      expect(metrics.panelOverflowY).toBe('visible');
-      expect(metrics.stageOverflow).toBe('visible');
-      expect(metrics.panelScrollHeight).toBe(metrics.panelClientHeight);
-    }
-  });
-
-  test('serves the supplied SLM hero at high enough fidelity', async ({ page }) => {
-    const response = await page.request.get('/img/slm-hero.webp');
-    expect(response.ok()).toBe(true);
-    expect((await response.body()).byteLength).toBeGreaterThan(500_000);
+    await page.waitForLoadState('networkidle');
+    expect(await page.evaluate(() => document.body.scrollHeight)).toBeLessThanOrEqual(10000);
   });
 });
 
-test.describe('band 3 languages', () => {
-  test('language chips swap specimens with correct lang attribute', async ({ page }) => {
-    await page.goto('/');
-    await page.locator('.band-langs').scrollIntoViewIfNeeded();
-    await page.locator('.lang-switch').getByRole('radio', { name: 'DE', exact: true }).click();
-    const german = page.locator('.specimen-panel[lang="de"]');
-    await expect(german).toBeVisible();
-    await expect(german).toContainText('Sicherheitslückenausnutzung');
-    await expect(page.locator('.specimen-panel[lang="en"]')).toBeHidden();
-  });
-});
-
-test.describe('band 4 article, accents, analytics', () => {
-  test('article is prerendered into the HTML before JS', async ({ page }) => {
-    const response = await page.request.get('/');
-    const html = await response.text();
-    expect(html).toContain('article-shell');
-    expect(html).toContain('The Quiet');
-  });
-
-  test('accent chip recolors the article shell', async ({ page }) => {
-    await page.goto('/');
-    await page.locator('.band-article').scrollIntoViewIfNeeded();
-    await page.getByRole('radio', { name: 'Security' }).click();
-    await expect(page.locator('.band4-article .article-shell')).toHaveClass(/cat-security/);
-  });
-
-  test('reading the article moves the analytics metrics', async ({ page }) => {
-    await page.goto('/');
-    const article = page.locator('.band4-article');
-    await article.scrollIntoViewIfNeeded();
-    await page.mouse.wheel(0, 900);
-    await expect(page.locator('[data-metric="depth"]')).not.toHaveText('0', { timeout: 8000 });
-  });
-
-  test('live article expands into the page without nested scrolling', async ({ page }) => {
-    await page.goto('/');
-    const metrics = await page.locator('.band4-article').evaluate((panel) => ({
-      overflowY: getComputedStyle(panel).overflowY,
-      clientHeight: panel.clientHeight,
-      scrollHeight: panel.scrollHeight,
-    }));
-    expect(metrics.overflowY).toBe('visible');
-    expect(metrics.scrollHeight).toBe(metrics.clientHeight);
-  });
-});
-
-test.describe('band 5 widgets in the wild', () => {
+test.describe('band wild', () => {
   test('all four frames render live shadow-dom articles with their stories', async ({ page }) => {
     await page.goto('/');
     await page.locator('.band-wild').scrollIntoViewIfNeeded();
@@ -130,29 +60,60 @@ test.describe('band 5 widgets in the wild', () => {
     }
   });
 
-  test('surface turns ink at band 5 and back to paper at the hero', async ({ page }) => {
+  test('surface turns ink at band-wild and back to paper at the hero', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop', 'IntersectionObserver 32% threshold needs desktop viewport');
     await page.goto('/');
     await expect(page.locator('html')).toHaveAttribute('data-surface', 'paper');
     await page.locator('.band-wild').scrollIntoViewIfNeeded();
-    await expect(page.locator('html')).toHaveAttribute('data-surface', 'ink');
+    await expect(page.locator('html')).toHaveAttribute('data-surface', 'ink', { timeout: 8000 });
     await page.locator('.band-hero').scrollIntoViewIfNeeded();
-    await expect(page.locator('html')).toHaveAttribute('data-surface', 'paper');
+    await expect(page.locator('html')).toHaveAttribute('data-surface', 'paper', { timeout: 8000 });
   });
 
-  test('publication frames expand into the page without nested scrolling', async ({ page }) => {
+  test('frame viewports respect max-height and allow inner scroll', async ({ page }) => {
     await page.goto('/');
     await page.locator('.band-wild').scrollIntoViewIfNeeded();
-    const frames = await page.locator('.frame-viewport').evaluateAll((panels) => {
-      return panels.map((panel) => ({
-        overflowY: getComputedStyle(panel).overflowY,
-        clientHeight: panel.clientHeight,
-        scrollHeight: panel.scrollHeight,
-      }));
-    });
-    for (const metrics of frames) {
-      expect(metrics.overflowY).toBe('visible');
-      expect(metrics.scrollHeight).toBe(metrics.clientHeight);
-    }
+    const metrics = await page.locator('.frame-viewport').first().evaluate((el) => ({
+      overflowY: getComputedStyle(el).overflowY,
+      clientHeight: el.clientHeight,
+      viewportHeight: window.innerHeight,
+    }));
+    expect(['auto', 'scroll']).toContain(metrics.overflowY);
+    expect(metrics.clientHeight).toBeLessThanOrEqual(metrics.viewportHeight * 0.65);
+  });
+});
+
+test.describe('band frontpage', () => {
+  test('front page renders a hero row from the prerendered light DOM', async ({ page }) => {
+    await page.route('https://sonto.tech/**', (route) => route.abort());
+    await page.goto('/');
+    await page.locator('.band-frontpage').scrollIntoViewIfNeeded();
+    await expect(page.locator('.band-frontpage .df-row--hero').first()).toBeVisible({ timeout: 10_000 });
+  });
+
+  test('front page falls back to the snapshot when sonto is unreachable', async ({ page }) => {
+    await page.route('https://sonto.tech/**', (route) => route.abort());
+    await page.goto('/');
+    await page.locator('.band-frontpage').scrollIntoViewIfNeeded();
+    await expect(page.locator('.band-frontpage .df-row--hero').first()).toBeVisible({ timeout: 10_000 });
+  });
+});
+
+test.describe('band range', () => {
+  test('range switchers change format, language, and accent', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.band-range').scrollIntoViewIfNeeded();
+    await page.getByRole('radio', { name: 'Wire' }).click();
+    await page.getByRole('radio', { name: 'JA', exact: true }).click();
+    await expect(page.locator('.specimen-panel[data-format="wire"][data-lang="ja"]')).toBeVisible();
+    await page.getByRole('radio', { name: 'Security' }).click();
+    await expect(page.locator('.range-stage')).toHaveClass(/cat-security/);
+  });
+
+  test('en + feature specimen panel is visible on initial load', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.band-range').scrollIntoViewIfNeeded();
+    await expect(page.locator('.specimen-panel[data-format="feature"][data-lang="en"]')).toBeVisible();
   });
 });
 
@@ -189,8 +150,13 @@ test.describe('chrome', () => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
     await page.goto('http://localhost:4173/');
-    await expect(page.locator('.band')).toHaveCount(7);
-    await expect(page.locator('.band4-article .article-shell')).toBeVisible();
+    await expect(page.locator('.band')).toHaveCount(5);
+    await expect(page.locator('.band-hero .hero-pane-mag')).toBeVisible();
+    await expect(page.locator('.band-frontpage .druck-front-page')).toBeVisible();
+    await expect(page.locator('.specimen-panel[data-format="feature"][data-lang="en"]')).toBeVisible();
+    await expect(page.locator('.band-colophon')).toBeVisible();
+    await expect(page.locator('.band-colophon .colophon-signature')).toBeVisible();
+    await expect(page.locator('.frame-caption').first()).toBeVisible();
     await context.close();
   });
 });

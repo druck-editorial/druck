@@ -44,11 +44,11 @@
         <h1 id="hero-heading" class="demo-hero-h1">Paste JSON. Get a magazine.</h1>
         <p class="demo-hero-body">Druck turns structured article data into magazine-quality pages. Formats, per-language typography, reading analytics, and embeddable widgets — extracted from a pipeline that rendered thousands of production articles before it had a name.</p>
         <div class="demo-hero-cta-row">
-          <button class="demo-cta" data-island="copy" data-copy-text="pnpm add @druck/engine">
-            <code>pnpm add @druck/engine</code>
+          <button class="demo-cta" data-island="copy" data-copy-text="__DRUCK_INSTALL_CMD__">
+            <code>__DRUCK_INSTALL_CMD__</code>
             <span class="icon-slot" data-icon="copy" aria-hidden="true"></span>
           </button>
-          <a class="demo-cta demo-cta-ghost" href="https://github.com/druck-editorial/druck" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="demo-cta demo-cta-ghost" href="__DRUCK_GITHUB_URL__" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </div>
       <div class="hero-stage" data-island="sequence">
@@ -65,91 +65,6 @@
           Replay
         </button>
       </div>
-    </section>
-
-    <section class="band band-formats" data-surface="paper" aria-labelledby="formats-heading">
-      <h2 id="formats-heading" class="band-title">One story, <em>three</em> magazines</h2>
-      <p class="band-lede">Same news. Three registers.</p>
-      <div class="format-switch" data-island="switcher" data-switch="format" role="radiogroup" aria-label="Article format">
-        <button role="radio" aria-checked="true" data-value="feature">Feature</button>
-        <button role="radio" aria-checked="false" data-value="quick_take">Quick Take</button>
-        <button role="radio" aria-checked="false" data-value="wire">Wire</button>
-      </div>
-      <p class="format-caption" data-format="feature">Feature: chapters, key points, the full editorial chrome.</p>
-      <p class="format-caption" data-format="quick_take" hidden>Quick Take: one chapter, two hundred words, same care.</p>
-      <p class="format-caption" data-format="wire" hidden>Wire: dateline and lede, no chrome, costs nothing to produce.</p>
-      <div class="format-stage" aria-live="polite">
-        <!--druck:format-panels-->
-      </div>
-    </section>
-
-    <section class="band band-langs" data-surface="paper" aria-labelledby="langs-heading">
-      <h2 id="langs-heading" class="band-title">Five languages, <em>real</em> rules</h2>
-      <p class="band-lede">Not translation — typesetting. Each locale carries its own hyphenation, quotes, and rhythm.</p>
-      <div class="lang-switch" data-island="switcher" data-switch="lang" role="radiogroup" aria-label="Specimen language">
-        <button role="radio" aria-checked="true" data-value="en">EN</button>
-        <button role="radio" aria-checked="false" data-value="de">DE</button>
-        <button role="radio" aria-checked="false" data-value="fr">FR</button>
-        <button role="radio" aria-checked="false" data-value="es">ES</button>
-        <button role="radio" aria-checked="false" data-value="ja">JA</button>
-      </div>
-      <div class="specimen-stage" aria-live="polite">
-        <!--druck:specimens-->
-      </div>
-    </section>
-
-    <section class="band band-article" data-surface="paper" aria-labelledby="article-heading">
-      <h2 id="article-heading" class="band-title">The full <em>article</em>, live</h2>
-      <p class="band-lede">Drop one line of HTML. Your article renders anywhere.</p>
-      <div class="accent-switch" data-island="switcher" data-switch="accent" role="radiogroup" aria-label="Category accent">
-        <button role="radio" aria-checked="true" data-value="cat-ai">AI</button>
-        <button role="radio" aria-checked="false" data-value="cat-security">Security</button>
-        <button role="radio" aria-checked="false" data-value="cat-dev-tools">Dev Tools</button>
-        <button role="radio" aria-checked="false" data-value="cat-infrastructure">Infrastructure</button>
-        <button role="radio" aria-checked="false" data-value="cat-business">Business</button>
-        <button role="radio" aria-checked="false" data-value="cat-science">Science</button>
-        <button role="radio" aria-checked="false" data-value="cat-policy">Policy</button>
-        <button role="radio" aria-checked="false" data-value="cat-weekly">Weekly</button>
-      </div>
-      <div class="demo-article-frame band4-article" data-island="analytics">
-        <!--druck:band4-article-->
-      </div>
-      <div class="demo-analytics" aria-labelledby="analytics-title">
-        <div class="demo-analytics-title" id="analytics-title">Reading analytics — watching you read, right now</div>
-        <p class="analytics-privacy">@druck/analytics is tracking your reading of the article above. Nothing leaves this page.</p>
-        <div class="demo-analytics-grid">
-          <div class="demo-analytics-metric">
-            <div class="demo-analytics-metric-label">Scroll depth</div>
-            <div class="demo-analytics-metric-value"><span data-metric="depth">0</span><span class="demo-analytics-metric-unit">%</span></div>
-            <div class="demo-depth-track"><div class="demo-depth-fill" data-metric="depth-fill"></div></div>
-          </div>
-          <div class="demo-analytics-metric">
-            <div class="demo-analytics-metric-label">Active reading</div>
-            <div class="demo-analytics-metric-value" data-metric="time">0s</div>
-          </div>
-          <div class="demo-analytics-metric">
-            <div class="demo-analytics-metric-label">Chapters read</div>
-            <div class="demo-analytics-metric-value"><span data-metric="chapters">0</span><span class="demo-analytics-metric-unit">/ 3</span></div>
-          </div>
-          <div class="demo-analytics-metric">
-            <div class="demo-analytics-metric-label">Milestones</div>
-            <div class="demo-analytics-metric-value" data-metric="milestone">&ndash;</div>
-          </div>
-        </div>
-        <div class="visually-hidden" role="status" data-metric="announcer"></div>
-      </div>
-    </section>
-
-    <section class="band band-feed" data-surface="paper" aria-labelledby="feed-heading" data-island="embeds">
-      <h2 id="feed-heading" class="band-title">Latest <em>stories</em></h2>
-      <p class="band-lede">Your stories. Their brand. Zero conflict.</p>
-      <druck-feed
-        data-src="/sample-data/feed.json"
-        css-url="/feed.css"
-        columns="3"
-        theme="light"
-      ></druck-feed>
-      <p class="frame-caption">&lt;druck-feed src="feed.json" css-url="/feed.css"&gt; — editorial cards, zero layout shift.</p>
     </section>
 
     <section class="band band-wild" data-surface="ink" aria-labelledby="wild-heading" data-island="embeds">
@@ -196,20 +111,71 @@
       </div>
     </section>
 
+    <section class="band band-frontpage" data-surface="paper" aria-labelledby="frontpage-heading" data-island="embeds">
+      <h2 id="frontpage-heading" class="band-title">And the <em>front page</em> too</h2>
+      <p class="band-lede">This is sonto.tech — live, right now — rendered by one widget. Druck was extracted from its pipeline; now it renders its parent.</p>
+      <druck-feed layout="front-page"
+        data-src="https://sonto.tech/data/druck-feed.json"
+        data-fallback-src="/sample-data/sonto-snapshot.json"
+        css-url="/feed.css">
+        <!--druck:front-page-->
+      </druck-feed>
+      <p class="frame-caption">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.json"&gt; &mdash; a magazine front page from one JSON file. Cards link to the real articles.</p>
+    </section>
+
+    <section class="band band-range" data-surface="paper" aria-labelledby="range-heading">
+      <h2 id="range-heading" class="band-title">One JSON, <em>120</em> magazines</h2>
+      <p class="band-lede">Three formats, five languages, eight accents. The same structured story, typeset by rules.</p>
+      <div class="range-controls">
+        <div class="format-switch" data-island="switcher" data-switch="range-format" role="radiogroup" aria-label="Article format">
+          <button role="radio" aria-checked="true" data-value="feature">Feature</button>
+          <button role="radio" aria-checked="false" data-value="quick_take">Quick Take</button>
+          <button role="radio" aria-checked="false" data-value="wire">Wire</button>
+        </div>
+        <div class="lang-switch" data-island="switcher" data-switch="range-lang" role="radiogroup" aria-label="Specimen language">
+          <button role="radio" aria-checked="true" data-value="en">EN</button>
+          <button role="radio" aria-checked="false" data-value="de">DE</button>
+          <button role="radio" aria-checked="false" data-value="fr">FR</button>
+          <button role="radio" aria-checked="false" data-value="es">ES</button>
+          <button role="radio" aria-checked="false" data-value="ja">JA</button>
+        </div>
+        <div class="accent-switch" data-island="switcher" data-switch="range-accent" role="radiogroup" aria-label="Category accent">
+          <button role="radio" aria-checked="true" data-value="cat-ai">AI</button>
+          <button role="radio" aria-checked="false" data-value="cat-security">Security</button>
+          <button role="radio" aria-checked="false" data-value="cat-dev-tools">Dev Tools</button>
+          <button role="radio" aria-checked="false" data-value="cat-infrastructure">Infrastructure</button>
+          <button role="radio" aria-checked="false" data-value="cat-business">Business</button>
+          <button role="radio" aria-checked="false" data-value="cat-science">Science</button>
+          <button role="radio" aria-checked="false" data-value="cat-policy">Policy</button>
+          <button role="radio" aria-checked="false" data-value="cat-weekly">Weekly</button>
+        </div>
+      </div>
+      <div class="specimen-stage range-stage cat-ai" aria-live="polite">
+        <!--druck:range-panels-->
+      </div>
+      <p class="frame-caption">Read a full issue &mdash; <a href="/articles/quiet-revolution-small-language-models/">the feature this specimen is cut from</a>, rendered by the engine at build time.</p>
+    </section>
+
     <section class="band band-colophon" data-surface="ink" aria-labelledby="colophon-heading">
       <h2 id="colophon-heading" class="band-title">Colophon</h2>
       <!--druck:colophon-scores-->
       <p class="colophon-claim">Rendered output requires zero JavaScript. This page's interactivity ships as small islands; the article you read above arrived as static HTML. View source — it is all there.</p>
+      <p class="colophon-analytics" data-island="colophon-line">@druck-editorial/analytics watched you read this page: <span data-line="depth">0%</span> depth, <span data-line="time">0s</span> active. Nothing left this page.</p>
       <div class="colophon-snippet">
         <pre><code>&lt;druck-article src="story.json"&gt;&lt;/druck-article&gt;</code></pre>
         <button class="demo-cta demo-cta-ghost" data-island="copy" data-copy-text='<druck-article src="story.json"></druck-article>'>
           <span class="icon-slot" data-icon="copy" aria-hidden="true"></span>Copy
         </button>
       </div>
+      <div class="colophon-signature">
+        <p class="sig-name">Artem Iagovdik</p>
+        <p class="sig-provenance">Druck is extracted from <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>, where this engine rendered thousands of production articles in five languages.</p>
+        <p class="sig-links"><a href="mailto:artyom.yagovdik@gmail.com">Email</a><span>&middot;</span><a href="__DRUCK_GITHUB_PROFILE__" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+      </div>
       <p class="colophon-links">
-        <a href="https://github.com/druck-editorial/druck" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="__DRUCK_GITHUB_URL__" target="_blank" rel="noopener noreferrer">GitHub</a>
         <span>&middot;</span><span>MIT</span><span>&middot;</span>
-        <code>pnpm add @druck/engine</code>
+        <code>__DRUCK_INSTALL_CMD__</code>
       </p>
     </section>
   </main>

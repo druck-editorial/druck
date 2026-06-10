@@ -3,6 +3,11 @@ export type ArticleFormat = 'feature' | 'quick_take' | 'wire';
 export type Category =
   | 'ai'
   | 'dev'
+  | 'dev-tools'
+  | 'security'
+  | 'infrastructure'
+  | 'policy'
+  | 'startup'
   | 'business'
   | 'science'
   | 'general'
@@ -49,9 +54,10 @@ export interface ArticleData {
   metaDescription: string;
   slug: string;
   format: ArticleFormat;
+  hot?: boolean;
   category: Category;
   publishedAt: string;
-  readingTime: string;
+  readingTime?: string;
   heroImage: string;
   heroImageAlt?: string;
   heroImageWidth?: number;

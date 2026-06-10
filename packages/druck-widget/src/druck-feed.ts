@@ -1,24 +1,25 @@
-import type { ArticleData, RenderOptions } from '@druck/engine';
-import { renderCard, safeUrl, escapeHtml } from '@druck/engine';
+import type { ArticleData, RenderOptions } from '@druck-editorial/engine';
+import { buildFrontPage, renderCard, renderFrontPage, safeUrl, escapeHtml } from '@druck-editorial/engine';
 
 const CSS_URL_ATTR = 'css-url';
-const DEFAULT_FEED_CSS_URL = 'https://unpkg.com/@druck/css/feed.css';
+const DEFAULT_FEED_CSS_URL = 'https://unpkg.com/@druck-editorial/css/feed.css';
+const FETCH_TIMEOUT_MS = 4000;
 
 class DruckFeedElement extends HTMLElement {
   static get observedAttributes(): string[] {
-    return ['src', 'lang', 'theme', 'accent', CSS_URL_ATTR, 'columns'];
+    return ['src', 'lang', 'theme', 'accent', CSS_URL_ATTR, 'columns', 'layout', 'fallback-src'];
   }
 
-  #shadow: ShadowRoot;
-  #feedContainer: HTMLDivElement;
-  #cssLink: HTMLLinkElement;
+  #shadow: ShadowRoot | null = null;
+  #feedContainer!: HTMLDivElement;
+  #cssLink!: HTMLLinkElement;
+  #renderGeneration = 0;
 
-  constructor() {
-    super();
+  #ensureShadow(): void {
+    if (this.#shadow) return;
     this.#shadow = this.attachShadow({ mode: 'open' });
     this.#feedContainer = document.createElement('div');
     this.#feedContainer.className = 'druck-feed';
-    this.#feedContainer.setAttribute('role', 'list');
     this.#cssLink = document.createElement('link');
     this.#cssLink.rel = 'stylesheet';
     this.#cssLink.href = this.#getCssUrl();
@@ -28,17 +29,17 @@ class DruckFeedElement extends HTMLElement {
 
   connectedCallback(): void {
     const src = this.getAttribute('src');
-    if (src) this.#loadAndRender(src);
+    if (src) void this.#loadAndRender(src);
   }
 
   attributeChangedCallback(name: string, _old: string, _new: string): void {
-    if (name === 'src' && _new) {
-      this.#loadAndRender(_new);
-    } else if (name === CSS_URL_ATTR) {
+    if (name === 'src' && _new && this.isConnected) {
+      void this.#loadAndRender(_new);
+    } else if (name === CSS_URL_ATTR && this.#shadow) {
       this.#cssLink.href = this.#getCssUrl();
-    } else if (name === 'lang' || name === 'theme' || name === 'accent') {
+    } else if ((name === 'lang' || name === 'theme' || name === 'accent') && this.#shadow) {
       this.#applyContainerAttrs();
-    } else if (name === 'columns') {
+    } else if (name === 'columns' && this.#shadow) {
       this.#feedContainer.setAttribute('data-columns', _new || '3');
     }
   }
@@ -57,43 +58,77 @@ class DruckFeedElement extends HTMLElement {
     if (accent) this.#feedContainer.style.setProperty('--accent', accent);
   }
 
+  async #fetchItems(src: string): Promise<ArticleData[]> {
+    const safeSrc = safeUrl(src);
+    if (!safeSrc) throw new Error('Invalid source URL');
+    const fetchOpts: RequestInit =
+      typeof AbortSignal.timeout === 'function'
+        ? { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) }
+        : {};
+    const res = await fetch(safeSrc, fetchOpts);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const items: ArticleData[] = await res.json();
+    if (!Array.isArray(items)) throw new Error('Expected JSON array');
+    return items;
+  }
+
   async #loadAndRender(src: string): Promise<void> {
+    const gen = ++this.#renderGeneration;
     try {
-      const safeSrc = safeUrl(src);
-      if (!safeSrc) throw new Error('Invalid source URL');
-      const res = await fetch(safeSrc);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const items: ArticleData[] = await res.json();
-      if (!Array.isArray(items)) throw new Error('Expected JSON array');
+      const items = await this.#fetchItems(src);
+      if (gen !== this.#renderGeneration) return;
+      this.#render(items);
+    } catch (primaryError) {
+      const fallback = this.getAttribute('fallback-src');
+      if (fallback) {
+        try {
+          const items = await this.#fetchItems(fallback);
+          if (gen !== this.#renderGeneration) return;
+          this.#render(items);
+          return;
+        } catch {}
+      }
+      if (gen !== this.#renderGeneration) return;
+      this.#renderFailure((primaryError as Error).message);
+    }
+  }
 
-      this.#applyContainerAttrs();
-      const opts: RenderOptions = {
-        lang: this.getAttribute('lang') ?? undefined,
-        theme: (this.getAttribute('theme') as RenderOptions['theme']) ?? undefined,
-        accentColor: this.getAttribute('accent') ?? undefined,
-      };
-
+  #render(items: ArticleData[]): void {
+    this.#ensureShadow();
+    this.#applyContainerAttrs();
+    const opts: RenderOptions = {
+      lang: this.getAttribute('lang') ?? undefined,
+      theme: (this.getAttribute('theme') as RenderOptions['theme']) ?? undefined,
+      accentColor: this.getAttribute('accent') ?? undefined,
+    };
+    if (this.getAttribute('layout') === 'front-page') {
+      this.#feedContainer.className = 'druck-feed-host';
+      this.#feedContainer.removeAttribute('role');
+      this.#feedContainer.innerHTML = renderFrontPage(buildFrontPage(items), opts);
+    } else {
+      this.#feedContainer.className = 'druck-feed';
+      this.#feedContainer.setAttribute('role', 'list');
+      this.#feedContainer.setAttribute('data-columns', this.getAttribute('columns') || '3');
       this.#feedContainer.innerHTML = items
         .map((data) => `<div role="listitem">${renderCard(data, opts)}</div>`)
         .join('');
-
-      this.dispatchEvent(
-        new CustomEvent('druck:feed-rendered', {
-          bubbles: true,
-          detail: { count: items.length },
-        })
-      );
-    } catch (err) {
-      const msg = escapeHtml((err as Error).message);
-      this.#feedContainer.innerHTML =
-        `<div style="padding:24px;color:#999;font-family:system-ui">Failed to load feed: ${msg}</div>`;
-      this.dispatchEvent(
-        new CustomEvent('druck:feed-error', {
-          bubbles: true,
-          detail: { error: msg },
-        })
-      );
     }
+    this.dispatchEvent(new CustomEvent('druck:feed-rendered', { bubbles: true, detail: { count: items.length } }));
+  }
+
+  #renderFailure(message: string): void {
+    this.#ensureShadow();
+    const hasPrerendered = this.innerHTML.trim().length > 0;
+    if (hasPrerendered) {
+      this.#feedContainer.innerHTML = '<slot></slot>';
+    } else {
+      this.#feedContainer.innerHTML =
+        `<div style="padding:24px;color:#999;font-family:system-ui">Failed to load feed: ${escapeHtml(message)}</div>`;
+    }
+    this.dispatchEvent(new CustomEvent('druck:feed-error', {
+      bubbles: true,
+      detail: { error: escapeHtml(message), recovered: hasPrerendered },
+    }));
   }
 }
 

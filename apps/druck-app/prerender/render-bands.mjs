@@ -1,19 +1,29 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { renderArticle } from '@druck/engine';
+import { buildFrontPage, escapeHtml, renderArticle, renderFrontPage } from '@druck-editorial/engine';
+import { GITHUB_PROFILE, GITHUB_URL, INSTALL_CMD } from './constants.mjs';
+
+const TOKENS = {
+  INSTALL_CMD,
+  GITHUB_URL,
+  GITHUB_PROFILE,
+};
+
+function applyTokens(html) {
+  return Object.entries(TOKENS).reduce(
+    (out, [name, value]) => out.replaceAll(`__DRUCK_${name}__`, value),
+    html,
+  );
+}
 
 const TOP_LEVEL_KEY_PATTERN = /^\s{2}"([a-zA-Z]+)"/;
 const HERO_JSON_MAX_LINES = 22;
-const FORMAT_SLUGS = ['feature', 'slm-quick-take', 'slm-wire'];
 const SPECIMEN_LANGS = ['en', 'de', 'fr', 'es', 'ja'];
+const SPECIMEN_FORMATS = ['feature', 'quick_take', 'wire'];
 
-function escapeHtml(text) {
-  return String(text)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
-}
+const SPECIMEN_STAT =
+  '<div class="specimen-stat"><span class="ss-value">$14,250/month</span>' +
+  '<span class="ss-label">average savings reported after moving inference to small models</span></div>';
 
 function tokenizeLine(line) {
   const pattern = /("(?:[^"\\]|\\.)*")(\s*:)?|(-?\d+\.?\d*)|([{}\[\],:])/g;
@@ -70,18 +80,6 @@ export function renderHeroMagazinePane(data) {
   );
 }
 
-export function renderSpecimenPanel(specimen, visible = false) {
-  return (
-    `<article class="specimen-panel" lang="${escapeHtml(specimen.lang)}" data-lang="${escapeHtml(specimen.lang)}"${visible ? '' : ' hidden'}>` +
-    `<h3 class="specimen-headline">${escapeHtml(specimen.headline)}</h3>` +
-    `<p class="specimen-body">${escapeHtml(specimen.body)}</p>` +
-    `<blockquote class="specimen-quote">${escapeHtml(specimen.quote)}</blockquote>` +
-    `<p class="specimen-rule-label">${escapeHtml(specimen.ruleLabel)}</p>` +
-    `<code class="specimen-rule">${escapeHtml(specimen.rule)}</code>` +
-    '</article>'
-  );
-}
-
 async function readFixture(dir, name) {
   const raw = await readFile(join(dir, name), 'utf8');
   try {
@@ -89,14 +87,6 @@ async function readFixture(dir, name) {
   } catch (error) {
     throw new Error(`fixture ${name} is not valid JSON: ${error.message}`);
   }
-}
-
-function renderFormatPanel(slug, data, checked) {
-  return (
-    `<div class="format-panel" id="format-panel-${escapeHtml(data.format)}" data-format="${escapeHtml(data.format)}" role="tabpanel"${checked ? '' : ' hidden'}>` +
-    renderArticle(data) +
-    '</div>'
-  );
 }
 
 const RING_CATEGORIES = [
@@ -137,32 +127,81 @@ export function renderColophonScores(summary) {
   return `<div class="rings">${rings}</div><p class="colophon-method">${method}</p>`;
 }
 
+function renderRangePanel(specimen, format, visible) {
+  const shortBody = `${specimen.body.split('. ')[0]}.`;
+  const inner =
+    format === 'feature'
+      ? `<h3 class="specimen-headline">${escapeHtml(specimen.headline)}</h3>` +
+        `<p class="specimen-body">${escapeHtml(specimen.body)}</p>` +
+        SPECIMEN_STAT +
+        `<blockquote class="specimen-quote">${escapeHtml(specimen.quote)}</blockquote>` +
+        `<p class="specimen-rule-label">${escapeHtml(specimen.ruleLabel)}</p>` +
+        `<code class="specimen-rule">${escapeHtml(specimen.rule)}</code>`
+      : format === 'quick_take'
+        ? `<h3 class="specimen-headline">${escapeHtml(specimen.headline)}</h3>` +
+          `<p class="specimen-body">${escapeHtml(specimen.body)}</p>` +
+          `<blockquote class="specimen-quote">${escapeHtml(specimen.quote)}</blockquote>`
+        : `<div class="specimen-kicker">wire</div>` +
+          `<h3 class="specimen-headline">${escapeHtml(specimen.headline)}</h3>` +
+          `<p class="specimen-body">${escapeHtml(shortBody)}</p>`;
+  return (
+    `<article class="specimen-panel" lang="${escapeHtml(specimen.lang)}" data-lang="${escapeHtml(specimen.lang)}" data-format="${escapeHtml(format)}"${visible ? '' : ' hidden'}>` +
+    inner +
+    '</article>'
+  );
+}
+
+async function renderRangePanels(fixturesDir) {
+  const fixtures = await Promise.all(
+    SPECIMEN_LANGS.map((lang) => readFixture(fixturesDir, `specimen.${lang}.json`)),
+  );
+  return SPECIMEN_LANGS.flatMap((lang, i) =>
+    SPECIMEN_FORMATS.map((format) =>
+      renderRangePanel(fixtures[i].data, format, lang === 'en' && format === 'feature'),
+    ),
+  ).join('');
+}
+
+async function renderFrontPageBand(fixturesDir) {
+  const snapshot = await readFixture(fixturesDir, 'sonto-snapshot.json');
+  return renderFrontPage(buildFrontPage(snapshot.data));
+}
+
 export async function buildLandingHtml(template, fixturesDir, auditSummary = null) {
-  const feature = await readFixture(fixturesDir, 'feature.json');
-
-  const formatPanels = [];
-  for (const [index, slug] of FORMAT_SLUGS.entries()) {
-    const fixture = await readFixture(fixturesDir, `${slug}.json`);
-    formatPanels.push(renderFormatPanel(slug, fixture.data, index === 0));
-  }
-
-  const specimensHtml = SPECIMEN_LANGS.map((lang, i) => {
-    return readFixture(fixturesDir, `specimen.${lang}.json`).then(
-      (fixture) => renderSpecimenPanel(fixture.data, i === 0),
-    );
-  });
-  const specimensRendered = (await Promise.all(specimensHtml)).join('');
-
-  const heroJson = tokenizeJsonForPane(feature.raw);
-  const heroMagazine = renderHeroMagazinePane(feature.data);
-  const formatPanelsHtml = formatPanels.join('');
-  const band4 = renderArticle(feature.data);
-
-  return template
-    .replace('<!--druck:hero-json-->', () => heroJson)
-    .replace('<!--druck:hero-magazine-->', () => heroMagazine)
-    .replace('<!--druck:format-panels-->', () => formatPanelsHtml)
-    .replace('<!--druck:specimens-->', () => specimensRendered)
-    .replace('<!--druck:band4-article-->', () => band4)
+  const [feature, frontPage, rangePanels] = await Promise.all([
+    readFixture(fixturesDir, 'feature.json'),
+    renderFrontPageBand(fixturesDir),
+    renderRangePanels(fixturesDir),
+  ]);
+  return applyTokens(template)
+    .replace('<!--druck:hero-json-->', () => tokenizeJsonForPane(feature.raw))
+    .replace('<!--druck:hero-magazine-->', () => renderHeroMagazinePane(feature.data))
+    .replace('<!--druck:front-page-->', () => frontPage)
+    .replace('<!--druck:range-panels-->', () => rangePanels)
     .replace('<!--druck:colophon-scores-->', () => renderColophonScores(auditSummary));
+}
+
+export async function renderDemoArticlePage(fixturesDir) {
+  const feature = await readFixture(fixturesDir, 'feature.json');
+  const article = renderArticle(feature.data);
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${escapeHtml(feature.data.title)} — Druck demo</title>
+<meta name="description" content="${escapeHtml(feature.data.metaDescription)}">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts.css">
+<link rel="stylesheet" href="/article.css">
+<script>(function(){try{var t=localStorage.getItem('druck-theme');if(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t)document.documentElement.dataset.theme=t;}catch(e){}})()</script>
+<style>body{margin:0;background:#f6f4f1}html[data-theme="dark"] body{background:#0c0c0e}</style>
+</head>
+<body>
+${article}
+<footer class="demo-article-footer"><a href="/">&larr; druck — the engine that rendered this page</a></footer>
+</body>
+</html>`;
 }

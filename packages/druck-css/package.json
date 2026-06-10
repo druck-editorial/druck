@@ -1,6 +1,7 @@
 {
-  "name": "@druck/css",
+  "name": "@druck-editorial/css",
   "version": "0.1.0",
+  "description": "Editorial stylesheet for druck: article, weekly, feed, and per-language typography.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
   "license": "MIT",
   "main": "article.css",
@@ -15,5 +16,13 @@
     "weekly.css",
     "language.css",
     "theme.css"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/druck-editorial/druck.git",
+    "directory": "packages/druck-css"
+  },
+  "homepage": "https://github.com/druck-editorial/druck",
+  "keywords": ["editorial", "typography", "rendering", "magazine", "web-components"],
+  "publishConfig": { "access": "public" }
 }

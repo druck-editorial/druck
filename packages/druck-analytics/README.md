@@ -1,77 +1,68 @@
-# @druck/analytics
+# @druck-editorial/analytics
 
-Client-side reading analytics for Druck articles. Tracks depth, active time, chapter views, and element engagement. Sends batched events to a configurable endpoint.
+Local-first reading analytics for druck pages. Tracks scroll depth, active reading time, and chapter engagement. Nothing leaves the page unless you configure an endpoint.
 
 ## Install
 
 ```bash
-npm install @druck/analytics
+pnpm add @druck-editorial/analytics
 ```
 
 ## Usage
 
 ```ts
-import { ReadingTracker } from '@druck/analytics';
+import { ReadingTracker } from '@druck-editorial/analytics';
 
-const root = document.querySelector('.article-shell');
-const tracker = new ReadingTracker(root, 'my-article-slug', {
-  endpoint: 'https://api.druck.io/v1/events',
-  siteToken: 'your-site-token', // issued by the Druck dashboard
+const root = document.querySelector('.article-shell') as HTMLElement;
+const tracker = new ReadingTracker(root, 'infrastructure-gap-2025', {
+  endpoint: 'https://analytics.example.com/events',
+  siteToken: 'your-site-token',
   sendOn: 'pagehide',
   depthMilestones: [25, 50, 75, 100],
   onDepth: (pct) => console.log('depth', pct),
   onActiveReading: (sec) => console.log('active', sec),
+  onChapterRead: (title) => console.log('read:', title),
 });
 ```
 
+The first argument is the article root element. The second is the article slug used to key the session. The config is optional.
+
 ## AnalyticsConfig
 
-| Option | Type | Default | Description |
+| Field | Type | Default | Description |
 |---|---|---|---|
-| `endpoint` | `string` | `''` | POST URL for event batches. Empty = no-op. |
-| `siteToken` | `string` | `undefined` | Site identifier issued by the Druck dashboard. Sent as `x-druck-site` header. |
-| `sendOn` | `'pagehide' \| 'interval' \| 'manual'` | `'pagehide'` | When to flush events. |
-| `intervalMs` | `number` | `30000` | Flush interval when `sendOn: 'interval'`. |
-| `depthMilestones` | `number[]` | `[25,50,75,100]` | Depth percentages that fire once per session. |
-| `chapterReadThresholdMs` | `number` | `3000` | Time a chapter must stay in viewport to count as "read". |
-| `debounceMs` | `number` | `100` | Scroll/activity debounce. |
-| `onDepth` | `(pct) => void` | — | Real-time depth callback. |
-| `onActiveReading` | `(sec) => void` | — | Real-time active-time callback. |
-| `onChapterRead` | `(title) => void` | — | Chapter-read callback. |
+| `endpoint` | `string` | `''` | URL to POST session data to. When empty, data stays local. |
+| `siteToken` | `string` | — | Sent as `x-druck-site` header. Optional for self-hosted endpoints. |
+| `sendOn` | `'pagehide' \| 'interval' \| 'manual'` | `'pagehide'` | When to flush the session. |
+| `intervalMs` | `number` | `30000` | Flush interval when `sendOn` is `'interval'`. |
+| `depthMilestones` | `number[]` | `[25, 50, 75, 100]` | Scroll depth percentages that fire `onDepth` once per session. |
+| `chapterReadThresholdMs` | `number` | `3000` | Time a chapter must stay in viewport before it counts as read. |
+| `debounceMs` | `number` | `100` | Scroll and activity debounce window. |
+| `onDepth` | `(pct: number) => void` | — | Called when a depth milestone is reached. |
+| `onActiveReading` | `(sec: number) => void` | — | Called each active-reading tick (1s). |
+| `onChapterRead` | `(title: string) => void` | — | Called when a chapter passes the read threshold. |
 
-## Events
+## Public methods
 
-The tracker emits these event types:
+```ts
+tracker.getSession()   // returns Readonly<ReadingSession>
+tracker.getEvents()    // returns ReadonlyArray<ReadingEvent>
+tracker.destroy()      // disconnects observers, clears timers, flushes pending events
+```
+
+## Event types
 
 - `chapter_enter` — chapter scrolled into viewport.
-- `chapter_read` — chapter stayed in viewport ≥ threshold.
-- `keypoint_view` — `.key-points` block viewed.
-- `aside_view` — `.article-stat` or `.know-cards` viewed.
-- `quote_view` — `.source-quote` viewed.
-- `depth_milestone` — 25/50/75/100% scroll depth reached.
+- `chapter_read` — chapter stayed in viewport for at least `chapterReadThresholdMs`.
+- `keypoint_view` — key-points block viewed.
+- `aside_view` — stat aside or know-cards block viewed.
+- `quote_view` — source quote viewed.
+- `depth_milestone` — scroll depth milestone reached.
 
-Payload shape:
+## Data stays local by default
 
-```json
-{
-  "session": {
-    "articleSlug": "...",
-    "startedAt": 1718000000000,
-    "activeReadingMs": 45000,
-    "maxDepthPercent": 67,
-    "chaptersRead": ["Introduction", "Second Chapter"],
-    "keypointsViewed": ["..."],
-    "asidesViewed": ["..."],
-    "quotesViewed": ["..."]
-  },
-  "events": [
-    { "type": "depth_milestone", "depthPercent": 50, "timestamp": 1718000010000 }
-  ]
-}
-```
+When `endpoint` is empty no network request is made. Session data is available at any time via `tracker.getSession()`. Use `sendOn: 'manual'` and `tracker.destroy()` to control when the flush happens.
 
 ## Open / closed boundary
 
-`@druck/analytics` (this client SDK) is MIT-licensed open source. You may fork it, self-host an endpoint, and send data to your own backend. The hosted Druck dashboard (aggregation, visualization, cohort analysis) is a separate SaaS product and is not open source.
-
-A `siteToken` ties client events to a registered dashboard account. Events sent without a valid token are rejected by the hosted endpoint. Self-hosters can ignore `siteToken` and point `endpoint` at their own server.
+This client SDK is MIT-licensed. You can fork it, self-host an endpoint, and send data to your own backend. The hosted Druck dashboard (aggregation, visualization, cohort analysis) is a separate product and is not open source. A `siteToken` ties client events to a registered dashboard account. Self-hosters can omit it and point `endpoint` at their own server.

@@ -62,7 +62,7 @@
 
 /* === Stat moment === */
 .article-stat { max-width: 880px; margin: 32px auto; text-align: center; padding: 16px 24px; }
-.article-stat .big { font-family: var(--font-heading); font-size: clamp(64px, 12vw, 168px); font-weight: 200; line-height: 0.95; letter-spacing: -0.06em; color: var(--accent); margin: 0; transition: color .35s; }
+.article-stat .big { font-family: var(--font-heading); font-size: clamp(36px, 5vw, 64px); font-weight: 200; line-height: 0.95; letter-spacing: -0.06em; color: var(--accent); margin: 0; transition: color .35s; word-break: keep-all; overflow-wrap: normal; }
 .article-stat .lbl { font-family: var(--font-heading); font-size: 13px; letter-spacing: var(--type-meta-tracking-narrow); text-transform: uppercase; color: var(--color-text-muted); font-weight: 600; margin-top: 16px; max-width: 480px; margin-left:auto; margin-right:auto; line-height: 1.5; }
 .article-stat .big, .article-stat .lbl, .chapter-body { overflow-wrap: anywhere; word-break: break-word; }
 

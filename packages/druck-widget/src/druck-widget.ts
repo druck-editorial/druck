@@ -1,8 +1,8 @@
-import type { ArticleData, RenderOptions } from '@druck/engine';
-import { renderArticle, safeUrl, escapeHtml } from '@druck/engine';
+import type { ArticleData, RenderOptions } from '@druck-editorial/engine';
+import { renderArticle, safeUrl, escapeHtml } from '@druck-editorial/engine';
 
 const CSS_URL_ATTR = 'css-url';
-const DEFAULT_CSS_URL = 'https://unpkg.com/@druck/css/article.css';
+const DEFAULT_CSS_URL = 'https://unpkg.com/@druck-editorial/css/article.css';
 
 class DruckArticleElement extends HTMLElement {
   static get observedAttributes(): string[] {
