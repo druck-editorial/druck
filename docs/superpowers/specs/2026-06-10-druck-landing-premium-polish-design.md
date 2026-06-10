@@ -121,9 +121,23 @@ Keeps: Lighthouse rings, claim, embed snippet + copy button, method line, signat
 - Contrast sweep over secondary text on both surfaces (keep >= 7:1 where already achieved; fix faint stragglers).
 - Logo unchanged (PNG). No violet anywhere. Headlines keep exactly one italic serif accent word.
 
+## Repo-wide: license headers
+
+- Every source file in the repo starts with the two-line SPDX header:
+  ```
+  // SPDX-License-Identifier: MIT
+  // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
+  ```
+  CSS uses one `/* ... */` line; HTML uses one `<!-- ... -->` line before the doctype. Name and email match LICENSE and package.json.
+- Scope: `.ts`, `.mjs`, `.css`, `.html` under `packages/`, `apps/`, `scripts/`, including tests and configs. Excluded: `.json` (no comment syntax), `.md` (LICENSE and README carry attribution), binary assets, `dist/`.
+- Published artifacts carry it too: `druck-engine` dist inherits headers through tsc (comments preserved), `druck-css` ships source files, the widget bundle gets an esbuild `banner` (a `/*! ... */` legal comment survives minification; ~70 bytes on the wire).
+- Enforcement: `scripts/check-license-headers.mjs` verifies headers on all tracked in-scope files and runs in the standard gate chain; a one-shot adder script backfills existing files.
+- `CLAUDE.md`'s "No source-file comments" rule gains the explicit exception: the SPDX header is required attribution, not commentary.
+
 ## Gates
 
 - Unit: tracker root fix regression test; switcher recipe/counter logic; render-bands tests updated (hero front-page pane, RENDER_MS token, facts tokens, surfaces sheets, LEDGERLINE pipeline markup).
+- License headers: `check-license-headers.mjs` passes over the full repo.
 - E2E: facts strip values present and anchored; surfaces band renders 6 sheets and key-highlight works; TUNING FORK feed renders; LEDGERLINE bubble count equals card count and hover pairing works; console recipe + `N of 120` counter correct, reduced-motion instant; analytics cards move after scripted scroll (depth > 0, time ticks, sections increment); in-page anchors resolve; no `__DRUCK_` residue.
 - Visual: regenerate all baselines (light + dark, desktop + mobile, all bands).
 - Lighthouse 100x4 maintained; transfer <= 250 KB (lazy feed images, trimmed frame fixtures); height <= 10,000px; check-links derives pages from dist (unchanged).
