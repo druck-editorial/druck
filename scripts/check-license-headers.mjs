@@ -28,7 +28,8 @@ const htmlPattern = /^<!-- SPDX-License-Identifier: MIT \| Copyright \(c\) 2026 
 const failures = [];
 
 for (const rel of inScope) {
-  const content = await readFile(join(root, rel), 'utf8');
+  const raw = await readFile(join(root, rel), 'utf8');
+  const content = raw.startsWith('#!') ? raw.slice(raw.indexOf('\n') + 1) : raw;
   let ok = false;
   if (rel.endsWith('.css')) ok = cssPattern.test(content);
   else if (rel.endsWith('.html')) ok = htmlPattern.test(content);

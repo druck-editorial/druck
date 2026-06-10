@@ -28,12 +28,44 @@ function readAuditSummary(): unknown {
   }
 }
 
+const DEMO_EMITTERS: Record<string, (dir: string) => Promise<{ slug: string; html: string }>> = {
+  'music-review': musicReview,
+  'fashion-magazine': fashionMagazine,
+  'dev-blog': devBlog,
+  newsroom,
+  'telegram-brief': telegramBrief,
+};
+
 function druckPrerender() {
   return {
     name: 'druck-prerender',
     transformIndexHtml: {
       order: 'pre' as const,
       handler: (html: string) => buildLandingHtml(html, FIXTURES_DIR, readAuditSummary()),
+    },
+    configureServer(server: { middlewares: { use: (fn: (req: any, res: any, next: () => void) => void) => void } }) {
+      server.middlewares.use(async (req, res, next) => {
+        const url = (req.url ?? '').split('?')[0];
+        try {
+          if (url.startsWith('/articles/quiet-revolution-small-language-models')) {
+            res.setHeader('Content-Type', 'text/html');
+            res.end(await renderDemoArticlePage(FIXTURES_DIR));
+            return;
+          }
+          const slug = url.match(/^\/demos\/([\w-]+)\/?$/)?.[1];
+          const emitter = slug ? DEMO_EMITTERS[slug] : undefined;
+          if (emitter) {
+            const { html } = await emitter(FIXTURES_DIR);
+            res.setHeader('Content-Type', 'text/html');
+            res.end(html);
+            return;
+          }
+        } catch {
+          next();
+          return;
+        }
+        next();
+      });
     },
     closeBundle: async () => {
       await mkdir(DEMO_ARTICLE_DIR, { recursive: true });

@@ -1,10 +1,5 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
-import './styles/fonts.css';
-import './styles.css';
-import './styles/landing.css';
-import '@druck-editorial/css/article.css';
-import '@druck-editorial/css/feed.css';
 import copyIcon from './icons/copy.svg?raw';
 import replayIcon from './icons/arrow-counter-clockwise.svg?raw';
 import { initThemeToggle } from './islands/theme.js';
@@ -18,6 +13,8 @@ import { initEmbeds } from './islands/embeds.js';
 import { initLedgerline } from './islands/ledgerline.js';
 import { initAnalytics } from './islands/analytics.js';
 import { initReveal } from './islands/reveal.js';
+
+document.documentElement.classList.add('js');
 
 const ICONS: Record<string, string> = {
   copy: copyIcon,

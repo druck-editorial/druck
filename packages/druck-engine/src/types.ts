@@ -60,7 +60,7 @@ export interface ArticleData {
   category: Category;
   publishedAt: string;
   readingTime?: string;
-  heroImage: string;
+  heroImage?: string;
   heroImageAlt?: string;
   heroImageWidth?: number;
   heroImageHeight?: number;

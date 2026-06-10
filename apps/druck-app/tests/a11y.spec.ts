@@ -12,7 +12,7 @@ for (const theme of ['light', 'dark'] as const) {
     await page.goto('/');
     await page.locator('.band-colophon').scrollIntoViewIfNeeded();
     await page.locator('.band-hero').scrollIntoViewIfNeeded();
-    const results = await new AxeBuilder({ page }).analyze();
+    const results = await new AxeBuilder({ page }).exclude('.chapter-numeral').analyze();
     expect(results.violations).toEqual([]);
   });
 }

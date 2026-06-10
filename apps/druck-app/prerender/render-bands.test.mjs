@@ -20,7 +20,6 @@ const MARKER_TEMPLATE = [
   '<!--druck:surfaces-json-->',
   '<!--druck:surfaces-sheets-->',
   '<!--druck:ledgerline-bubbles-->',
-  '<!--druck:ledgerline-json-->',
   '<!--druck:front-page-->',
   '<!--druck:range-panels-->',
   '<!--druck:colophon-scores-->',
@@ -95,7 +94,8 @@ describe('buildLandingHtml', () => {
     expect(html).toContain('pnpm add @druck-editorial/engine');
     expect(html).toContain('surface-sheet');
     expect(html).toContain('data-keys=');
-    expect(html).toContain('bubble');
+    expect(html).toContain('tg-msg');
+    expect(html).toContain('tg-msg-meta');
     expect(html).toContain('data-index=');
   });
 

@@ -77,6 +77,13 @@ describe('renderCard', () => {
     expect(html).toContain('A subtitle');
   });
 
+  test('renders an automatic placeholder thumb when heroImage is missing', () => {
+    const html = renderCard(buildArticle({ heroImage: undefined }));
+    expect(html).toContain('card-thumb--placeholder');
+    expect(html).toContain('class="thumb-mark"');
+    expect(html).not.toContain('<img');
+  });
+
   test('uses shareUrl as href when present', () => {
     const html = renderCard(buildArticle({ shareUrl: '/articles/test/' }));
     expect(html).toContain('href="/articles/test/"');

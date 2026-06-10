@@ -10,13 +10,13 @@
 .article-body a:hover { opacity: 0.7; }
 
 /* === Chapter panel === */
-.chapter-panel {
+.article-shell .chapter-panel {
   margin: 96px calc(50% - 50vw) 0;
   padding: 80px calc(50vw - 50%) 0;
   background: var(--accent-tint);
   transition: background .35s;
 }
-.chapter-panel + .chapter-panel { margin-top: 0; }
+.article-shell .chapter-panel + .chapter-panel { margin-top: 0; }
 
 /* Reveal-on-load animation. Replaces the JS IntersectionObserver path
    (assets/js/article-progress.js) which left the body invisible to any
@@ -26,7 +26,7 @@
    visible immediately, while users with reduced-motion get the final
    state without animation. */
 @media (prefers-reduced-motion: no-preference) {
-  .chapter-panel {
+  .article-shell .chapter-panel {
     animation: chapter-reveal 400ms ease-out both;
   }
 }
@@ -36,7 +36,7 @@
 }
 .chapter-head { max-width: 680px; margin: 0 auto 32px; text-align: center; padding: 0 22px; }
 .chapter-num { font-family: var(--font-heading); font-size: 11px; letter-spacing: var(--type-meta-tracking-wide); text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 14px; transition: color .35s; }
-.chapter-title { font-family: var(--type-headline-font); font-size: calc(clamp(24px, 3.2vw, 40px) * var(--type-headline-scale)); font-weight: var(--type-section-weight); line-height: var(--type-section-leading); letter-spacing: var(--type-section-tracking); color: var(--color-text); margin: 0 auto; max-width: var(--type-section-max); text-wrap: balance; }
+.article-shell .chapter-title { font-family: var(--type-headline-font); font-size: calc(clamp(24px, 3.2vw, 40px) * var(--type-headline-scale)); font-weight: var(--type-section-weight); line-height: var(--type-section-leading); letter-spacing: var(--type-section-tracking); color: var(--color-text); margin: 0 auto; max-width: var(--type-section-max); text-wrap: balance; }
 .chapter-body { max-width: 680px; margin: 0 auto; padding: 0 22px 80px; font-family: var(--type-body-font); font-size: 17.5px; line-height: var(--type-body-leading); font-weight: var(--type-body-weight); color: var(--color-text); }
 .chapter-body p { margin: 0 0 1.2em; }
 
@@ -126,11 +126,11 @@
 .article-shell {
   counter-reset: chapter-counter;
 }
-.chapter-panel {
+.article-shell .chapter-panel {
   counter-increment: chapter-counter;
   position: relative;
 }
-.chapter-panel::before {
+.article-shell .chapter-panel::before {
   content: counter(chapter-counter);
   position: absolute;
   left: calc(50% - 340px - 8rem);
@@ -144,9 +144,9 @@
   user-select: none;
 }
 @media (max-width: 1120px) {
-  .chapter-panel::before { display: none; }
+  .article-shell .chapter-panel::before { display: none; }
 }
-[data-theme="dark"] .chapter-panel::before {
+[data-theme="dark"] .article-shell .chapter-panel::before {
   color: rgba(255, 130, 100, .10);
 }
 

@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { describe, expect, test } from 'vitest';
 
 const FIXTURES_DIR = join(import.meta.dirname, '../public/sample-data');
-const REQUIRED_ARTICLE_FIELDS = ['title', 'slug', 'format', 'category', 'heroImage'] as const;
+const REQUIRED_ARTICLE_FIELDS = ['title', 'slug', 'format', 'category'] as const;
 
 const fixtureFiles = readdirSync(FIXTURES_DIR).filter((name) => name.endsWith('.json'));
 

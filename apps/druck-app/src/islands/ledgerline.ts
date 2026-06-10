@@ -5,7 +5,7 @@ export function initLedgerline(): void {
   if (!pipeline) return;
 
   const steps = [...pipeline.querySelectorAll<HTMLElement>('.scene-step')];
-  const bubbles = [...pipeline.querySelectorAll<HTMLElement>('.bubble')];
+  const bubbles = [...pipeline.querySelectorAll<HTMLElement>('.tg-msg')];
   const feed = pipeline.querySelector<HTMLElement>('druck-feed');
 
   // Scene reveal with stagger
@@ -44,7 +44,9 @@ export function initLedgerline(): void {
     }
   };
 
+  let paired = false;
   const tryPair = (): void => {
+    if (paired) return;
     const shadow = (feed as any).shadowRoot as ShadowRoot | null;
     if (!shadow) return;
     const listitems = [...shadow.querySelectorAll('[role="listitem"]')];
@@ -53,7 +55,9 @@ export function initLedgerline(): void {
       if (card) card.setAttribute('data-index', String(i));
       return card;
     }).filter((c): c is Element => c !== null);
-    if (cards.length > 0) applyPairing(cards);
+    if (cards.length === 0) return;
+    paired = true;
+    applyPairing(cards);
   };
 
   feed.addEventListener('druck:feed-rendered', tryPair);

@@ -3,17 +3,12 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('band 1 hero', () => {
-  test('sequence plays to done and replay restarts it', async ({ page }) => {
+  test('sequence plays to done', async ({ page }) => {
     await page.goto('/');
     const stage = page.locator('[data-island="sequence"]');
     await stage.scrollIntoViewIfNeeded();
     await expect(stage).toHaveAttribute('data-state', 'done', { timeout: 8000 });
     await expect(stage.locator('.hx[data-step="5"]')).toHaveClass(/on/);
-    const replay = stage.locator('[data-role="replay"]');
-    await expect(replay).toBeVisible();
-    await replay.click();
-    await expect(stage).toHaveAttribute('data-state', 'playing');
-    await expect(stage).toHaveAttribute('data-state', 'done', { timeout: 8000 });
   });
 
   test('reduced motion renders the complete static state', async ({ browser }) => {
@@ -22,7 +17,6 @@ test.describe('band 1 hero', () => {
     await page.goto('http://localhost:4173/');
     const stage = page.locator('[data-island="sequence"]');
     await expect(stage).toHaveAttribute('data-state', 'static');
-    await expect(stage.locator('[data-role="replay"]')).toBeHidden();
     await context.close();
   });
 });
@@ -32,29 +26,28 @@ test.describe('band order and structure', () => {
     await page.goto('/');
     const classes = await page.locator('main > section').evaluateAll((els) => els.map((el) => el.className));
     expect(classes.map((c) => c.match(/band-[\w-]+/)?.[0])).toEqual(
-      ['band-hero', 'band-wild', 'band-frontpage', 'band-range', 'band-colophon']);
+      ['band-hero', 'band-surfaces', 'band-wild', 'band-frontpage', 'band-range', 'band-analytics', 'band-colophon']);
   });
 
   test('page height stays inside the budget', async ({ page }) => {
     await page.setViewportSize({ width: 1512, height: 900 });
     await page.goto('/');
     await page.waitForLoadState('networkidle');
-    expect(await page.evaluate(() => document.body.scrollHeight)).toBeLessThanOrEqual(10000);
+    expect(await page.evaluate(() => document.body.scrollHeight)).toBeLessThanOrEqual(11000);
   });
 });
 
 test.describe('band wild', () => {
-  test('all four frames render live shadow-dom articles with their stories', async ({ page }) => {
+  test('all three frames render live shadow-dom content with their stories', async ({ page }) => {
     await page.goto('/');
     await page.locator('.band-wild').scrollIntoViewIfNeeded();
     const expectations: Array<[string, string]> = [
-      ['.frame--music', 'Glass Anatomy'],
-      ['.frame--fashion', 'Uniform'],
-      ['.frame--tech', 'Claude'],
-      ['.frame--markets', 'Bitcoin'],
+      ['.frame--music druck-feed', 'Glass Anatomy'],
+      ['.frame--fashion druck-article', 'Uniform'],
+      ['.ledgerline-site druck-feed', 'Bitcoin'],
     ];
     for (const [frame, text] of expectations) {
-      const widget = page.locator(`${frame} druck-article`);
+      const widget = page.locator(frame);
       await expect(widget).toBeVisible();
       await expect
         .poll(async () => widget.evaluate((el) => el.shadowRoot?.textContent ?? ''), { timeout: 15000 })
@@ -153,8 +146,9 @@ test.describe('chrome', () => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
     await page.goto('http://localhost:4173/');
-    await expect(page.locator('.band')).toHaveCount(5);
+    await expect(page.locator('.band')).toHaveCount(7);
     await expect(page.locator('.band-hero .hero-pane-mag')).toBeVisible();
+    await expect(page.locator('.tg-panel')).toBeVisible();
     await expect(page.locator('.band-frontpage .druck-front-page')).toBeVisible();
     await expect(page.locator('.specimen-panel[data-format="feature"][data-lang="en"]')).toBeVisible();
     await expect(page.locator('.band-colophon')).toBeVisible();

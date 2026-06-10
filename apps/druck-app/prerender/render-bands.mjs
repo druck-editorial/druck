@@ -124,7 +124,7 @@ export function renderHeroFrontPagePane(items) {
   const t0 = performance.now();
   const html = renderFrontPage(buildFrontPage(items));
   const ms = performance.now() - t0;
-  const formatted = ms < 10 ? ms.toFixed(1) : Math.round(ms).toString();
+  const formatted = ms < 1 ? ms.toFixed(2) : ms < 10 ? ms.toFixed(1) : Math.round(ms).toString();
   const stepped = html
     .replace('<div class="df-row df-row--hero">', '<div class="df-row df-row--hero hx" data-step="1">')
     .replace('<div class="df-row df-row--feature">', '<div class="df-row df-row--feature hx" data-step="2">')
@@ -280,30 +280,33 @@ async function renderFrontPageBand(fixturesDir) {
   return renderFrontPage(buildFrontPage(snapshot.data));
 }
 
+const TG_EYE_SVG =
+  '<svg class="tg-eye" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2C4.7 3.2 2 5.2.9 8c1.1 2.8 3.8 4.8 7.1 4.8s6-2 7.1-4.8C14 5.2 11.3 3.2 8 3.2zm0 8a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM8 6.1a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8z"/></svg>';
+
 function renderLedgerlineBubbles(tgPosts) {
   const max = Math.min(tgPosts.length, 5);
   return tgPosts
     .slice(0, max)
     .map(
       (post, i) =>
-        `<span class="bubble" data-index="${i}" tabindex="0">${escapeHtml(post.time)} · ${escapeHtml(post.text)}</span>`,
+        `<div class="tg-msg${post.image ? ' tg-msg--photo' : ''}" data-index="${i}" tabindex="0" style="--msg-i:${i}">` +
+        (post.image
+          ? `<img class="tg-msg-img" src="${escapeHtml(post.image)}" alt="" loading="lazy" width="1168" height="778">`
+          : '') +
+        `<p class="tg-msg-text">${escapeHtml(post.text)}</p>` +
+        `<span class="tg-msg-meta">${TG_EYE_SVG}${escapeHtml(post.views)}<span class="tg-msg-time">${escapeHtml(post.time)}</span></span>` +
+        '</div>',
     )
     .join('');
 }
 
-function renderLedgerlineJson(articleData) {
-  const raw = JSON.stringify(articleData, null, 2);
-  return tokenizeJsonForPane(raw);
-}
-
 export async function buildLandingHtml(template, fixturesDir, auditSummary = null) {
-  const [heroFeed, feature, frontPage, rangePanels, tgPosts, ledgerlineFeed] = await Promise.all([
+  const [heroFeed, feature, frontPage, rangePanels, tgPosts] = await Promise.all([
     readFixture(fixturesDir, 'hero-feed.json'),
     readFixture(fixturesDir, 'feature.json'),
     renderFrontPageBand(fixturesDir),
     renderRangePanels(fixturesDir),
     readFixture(fixturesDir, 'tg-posts.json'),
-    readFixture(fixturesDir, 'ledgerline-feed.json'),
   ]);
   const heroFrontPage = renderHeroFrontPagePane(heroFeed.data);
   const surfacesSheets = renderSurfacesSheets(feature.data);
@@ -314,7 +317,6 @@ export async function buildLandingHtml(template, fixturesDir, auditSummary = nul
     .replace('<!--druck:surfaces-json-->', () => tokenizeJsonForPane(feature.raw))
     .replace('<!--druck:surfaces-sheets-->', () => surfacesSheets)
     .replace('<!--druck:ledgerline-bubbles-->', () => renderLedgerlineBubbles(tgPosts.data))
-    .replace('<!--druck:ledgerline-json-->', () => renderLedgerlineJson(ledgerlineFeed.data[0]))
     .replace('<!--druck:front-page-->', () => frontPage)
     .replace('<!--druck:range-panels-->', () => rangePanels)
     .replace('<!--druck:colophon-scores-->', () => renderColophonScores(auditSummary));

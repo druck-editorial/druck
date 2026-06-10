@@ -120,8 +120,8 @@ function transformInlineBlocks(bodyHtml: string): string {
     });
 }
 
-function safeUrl(url: string): string {
-  return SAFE_HREF_RE.test(url) ? url : '';
+function safeUrl(url: string | undefined): string {
+  return url && SAFE_HREF_RE.test(url) ? url : '';
 }
 
 export { escapeHtml, sanitizeInline, transformInlineBlocks, safeUrl };

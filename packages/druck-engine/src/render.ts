@@ -183,7 +183,9 @@ function renderFeatureArticle(data: ArticleData, ctx: RenderContext): string {
     '</div>' +
     '</header>' +
 
-    `<figure class="article-hero-img"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" width="${safeDimension(data.heroImageWidth, 1920)}" height="${safeDimension(data.heroImageHeight, 1080)}"></figure>` +
+    (data.heroImage
+      ? `<figure class="article-hero-img"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" width="${safeDimension(data.heroImageWidth, 1920)}" height="${safeDimension(data.heroImageHeight, 1080)}"></figure>`
+      : '') +
 
     renderEditorsNote(data.editorsNote, data.sourceCount) +
 
@@ -210,7 +212,9 @@ function renderWireArticle(data: ArticleData, ctx: RenderContext): string {
     `<div class="post-simple-meta"><span>${escapeHtml(data.publishedAt)}</span>${data.readingTime ? `<span>${escapeHtml(data.readingTime)}</span>` : ''}</div>` +
     '</header>' +
 
-    `<figure class="post-simple-img"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" decoding="async" width="${safeDimension(data.heroImageWidth, 1600)}" height="${safeDimension(data.heroImageHeight, 900)}"></figure>` +
+    (data.heroImage
+      ? `<figure class="post-simple-img"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" decoding="async" width="${safeDimension(data.heroImageWidth, 1600)}" height="${safeDimension(data.heroImageHeight, 900)}"></figure>`
+      : '') +
 
     `<div class="post-simple-body">${bodyHtml}</div>` +
 
@@ -270,7 +274,9 @@ export function renderCard(data: ArticleData, opts?: RenderOptions): string {
 
   return (
     `<a class="druck-card ${catClass}" href="${escapeHtml(href)}">` +
-    `<figure class="card-thumb"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="lazy" width="400" height="225"></figure>` +
+    (data.heroImage
+      ? `<figure class="card-thumb"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="lazy" width="400" height="225"></figure>`
+      : `<figure class="card-thumb card-thumb--placeholder" aria-hidden="true"><span class="thumb-mark">${escapeHtml((data.title.trim()[0] ?? '').toUpperCase())}</span></figure>`) +
     `<div class="card-text">` +
     `<div class="card-kicker">${escapeHtml(data.category)}${fLabel ? ` <span class="sep">&middot;</span> ${fLabel}` : ''}</div>` +
     `<h3 class="card-title">${titleHtml}</h3>` +

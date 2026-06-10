@@ -108,7 +108,7 @@ export async function musicReview(fixturesDir) {
 
   const body =
     '<header class="ph-header">' +
-    '<a class="ph-logo" href="/">TUNING FORK</a>' +
+    '<a class="ph-logo" href="/">PITCH &amp; REVERB</a>' +
     '<nav class="ph-nav" aria-label="Site navigation"><a href="#">Reviews</a><a href="#">Lists</a><a href="#">Features</a><a href="#">Live</a></nav>' +
     '</header>' +
     '<main class="ph-main">' +
@@ -123,13 +123,13 @@ export async function musicReview(fixturesDir) {
     articleHtml +
     '</main>' +
     embedFooter('druck-article', 'src="story.json"', 'druck-feed', 'layout="front-page" src="feed.json"') +
-    '<footer class="ph-footer"><p>TUNING FORK &mdash; independent music criticism since 2019. This publication does not exist.</p></footer>';
+    '<footer class="ph-footer"><p>PITCH &amp; REVERB &mdash; independent music criticism since 2019. This publication does not exist.</p></footer>';
 
   return {
     slug: 'music-review',
     html: demoShell({
       slug: 'music-review',
-      title: `${data.title} — TUNING FORK`,
+      title: `${data.title} — PITCH & REVERB`,
       description: data.metaDescription,
       css: 'music-review',
       bodyHtml: body,

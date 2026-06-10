@@ -28,7 +28,10 @@ function setStep(stage: HTMLElement, step: number): void {
 }
 
 export function playSequence(stage: HTMLElement): void {
-  const steps = stage.querySelectorAll('.hx').length;
+  const steps = Math.max(
+    0,
+    ...[...stage.querySelectorAll<HTMLElement>('.hx')].map((el) => Number(el.dataset.step) || 0),
+  );
   const replay = stage.querySelector<HTMLElement>('[data-role="replay"]');
   stage.dataset.state = 'playing';
   setStep(stage, 0);
@@ -59,7 +62,7 @@ export function initSequence(stage: HTMLElement): void {
       observer.disconnect();
       playSequence(stage);
     },
-    { threshold: 0.35 }
+    { threshold: 0.2 }
   );
   observer.observe(stage);
 }
