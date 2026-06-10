@@ -79,4 +79,9 @@ describe('renderFrontPage', () => {
     expect(html).not.toContain('javascript:');
     expect(html).toContain('href="#"');
   });
+
+  it('guards an empty hero image src', () => {
+    const html = renderFrontPage(buildFrontPage([item(0, { heroImage: '' })]));
+    expect(html).not.toContain('src=""');
+  });
 });
