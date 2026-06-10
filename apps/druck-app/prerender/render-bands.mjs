@@ -194,7 +194,10 @@ export async function renderDemoArticlePage(fixturesDir) {
 <meta name="robots" content="index, follow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts.css">
 <link rel="stylesheet" href="/article.css">
+<script>(function(){try{var t=localStorage.getItem('druck-theme');if(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t)document.documentElement.dataset.theme=t;}catch(e){}})()</script>
+<style>body{margin:0;background:#f6f4f1}html[data-theme="dark"] body{background:#0c0c0e}</style>
 </head>
 <body>
 ${article}

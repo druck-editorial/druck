@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node prerender/fetch-snapshot.mjs && cp ../../packages/druck-css/feed.css public/feed.css && pnpm --filter @druck/engine build && pnpm --filter @druck/widget build && tsc && vite build",
+    "build": "node prerender/fetch-snapshot.mjs && cp ../../packages/druck-css/feed.css public/feed.css && cp src/styles/fonts.css public/fonts.css && pnpm --filter @druck/engine build && pnpm --filter @druck/widget build && tsc && vite build",
     "preview": "vite preview --port 4173 --strictPort",
     "audit": "node scripts/audit.mjs",
     "typecheck": "tsc --noEmit",
