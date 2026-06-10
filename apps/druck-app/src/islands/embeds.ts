@@ -13,6 +13,7 @@ async function activate(band: HTMLElement): Promise<void> {
     widget.setAttribute('src', widget.dataset.src ?? '');
   }
   for (const widget of band.querySelectorAll<HTMLElement>('druck-feed[data-src]')) {
+    if (widget.dataset.fallbackSrc) widget.setAttribute('fallback-src', widget.dataset.fallbackSrc);
     widget.setAttribute('src', widget.dataset.src ?? '');
   }
 }

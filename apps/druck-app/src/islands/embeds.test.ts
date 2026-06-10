@@ -28,6 +28,20 @@ describe('initEmbeds', () => {
       </section>`;
   });
 
+  test('sets fallback-src before src on druck-feed with data-fallback-src', async () => {
+    document.body.innerHTML = `
+      <section class="band-frontpage">
+        <druck-feed data-src="/feed.json" data-fallback-src="/feed-fallback.json"></druck-feed>
+      </section>`;
+    const band = document.querySelector('.band-frontpage') as HTMLElement;
+    initEmbeds(band);
+    const observer = FakeIntersectionObserver.instances[0];
+    observer.callback([{ isIntersecting: true } as IntersectionObserverEntry], observer as unknown as IntersectionObserver);
+    const widget = document.querySelector('druck-feed') as HTMLElement;
+    await vi.waitFor(() => expect(widget.getAttribute('src')).toBe('/feed.json'));
+    expect(widget.getAttribute('fallback-src')).toBe('/feed-fallback.json');
+  });
+
   test('loads theme fonts and activates widgets when the band approaches', async () => {
     const appended: Node[] = [];
     vi.spyOn(document.head, 'appendChild').mockImplementation((node: Node) => {
