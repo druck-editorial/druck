@@ -1,3 +1,5 @@
+import { escapeHtml, safeUrl } from './format.js';
+import { renderCard } from './render.js';
 import type { ArticleData, RenderOptions } from './types.js';
 
 export type FrontPageRowType = 'hero' | 'feature' | 'triple' | 'brief';
@@ -23,8 +25,43 @@ export function buildFrontPage(items: ArticleData[]): FrontPageRow[] {
   return rows;
 }
 
+function renderHeroCard(data: ArticleData): string {
+  const href = safeUrl(data.shareUrl ?? '') || '#';
+  return (
+    `<a class="df-hero-card cat-${escapeHtml(data.category)}" href="${escapeHtml(href)}">` +
+    `<img class="df-hero-img" src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="lazy" width="1200" height="675">` +
+    '<div class="df-hero-scrim" aria-hidden="true"></div>' +
+    '<div class="df-hero-text">' +
+    (data.hot ? '<span class="df-hot">HOT</span>' : '') +
+    `<div class="card-kicker">${escapeHtml(data.category)}</div>` +
+    `<h3 class="df-hero-title">${escapeHtml(data.title)}</h3>` +
+    `<p class="df-hero-sub">${escapeHtml(data.subtitle)}</p>` +
+    '</div></a>'
+  );
+}
+
+function renderBriefItem(data: ArticleData): string {
+  const href = safeUrl(data.shareUrl ?? '') || '#';
+  return (
+    `<li><a href="${escapeHtml(href)}">` +
+    `<span class="df-brief-title">${escapeHtml(data.title)}</span>` +
+    `<time>${escapeHtml(data.publishedAt)}</time>` +
+    '</a></li>'
+  );
+}
+
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {
-  void rows;
-  void opts;
-  throw new Error('renderFrontPage: implemented in the next commit');
+  const rendered = rows.map((row) => {
+    if (row.type === 'hero') {
+      return `<div class="df-row df-row--hero">${renderHeroCard(row.items[0])}</div>`;
+    }
+    if (row.type === 'brief') {
+      const lis = row.items.map(renderBriefItem).join('');
+      return `<div class="df-row df-row--brief"><div class="df-brief-label">In brief</div><ul>${lis}</ul></div>`;
+    }
+    const cls = row.type === 'feature' ? 'df-row--feature' : 'df-row--triple';
+    const cards = row.items.map((entry) => renderCard(entry, opts)).join('');
+    return `<div class="df-row ${cls}">${cards}</div>`;
+  });
+  return `<div class="druck-front-page">${rendered.join('')}</div>`;
 }

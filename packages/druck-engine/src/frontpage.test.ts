@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildFrontPage } from './frontpage.js';
+import { buildFrontPage, renderFrontPage } from './frontpage.js';
 import type { ArticleData } from './types.js';
 
 function item(n: number, extra: Partial<ArticleData> = {}): ArticleData {
@@ -48,5 +48,35 @@ describe('buildFrontPage', () => {
     const rows = buildFrontPage(twenty);
     expect(rows.at(-1)?.items.length).toBe(5);
     expect(rows.flatMap((r) => r.items).length).toBe(11);
+  });
+});
+
+describe('renderFrontPage', () => {
+  it('renders row wrappers and a scrimmed hero card', () => {
+    const html = renderFrontPage(buildFrontPage(eleven));
+    expect(html).toContain('class="druck-front-page"');
+    expect(html).toContain('df-row--hero');
+    expect(html).toContain('df-row--feature');
+    expect(html).toContain('df-row--triple');
+    expect(html).toContain('df-row--brief');
+    expect(html).toContain('df-hero-scrim');
+  });
+
+  it('renders a HOT badge only for hot heroes', () => {
+    const hot = renderFrontPage(buildFrontPage([item(0, { hot: true })]));
+    const cold = renderFrontPage(buildFrontPage([item(0)]));
+    expect(hot).toContain('df-hot');
+    expect(cold).not.toContain('df-hot');
+  });
+
+  it('escapes content and drops unsafe URLs', () => {
+    const evil = item(0, {
+      title: '<script>x</script>',
+      shareUrl: 'javascript:alert(1)',
+    });
+    const html = renderFrontPage(buildFrontPage([evil]));
+    expect(html).not.toContain('<script>x');
+    expect(html).not.toContain('javascript:');
+    expect(html).toContain('href="#"');
   });
 });
