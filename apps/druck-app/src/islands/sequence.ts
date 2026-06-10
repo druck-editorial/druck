@@ -32,7 +32,6 @@ export function playSequence(stage: HTMLElement): void {
     0,
     ...[...stage.querySelectorAll<HTMLElement>('.hx')].map((el) => Number(el.dataset.step) || 0),
   );
-  const replay = stage.querySelector<HTMLElement>('[data-role="replay"]');
   stage.dataset.state = 'playing';
   setStep(stage, 0);
   let current = 0;
@@ -44,7 +43,6 @@ export function playSequence(stage: HTMLElement): void {
       return;
     }
     stage.dataset.state = 'done';
-    if (replay) replay.hidden = false;
   };
   window.setTimeout(tick, SEQUENCE_STEP_MS);
 }
@@ -55,7 +53,6 @@ export function initSequence(stage: HTMLElement): void {
     stage.dataset.state = 'static';
     return;
   }
-  stage.querySelector<HTMLElement>('[data-role="replay"]')?.addEventListener('click', () => playSequence(stage));
   const observer = new IntersectionObserver(
     (entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return;

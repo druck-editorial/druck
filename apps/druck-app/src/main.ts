@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import copyIcon from './icons/copy.svg?raw';
-import replayIcon from './icons/arrow-counter-clockwise.svg?raw';
 import { initThemeToggle } from './islands/theme.js';
 import { initCopyButton } from './islands/copy.js';
 import { initProgressRail } from './islands/rail.js';
@@ -18,7 +17,6 @@ document.documentElement.classList.add('js');
 
 const ICONS: Record<string, string> = {
   copy: copyIcon,
-  'arrow-counter-clockwise': replayIcon,
 };
 
 for (const slot of document.querySelectorAll<HTMLElement>('.icon-slot[data-icon]')) {

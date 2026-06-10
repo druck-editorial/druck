@@ -73,7 +73,7 @@
 }
 
 .card-thumb--placeholder .thumb-mark {
-  font-family: var(--font-accent, 'Source Serif 4', Georgia, serif);
+  font-family: var(--font-serif, 'Source Serif 4', Georgia, serif);
   font-style: italic;
   font-size: 56px;
   line-height: 1;

@@ -15,7 +15,6 @@ function buildStage(): HTMLElement {
         <div class="hx" data-step="1"></div>
         <div class="hx" data-step="2"></div>
       </div>
-      <button data-role="replay" hidden></button>
     </div>`;
   return document.querySelector('.hero-stage') as HTMLElement;
 }
@@ -33,7 +32,6 @@ describe('playSequence', () => {
     expect(stage.querySelector('[data-step="2"]')!.classList.contains('on')).toBe(false);
     vi.advanceTimersByTime(SEQUENCE_STEP_MS * 2);
     expect(stage.dataset.state).toBe('done');
-    expect((stage.querySelector('[data-role="replay"]') as HTMLElement).hidden).toBe(false);
   });
 
   test('lights the matching json line during its step', () => {
@@ -51,7 +49,6 @@ describe('playSequence', () => {
           <span class="jl" data-key="title">t</span>
         </code></pre>
         <div><div class="hx" data-step="1"></div><div class="hx" data-step="2"></div></div>
-        <button data-role="replay" hidden></button>
       </div>`;
     const stage = document.querySelector('.hero-stage') as HTMLElement;
     playSequence(stage);

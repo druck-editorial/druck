@@ -123,7 +123,7 @@ html[lang="de"] .know-card p {
   quotes: "\201E" "\201C" "\201A" "\2018";
 }
 html[lang="de"] .article-title,
-html[lang="de"] .chapter-title,
+html[lang="de"] .article-shell .chapter-title,
 html[lang="de"] .article-shell.cat-weekly .recap-headline,
 html[lang="de"] .article-shell.cat-weekly .recap-section-title {
   hyphens: auto;
@@ -149,7 +149,7 @@ html[lang="fr"] .recap-section-narrative {
   quotes: "\00AB\00A0" "\00A0\00BB" "\2039\00A0" "\00A0\203A";
 }
 html[lang="fr"] .article-title,
-html[lang="fr"] .chapter-title,
+html[lang="fr"] .article-shell .chapter-title,
 html[lang="fr"] .article-shell.cat-weekly .recap-headline,
 html[lang="fr"] .article-shell.cat-weekly .recap-section-title {
   hyphens: manual;
@@ -174,7 +174,7 @@ html[lang="es"] .recap-section-narrative {
   quotes: "\00AB" "\00BB" "\201C" "\201D";
 }
 html[lang="es"] .article-title,
-html[lang="es"] .chapter-title,
+html[lang="es"] .article-shell .chapter-title,
 html[lang="es"] .article-shell.cat-weekly .recap-headline,
 html[lang="es"] .article-shell.cat-weekly .recap-section-title {
   hyphens: manual;
@@ -212,7 +212,7 @@ html[lang="ja"] .recap-subheadline {
   quotes: "\300C" "\300D" "\300E" "\300F";
 }
 html[lang="ja"] .article-title,
-html[lang="ja"] .chapter-title,
+html[lang="ja"] .article-shell .chapter-title,
 html[lang="ja"] .article-shell.cat-weekly .recap-headline,
 html[lang="ja"] .article-shell.cat-weekly .recap-section-title {
   font-family: var(--font-cjk);
