@@ -1,13 +1,16 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { dirname } from 'node:path';
+import { build } from 'esbuild';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const dist = `${__dirname}/../dist`;
+const root = dirname(dirname(fileURLToPath(import.meta.url)));
 
-mkdirSync(dist, { recursive: true });
-
-const js = readFileSync(`${dist}/druck-widget.js`, 'utf-8');
-const wrapped = `// @druck-editorial/widget — editorial article renderer\n${js}`;
-writeFileSync(`${dist}/druck-widget.js`, wrapped);
-console.log('bundled');
+await build({
+  entryPoints: [join(root, 'src/druck-widget.ts')],
+  bundle: true,
+  format: 'esm',
+  target: 'es2022',
+  minify: true,
+  outfile: join(root, 'dist/druck-widget.js'),
+  allowOverwrite: true,
+});
+console.log('bundled dist/druck-widget.js');

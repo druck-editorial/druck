@@ -1,12 +1,25 @@
 import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { gzipSync } from 'node:zlib';
 import { buildFrontPage, escapeHtml, renderArticle, renderFrontPage } from '@druck-editorial/engine';
-import { GITHUB_PROFILE, GITHUB_URL, INSTALL_CMD } from './constants.mjs';
+import { GITHUB_PROFILE, GITHUB_URL, INSTALL_CMD, WIDGET_CDN_URL } from './constants.mjs';
+
+function widgetGzipKb() {
+  try {
+    const bundle = readFileSync(join(import.meta.dirname, '../../../packages/druck-widget/dist/druck-widget.js'));
+    return (gzipSync(bundle).length / 1024).toFixed(1);
+  } catch {
+    return '5';
+  }
+}
 
 const TOKENS = {
   INSTALL_CMD,
   GITHUB_URL,
   GITHUB_PROFILE,
+  WIDGET_CDN_URL,
+  WIDGET_KB: widgetGzipKb(),
 };
 
 function applyTokens(html) {

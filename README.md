@@ -42,8 +42,8 @@ One line of HTML renders an article or a whole front page anywhere, in any CSS e
 
 ```html
 <script type="module"
-  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.0/dist/druck-widget.js"
-  integrity="sha384-XJ0XvPb20yRQfswItj7AkAygMHH8HSAF/OpkbJ/K+xHj0YznMbKrQw+bJEiEDYC8"
+  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.1/dist/druck-widget.js"
+  integrity="sha384-5pooUFmjJhqIT/w0ZLmvg0pmbLML4qVKH9T+RrwAJX1p09P/hNDBnFDC2I0mmiel"
   crossorigin="anonymous"></script>
 
 <druck-article src="story.json"></druck-article>
@@ -51,7 +51,7 @@ One line of HTML renders an article or a whole front page anywhere, in any CSS e
 <druck-feed layout="front-page" src="feed.json"></druck-feed>
 ```
 
-The same file is on unpkg at `https://unpkg.com/@druck-editorial/widget@0.1.0/dist/druck-widget.js`. For production, self-host the bundle.
+The same file is on unpkg at `https://unpkg.com/@druck-editorial/widget@0.1.1/dist/druck-widget.js`. For production, self-host the bundle.
 
 ## Packages
 

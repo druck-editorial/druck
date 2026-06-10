@@ -161,12 +161,21 @@
       <!--druck:colophon-scores-->
       <p class="colophon-claim">Rendered output requires zero JavaScript. This page's interactivity ships as small islands; the article you read above arrived as static HTML. View source — it is all there.</p>
       <p class="colophon-analytics" data-island="colophon-line">@druck-editorial/analytics watched you read this page: <span data-line="depth">0%</span> depth, <span data-line="time">0s</span> active. Nothing left this page.</p>
+      <div class="colophon-privacy">
+        <h3 class="colophon-privacy-title">What the analytics see</h3>
+        <p>It measures reading, not readers: scroll depth, active time, chapters read. The numbers live in page memory.</p>
+        <p>No cookies, no fingerprinting, no third-party scripts, no IP logging. Nothing is transmitted unless the site owner sets an endpoint. This page sets none, so the numbers above stay in your tab and die with it.</p>
+        <p>No personal data is processed, which is why there is no consent banner to click.</p>
+      </div>
       <div class="colophon-snippet">
-        <pre><code>&lt;druck-article src="story.json"&gt;&lt;/druck-article&gt;</code></pre>
-        <button class="demo-cta demo-cta-ghost" data-island="copy" data-copy-text='<druck-article src="story.json"></druck-article>'>
+        <pre><code>&lt;script type="module" src="__DRUCK_WIDGET_CDN_URL__"&gt;&lt;/script&gt;
+&lt;druck-article src="story.json"&gt;&lt;/druck-article&gt;</code></pre>
+        <button class="demo-cta demo-cta-ghost" data-island="copy" data-copy-text='<script type="module" src="__DRUCK_WIDGET_CDN_URL__"></script>
+<druck-article src="story.json"></druck-article>'>
           <span class="icon-slot" data-icon="copy" aria-hidden="true"></span>Copy
         </button>
       </div>
+      <p class="colophon-method">The widget is __DRUCK_WIDGET_KB__ kB gzipped, served by jsDelivr. Prefer npm: <code>__DRUCK_INSTALL_CMD__</code>.</p>
       <div class="colophon-signature">
         <p class="sig-name">Artem Iagovdik</p>
         <p class="sig-provenance">Druck is extracted from <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>, where this engine rendered thousands of production articles in five languages.</p>
