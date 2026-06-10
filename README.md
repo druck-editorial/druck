@@ -1,6 +1,6 @@
 # 🪶 Druck
 
-Structured article JSON in, magazine pages out.
+Structured article JSON in { }, magazine pages out </>.
 
 Druck renders articles the way a print magazine sets them: three formats (feature, quick take, wire), real typesetting rules for English, German, French, Spanish, and Japanese, and a front-page layout for feeds. The rendered output is plain HTML and needs no JavaScript on the client. It was extracted from [Sonto](https://sonto.tech), where it has rendered thousands of production articles.
 
