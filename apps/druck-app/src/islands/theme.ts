@@ -1,11 +1,23 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
-export function initThemeToggle(button: HTMLElement): void {
-  button.addEventListener('click', () => {
-    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem('druck-theme', next);
-    } catch {}
-  });
+
+function updateThemeButtons(theme: string): void {
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-island="theme"]')) {
+    const pressed = btn.dataset.theme === theme;
+    btn.setAttribute('aria-pressed', String(pressed));
+  }
+}
+
+export function initThemeToggle(): void {
+  const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  updateThemeButtons(current);
+
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-island="theme"]')) {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.theme === 'dark' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = target;
+      try { localStorage.setItem('druck-theme', target); } catch {}
+      updateThemeButtons(target);
+    });
+  }
 }

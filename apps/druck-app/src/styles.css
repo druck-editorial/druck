@@ -93,15 +93,6 @@ body {
   transition: color var(--demo-transition);
 }
 
-[data-island="theme"] svg {
-  display: block;
-  width: 14px;
-  height: 14px;
-}
-
-html[data-theme="dark"] [data-island="theme"] svg.sun { display: none; }
-html:not([data-theme="dark"]) [data-island="theme"] svg.moon { display: none; }
-
 .demo-hero-text { grid-column: 1; }
 
 .demo-hero-h1 {

@@ -464,6 +464,11 @@ html.js .will-reveal:not(.is-revealed) { opacity: 0; transform: translateY(14px)
 .nav-controls {
   display: flex;
   align-items: stretch;
+  gap: 6px;
+}
+.nav-seg {
+  display: flex;
+  align-items: stretch;
   gap: 0;
   border: 1px solid var(--demo-hairline-strong);
   border-radius: 6px;
@@ -472,7 +477,7 @@ html.js .will-reveal:not(.is-revealed) { opacity: 0; transform: translateY(14px)
 .nav-ctrl-btn {
   background: none;
   border: none;
-  color: var(--demo-text);
+  color: var(--demo-text-secondary);
   font: 600 11px/1 'IBM Plex Mono', monospace;
   letter-spacing: 0.08em;
   padding: 6px 10px;
@@ -485,10 +490,15 @@ html.js .will-reveal:not(.is-revealed) { opacity: 0; transform: translateY(14px)
 .nav-ctrl-btn + .nav-ctrl-btn { border-left: 1px solid var(--demo-hairline-strong); }
 .nav-ctrl-btn:hover { background: var(--demo-text); color: var(--demo-surface); }
 .nav-ctrl-btn:focus-visible { outline: 2px solid var(--demo-accent); outline-offset: -2px; }
-[data-surface="ink"] .nav-controls { border-color: var(--ink-hairline); }
+.nav-ctrl-btn[aria-pressed="true"] {
+  background: var(--demo-text);
+  color: var(--demo-surface);
+}
+[data-surface="ink"] .nav-seg { border-color: var(--ink-hairline); }
 [data-surface="ink"] .nav-ctrl-btn { color: var(--ink-text-secondary); }
 [data-surface="ink"] .nav-ctrl-btn + .nav-ctrl-btn { border-left-color: var(--ink-hairline); }
 [data-surface="ink"] .nav-ctrl-btn:hover { background: var(--ink-text); color: var(--ink-bg); }
+[data-surface="ink"] .nav-ctrl-btn[aria-pressed="true"] { background: var(--ink-text); color: var(--ink-bg); }
 
 [data-surface="ink"] .band-lede a { color: var(--ink-text); }
 

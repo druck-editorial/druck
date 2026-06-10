@@ -17,15 +17,31 @@ describe('initThemeToggle', () => {
   });
 
   test('toggles and persists the document theme', () => {
-    const button = document.createElement('button');
-    initThemeToggle(button);
+    const light = document.createElement('button');
+    light.dataset.island = 'theme';
+    light.dataset.theme = 'light';
+    document.body.appendChild(light);
 
-    button.click();
+    const dark = document.createElement('button');
+    dark.dataset.island = 'theme';
+    dark.dataset.theme = 'dark';
+    document.body.appendChild(dark);
+
+    initThemeToggle();
+
+    dark.click();
     expect(document.documentElement.dataset.theme).toBe('dark');
     expect(localStorage.getItem('druck-theme')).toBe('dark');
+    expect(dark.getAttribute('aria-pressed')).toBe('true');
+    expect(light.getAttribute('aria-pressed')).toBe('false');
 
-    button.click();
+    light.click();
     expect(document.documentElement.dataset.theme).toBe('light');
     expect(localStorage.getItem('druck-theme')).toBe('light');
+    expect(light.getAttribute('aria-pressed')).toBe('true');
+    expect(dark.getAttribute('aria-pressed')).toBe('false');
+
+    light.remove();
+    dark.remove();
   });
 });

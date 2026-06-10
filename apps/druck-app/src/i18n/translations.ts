@@ -1,0 +1,223 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
+
+export type Lang = 'en' | 'de';
+
+export const translations: Record<Lang, Record<string, string>> = {
+  en: {
+    'skip-link': 'Skip to content',
+    'fact-header': 'Production numbers',
+    'connector-feed': 'one structured feed',
+    'connector-rendered': 'rendered front page',
+    'chapter-surfaces': '02 / SURFACES',
+    'hero-heading': 'Paste JSON. Get a magazine.',
+    'hero-body': '<strong class="brand">Druck</strong> is an open-source editorial renderer. Feed it structured article JSON, and it outputs front pages, cards, and full articles as static HTML. It already powers thousands of production articles inside <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>.',
+    'hero-position': 'Bring the data. <em>Druck</em> handles the magazine layer.',
+    'hero-proof': 'Already running in production on Sonto: live data in, static HTML out, zero JavaScript required to read.',
+    'cta-install': 'Install ↓',
+    'cta-github': 'GitHub',
+    'copy-btn': 'Copy',
+    'fact-widget': 'the entire widget, gzipped',
+    'fact-cookies': 'cookies · trackers · consent banners',
+    'fact-lighthouse': 'Lighthouse, all four categories',
+    'fact-license': 'use it, fork it, ship it',
+    'chapter-engine': '01 / ENGINE',
+    'surfaces-heading': 'One story, many <em>surfaces</em>',
+    'surfaces-lede': 'The same article adapts to cards, briefs, features, and full pages. Hover a sheet to see which keys drive it.',
+    'bridge': 'Not a template. A rendering system.',
+    'chapter-wild': '03 / IN THE WILD',
+    'wild-heading': 'In the <em>wild</em>',
+    'wild-lede': 'Three publications that do not exist. One renderer that does. Host styles clash on purpose; the article inside never flinches. Click any of them for the full site &mdash; or visit the <a href="/demos/newsroom/">corporate newsroom</a> or the <a href="/demos/dev-blog/">dev blog</a>.',
+    'wild-pull': 'Turn a channel into a <em>publication</em>.',
+    'tg-label-channel': 'Telegram channel',
+    'tg-label-frontpage': 'Druck front page',
+    'tg-caption': 'They post in Telegram. Your bot maps it. Druck renders it. &middot; <a href="/demos/telegram-brief/">Open the full site &rarr;</a>',
+    'chapter-frontpage': '04 / FRONT PAGE',
+    'frontpage-heading': 'The <em>front page</em>, live',
+    'frontpage-lede': 'This is sonto.tech &mdash; live, right now &mdash; rendered by one widget. Druck was extracted from its pipeline; now it renders its parent.',
+    'frontpage-caption': '<code class="caption-code">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.json"&gt;</code> &mdash; a magazine front page from one JSON file. Cards link to the real articles.',
+    'chapter-range': '05 / RANGE',
+    'range-heading': 'One JSON, <em>60</em> magazines',
+    'range-lede': 'One structured story, typeset across three formats, five languages, and four accents. The specimen text is demo content.',
+    'range-pull': 'Create <em>articles</em> for your magazines &mdash; the typesetting is already done.',
+    'range-caption': 'Read a full issue &mdash; <a href="/articles/quiet-revolution-small-language-models/">the feature this specimen is cut from</a>, rendered by the engine at build time.',
+    'recipe-format': 'Format',
+    'recipe-language': 'Language',
+    'recipe-accent': 'Accent',
+    'recipe-output': 'Output',
+    'recipe-specimen': 'Specimen',
+    'chapter-analytics': '06 / ANALYTICS',
+    'analytics-heading': 'Static pages. Live reading <em>memory</em>.',
+    'analytics-lede': 'It measures reading, not readers.',
+    'analytics-depth': 'Depth',
+    'analytics-time': 'Active time',
+    'analytics-sections': 'Sections read',
+    'analytics-pull': 'Pipe it into <em>your</em> stack &mdash; GA4, GTM, Plausible &mdash; with one callback.',
+    'analytics-where-heading': 'Where the reading signal can go',
+    'analytics-path-default-title': 'Default',
+    'analytics-path-default-text': 'Nowhere. No endpoint configured; the numbers die with the tab.',
+    'analytics-path-stack-title': 'Your stack',
+    'analytics-path-stack-text': 'Callbacks forward into GA4 / GTM / Plausible already on the host page.',
+    'analytics-path-endpoint-title': 'Your endpoint',
+    'analytics-path-endpoint-text': 'Sessions POST via <code>sendBeacon</code> on pagehide.',
+    'privacy-title': 'What the analytics see',
+    'privacy-p1': 'It measures reading, not readers: scroll depth, active time, chapters read. The numbers live in page memory.',
+    'privacy-p2': 'No cookies, no fingerprinting, no third-party scripts, no IP logging. Nothing is transmitted unless the site owner sets an endpoint. This page sets none, so the numbers above stay in your tab and die with it.',
+    'privacy-p3': 'No personal data is processed, which is why there is no consent banner to click.',
+    'privacy-p4': 'Your own analytics keep working: druck output is plain HTML, so GA4, GTM, or Plausible on the host page see it like any other content. The reading tracker can forward its events into them through callbacks.',
+    'pricing-heading': 'What is free, and what will cost money',
+    'pricing-free-title': 'Free. MIT. Forever.',
+    'pricing-free-text': 'Everything on this page: the engine, the stylesheet, the widgets, the reading tracker. Self-hosted, no tiers, no locked features. Fork it, ship it, sell with it.',
+    'pricing-paid-title': 'Planned, and paid',
+    'pricing-paid-text': 'A hosted endpoint with a reading dashboard, a feed API that turns RSS into <code>ArticleData</code>, and a Telegram channel importer. The MIT tracker keeps working without any of it. Also planned: publishing <code>@druck-editorial/analytics</code> to npm.',
+    'chapter-colophon': '07 / COLOPHON',
+    'colophon-heading': 'Colophon',
+    'colophon-claim': 'Static output, measured like production software.',
+    'colophon-method': 'Rendered articles require zero JavaScript. This page\'s interactivity ships as small islands; the article you read above arrived as static HTML. View source.',
+    'colophon-install': 'The widget is __DRUCK_WIDGET_KB__ kB gzipped, served by jsDelivr. Prefer npm: <code>__DRUCK_INSTALL_CMD__</code>.',
+    'signature': 'Druck is extracted from <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>, where this engine rendered thousands of production articles in five languages.',
+    'title': 'Druck — Structure in, magazine out',
+    'description': 'Druck is an editorial rendering engine: structured article JSON in, magazine-quality pages out. Formats, multilingual typography, reading analytics, embeddable widgets. MIT.',
+  },
+  de: {
+    'title': 'Druck — Struktur rein, Magazin raus',
+    'description': 'Druck ist eine Engine für redaktionelles Rendering: strukturiertes Article-JSON rein, magazinwerte Seiten raus. Formate, mehrsprachige Typografie, Reading-Analytics, einbettbare Widgets. MIT.',
+    'skip-link': 'Zum Inhalt',
+    'fact-header': 'Produktions-Zahlen',
+    'connector-feed': 'ein strukturierter Feed',
+    'connector-rendered': 'gerenderte Frontpage',
+    'chapter-surfaces': '02 / SURFACES',
+    'hero-heading': 'JSON rein. Magazin raus.',
+    'hero-body': '<strong class="brand">Druck</strong> ist ein Open-Source-Renderer. Strukturiertes Article-JSON rein &mdash; Front Pages, Cards und ganze Artikel als statisches HTML raus. L&auml;uft produktiv auf <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>.',
+    'hero-position': 'Bringing the data. <em>Druck</em> macht das Magazin.',
+    'hero-proof': 'L&auml;uft produktiv auf Sonto: Live-Daten rein, statisches HTML raus, null JavaScript zum Lesen.',
+    'cta-install': 'Installieren ↓',
+    'cta-github': 'GitHub',
+    'copy-btn': 'Kopieren',
+    'fact-widget': 'das ganze Widget, gzipped',
+    'fact-cookies': 'Cookies · Tracker · Consent-Banner',
+    'fact-lighthouse': 'Lighthouse, alle vier Kategorien',
+    'fact-license': 'nehmen, forken, shippen',
+    'chapter-engine': '01 / ENGINE',
+    'surfaces-heading': 'Eine Story, viele <em>Surfaces</em>',
+    'surfaces-lede': 'Derselbe Artikel &mdash; als Card, als Brief, als Feature, als ganze Seite. Hover &uuml;ber ein Sheet, um zu sehen, welche Keys es steuern.',
+    'bridge': 'Kein Template. Ein Rendering-System.',
+    'chapter-wild': '03 / IN THE WILD',
+    'wild-heading': 'In the <em>wild</em>',
+    'wild-lede': 'Drei Publikationen, die nicht existieren. Ein Renderer, der es tut. Die Host-Styles clashen absichtlich &mdash; der Artikel darin zuckt nicht. Klick auf eine f&uuml;r die volle Site &mdash; oder schau dir den <a href="/demos/newsroom/">Corporate-Newsroom</a> oder den <a href="/demos/dev-blog/">Dev-Blog</a> an.',
+    'wild-pull': 'Aus einem Channel wird eine <em>Publikation</em>.',
+    'tg-label-channel': 'Telegram-Kanal',
+    'tg-label-frontpage': 'Druck-Frontpage',
+    'tg-caption': 'Sie posten im Telegram-Kanal. Dein Bot mappt es. Druck rendert es. &middot; <a href="/demos/telegram-brief/">Volle Site &ouml;ffnen &rarr;</a>',
+    'chapter-frontpage': '04 / FRONT PAGE',
+    'frontpage-heading': 'Die <em>Frontpage</em>, live',
+    'frontpage-lede': 'Das ist sonto.tech &mdash; live, jetzt &mdash; gerendert von einem Widget. Druck wurde aus dessen Pipeline extrahiert; jetzt rendert es seinen Parent.',
+    'frontpage-caption': '<code class="caption-code">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.json"&gt;</code> &mdash; eine Magazin-Frontpage aus einer JSON-Datei. Cards linken zu den echten Artikeln.',
+    'chapter-range': '05 / RANGE',
+    'range-heading': 'Ein JSON, <em>60</em> Magazine',
+    'range-lede': 'Eine strukturierte Story, gesetzt in drei Formaten, f&uuml;nf Sprachen und vier Akzenten. Der Specimen-Text ist Demo-Inhalt.',
+    'range-pull': 'Erstelle <em>Artikel</em> f&uuml;r deine Magazine &mdash; das Typesetting ist schon erledigt.',
+    'range-caption': 'Ein ganzes Heft lesen &mdash; <a href="/articles/quiet-revolution-small-language-models/">das Feature, aus dem dieser Specimen geschnitten ist</a>, gerendert vom Engine zur Build-Zeit.',
+    'recipe-format': 'Format',
+    'recipe-language': 'Sprache',
+    'recipe-accent': 'Akzent',
+    'recipe-output': 'Output',
+    'recipe-specimen': 'Specimen',
+    'chapter-analytics': '06 / ANALYTICS',
+    'analytics-heading': 'Statische Seiten. Live-Reading-<em>Memory</em>.',
+    'analytics-lede': 'Misst das Lesen, nicht die Leser.',
+    'analytics-depth': 'Tiefe',
+    'analytics-time': 'Aktive Zeit',
+    'analytics-sections': 'Gelesene Abschnitte',
+    'analytics-pull': 'Pipe es in <em>deinen</em> Stack &mdash; GA4, GTM, Plausible &mdash; mit einem Callback.',
+    'analytics-where-heading': 'Wohin das Reading-Signal geht',
+    'analytics-path-default-title': 'Default',
+    'analytics-path-default-text': 'Nirgendwohin. Kein Endpoint konfiguriert; die Zahlen sterben mit dem Tab.',
+    'analytics-path-stack-title': 'Dein Stack',
+    'analytics-path-stack-text': 'Callbacks leiten in GA4 / GTM / Plausible weiter, die ohnehin auf der Host-Seite laufen.',
+    'analytics-path-endpoint-title': 'Dein Endpoint',
+    'analytics-path-endpoint-text': 'Sessions per <code>sendBeacon</code> bei <code>pagehide</code>.',
+    'privacy-title': 'Was die Analytics sehen',
+    'privacy-p1': 'Misst Lesen, nicht Leser: Scroll-Tiefe, aktive Zeit, gelesene Kapitel. Die Zahlen leben im Page-Memory.',
+    'privacy-p2': 'Keine Cookies, kein Fingerprinting, keine Third-Party-Scripts, kein IP-Logging. Nichts wird &uuml;bertragen, au&szlig;er der Seitenbetreiber setzt einen Endpoint. Diese Seite setzt keinen &mdash; die Zahlen oben bleiben in deinem Tab und sterben mit ihm.',
+    'privacy-p3': 'Keine pers&ouml;nlichen Daten werden verarbeitet &mdash; deshalb gibt es auch kein Consent-Banner zum Klicken.',
+    'privacy-p4': 'Deine eigenen Analytics laufen weiter: Druck-Output ist plain HTML, also sehen GA4, GTM oder Plausible auf der Host-Seite ihn wie jeden anderen Content. Der Reading-Tracker kann seine Events per Callbacks dorthin weiterleiten.',
+    'pricing-heading': 'Was kostenlos ist, und was Geld kosten wird',
+    'pricing-free-title': 'Kostenlos. MIT. F&uuml;r immer.',
+    'pricing-free-text': 'Alles auf dieser Seite: die Engine, das Stylesheet, die Widgets, der Reading-Tracker. Self-hosted, keine Tiers, keine Features hinter Paywalls. Forken, shippen, damit Geld verdienen.',
+    'pricing-paid-title': 'Geplant, und kostenpflichtig',
+    'pricing-paid-text': 'Ein gehosteter Endpoint mit Reading-Dashboard, eine Feed-API die RSS in <code>ArticleData</code> verwandelt, und ein Telegram-Kanal-Importer. Der MIT-Tracker funktioniert auch ohne all das. Geplant: <code>@druck-editorial/analytics</code> auf npm.',
+    'chapter-colophon': '07 / COLOPHON',
+    'colophon-heading': 'Colophon',
+    'colophon-claim': 'Statischer Output, gemessen wie Produktionssoftware.',
+    'colophon-method': 'Gerenderte Artikel brauchen null JavaScript. Die Interaktivit&auml;t dieser Seite kommt als kleine Islands; der Artikel oben kam als statisches HTML. View source.',
+    'colophon-install': 'Das Widget ist __DRUCK_WIDGET_KB__ kB gzipped, via jsDelivr. Lieber npm: <code>__DRUCK_INSTALL_CMD__</code>.',
+    'signature': 'Druck wurde aus <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a> extrahiert, wo diese Engine tausende Produktions-Artikel in f&uuml;nf Sprachen gerendert hat.',
+  },
+};
+
+const STORAGE_KEY = 'druck-lang';
+
+function detectLang(): Lang {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'en' || stored === 'de') return stored;
+  } catch {}
+  const nav = navigator.language?.toLowerCase() ?? '';
+  if (nav.startsWith('de')) return 'de';
+  return 'en';
+}
+
+function updateLangButtons(lang: Lang): void {
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-island="lang"]')) {
+    const pressed = btn.dataset.lang === lang;
+    btn.setAttribute('aria-pressed', String(pressed));
+  }
+}
+
+export function initLang(): void {
+  const lang = detectLang();
+  applyLang(lang);
+  updateLangButtons(lang);
+  document.documentElement.lang = lang;
+  document.documentElement.removeAttribute('data-i18n-pending');
+
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-island="lang"]')) {
+    btn.addEventListener('click', () => {
+      const target = (btn.dataset.lang === 'de' ? 'de' : 'en') as Lang;
+      try { localStorage.setItem(STORAGE_KEY, target); } catch {}
+      applyLang(target);
+      updateLangButtons(target);
+      document.documentElement.lang = target;
+    });
+  }
+}
+
+export function applyLang(lang: Lang): void {
+  const strings = translations[lang];
+  const kbEl = document.querySelector('[data-i18n="colophon-install"]');
+  const kbValue = kbEl?.textContent?.match(/(\d+\.?\d*)\s*kB/)?.[1] ?? '';
+  const cmdEl = kbEl?.querySelector('code');
+  const cmdValue = cmdEl?.textContent ?? '';
+
+  for (const [key, value] of Object.entries(strings)) {
+    if (key === 'title') { document.title = value; continue; }
+    if (key === 'description') {
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute('content', value);
+      continue;
+    }
+    const el = document.querySelector<HTMLElement>(`[data-i18n="${key}"]`);
+    if (el) {
+      let html = value;
+      if (key === 'colophon-install') {
+        html = html.replace('__DRUCK_WIDGET_KB__', kbValue).replace('__DRUCK_INSTALL_CMD__', cmdValue);
+      }
+      el.innerHTML = html;
+    }
+  }
+
+  for (const widget of document.querySelectorAll('druck-feed, druck-article')) {
+    widget.setAttribute('lang', lang);
+  }
+}

@@ -24,11 +24,8 @@ for (const slot of document.querySelectorAll<HTMLElement>('.icon-slot[data-icon]
   slot.innerHTML = ICONS[slot.dataset.icon ?? ''] ?? '';
 }
 
-const themeButton = document.querySelector<HTMLElement>('[data-island="theme"]');
-if (themeButton) initThemeToggle(themeButton);
-
-const langButton = document.querySelector<HTMLElement>('[data-island="lang"]');
-if (langButton) initLang(langButton);
+initThemeToggle();
+initLang();
 
 for (const button of document.querySelectorAll<HTMLElement>('[data-island="copy"]')) {
   initCopyButton(button);
