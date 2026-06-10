@@ -17,3 +17,5 @@ export type {
 
 export { renderArticle, renderCard } from './render.js';
 export { transformInlineBlocks, sanitizeInline, escapeHtml, safeUrl } from './format.js';
+export { buildFrontPage, renderFrontPage } from './frontpage.js';
+export type { FrontPageRow, FrontPageRowType } from './frontpage.js';
