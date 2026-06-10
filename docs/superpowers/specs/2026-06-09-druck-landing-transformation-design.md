@@ -59,7 +59,7 @@ Removed: the four static showcase cards, the inert category-chip strip (chips mo
 
 Layout: heading block above a split pane. Desktop split is 5/7: left pane shows the actual `feature.json` fixture in a code surface (syntax-tinted, ~18 visible lines), right pane shows the magazine page assembling. Below 768px the panes stack and the JSON pane collapses to a 6-line excerpt.
 
-Heading block: kicker tag (Editorial Rendering, unchanged), the existing headline "Structure in, magazine out", body line, and one new provenance sentence stating the engine was extracted from a production pipeline that rendered thousands of articles. One primary CTA: a copyable `pnpm add @druck/engine` command; one ghost CTA: GitHub.
+Heading block: kicker tag (Editorial Rendering, unchanged), the existing headline "Structure in, magazine out", body line, and one new provenance sentence stating the engine was extracted from a production pipeline that rendered thousands of articles. One primary CTA: a copyable `pnpm add @druck-editorial/engine` command; one ghost CTA: GitHub.
 
 Sequence: plays once when the band enters the viewport (IntersectionObserver), total ~3.5s, five steps. Each step highlights a line group in the JSON pane with a brief accent tint while the corresponding rendered element appears on the right:
 
@@ -111,7 +111,7 @@ The analytics panel keeps its four metrics and gains the honest frame: a title n
 
 ## Band 5 — In the wild
 
-Three miniature publications, each a believable mock site frame with its own masthead, chrome, type theme, accent, and story topic — and inside each one, the real `@druck/widget` (`<druck-article>`, Shadow DOM) rendering live. The frames' host styles deliberately clash; the article interior stays pristine. That is the embed pitch demonstrated, not described.
+Three miniature publications, each a believable mock site frame with its own masthead, chrome, type theme, accent, and story topic — and inside each one, the real `@druck-editorial/widget` (`<druck-article>`, Shadow DOM) rendering live. The frames' host styles deliberately clash; the article interior stays pristine. That is the embed pitch demonstrated, not described.
 
 | Frame | Direction | Masthead (fictional) | Type theme | Accent | Story |
 |---|---|---|---|---|---|
@@ -145,7 +145,7 @@ Styled as a fine-book colophon: hairline rule, small caps, quiet. Contents:
 
 ## Technical architecture
 
-Prerender: a Vite `transformIndexHtml` plugin imports `@druck/engine` and renders every band's article content from the fixtures into the page — identically in dev and build. LCP is served as static HTML and CSS. Interactivity ships as small vanilla TypeScript islands (sequence, switchers, surfaces, embeds, analytics, theme) that attach to the prerendered content without re-rendering it — the page must not flash or shift when JS arrives, and renders completely with JS disabled. Preact is removed; the islands replace the app shell.
+Prerender: a Vite `transformIndexHtml` plugin imports `@druck-editorial/engine` and renders every band's article content from the fixtures into the page — identically in dev and build. LCP is served as static HTML and CSS. Interactivity ships as small vanilla TypeScript islands (sequence, switchers, surfaces, embeds, analytics, theme) that attach to the prerendered content without re-rendering it — the page must not flash or shift when JS arrives, and renders completely with JS disabled. Preact is removed; the islands replace the app shell.
 
 Fonts: the CSS references three core families that were never loaded — Plus Jakarta Sans (headings), General Sans (body), Source Serif 4 (serif body and accents). All three are self-hosted as woff2, latin + latin-ext. Preload exactly two files (heading weight, serif body regular). `font-display: swap` with `size-adjust` fallback metrics so the swap causes no layout shift. Band 5 adds four theme families — Archivo Black, Bodoni Moda, Space Grotesk, IBM Plex Mono — declared in a separate stylesheet that lazy-loads when the band approaches, excluded from the initial-load budget. Bunny Fonts and Fontshare serve as download sources only (owner decision 2026-06-09); at runtime every font serves from our origin. No CDN requests.
 

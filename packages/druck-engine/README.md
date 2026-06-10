@@ -1,18 +1,18 @@
-# @druck/engine
+# @druck-editorial/engine
 
 Editorial rendering engine. Takes structured `ArticleData` JSON and returns magazine-quality HTML strings.
 
 ## Install
 
 ```bash
-pnpm add @druck/engine
+pnpm add @druck-editorial/engine
 ```
 
 ## API
 
 ```ts
-import { renderArticle, renderCard, buildFrontPage, renderFrontPage } from '@druck/engine';
-import type { ArticleData, RenderOptions } from '@druck/engine';
+import { renderArticle, renderCard, buildFrontPage, renderFrontPage } from '@druck-editorial/engine';
+import type { ArticleData, RenderOptions } from '@druck-editorial/engine';
 ```
 
 ### renderArticle

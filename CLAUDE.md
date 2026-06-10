@@ -7,12 +7,12 @@ The editorial rendering layer extracted from Sonto. Takes structured article dat
 ```
 druck/
 ├── apps/
-│   └── druck-app/         # Preact SPA demo (@druck/app)
+│   └── druck-app/         # Preact SPA demo (@druck-editorial/app)
 ├── packages/
-│   ├── druck-engine/     # Types + renderer: renderArticle + renderCard (@druck/engine)
-│   ├── druck-css/        # Editorial stylesheet: article.css + feed.css (@druck/css)
-│   ├── druck-widget/     # <druck-article> + <druck-feed> web components (@druck/widget)
-│   └── druck-analytics/  # Reading metrics (@druck/analytics)
+│   ├── druck-engine/     # Types + renderer: renderArticle + renderCard (@druck-editorial/engine)
+│   ├── druck-css/        # Editorial stylesheet: article.css + feed.css (@druck-editorial/css)
+│   ├── druck-widget/     # <druck-article> + <druck-feed> web components (@druck-editorial/widget)
+│   └── druck-analytics/  # Reading metrics (@druck-editorial/analytics)
 ```
 
 ## Commands

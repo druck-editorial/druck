@@ -2,16 +2,16 @@
 
 Structured article JSON in, magazine-quality pages out.
 
-Druck is an editorial rendering system extracted from [Sonto](https://sonto.tech), where it has rendered thousands of production articles in five languages. The renderer, stylesheet, web components, and reading tracker are each published as standalone packages under `@druck/*`.
+Druck is an editorial rendering system extracted from [Sonto](https://sonto.tech), where it has rendered thousands of production articles in five languages. The renderer, stylesheet, web components, and reading tracker are each published as standalone packages under `@druck-editorial/*`.
 
 ## Quick start
 
 ```bash
-pnpm add @druck/engine
+pnpm add @druck-editorial/engine
 ```
 
 ```js
-import { renderArticle } from '@druck/engine';
+import { renderArticle } from '@druck-editorial/engine';
 
 const html = renderArticle({
   title: 'The infrastructure gap',
@@ -37,7 +37,7 @@ document.getElementById('article').innerHTML = html;
 ## Web components
 
 ```html
-<script type="module" src="https://unpkg.com/@druck/widget/dist/druck-widget.js"></script>
+<script type="module" src="https://unpkg.com/@druck-editorial/widget/dist/druck-widget.js"></script>
 
 <druck-article src="story.json"></druck-article>
 
@@ -48,10 +48,10 @@ document.getElementById('article').innerHTML = html;
 
 | Package | Description |
 |---|---|
-| `@druck/engine` | Editorial rendering engine: structured article JSON in, magazine-quality pages out. |
-| `@druck/css` | Editorial stylesheet: article, weekly, feed, and per-language typography. |
-| `@druck/widget` | Custom elements that render druck articles and front pages anywhere: `druck-article`, `druck-feed`. |
-| `@druck/analytics` | Local-first reading analytics: depth, active time, chapters. |
+| `@druck-editorial/engine` | Editorial rendering engine: structured article JSON in, magazine-quality pages out. |
+| `@druck-editorial/css` | Editorial stylesheet: article, weekly, feed, and per-language typography. |
+| `@druck-editorial/widget` | Custom elements that render druck articles and front pages anywhere: `druck-article`, `druck-feed`. |
+| `@druck-editorial/analytics` | Local-first reading analytics: depth, active time, chapters. |
 
 ## Development
 

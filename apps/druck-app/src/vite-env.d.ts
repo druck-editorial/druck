@@ -5,6 +5,6 @@ declare module '*.svg?raw' {
   export default content;
 }
 
-declare module '@druck/widget' {
+declare module '@druck-editorial/widget' {
   export {};
 }

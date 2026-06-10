@@ -1,17 +1,17 @@
-# @druck/analytics
+# @druck-editorial/analytics
 
 Local-first reading analytics for druck pages. Tracks scroll depth, active reading time, and chapter engagement. Nothing leaves the page unless you configure an endpoint.
 
 ## Install
 
 ```bash
-pnpm add @druck/analytics
+pnpm add @druck-editorial/analytics
 ```
 
 ## Usage
 
 ```ts
-import { ReadingTracker } from '@druck/analytics';
+import { ReadingTracker } from '@druck-editorial/analytics';
 
 const root = document.querySelector('.article-shell') as HTMLElement;
 const tracker = new ReadingTracker(root, 'infrastructure-gap-2025', {

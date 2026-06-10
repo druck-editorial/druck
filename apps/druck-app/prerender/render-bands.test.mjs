@@ -72,7 +72,7 @@ describe('buildLandingHtml', () => {
     expect(html).not.toContain('__DRUCK_');
     expect(html).toContain('druck-front-page');
     expect(html).toContain('specimen-panel');
-    expect(html).toContain('pnpm add @druck/engine');
+    expect(html).toContain('pnpm add @druck-editorial/engine');
   });
 
   test('throws on a missing fixture directory', async () => {

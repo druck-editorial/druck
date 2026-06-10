@@ -10,10 +10,10 @@ Open source drives adoption and trust. The hosted layer drives revenue. The boun
 
 | Package | What it does | Why free |
 |---|---|---|
-| `@druck/engine` | JSON schema → editorial HTML renderer | Adoption. Every CMS and static site generator benefits from a battle-tested editorial renderer. |
-| `@druck/css` | Editorial stylesheet with per-language typography | Trust and remixing. Designers fork themes; provenance spreads the name. |
-| `@druck/widget` | Embeddable `<druck-article>` and `<druck-feed>` web components | Distribution. The more sites embed Druck, the larger the audience for the hosted layer. |
-| `@druck/analytics` | Client-side reading tracker | Auditability. A tracking script must be inspectable. The script only collects; it does not store or visualize. |
+| `@druck-editorial/engine` | JSON schema → editorial HTML renderer | Adoption. Every CMS and static site generator benefits from a battle-tested editorial renderer. |
+| `@druck-editorial/css` | Editorial stylesheet with per-language typography | Trust and remixing. Designers fork themes; provenance spreads the name. |
+| `@druck-editorial/widget` | Embeddable `<druck-article>` and `<druck-feed>` web components | Distribution. The more sites embed Druck, the larger the audience for the hosted layer. |
+| `@druck-editorial/analytics` | Client-side reading tracker | Auditability. A tracking script must be inspectable. The script only collects; it does not store or visualize. |
 
 ## Hosted / proprietary (paid)
 
@@ -28,7 +28,7 @@ Open source drives adoption and trust. The hosted layer drives revenue. The boun
 
 ### Analytics token gate
 
-`@druck/analytics` sends `x-druck-site` header with every event batch. The hosted endpoint validates:
+`@druck-editorial/analytics` sends `x-druck-site` header with every event batch. The hosted endpoint validates:
 
 1. Token exists and matches a registered site.
 2. `Origin` header matches the registered domain(s) for that token.

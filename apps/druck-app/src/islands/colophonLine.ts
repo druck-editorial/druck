@@ -1,4 +1,4 @@
-import { ReadingTracker } from '@druck/analytics';
+import { ReadingTracker } from '@druck-editorial/analytics';
 
 export function initColophonLine(el: HTMLElement): void {
   const root = el.closest<HTMLElement>('main') ?? document.querySelector<HTMLElement>('main');

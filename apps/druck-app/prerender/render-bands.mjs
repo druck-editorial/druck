@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { buildFrontPage, escapeHtml, renderArticle, renderFrontPage } from '@druck/engine';
+import { buildFrontPage, escapeHtml, renderArticle, renderFrontPage } from '@druck-editorial/engine';
 import { GITHUB_PROFILE, GITHUB_URL, INSTALL_CMD } from './constants.mjs';
 
 const TOKENS = {

@@ -2,7 +2,7 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { initEmbeds } from './embeds.js';
 
-vi.mock('@druck/widget', () => ({}));
+vi.mock('@druck-editorial/widget', () => ({}));
 
 class FakeIntersectionObserver {
   static instances: FakeIntersectionObserver[] = [];

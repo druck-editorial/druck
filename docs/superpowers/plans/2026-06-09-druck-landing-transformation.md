@@ -4,9 +4,9 @@
 
 **Goal:** Rebuild the druck-app landing into a six-band live demonstration page (JSON-to-magazine hero, format triptych, language specimens, live article + analytics, four widget embed frames, Lighthouse/a11y colophon) that itself scores Lighthouse 100 in all four categories.
 
-**Architecture:** Static-first. A Vite `transformIndexHtml` plugin runs `@druck/engine` over the fixtures at build and dev time, baking all article HTML into the page. Small vanilla TypeScript islands hydrate interactivity (sequence, switchers, surfaces, embeds, analytics). Preact is removed. Band-5 widgets and theme fonts lazy-load on approach.
+**Architecture:** Static-first. A Vite `transformIndexHtml` plugin runs `@druck-editorial/engine` over the fixtures at build and dev time, baking all article HTML into the page. Small vanilla TypeScript islands hydrate interactivity (sequence, switchers, surfaces, embeds, analytics). Preact is removed. Band-5 widgets and theme fonts lazy-load on approach.
 
-**Tech Stack:** Vite 6, TypeScript, @druck/engine + @druck/widget + @druck/analytics (workspace), vitest + happy-dom (unit), @playwright/test + @axe-core/playwright (E2E/a11y), Lighthouse CLI (audit).
+**Tech Stack:** Vite 6, TypeScript, @druck-editorial/engine + @druck-editorial/widget + @druck-editorial/analytics (workspace), vitest + happy-dom (unit), @playwright/test + @axe-core/playwright (E2E/a11y), Lighthouse CLI (audit).
 
 **Spec:** `docs/superpowers/specs/2026-06-09-druck-landing-transformation-design.md`
 
@@ -114,7 +114,7 @@ In `apps/druck-app/package.json` add devDependencies and scripts (keep existing 
 ```json
 "scripts": {
   "dev": "vite",
-  "build": "pnpm --filter @druck/engine build && pnpm --filter @druck/widget build && tsc && vite build",
+  "build": "pnpm --filter @druck-editorial/engine build && pnpm --filter @druck-editorial/widget build && tsc && vite build",
   "preview": "vite preview --port 4173 --strictPort",
   "typecheck": "tsc --noEmit",
   "test": "vitest run",
@@ -190,7 +190,7 @@ export default defineConfig({
 
 - [ ] **Step 5: Run the test**
 
-Run: `pnpm --filter @druck/app test`
+Run: `pnpm --filter @druck-editorial/app test`
 Expected: PASS (feature.json and wire.json are currently valid; this is the regression net).
 
 - [ ] **Step 6: Commit**
@@ -419,7 +419,7 @@ describe('hero image attributes', () => {
 
 - [ ] **Step 2: Run to verify failure**
 
-Run: `pnpm --filter @druck/engine test`
+Run: `pnpm --filter @druck-editorial/engine test`
 Expected: FAIL — first and third tests (no `heroImageAlt` handling, hardcoded dimensions).
 
 - [ ] **Step 3: Implement**
@@ -447,8 +447,8 @@ Replace the wire hero figure line (line 201) with:
 - [ ] **Step 4: Run tests, rebuild dist**
 
 ```bash
-pnpm --filter @druck/engine test
-pnpm --filter @druck/engine build
+pnpm --filter @druck-editorial/engine test
+pnpm --filter @druck-editorial/engine build
 ```
 
 Expected: PASS, clean tsc build.
@@ -708,7 +708,7 @@ Create `specimen.ja.json`:
 
 - [ ] **Step 5: Run the fixture tests**
 
-Run: `pnpm --filter @druck/app test`
+Run: `pnpm --filter @druck-editorial/app test`
 Expected: PASS — every new file parses, article fixtures carry required fields (specimen files are exempted by the filename filter).
 
 - [ ] **Step 6: Commit**
@@ -820,7 +820,7 @@ describe('buildLandingHtml', () => {
 
 - [ ] **Step 2: Run to verify failure**
 
-Run: `pnpm --filter @druck/app test`
+Run: `pnpm --filter @druck-editorial/app test`
 Expected: FAIL — module does not exist.
 
 - [ ] **Step 3: Implement `render-bands.mjs`**
@@ -828,7 +828,7 @@ Expected: FAIL — module does not exist.
 ```js
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { renderArticle } from '@druck/engine';
+import { renderArticle } from '@druck-editorial/engine';
 
 const TOP_LEVEL_KEY_PATTERN = /^\s{2}"([a-zA-Z]+)"/;
 const TOKEN_PATTERN = /("(?:[^"\\]|\\.)*")(\s*:)?|(-?\d+\.?\d*)|([{}\[\],:])/g;
@@ -948,8 +948,8 @@ The single `.replace('hidden>', '>')` unhides exactly the first specimen (Englis
 
 - [ ] **Step 4: Run tests**
 
-Run: `pnpm --filter @druck/app test`
-Expected: PASS (engine dist must exist; if not, `pnpm --filter @druck/engine build` first).
+Run: `pnpm --filter @druck-editorial/app test`
+Expected: PASS (engine dist must exist; if not, `pnpm --filter @druck-editorial/engine build` first).
 
 - [ ] **Step 5: Commit**
 
@@ -995,7 +995,7 @@ describe('renderColophonScores', () => {
 });
 ```
 
-Run: `pnpm --filter @druck/app test` — Expected: FAIL (function missing).
+Run: `pnpm --filter @druck-editorial/app test` — Expected: FAIL (function missing).
 
 - [ ] **Step 2: Implement colophon renderer and wire it into buildLandingHtml**
 
@@ -1051,7 +1051,7 @@ export async function buildLandingHtml(template, fixturesDir, auditSummary = nul
 }
 ```
 
-Run: `pnpm --filter @druck/app test` — Expected: PASS.
+Run: `pnpm --filter @druck-editorial/app test` — Expected: PASS.
 
 - [ ] **Step 3: Prerender plugin in vite.config.ts**
 
@@ -1144,8 +1144,8 @@ Replace `apps/druck-app/index.html` entirely. Verify the two preload filenames a
         <h1 id="hero-heading" class="demo-hero-h1">Structure in,<br><em>magazine out</em></h1>
         <p class="demo-hero-body">Druck turns structured article data into magazine-quality pages. Formats, per-language typography, reading analytics, and embeddable widgets — extracted from a pipeline that rendered thousands of production articles before it had a name.</p>
         <div class="demo-hero-cta-row">
-          <button class="demo-cta" data-island="copy" data-copy-text="pnpm add @druck/engine">
-            <code>pnpm add @druck/engine</code>
+          <button class="demo-cta" data-island="copy" data-copy-text="pnpm add @druck-editorial/engine">
+            <code>pnpm add @druck-editorial/engine</code>
             <span class="icon-slot" data-icon="copy" aria-hidden="true"></span>
           </button>
           <a class="demo-cta demo-cta-ghost" href="https://github.com/druck-editorial/druck" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -1216,7 +1216,7 @@ Replace `apps/druck-app/index.html` entirely. Verify the two preload filenames a
       </div>
       <aside class="demo-analytics" aria-labelledby="analytics-title">
         <div class="demo-analytics-title" id="analytics-title">Reading analytics — watching you read, right now</div>
-        <p class="analytics-privacy">@druck/analytics is tracking your reading of the article above. Nothing leaves this page.</p>
+        <p class="analytics-privacy">@druck-editorial/analytics is tracking your reading of the article above. Nothing leaves this page.</p>
         <div class="demo-analytics-grid">
           <div class="demo-analytics-metric">
             <div class="demo-analytics-metric-label">Scroll depth</div>
@@ -1297,7 +1297,7 @@ Replace `apps/druck-app/index.html` entirely. Verify the two preload filenames a
       <p class="colophon-links">
         <a href="https://github.com/druck-editorial/druck" target="_blank" rel="noopener noreferrer">GitHub</a>
         <span>&middot;</span><span>MIT</span><span>&middot;</span>
-        <code>pnpm add @druck/engine</code>
+        <code>pnpm add @druck-editorial/engine</code>
       </p>
     </section>
   </main>
@@ -1315,7 +1315,7 @@ The two legacy script tags (`article-progress.js`, `article-effects.js`) are gon
 
 - [ ] **Step 5: tsconfig adjustments**
 
-Open `apps/druck-app/tsconfig.json`: remove the `jsx` and `jsxImportSource` compiler options if present, ensure `include` covers `src` and `prerender`. Run `pnpm --filter @druck/app typecheck` — App.tsx still compiles for now; errors about missing main.ts imports are expected to be absent (main.ts arrives in Task 8; typecheck only covers existing files).
+Open `apps/druck-app/tsconfig.json`: remove the `jsx` and `jsxImportSource` compiler options if present, ensure `include` covers `src` and `prerender`. Run `pnpm --filter @druck-editorial/app typecheck` — App.tsx still compiles for now; errors about missing main.ts imports are expected to be absent (main.ts arrives in Task 8; typecheck only covers existing files).
 
 - [ ] **Step 6: Dev smoke + commit**
 
@@ -1535,7 +1535,7 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 
 - [ ] **Step 3: Import order in main entry**
 
-The imports land in `src/main.ts` (Task 8) in this order: `./styles/fonts.css`, `./styles.css`, `./styles/landing.css`, `@druck/css/article.css`. Record this here so Task 8 copies it exactly. `fonts-themes.css` is not imported — the embeds island injects it.
+The imports land in `src/main.ts` (Task 8) in this order: `./styles/fonts.css`, `./styles.css`, `./styles/landing.css`, `@druck-editorial/css/article.css`. Record this here so Task 8 copies it exactly. `fonts-themes.css` is not imported — the embeds island injects it.
 
 - [ ] **Step 4: Dev visual check + commit**
 
@@ -1676,7 +1676,7 @@ describe('initCopyButton', () => {
 });
 ```
 
-Run: `pnpm --filter @druck/app test` — Expected: FAIL (modules missing).
+Run: `pnpm --filter @druck-editorial/app test` — Expected: FAIL (modules missing).
 
 - [ ] **Step 2: Implement the islands**
 
@@ -1876,7 +1876,7 @@ async function activate(band: HTMLElement): Promise<void> {
     link.href = new URL('../styles/fonts-themes.css', import.meta.url).href;
     document.head.appendChild(link);
   }
-  await import('@druck/widget');
+  await import('@druck-editorial/widget');
   for (const widget of band.querySelectorAll<HTMLElement>('druck-article[data-src]')) {
     widget.setAttribute('src', widget.dataset.src ?? '');
   }
@@ -1898,7 +1898,7 @@ export function initEmbeds(band: HTMLElement): void {
 `src/islands/analyticsPanel.ts`:
 
 ```ts
-import { ReadingTracker } from '@druck/analytics';
+import { ReadingTracker } from '@druck-editorial/analytics';
 
 const MILESTONES = [25, 50, 75, 100];
 
@@ -1952,7 +1952,7 @@ export { formatReadingTime };
 import './styles/fonts.css';
 import './styles.css';
 import './styles/landing.css';
-import '@druck/css/article.css';
+import '@druck-editorial/css/article.css';
 import copyIcon from './icons/copy.svg?raw';
 import replayIcon from './icons/arrow-counter-clockwise.svg?raw';
 import { initThemeToggle } from './islands/theme.js';
@@ -2023,9 +2023,9 @@ In `apps/druck-app/package.json` remove `preact`, `@preact/signals` from depende
 
 ```bash
 pnpm install
-pnpm --filter @druck/app test
-pnpm --filter @druck/app typecheck
-pnpm --filter @druck/app build
+pnpm --filter @druck-editorial/app test
+pnpm --filter @druck-editorial/app typecheck
+pnpm --filter @druck-editorial/app build
 ```
 
 Expected: tests PASS, typecheck clean, build completes with prerendered HTML in `dist/index.html` (grep it: `grep -c article-shell apps/druck-app/dist/index.html` returns at least 4).
@@ -2053,7 +2053,7 @@ Add to `apps/druck-app/package.json` devDependencies: `"@playwright/test": "^1.5
 
 ```bash
 pnpm install
-pnpm --filter @druck/app exec playwright install chromium
+pnpm --filter @druck-editorial/app exec playwright install chromium
 ```
 
 - [ ] **Step 2: playwright.config.ts**
@@ -2079,7 +2079,7 @@ export default defineConfig({
 });
 ```
 
-Run `pnpm --filter @druck/app build` once before E2E so `preview` has a dist.
+Run `pnpm --filter @druck-editorial/app build` once before E2E so `preview` has a dist.
 
 - [ ] **Step 3: Behavioral spec — every feature, real assertions**
 
@@ -2280,8 +2280,8 @@ test('every interactive control is reachable and focus-visible', async ({ page }
 - [ ] **Step 6: Run and commit**
 
 ```bash
-pnpm --filter @druck/app build
-pnpm --filter @druck/app test:e2e
+pnpm --filter @druck-editorial/app build
+pnpm --filter @druck-editorial/app test:e2e
 ```
 
 Expected: all specs PASS. Fix regressions before committing (common first-run failures: surface threshold needing 0.32→0.25 on short viewports, widget poll timeout on cold start — bump to 15000 only if the failure is startup latency, not behavior).
@@ -2339,7 +2339,7 @@ Reduced motion is forced so the hero screenshots capture the deterministic stati
 - [ ] **Step 2: Baseline, eyeball, commit**
 
 ```bash
-pnpm --filter @druck/app exec playwright test tests/visual.spec.ts --update-snapshots
+pnpm --filter @druck-editorial/app exec playwright test tests/visual.spec.ts --update-snapshots
 ```
 
 Open `tests/visual.spec.ts-snapshots/` and review every image at xs and xl in both themes — this is the design review in file form. Fix anything broken before accepting baselines.
@@ -2439,8 +2439,8 @@ Add script to `apps/druck-app/package.json`: `"audit": "node scripts/audit.mjs"`
 - [ ] **Step 2: Build, audit, iterate to 100x4**
 
 ```bash
-pnpm --filter @druck/app build
-pnpm --filter @druck/app audit
+pnpm --filter @druck-editorial/app build
+pnpm --filter @druck-editorial/app audit
 ```
 
 Expected: `AUDIT PASSED` with four 100s. If a category lands below 100, the report names the failing audits — fix, rebuild, rerun. The likely suspects and their fixes: render-blocking theme-fonts link (must only be injected by the embeds island, never in head), missing image dimensions (every `img` the engine and prerenderer emit carries width/height), contrast on muted ink text (lighten `--ink-text-secondary` until it passes 4.5:1).
@@ -2448,11 +2448,11 @@ Expected: `AUDIT PASSED` with four 100s. If a category lands below 100, the repo
 - [ ] **Step 3: Bake the measured numbers into the colophon**
 
 ```bash
-pnpm --filter @druck/app build
+pnpm --filter @druck-editorial/app build
 grep -o 'Measured with Lighthouse [^<]*' apps/druck-app/dist/index.html
 ```
 
-Expected: the colophon method line now carries the real version, date, and transfer size (the plugin picked up `audit/summary.json`). Re-run `pnpm --filter @druck/app test:e2e` to confirm nothing regressed.
+Expected: the colophon method line now carries the real version, date, and transfer size (the plugin picked up `audit/summary.json`). Re-run `pnpm --filter @druck-editorial/app test:e2e` to confirm nothing regressed.
 
 - [ ] **Step 4: Commit**
 
@@ -2467,7 +2467,7 @@ git commit -m "feat: lighthouse audit gate writes measured colophon numbers"
 
 - [ ] **Step 1: Coverage gate**
 
-Run: `pnpm --filter @druck/app test:coverage`
+Run: `pnpm --filter @druck-editorial/app test:coverage`
 Expected: PASS with islands and prerender at or above the 80 percent thresholds configured in Task 1. If a file falls short, the missing branches are almost certainly error paths — cover them with a test, do not delete the threshold.
 
 - [ ] **Step 2: Whole-workspace health**
@@ -2475,9 +2475,9 @@ Expected: PASS with islands and prerender at or above the 80 percent thresholds 
 ```bash
 pnpm -r typecheck
 pnpm -r test
-pnpm --filter @druck/app build
-pnpm --filter @druck/app test:e2e
-pnpm --filter @druck/app audit
+pnpm --filter @druck-editorial/app build
+pnpm --filter @druck-editorial/app test:e2e
+pnpm --filter @druck-editorial/app audit
 ```
 
 Expected: everything green.

@@ -1,5 +1,5 @@
 {
-  "name": "@druck/widget",
+  "name": "@druck-editorial/widget",
   "version": "0.1.0",
   "description": "Custom elements that render druck articles and front pages anywhere: druck-article, druck-feed.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
@@ -22,7 +22,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@druck/engine": "workspace:*"
+    "@druck-editorial/engine": "workspace:*"
   },
   "devDependencies": {
     "happy-dom": "^17.0.0",

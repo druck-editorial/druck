@@ -1,11 +1,11 @@
-# @druck/css
+# @druck-editorial/css
 
 Editorial stylesheet for druck. Covers article, weekly recap, feed grid, and per-language typography for EN, DE, FR, ES, and JA.
 
 ## Install
 
 ```bash
-pnpm add @druck/css
+pnpm add @druck-editorial/css
 ```
 
 ## Usage
@@ -15,13 +15,13 @@ pnpm add @druck/css
 Link the barrel in HTML:
 
 ```html
-<link rel="stylesheet" href="/node_modules/@druck/css/article.css">
+<link rel="stylesheet" href="/node_modules/@druck-editorial/css/article.css">
 ```
 
 Or import in a CSS bundler:
 
 ```css
-@import "@druck/css/article.css";
+@import "@druck-editorial/css/article.css";
 ```
 
 `article.css` imports the partials in the correct cascade order: tokens, hero, body, components, wire, weekly, language, theme. Do not reorder them.
@@ -29,9 +29,9 @@ Or import in a CSS bundler:
 ### Individual partials
 
 ```css
-@import "@druck/css/tokens.css";
-@import "@druck/css/hero.css";
-@import "@druck/css/body.css";
+@import "@druck-editorial/css/tokens.css";
+@import "@druck-editorial/css/hero.css";
+@import "@druck-editorial/css/body.css";
 ```
 
 ### Feed widget
@@ -39,7 +39,7 @@ Or import in a CSS bundler:
 `feed.css` is standalone and intended for use with `<druck-feed>`. It does not depend on the article barrel.
 
 ```html
-<link rel="stylesheet" href="/node_modules/@druck/css/feed.css">
+<link rel="stylesheet" href="/node_modules/@druck-editorial/css/feed.css">
 ```
 
 ## Per-language typography

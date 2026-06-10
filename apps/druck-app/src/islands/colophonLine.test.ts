@@ -2,7 +2,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { initColophonLine } from './colophonLine.js';
 
-vi.mock('@druck/analytics', () => ({
+vi.mock('@druck-editorial/analytics', () => ({
   ReadingTracker: vi.fn(),
 }));
 

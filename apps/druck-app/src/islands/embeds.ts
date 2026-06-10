@@ -13,7 +13,7 @@ async function activate(band: HTMLElement): Promise<void> {
     link.href = new URL('../styles/fonts-themes.css', import.meta.url).href;
     document.head.appendChild(link);
   }
-  await import('@druck/widget');
+  await import('@druck-editorial/widget');
   for (const widget of band.querySelectorAll<HTMLElement>('druck-article[data-src]')) {
     widget.setAttribute('src', widget.dataset.src ?? '');
   }

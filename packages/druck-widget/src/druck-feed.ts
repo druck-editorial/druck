@@ -1,8 +1,8 @@
-import type { ArticleData, RenderOptions } from '@druck/engine';
-import { buildFrontPage, renderCard, renderFrontPage, safeUrl, escapeHtml } from '@druck/engine';
+import type { ArticleData, RenderOptions } from '@druck-editorial/engine';
+import { buildFrontPage, renderCard, renderFrontPage, safeUrl, escapeHtml } from '@druck-editorial/engine';
 
 const CSS_URL_ATTR = 'css-url';
-const DEFAULT_FEED_CSS_URL = 'https://unpkg.com/@druck/css/feed.css';
+const DEFAULT_FEED_CSS_URL = 'https://unpkg.com/@druck-editorial/css/feed.css';
 const FETCH_TIMEOUT_MS = 4000;
 
 class DruckFeedElement extends HTMLElement {

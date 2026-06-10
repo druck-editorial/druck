@@ -1,5 +1,5 @@
 {
-  "name": "@druck/css",
+  "name": "@druck-editorial/css",
   "version": "0.1.0",
   "description": "Editorial stylesheet for druck: article, weekly, feed, and per-language typography.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",

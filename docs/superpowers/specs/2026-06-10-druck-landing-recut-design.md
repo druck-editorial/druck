@@ -22,7 +22,7 @@ The page is a calling card aimed at one viewer: a hiring CTO/engineer who scans 
 - The SLM demo article renders in full twice (formats + article bands = 58% of the page); its title appears 4 times.
 - "In the wild" — the strongest material — starts at 72% scroll depth.
 - `$14,250/month` stat breaks mid-number inside its 592px container.
-- Colophon Lighthouse rings show "—" (unmeasured). GitHub link → 404. `pnpm add @druck/engine` → npm 404. No author contact anywhere.
+- Colophon Lighthouse rings show "—" (unmeasured). GitHub link → 404. `pnpm add @druck-editorial/engine` → npm 404. No author contact anywhere.
 
 ## New structure — 5 bands, ~9,500px target
 
@@ -46,9 +46,9 @@ One compact specimen panel (~1.5 screens) with three switcher rows: format (feat
 
 - Lighthouse rings with real measured values (audit gate wired into the build).
 - Zero-JS claim + view-source + copy snippet (unchanged).
-- One live analytics line replacing the old dashboard band: "@druck/analytics watched you read this page: NN% depth, NNs active. Nothing left this page." The analytics island re-targets the landing page itself.
+- One live analytics line replacing the old dashboard band: "@druck-editorial/analytics watched you read this page: NN% depth, NNs active. Nothing left this page." The analytics island re-targets the landing page itself.
 - Quiet signature block: **Artem Iagovdik** — "Extracted from Sonto, where this engine rendered thousands of production articles in five languages." Links: email (artyom.yagovdik@gmail.com), GitHub profile, LinkedIn. LinkedIn URL supplied by owner before merge; if absent at merge time, ship email + GitHub only.
-- MIT, `pnpm add @druck/engine`.
+- MIT, `pnpm add @druck-editorial/engine`.
 
 ### Cut entirely
 
@@ -57,7 +57,7 @@ band-formats (6,141px), band-article (6,350px), the standalone analytics dashboa
 ## Front-page widget design
 
 - **API**: existing `<druck-feed>` gains `layout` attribute (`grid` default — current behavior and tests untouched; `front-page` new) and `fallback-src`. Both URLs gated through `safeUrl()`.
-- **Engine**: `buildFrontPage(items: ArticleData[]): FrontPageRow[]` — pure, deterministic, fixed recipe: hero row (1 item, prefers `hot`) → feature row (wide + small) → triple (3) → in-brief list (4–5 headline-only). ~11 items consumed; extra items ignored. `renderFrontPage(rows, opts): string` emits HTML. Both live in `@druck/engine` so the build-time prerender and the runtime widget share one code path.
+- **Engine**: `buildFrontPage(items: ArticleData[]): FrontPageRow[]` — pure, deterministic, fixed recipe: hero row (1 item, prefers `hot`) → feature row (wide + small) → triple (3) → in-brief list (4–5 headline-only). ~11 items consumed; extra items ignored. `renderFrontPage(rows, opts): string` emits HTML. Both live in `@druck-editorial/engine` so the build-time prerender and the runtime widget share one code path.
 - **CSS**: `feed.css` gains `.df-row--hero`, `.df-row--feature`, `.df-row--triple`, `.df-row--brief`; collapses to single column below 800px (mirrors sonto's break).
 - **Data contract**: the widget consumes `ArticleData[]` only. No client-side field mapping.
 - **Fallback chain**: fetch `src` with ~4s timeout → on failure fetch `fallback-src` → on failure keep prerendered HTML. First render and no-JS render come from the build-time snapshot prerendered through the same `renderFrontPage()`; the island swaps in live data after fetch — same recipe, no layout shift.
@@ -72,7 +72,7 @@ band-formats (6,141px), band-article (6,350px), the standalone analytics dashboa
 ## Publication
 
 - **GitHub**: org `druck-editorial` (verified available 2026-06-10). Repo goes public after an opensource sanitizer pass (secrets/PII/internal-reference scan). README per package + root README. LICENSE and THIRD_PARTY_LICENSES.md already exist.
-- **npm**: publish `@druck/engine`, `@druck/css`, `@druck/widget` at 0.1.0. `@druck` scope availability could not be verified anonymously (npmjs bot-wall); verify at publish time. If taken: pick fallback scope, update every printed install command and the widget's default CSS URL — the landing prints whatever actually exists, enforced by a single source-of-truth constant used by all bands.
+- **npm**: publish `@druck-editorial/engine`, `@druck-editorial/css`, `@druck-editorial/widget` at 0.1.0. `@druck` scope availability could not be verified anonymously (npmjs bot-wall); verify at publish time. If taken: pick fallback scope, update every printed install command and the widget's default CSS URL — the landing prints whatever actually exists, enforced by a single source-of-truth constant used by all bands.
 - **Sequencing**: merge `feat/landing-transformation` → main first; the unfinished T9–T12 from the 06-09 plan (E2E/a11y, visual regression, Lighthouse audit, final sweep) fold into this iteration's quality gates.
 
 ## Also fixed in this iteration

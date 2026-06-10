@@ -1,11 +1,11 @@
-# @druck/widget
+# @druck-editorial/widget
 
 Custom elements that render druck articles and front pages anywhere. Registers `<druck-article>` and `<druck-feed>` as web components.
 
 ## Install
 
 ```bash
-pnpm add @druck/widget
+pnpm add @druck-editorial/widget
 ```
 
 Or load from a self-hosted bundle:
@@ -31,7 +31,7 @@ Fetches `ArticleData` JSON from `src` and renders a full article.
 | Attribute | Description |
 |---|---|
 | `src` | URL of an `ArticleData` JSON file. Required. |
-| `css-url` | URL of the stylesheet to load inside the shadow root. Defaults to the unpkg CDN path for `@druck/css`. Set this to a self-hosted URL in production. |
+| `css-url` | URL of the stylesheet to load inside the shadow root. Defaults to the unpkg CDN path for `@druck-editorial/css`. Set this to a self-hosted URL in production. |
 | `lang` | Sets the `lang` attribute on the article container. |
 | `theme` | `'light'` or `'dark'`. Sets `data-theme` on the container. |
 | `accent` | CSS color value applied to `--accent`. |

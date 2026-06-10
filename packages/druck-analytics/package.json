@@ -1,5 +1,5 @@
 {
-  "name": "@druck/analytics",
+  "name": "@druck-editorial/analytics",
   "version": "0.1.0",
   "description": "Local-first reading analytics for druck pages: depth, active time, chapters.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",

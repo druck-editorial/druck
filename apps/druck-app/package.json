@@ -1,5 +1,5 @@
 {
-  "name": "@druck/app",
+  "name": "@druck-editorial/app",
   "version": "0.1.0",
   "private": true,
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node prerender/fetch-snapshot.mjs && cp ../../packages/druck-css/feed.css public/feed.css && cp src/styles/fonts.css public/fonts.css && pnpm --filter @druck/engine build && pnpm --filter @druck/widget build && tsc && vite build",
+    "build": "node prerender/fetch-snapshot.mjs && cp ../../packages/druck-css/feed.css public/feed.css && cp src/styles/fonts.css public/fonts.css && pnpm --filter @druck-editorial/engine build && pnpm --filter @druck-editorial/widget build && tsc && vite build",
     "preview": "vite preview --port 4173 --strictPort",
     "audit": "node scripts/audit.mjs",
     "typecheck": "tsc --noEmit",
@@ -16,10 +16,10 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@druck/analytics": "workspace:*",
-    "@druck/css": "workspace:*",
-    "@druck/engine": "workspace:*",
-    "@druck/widget": "workspace:*"
+    "@druck-editorial/analytics": "workspace:*",
+    "@druck-editorial/css": "workspace:*",
+    "@druck-editorial/engine": "workspace:*",
+    "@druck-editorial/widget": "workspace:*"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
