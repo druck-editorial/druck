@@ -166,6 +166,7 @@
         <p>It measures reading, not readers: scroll depth, active time, chapters read. The numbers live in page memory.</p>
         <p>No cookies, no fingerprinting, no third-party scripts, no IP logging. Nothing is transmitted unless the site owner sets an endpoint. This page sets none, so the numbers above stay in your tab and die with it.</p>
         <p>No personal data is processed, which is why there is no consent banner to click.</p>
+        <p>Your own analytics keep working: druck output is plain HTML, so GA4, GTM, or Plausible on the host page see it like any other content. The reading tracker can forward its events into them through callbacks.</p>
       </div>
       <div class="colophon-snippet">
         <pre><code>&lt;script type="module" src="__DRUCK_WIDGET_CDN_URL__"&gt;&lt;/script&gt;
@@ -179,9 +180,10 @@
       <div class="colophon-signature">
         <p class="sig-name">Artem Iagovdik</p>
         <p class="sig-provenance">Druck is extracted from <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>, where this engine rendered thousands of production articles in five languages.</p>
-        <p class="sig-links"><a href="mailto:artyom.yagovdik@gmail.com">Email</a><span>&middot;</span><a href="__DRUCK_GITHUB_PROFILE__" target="_blank" rel="noopener noreferrer">GitHub</a></p>
       </div>
       <p class="colophon-links">
+        <a href="mailto:artyom.yagovdik@gmail.com">Email</a>
+        <span>&middot;</span>
         <a href="__DRUCK_GITHUB_URL__" target="_blank" rel="noopener noreferrer">GitHub</a>
         <span>&middot;</span><span>MIT</span><span>&middot;</span>
         <code>__DRUCK_INSTALL_CMD__</code>

@@ -66,3 +66,21 @@ When `endpoint` is empty no network request is made. Session data is available a
 ## Open / closed boundary
 
 This client SDK is MIT-licensed. You can fork it, self-host an endpoint, and send data to your own backend. The hosted Druck dashboard (aggregation, visualization, cohort analysis) is a separate product and is not open source. A `siteToken` ties client events to a registered dashboard account. Self-hosters can omit it and point `endpoint` at their own server.
+
+## Google Analytics, GTM, and friends
+
+druck output is plain HTML on your page. Page-level analytics (GA4, GTM, Plausible, Matomo) see druck articles like any other content — pageviews, sessions, and scroll tracking work unchanged, with or without this package.
+
+This package adds reading-specific signals those tools do not have: true reading depth, active time, chapters actually read. Forward them wherever you want via the callbacks:
+
+```js
+import { ReadingTracker } from '@druck-editorial/analytics';
+
+new ReadingTracker(document.querySelector('.article-shell'), 'my-story', {
+  sendOn: 'manual',
+  onDepth: (percent) => window.dataLayer?.push({ event: 'druck_depth', percent }),
+  onChapterRead: (title) => window.dataLayer?.push({ event: 'druck_chapter_read', title }),
+});
+```
+
+With GTM, register `druck_depth` and `druck_chapter_read` as custom events and route them to GA4 from there. Nothing is sent by this package itself unless you set `endpoint` or wire callbacks like the above.
