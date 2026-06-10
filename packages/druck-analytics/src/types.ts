@@ -20,6 +20,7 @@ export interface ReadingSession {
 
 export interface AnalyticsConfig {
   endpoint?: string;
+  siteToken?: string;
   sendOn?: 'pagehide' | 'interval' | 'manual';
   intervalMs?: number;
   depthMilestones?: number[];

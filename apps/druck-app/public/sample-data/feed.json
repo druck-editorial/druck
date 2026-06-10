@@ -1,0 +1,72 @@
+[
+  {
+    "title": "The Quiet Revolution in Small Language Models",
+    "titleAccentWord": "Revolution",
+    "subtitle": "As frontier models chase scale, a counter-movement builds production-grade AI that fits in a backpack",
+    "metaDescription": "Small language models are reshaping how companies deploy AI — faster, cheaper, private, and surprisingly capable.",
+    "slug": "quiet-revolution-small-language-models",
+    "format": "feature",
+    "category": "ai",
+    "publishedAt": "2026-06-04",
+    "readingTime": "8 min read",
+    "heroImage": "/img/slm-hero.webp",
+    "heroImageAlt": "Low-poly illustration of an open backpack holding a laptop and chips",
+    "shareUrl": "https://druck.ing/articles/quiet-revolution-small-language-models/"
+  },
+  {
+    "title": "Anthropic Ships Claude 4.6 Sonnet with 200K Context",
+    "titleAccentWord": "4.6",
+    "subtitle": "The mid-tier model gets a context window expansion and improved instruction following",
+    "metaDescription": "Anthropic releases Claude 4.6 Sonnet with 200K context window.",
+    "slug": "anthropic-claude-46-sonnet-200k",
+    "format": "wire",
+    "category": "ai",
+    "publishedAt": "2026-06-03",
+    "readingTime": "2 min read",
+    "heroImage": "/img/wire-hero.webp",
+    "heroImageAlt": "Minimal flat illustration of a sunlit empty room",
+    "shareUrl": "https://druck.ing/articles/anthropic-claude-46-sonnet-200k/"
+  },
+  {
+    "title": "German Regulators Block Microsoft Teams Bundling",
+    "titleAccentWord": "Block",
+    "subtitle": "The Bundeskartellamt ruling forces unbundling of Teams from Office 365 in Germany",
+    "metaDescription": "German antitrust regulators rule against Microsoft Teams bundling.",
+    "slug": "germany-blocks-teams-bundling",
+    "format": "quick_take",
+    "category": "business",
+    "publishedAt": "2026-06-02",
+    "readingTime": "4 min read",
+    "heroImage": "/img/frame-fashion-hero.webp",
+    "heroImageAlt": "Abstract illustration of overlapping geometric shapes",
+    "shareUrl": "https://druck.ing/articles/germany-blocks-teams-bundling/"
+  },
+  {
+    "title": "SpaceX Starship Completes Orbital Refueling Test",
+    "titleAccentWord": "Orbital",
+    "subtitle": "The demonstration validates the core technique needed for lunar and Mars missions",
+    "metaDescription": "SpaceX Starship completes first orbital refueling demonstration.",
+    "slug": "spacex-starship-orbital-refueling",
+    "format": "wire",
+    "category": "science",
+    "publishedAt": "2026-06-01",
+    "readingTime": "3 min read",
+    "heroImage": "/img/frame-music-hero.webp",
+    "heroImageAlt": "Stylized illustration of a rocket stage separation",
+    "shareUrl": "https://druck.ing/articles/spacex-starship-orbital-refueling/"
+  },
+  {
+    "title": "PostgreSQL 18 Adds Native Vector Search",
+    "titleAccentWord": "Native",
+    "subtitle": "The v18 beta brings ivfflat and hnsw indexes into core — no extensions required",
+    "metaDescription": "PostgreSQL 18 introduces native vector search indexes.",
+    "slug": "postgresql-18-native-vector-search",
+    "format": "quick_take",
+    "category": "dev",
+    "publishedAt": "2026-05-30",
+    "readingTime": "5 min read",
+    "heroImage": "/img/slm-hero.webp",
+    "heroImageAlt": "Database diagram illustration",
+    "shareUrl": "https://druck.ing/articles/postgresql-18-native-vector-search/"
+  }
+]

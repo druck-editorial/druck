@@ -9,9 +9,9 @@ druck/
 ├── apps/
 │   └── druck-app/         # Preact SPA demo (@druck/app)
 ├── packages/
-│   ├── druck-engine/     # Types + renderer (@druck/engine)
-│   ├── druck-css/        # Editorial stylesheet (@druck/css)
-│   ├── druck-widget/     # <druck-article> web component (@druck/widget)
+│   ├── druck-engine/     # Types + renderer: renderArticle + renderCard (@druck/engine)
+│   ├── druck-css/        # Editorial stylesheet: article.css + feed.css (@druck/css)
+│   ├── druck-widget/     # <druck-article> + <druck-feed> web components (@druck/widget)
 │   └── druck-analytics/  # Reading metrics (@druck/analytics)
 ```
 

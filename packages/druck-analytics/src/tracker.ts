@@ -1,6 +1,7 @@
 import type { AnalyticsConfig, ReadingEvent, ReadingSession } from './types.js';
 
-type MergedConfig = Omit<Required<AnalyticsConfig>, 'onDepth' | 'onActiveReading' | 'onChapterRead'> & {
+type MergedConfig = Omit<Required<AnalyticsConfig>, 'onDepth' | 'onActiveReading' | 'onChapterRead' | 'siteToken'> & {
+  siteToken?: string;
   onDepth?: (depthPercent: number) => void;
   onActiveReading?: (activeSec: number) => void;
   onChapterRead?: (title: string) => void;
@@ -230,12 +231,19 @@ export class ReadingTracker {
 
     this.#events = [];
 
+    const headers: Record<string, string> = { 'content-type': 'application/json' };
+    if (this.#config.siteToken) {
+      headers['x-druck-site'] = this.#config.siteToken;
+    }
+
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(this.#config.endpoint, JSON.stringify(payload));
+      const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      navigator.sendBeacon(this.#config.endpoint, blob);
     } else {
       fetch(this.#config.endpoint, {
         method: 'POST',
         body: JSON.stringify(payload),
+        headers,
         keepalive: true,
       }).catch(() => {});
     }

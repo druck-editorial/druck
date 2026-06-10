@@ -1,0 +1,361 @@
+/* Simple post layout (wire / wire_stub) — accent tokens come from the
+   shared .article-shell, .post-simple cat-* selectors above. */
+
+/* Shared text tokens — keeps .article-shell and .post-simple bodies in sync. */
+.article-shell, .post-simple {
+    --pull-quote-color: color-mix(in oklab, var(--accent) 60%, var(--color-text) 40%);
+}
+.post-simple {
+    --color-text: #1a1612;
+    --color-text-secondary: #4a463f;
+    --color-text-muted: #6b665d;
+    --accent: #4a5fb8;
+    max-width: 720px;
+    margin: 0 auto;
+    /* Top padding clears the position:fixed .site-logo-link and theme-btn
+       in the chrome (~64px logo + 16px breathing room). */
+    padding: clamp(5rem, 6vw, 7rem) 1.25rem clamp(2rem, 4vw, 4rem);
+    color: var(--color-text);
+    box-sizing: border-box;
+}
+
+/* === Wire article enhancements === */
+
+.post-simple .wire-pull-quote {
+    border-left: none;
+    font-family: var(--font-serif, 'Source Serif 4', serif);
+    font-size: clamp(1.15rem, 1.4vw + 0.75rem, 1.45rem);
+    line-height: 1.55;
+    text-align: center;
+    margin: 2.75rem auto;
+    max-width: 32em;
+    padding: 0;
+    color: var(--pull-quote-color);
+    font-style: normal;
+    font-weight: 480;
+    letter-spacing: -0.005em;
+}
+
+/* Why It Matters callout — editorial note, not a UI component */
+.post-simple .wire-why-it-matters {
+    margin: 2.75rem 0;
+    padding: 24px 28px;
+    background: color-mix(in srgb, var(--accent) 4%, transparent);
+    border-radius: 4px;
+    border-left: 2px solid color-mix(in srgb, var(--accent) 75%, transparent);
+}
+.post-simple .wire-why-it-matters .wim-label {
+    font-family: var(--font-heading);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: color-mix(in oklab, var(--accent) 80%, var(--color-text-secondary) 20%);
+    margin-bottom: 10px;
+}
+.post-simple .wire-why-it-matters p {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+}
+
+/* Related Context section */
+.post-simple .related-context {
+    margin: 3rem 0 2.5rem;
+    padding: 28px 0 0;
+    border-top: 1px solid var(--color-hairline);
+}
+.post-simple .rc-head {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.post-simple .rc-label {
+    font-family: var(--font-heading);
+    font-size: 10px;
+    letter-spacing: var(--type-meta-tracking-wide);
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    margin-bottom: 6px;
+}
+.post-simple .rc-head h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+.post-simple .rc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+.post-simple .rc-card {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 14px;
+    background: var(--color-surface);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.post-simple .rc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--accent);
+}
+.post-simple .rc-img {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--accent-tint);
+    flex-shrink: 0;
+}
+.post-simple .rc-body {
+    padding: 12px 14px 12px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    min-width: 0;
+}
+.post-simple .rc-title {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    line-height: 1.25;
+    font-weight: 650;
+    color: var(--color-text);
+    letter-spacing: -0.015em;
+}
+.post-simple .rc-subtitle {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color-text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+@media (max-width: 520px) {
+    .post-simple .rc-card {
+        grid-template-columns: 64px 1fr;
+    }
+    .post-simple .rc-img {
+        width: 64px;
+        height: 64px;
+    }
+    .post-simple .rc-title {
+        font-size: 14px;
+    }
+    .post-simple .rc-subtitle {
+        font-size: 12.5px;
+    }
+}
+.post-simple *, .post-simple *::before, .post-simple *::after { box-sizing: border-box; }
+
+.post-simple-head { margin-bottom: 1.5rem; }
+.post-simple-kicker {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+}
+.post-simple-title {
+    font-family: var(--font-serif, 'Source Serif 4', serif);
+    font-size: clamp(1.6rem, 2.4vw + 1rem, 2.4rem);
+    line-height: 1.18;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.01em;
+    text-align: center;
+}
+.post-simple-title .accent-word { color: var(--accent); font-style: normal; }
+.post-simple-meta {
+    font-size: 0.8rem;
+    color: var(--color-text-muted, #777);
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.post-simple-img {
+    margin: 0 0 1.75rem;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--accent-tint, rgba(0,0,0,0.04));
+}
+.post-simple-img img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Reserve aspect ratio from the <img> width/height attrs, not a
+       container. Lets portrait/square source images keep their natural
+       shape (capped by max-height) while a 16:9 grok-style image still
+       reserves the right slot pre-load. */
+    max-height: 420px;
+    object-fit: contain;
+}
+.post-simple-body {
+    font-family: var(--font-serif, 'Source Serif 4', serif);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-text);
+}
+.post-simple-body p { margin: 0 0 1.3rem; }
+.post-simple-body p:last-child { margin-bottom: 0; }
+.post-simple-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.post-simple-body blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 1.4rem 0;
+    padding: 0.25rem 0 0.25rem 1rem;
+    color: var(--color-text-muted, #555);
+    font-style: italic;
+}
+.post-simple-body blockquote.pull-quote {
+    border-left: none;
+    font-family: var(--font-serif, 'Source Serif 4', serif);
+    font-size: 1.2rem;
+    line-height: 1.55;
+    text-align: center;
+    margin: 2.5rem auto;
+    max-width: 30em;
+    padding: 0;
+    color: var(--pull-quote-color);
+    font-style: normal;
+    font-weight: 480;
+}
+
+.post-simple .article-sources {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border, rgba(0,0,0,0.08));
+    font-size: 0.85rem;
+}
+.post-simple .article-sources ul { padding-left: 1rem; margin: 0.5rem 0 0; }
+.post-simple .article-sources a { color: var(--accent); }
+
+.post-simple-footer {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border, rgba(0,0,0,0.08));
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.85rem;
+}
+.post-simple-cta {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+.post-simple-footer-links { display: flex; gap: 1rem; }
+.post-simple-footer-links a {
+    color: var(--color-text-muted, #888);
+    text-decoration: none;
+}
+.post-simple-footer-links a:hover { color: var(--accent); }
+
+/* === Wire/post-simple language polish (applies in both themes) === */
+
+/* Japanese: CJK font on body, looser leading, subtle inter-character
+   breathing, narrower readable column, proportional alternates for kana. */
+html[lang="ja"] .post-simple-body {
+  font-family: var(--font-cjk);
+  font-size: 1rem;
+  line-height: 1.95;
+  letter-spacing: 0.012em;
+  max-width: 36em;
+  margin-inline: auto;
+  font-feature-settings: "palt", "kern";
+}
+html[lang="ja"] .post-simple-body p {
+  margin: 0 0 1.45rem;
+}
+html[lang="ja"] .post-simple .wire-pull-quote {
+  font-family: var(--font-cjk);
+  font-size: clamp(1.05rem, 1.1vw + 0.7rem, 1.25rem);
+  line-height: 1.85;
+  letter-spacing: 0.008em;
+  max-width: 30em;
+  font-weight: 500;
+  font-feature-settings: "palt", "kern";
+}
+html[lang="ja"] .post-simple .wire-why-it-matters {
+  padding: 26px 28px;
+}
+html[lang="ja"] .post-simple .wire-why-it-matters .wim-label {
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+}
+html[lang="ja"] .post-simple .wire-why-it-matters p {
+  font-family: var(--font-cjk);
+  font-size: 15px;
+  line-height: 1.95;
+  letter-spacing: 0.008em;
+  font-feature-settings: "palt", "kern";
+}
+
+/* French: hyphenation + kerning. The base color-mix already gives the
+   calmer pull-quote color; FR just inherits it. */
+html[lang="fr"] .post-simple-body {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+html[lang="fr"] .post-simple-body p {
+  margin: 0 0 1.4rem;
+}
+html[lang="fr"] .post-simple .wire-why-it-matters p {
+  line-height: 1.72;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* Spanish: text blocks run longer than English — give them more leading,
+   slightly narrower column, hyphenation. Pull-quote calmer via base. */
+html[lang="es"] .post-simple-body {
+  font-size: 1.025rem;
+  line-height: 1.78;
+  max-width: 34em;
+  margin-inline: auto;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+html[lang="es"] .post-simple-body p {
+  margin: 0 0 1.4rem;
+}
+html[lang="es"] .post-simple .wire-pull-quote {
+  font-size: clamp(1.1rem, 1.3vw + 0.7rem, 1.35rem);
+  line-height: 1.6;
+  max-width: 30em;
+}
+html[lang="es"] .post-simple .wire-why-it-matters {
+  padding: 24px 28px;
+}
+html[lang="es"] .post-simple .wire-why-it-matters p {
+  line-height: 1.72;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* German also runs long — same readability treatment as Spanish. */
+html[lang="de"] .post-simple-body {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+html[lang="de"] .post-simple-body p {
+  margin: 0 0 1.4rem;
+}
+

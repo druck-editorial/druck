@@ -1,14 +1,22 @@
 {
   "name": "@druck/widget",
   "version": "0.1.0",
+  "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/druck-widget.js",
   "files": ["dist"],
   "scripts": {
     "build": "tsc && node scripts/bundle.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@druck/engine": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5.8.0"
+    "happy-dom": "^17.0.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
   }
 }

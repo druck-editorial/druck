@@ -1,0 +1,9 @@
+{
+  "lang": "en",
+  "label": "English",
+  "headline": "Typography Is the Voice of the Page",
+  "body": "Good typesetting is invisible until you take it away. Hanging punctuation keeps the left edge optically straight, balanced wrapping stops headlines from stranding a single word, and the quotation marks curl the way metal type curled them.",
+  "quote": "“The page speaks before a single word is read.”",
+  "rule": "hanging-punctuation: first; text-wrap: balance;",
+  "ruleLabel": "Hanging punctuation, balanced wrap"
+}

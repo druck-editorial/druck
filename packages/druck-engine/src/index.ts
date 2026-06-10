@@ -15,5 +15,5 @@ export type {
   RenderOptions,
 } from './types.js';
 
-export { renderArticle } from './render.js';
-export { transformInlineBlocks, sanitizeInline } from './format.js';
+export { renderArticle, renderCard } from './render.js';
+export { transformInlineBlocks, sanitizeInline, escapeHtml, safeUrl } from './format.js';

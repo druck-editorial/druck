@@ -8,7 +8,11 @@ import type {
   WeeklyData,
   WeeklySection,
 } from './types.js';
-import { escapeHtml, sanitizeInline, transformInlineBlocks } from './format.js';
+import { escapeHtml, sanitizeInline, transformInlineBlocks, safeUrl } from './format.js';
+
+function safeDimension(value: number | undefined, fallback: number): number {
+  return Number.isFinite(value) ? Math.trunc(value as number) : fallback;
+}
 
 function titleWithAccent(title: string, accentWord?: string): string {
   const safe = escapeHtml(title);
@@ -65,7 +69,7 @@ function renderKnowCards(known?: KnowCard, unknown?: KnowCard): string {
   const u = unknown?.items ?? [];
   if (!k.length && !u.length) return '';
   return (
-    '<aside class="know-cards">' +
+    '<aside class="know-cards" role="note">' +
     renderKnowCard(k, 'What we know', 'yes') +
     renderKnowCard(u, "What we don't", 'no') +
     '</aside>'
@@ -76,7 +80,7 @@ function renderEditorsNote(angle?: string, sourceCount?: number): string {
   if (!angle) return '';
   const siteName = 'Druck';
   return (
-    '<aside class="editors-note">' +
+    '<aside class="editors-note" role="note">' +
     "<span class=\"lbl\">Editor's note</span> " +
     `Written by ${siteName}'s editorial agent from <b>${sourceCount ?? 1} sources</b>. ` +
     `<b>${siteName}'s angle:</b> ${escapeHtml(angle)}` +
@@ -116,12 +120,17 @@ function renderRelated(related?: RelatedArticle[]): string {
   if (!related?.length) return '';
   const cards = related
     .map(
-      (r) =>
-        `<a class="similar-card" href="${escapeHtml(r.url)}">` +
-        (r.image ? `<img class="sc-img" src="${escapeHtml(r.image)}" alt="" loading="lazy">` : '') +
-        `<div class="sc-text"><div class="sc-title">${escapeHtml(r.title)}</div>` +
-        (r.category ? `<div class="sc-cat">${escapeHtml(r.category)}</div>` : '') +
-        '</div></a>'
+      (r) => {
+        const safeRelatedUrl = safeUrl(r.url);
+        if (!safeRelatedUrl) return '';
+        return (
+          `<a class="similar-card" href="${escapeHtml(safeRelatedUrl)}">` +
+          (r.image ? `<img class="sc-img" src="${escapeHtml(safeUrl(r.image))}" alt="" loading="lazy">` : '') +
+          `<div class="sc-text"><div class="sc-title">${escapeHtml(r.title)}</div>` +
+          (r.category ? `<div class="sc-cat">${escapeHtml(r.category)}</div>` : '') +
+          '</div></a>'
+        );
+      }
     )
     .join('');
   return '<section class="similar-articles">' + cards + '</section>';
@@ -171,7 +180,7 @@ function renderFeatureArticle(data: ArticleData, ctx: RenderContext): string {
     '</div>' +
     '</header>' +
 
-    `<figure class="article-hero-img"><img src="${escapeHtml(data.heroImage)}" alt="${escapeHtml(data.title)}" loading="eager" fetchpriority="high" width="1920" height="1080"></figure>` +
+    `<figure class="article-hero-img"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" width="${safeDimension(data.heroImageWidth, 1920)}" height="${safeDimension(data.heroImageHeight, 1080)}"></figure>` +
 
     renderEditorsNote(data.editorsNote, data.sourceCount) +
 
@@ -198,7 +207,7 @@ function renderWireArticle(data: ArticleData, ctx: RenderContext): string {
     `<div class="post-simple-meta"><span>${escapeHtml(data.publishedAt)}</span><span>${escapeHtml(data.readingTime)}</span></div>` +
     '</header>' +
 
-    `<figure class="post-simple-img"><img src="${escapeHtml(data.heroImage)}" alt="${escapeHtml(data.title)}" loading="eager" fetchpriority="high" decoding="async" width="1600" height="900"></figure>` +
+    `<figure class="post-simple-img"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" decoding="async" width="${safeDimension(data.heroImageWidth, 1600)}" height="${safeDimension(data.heroImageHeight, 900)}"></figure>` +
 
     `<div class="post-simple-body">${bodyHtml}</div>` +
 
@@ -207,7 +216,7 @@ function renderWireArticle(data: ArticleData, ctx: RenderContext): string {
       : '') +
 
     (data.whyItMatters
-      ? `<aside class="editors-note"><span class="lbl">Why it matters</span> ${escapeHtml(data.whyItMatters)}</aside>`
+      ? `<aside class="editors-note" role="note"><span class="lbl">Why it matters</span> ${escapeHtml(data.whyItMatters)}</aside>`
       : '') +
 
     renderRelated(data.related) +
@@ -234,7 +243,7 @@ export function renderWeekly(data: WeeklyData, opts?: RenderOptions): string {
     '</div>' +
     '</header>' +
 
-    `<figure class="article-hero-img"><img src="${escapeHtml(data.heroImage)}" alt="${escapeHtml(data.title)}" loading="eager" width="1920" height="1080"></figure>` +
+    `<figure class="article-hero-img"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.title)}" loading="eager" width="1920" height="1080"></figure>` +
 
     `<div class="recap-thesis">${escapeHtml(data.thesis)}</div>` +
 
@@ -249,18 +258,43 @@ export function renderWeekly(data: WeeklyData, opts?: RenderOptions): string {
   );
 }
 
+export function renderCard(data: ArticleData, opts?: RenderOptions): string {
+  const catClass = categoryClass(data.category);
+  const titleHtml = titleWithAccent(data.title, data.titleAccentWord);
+  const fLabel = formatLabel(data.format);
+  const rawHref = data.shareUrl ?? `#${data.slug}`;
+  const href = safeUrl(rawHref) || '#';
+
+  return (
+    `<a class="druck-card ${catClass}" href="${escapeHtml(href)}">` +
+    `<figure class="card-thumb"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="lazy" width="400" height="225"></figure>` +
+    `<div class="card-text">` +
+    `<div class="card-kicker">${escapeHtml(data.category)}${fLabel ? ` <span class="sep">&middot;</span> ${fLabel}` : ''}</div>` +
+    `<h3 class="card-title">${titleHtml}</h3>` +
+    `<p class="card-subtitle">${escapeHtml(data.subtitle)}</p>` +
+    `<div class="card-meta"><time>${escapeHtml(data.publishedAt)}</time><span>${escapeHtml(data.readingTime)}</span></div>` +
+    `</div>` +
+    `</a>`
+  );
+}
+
 function renderWeeklySection(section: WeeklySection): string {
   const narrativeHtml = transformInlineBlocks(section.narrative);
   const keyPointsHtml = renderKeyPoints(section.keyPoints);
 
   const articlesHtml = (section.articles ?? [])
     .map(
-      (a) =>
-        `<a class="recap-article" href="${escapeHtml(a.url)}">` +
-        (a.image ? `<img class="recap-article-thumb" src="${escapeHtml(a.image)}" alt="" loading="lazy">` : '') +
-        `<div class="recap-article-title">${escapeHtml(a.title)}</div>` +
-        (a.summary ? `<div class="recap-article-summary">${escapeHtml(a.summary)}</div>` : '') +
-        '</a>'
+      (a) => {
+        const safeArticleUrl = safeUrl(a.url);
+        if (!safeArticleUrl) return '';
+        return (
+          `<a class="recap-article" href="${escapeHtml(safeArticleUrl)}">` +
+          (a.image ? `<img class="recap-article-thumb" src="${escapeHtml(safeUrl(a.image))}" alt="" loading="lazy">` : '') +
+          `<div class="recap-article-title">${escapeHtml(a.title)}</div>` +
+          (a.summary ? `<div class="recap-article-summary">${escapeHtml(a.summary)}</div>` : '') +
+          '</a>'
+        );
+      }
     )
     .join('');
 

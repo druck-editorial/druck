@@ -1,0 +1,9 @@
+{
+  "lang": "de",
+  "label": "Deutsch",
+  "headline": "Die Sicherheitslückenausnutzung und andere Wortungeheuer",
+  "body": "Deutsche Komposita wie Datenschutzgrundverordnung oder eben Sicherheitslückenausnutzung sprengen jede Spalte, wenn die Silbentrennung fehlt. Mit sauber eingestellter Trennung brechen sie dort, wo das Auge es erwartet, und der Blocksatz bleibt ruhig.",
+  "quote": "„Ein Wort, das nicht brechen darf, bricht die Zeile.“",
+  "rule": "hyphens: auto; hyphenate-limit-chars: 10 5 5;",
+  "ruleLabel": "Auto-Silbentrennung für Komposita"
+}

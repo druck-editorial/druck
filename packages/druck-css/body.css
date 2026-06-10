@@ -1,0 +1,172 @@
+/* === Body === */
+.article-body { max-width: 680px; margin: 0 auto; padding: clamp(36px, 5vw, 56px) 22px 0; font-family: var(--type-body-font); font-size: 17.5px; line-height: var(--type-body-leading); font-weight: var(--type-body-weight); color: var(--color-text); }
+.article-body p { margin: 0 0 1.2em; }
+.article-body p strong { font-weight: 600; color: var(--color-text); }
+.article-shell strong.kw-co { font-weight: 500; color: inherit; }
+.article-shell strong.kw-lang, .article-shell strong.kw-tool { font-weight: 600; color: inherit; }
+.article-body p:first-of-type { font-size: 22px; line-height: var(--type-lead-leading); font-weight: var(--type-lead-weight); letter-spacing: var(--type-lead-tracking); margin-bottom: 1.4em; }
+.article-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; transition: opacity .15s; }
+.article-body a:hover { opacity: 0.7; }
+
+/* === Chapter panel === */
+.chapter-panel {
+  margin: 96px calc(50% - 50vw) 0;
+  padding: 80px calc(50vw - 50%) 0;
+  background: var(--accent-tint);
+  transition: background .35s;
+}
+.chapter-panel + .chapter-panel { margin-top: 0; }
+
+/* Reveal-on-load animation. Replaces the JS IntersectionObserver path
+   (assets/js/article-progress.js) which left the body invisible to any
+   tool that doesn't actively scroll — link-preview screenshotters, web
+   archives, social-share unfurlers all captured blank articles. CSS
+   animation runs unconditionally on page load so the rendered DOM is
+   visible immediately, while users with reduced-motion get the final
+   state without animation. */
+@media (prefers-reduced-motion: no-preference) {
+  .chapter-panel {
+    animation: chapter-reveal 400ms ease-out both;
+  }
+}
+@keyframes chapter-reveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.chapter-head { max-width: 680px; margin: 0 auto 32px; text-align: center; padding: 0 22px; }
+.chapter-num { font-family: var(--font-heading); font-size: 11px; letter-spacing: var(--type-meta-tracking-wide); text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 14px; transition: color .35s; }
+.chapter-title { font-family: var(--type-headline-font); font-size: calc(clamp(24px, 3.2vw, 40px) * var(--type-headline-scale)); font-weight: var(--type-section-weight); line-height: var(--type-section-leading); letter-spacing: var(--type-section-tracking); color: var(--color-text); margin: 0 auto; max-width: var(--type-section-max); text-wrap: balance; }
+.chapter-body { max-width: 680px; margin: 0 auto; padding: 0 22px 80px; font-family: var(--type-body-font); font-size: 17.5px; line-height: var(--type-body-leading); font-weight: var(--type-body-weight); color: var(--color-text); }
+.chapter-body p { margin: 0 0 1.2em; }
+
+/* End mark */
+.end-mark { display:inline-block; width: 9px; height: 9px; background: var(--accent); margin-left: 8px; vertical-align: 1px; transition: background .35s; border-radius: 1px; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; } }
+
+/* === Editor's note === */
+.editors-note { max-width: 680px; margin: 80px auto 0; padding: 18px 24px; background: var(--color-surface); border-radius: 12px; box-shadow: var(--shadow-card); font-family: var(--font-body); font-size: 13.5px; line-height: 1.6; color: var(--color-text-secondary); }
+.editors-note .lbl { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-heading); font-size: 10px; letter-spacing: var(--type-meta-tracking-wide); text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 6px; transition: color .35s; }
+.editors-note .lbl::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transition: background .35s; }
+.editors-note b { color: var(--color-text); font-weight: 600; }
+
+
+/* === Three things === */
+.key-points { margin: 64px 0; }
+.key-points .lbl { font-family: var(--font-heading); font-size: 11px; letter-spacing: var(--type-meta-tracking-wide); text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 28px; text-align: center; transition: color .35s; }
+.key-points-grid { display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--color-hairline); }
+.kp-item { display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--color-hairline); align-items: baseline; }
+.kp-item .n { font-family: var(--font-accent); font-style: italic; font-size: 36px; font-weight: 400; color: var(--accent); letter-spacing: -0.02em; line-height: 1; transition: color .35s; }
+.kp-item p { margin: 0; font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--color-text-secondary); }
+
+
+/* === Stat moment === */
+.article-stat { max-width: 880px; margin: 32px auto; text-align: center; padding: 16px 24px; }
+.article-stat .big { font-family: var(--font-heading); font-size: clamp(64px, 12vw, 168px); font-weight: 200; line-height: 0.95; letter-spacing: -0.06em; color: var(--accent); margin: 0; transition: color .35s; }
+.article-stat .lbl { font-family: var(--font-heading); font-size: 13px; letter-spacing: var(--type-meta-tracking-narrow); text-transform: uppercase; color: var(--color-text-muted); font-weight: 600; margin-top: 16px; max-width: 480px; margin-left:auto; margin-right:auto; line-height: 1.5; }
+.article-stat .big, .article-stat .lbl, .chapter-body { overflow-wrap: anywhere; word-break: break-word; }
+
+@media (max-width: 520px) {
+  .article-stat { padding-left: 12px; padding-right: 12px; }
+  .article-stat .big { font-size: clamp(42px, 16vw, 64px); letter-spacing: -0.04em; }
+}
+
+/* === Source quote === */
+.source-quote { margin: 56px 0; padding: 64px 24px; text-align: center; }
+.source-quote .q { font-family: var(--font-heading); font-size: clamp(20px, 2.4vw, 32px); line-height: 1.3; font-weight: 500; letter-spacing: -0.02em; color: var(--color-text); margin: 0 auto 24px; max-width: 760px; text-wrap: balance; }
+.source-quote .q::before, .source-quote .q::after { font-family: var(--font-accent); color: var(--accent); transition: color .35s; }
+.source-quote .q::before { content:'\201C'; } .source-quote .q::after { content:'\201D'; }
+.source-quote .attr { font-family: var(--font-heading); font-size: 11px; letter-spacing: var(--type-meta-tracking-med); text-transform: uppercase; color: var(--color-text-muted); }
+.source-quote .attr a { color: var(--accent); text-decoration: none; transition: color .35s; }
+.source-quote .attr a:hover { text-decoration: underline; }
+
+/* === Know cards === */
+.know-cards { max-width: 680px; margin: 56px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
+.know-cards:has(> .know-card:only-child) { grid-template-columns: 1fr; }
+.know-card { padding: 14px 18px 0; border-top: 1px solid var(--color-text); }
+.know-card .lbl { font-family: var(--font-accent); font-style: italic; font-size: 18px; font-weight: 400; color: var(--color-text); margin-bottom: 14px; letter-spacing: 0; text-transform: none; display: block; }
+.know-card.no .lbl { color: var(--color-text-secondary); }
+.know-card ul { list-style: none; padding: 0; margin: 0; }
+.know-card li { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--color-text); padding: 8px 0; border-top: 1px solid var(--color-hairline); }
+.know-card li:first-child { border-top: 0; padding-top: 0; }
+.know-card.no li { color: var(--color-text-secondary); }
+@media (max-width: 600px) { .know-cards { grid-template-columns: 1fr; gap: 32px; } }
+
+/* === Tighten vertical rhythm === */
+.article-shell .article-hero { padding-top: clamp(40px, 6vw, 64px); padding-bottom: clamp(16px, 3vw, 28px); }
+.article-shell .article-kicker { margin-bottom: clamp(14px, 2vw, 22px); }
+.article-shell .article-title { margin-bottom: clamp(12px, 1.6vw, 18px); }
+.article-shell .article-byline { margin-top: clamp(18px, 2.4vw, 28px); }
+.article-shell .article-hero-img { padding-top: clamp(20px, 3vw, 36px); }
+.article-shell .article-body { padding-top: clamp(28px, 4vw, 44px); }
+.article-shell .chapter-panel { margin-top: clamp(48px, 6vw, 72px); padding-top: clamp(48px, 6vw, 64px); }
+.article-shell .chapter-body { padding-bottom: clamp(48px, 6vw, 64px); }
+.article-shell .source-quote { padding: 40px 22px; margin: 36px 0; }
+.article-shell .read-next-feature { margin: 40px auto; }
+.article-shell .know-cards { margin: 36px auto; }
+.article-shell .similar-section { padding: clamp(40px, 6vw, 72px) 22px; }
+.article-shell .similar-head { margin-bottom: clamp(28px, 3vw, 40px); }
+
+
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: var(--progress, 0%);
+  background: var(--color-editorial-accent, #b84a34);
+  z-index: 50;
+  pointer-events: none;
+  transition: width 80ms linear;
+}
+
+/* === Oversized chapter number in margin (CSS counter fallback) === */
+.article-shell {
+  counter-reset: chapter-counter;
+}
+.chapter-panel {
+  counter-increment: chapter-counter;
+  position: relative;
+}
+.chapter-panel::before {
+  content: counter(chapter-counter);
+  position: absolute;
+  left: calc(50% - 340px - 8rem);
+  top: clamp(48px, 6vw, 64px);
+  font-family: var(--font-serif);
+  font-size: 7rem;
+  line-height: 1;
+  color: rgba(184, 74, 52, .12);
+  font-style: italic;
+  pointer-events: none;
+  user-select: none;
+}
+@media (max-width: 1120px) {
+  .chapter-panel::before { display: none; }
+}
+[data-theme="dark"] .chapter-panel::before {
+  color: rgba(255, 130, 100, .10);
+}
+
+aside[data-stat],
+blockquote[data-source] {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 600ms ease-out, transform 600ms ease-out;
+}
+
+aside[data-stat].is-visible,
+blockquote[data-source].is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    aside[data-stat],
+    blockquote[data-source] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
