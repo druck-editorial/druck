@@ -1,0 +1,27 @@
+{
+  "title": "Northwind Launches Meridian: Contract Intelligence for Infrastructure Teams",
+  "titleAccentWord": "Meridian",
+  "subtitle": "The platform connects procurement data, compliance status, and vendor performance into a single audit-ready record",
+  "metaDescription": "Northwind announces Meridian, a contract intelligence platform for infrastructure and facilities teams managing multi-vendor procurement.",
+  "slug": "northwind-launches-meridian",
+  "format": "quick_take",
+  "category": "infrastructure",
+  "publishedAt": "Jun 10, 2026",
+  "readingTime": "3 min read",
+  "heroImage": "/img/frame-markets-hero.webp",
+  "heroImageAlt": "Modern office with glass walls and open floor plan",
+  "heroImageWidth": 1168,
+  "heroImageHeight": 784,
+  "chapters": [
+    {
+      "title": "What Meridian does",
+      "bodyHtml": "<p>Meridian ingests contracts from any source — PDFs, DocuSign exports, ERP systems — and produces a normalized record for every obligation: renewal date, spend ceiling, SLA clause, compliance requirement. The record updates automatically when vendors file amendments or regulators publish new requirements in the covered jurisdictions.</p><blockquote data-source=\"Northwind customer, facilities operations lead, North American logistics company\">We had 340 active vendor contracts across 12 systems. Meridian gave us a single view in four days. The renewal alert alone paid for the first year.</blockquote><p>The platform connects to 47 procurement and ERP systems out of the box. Custom connectors are available through the Northwind Partner API, which is publicly documented and carries a 99.9% uptime SLA.</p>"
+    }
+  ],
+  "keyPoints": [
+    { "text": "Ingests contracts from PDF, DocuSign, and 47 ERP integrations into one normalized record." },
+    { "text": "Auto-updates obligation records when vendors file amendments or regulations change." },
+    { "text": "Available June 30 for enterprise accounts; SMB tier follows in Q3 2026." }
+  ],
+  "shareUrl": "/demos/newsroom/"
+}
