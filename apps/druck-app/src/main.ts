@@ -2,6 +2,7 @@ import './styles/fonts.css';
 import './styles.css';
 import './styles/landing.css';
 import '@druck/css/article.css';
+import '@druck/css/feed.css';
 import copyIcon from './icons/copy.svg?raw';
 import replayIcon from './icons/arrow-counter-clockwise.svg?raw';
 import { initThemeToggle } from './islands/theme.js';
