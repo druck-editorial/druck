@@ -168,7 +168,10 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .frame-masthead nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-text-secondary); }
 .frame-viewport { max-height: 62vh; overflow-y: auto; overflow-x: hidden; background: #fdfcfa; }
 .frame-caption { font-size: 12px; color: var(--demo-text-muted); padding: 12px 18px; margin: 0; }
+.frame-caption a { color: var(--demo-text-secondary); }
+[data-theme="dark"] .frame-caption a { color: var(--demo-text-secondary); }
 [data-surface="ink"] .frame-caption { color: var(--ink-text-secondary); }
+[data-surface="ink"] .frame-caption a { color: var(--ink-text-secondary); }
 .channel-strip { display: flex; gap: 8px; padding: 12px 14px 0; flex-wrap: wrap; }
 .channel-strip .bubble { font-size: 11.5px; color: var(--ink-text); background: rgba(42, 171, 238, 0.14); border: 1px solid rgba(42, 171, 238, 0.25); padding: 6px 12px; border-radius: 12px 12px 12px 3px; }
 
