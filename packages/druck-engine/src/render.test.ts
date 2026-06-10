@@ -109,4 +109,15 @@ describe('renderCard', () => {
     expect(html).toContain('href="/articles/safe/"');
     expect(html).toContain('src="https://example.com/img.webp"');
   });
+
+  test('omits the reading-time span when readingTime is absent', () => {
+    const html = renderCard(buildArticle({ readingTime: undefined }));
+    expect(html).not.toContain('<span></span>');
+    expect(html).toContain('<time>');
+  });
+
+  test('accepts hot and the widened category union', () => {
+    const html = renderCard(buildArticle({ hot: true, category: 'infrastructure' }));
+    expect(html).toContain('cat-infrastructure');
+  });
 });

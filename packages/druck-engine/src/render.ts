@@ -163,9 +163,10 @@ function renderFeatureArticle(data: ArticleData, ctx: RenderContext): string {
 
   const bodyHtml = transformInlineBlocks(data.bodyHtml ?? chaptersHtml);
 
+  const readingSpan = data.readingTime ? `<span>${escapeHtml(data.readingTime)}</span>` : '';
   const byline = data.byline
-    ? `<span>${escapeHtml(data.byline.author)}</span><span>${escapeHtml(data.byline.date)}</span><span>${escapeHtml(data.readingTime)}</span>`
-    : `<span>By Editorial</span><span>${escapeHtml(data.readingTime)}</span>`;
+    ? `<span>${escapeHtml(data.byline.author)}</span><span>${escapeHtml(data.byline.date)}</span>${readingSpan}`
+    : `<span>By Editorial</span>${readingSpan}`;
 
   return (
     `<article class="article-shell ${ctx.catClass}">` +
@@ -204,7 +205,7 @@ function renderWireArticle(data: ArticleData, ctx: RenderContext): string {
     '<header class="post-simple-head">' +
     `<div class="post-simple-kicker">${escapeHtml(data.category)}</div>` +
     `<h1 class="post-simple-title">${ctx.titleHtml}</h1>` +
-    `<div class="post-simple-meta"><span>${escapeHtml(data.publishedAt)}</span><span>${escapeHtml(data.readingTime)}</span></div>` +
+    `<div class="post-simple-meta"><span>${escapeHtml(data.publishedAt)}</span>${data.readingTime ? `<span>${escapeHtml(data.readingTime)}</span>` : ''}</div>` +
     '</header>' +
 
     `<figure class="post-simple-img"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="eager" fetchpriority="high" decoding="async" width="${safeDimension(data.heroImageWidth, 1600)}" height="${safeDimension(data.heroImageHeight, 900)}"></figure>` +
@@ -272,7 +273,7 @@ export function renderCard(data: ArticleData, opts?: RenderOptions): string {
     `<div class="card-kicker">${escapeHtml(data.category)}${fLabel ? ` <span class="sep">&middot;</span> ${fLabel}` : ''}</div>` +
     `<h3 class="card-title">${titleHtml}</h3>` +
     `<p class="card-subtitle">${escapeHtml(data.subtitle)}</p>` +
-    `<div class="card-meta"><time>${escapeHtml(data.publishedAt)}</time><span>${escapeHtml(data.readingTime)}</span></div>` +
+    `<div class="card-meta"><time>${escapeHtml(data.publishedAt)}</time>${data.readingTime ? `<span>${escapeHtml(data.readingTime)}</span>` : ''}</div>` +
     `</div>` +
     `</a>`
   );
