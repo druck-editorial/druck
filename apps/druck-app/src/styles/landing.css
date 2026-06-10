@@ -571,7 +571,7 @@ html.js .surface-sheet:not(.revealed) { opacity: 0; transform: var(--fan-transfo
   height: 500px;
   overflow: hidden;
   pointer-events: none;
-  padding-top: 20px;
+  padding-top: 50px;
 }
 
 .surface-sheet--embed .json-pane,
