@@ -37,18 +37,18 @@ const stage = document.querySelector<HTMLElement>('[data-island="sequence"]');
 if (stage) initSequence(stage);
 
 const rangeStage = document.querySelector<HTMLElement>('.range-stage');
+const rangePanels = rangeStage ? [...rangeStage.querySelectorAll<HTMLElement>('.specimen-panel')] : [];
 const rangeState = { format: 'feature', lang: 'en' };
 const applyRange = (): void => {
-  if (!rangeStage) return;
-  for (const panel of rangeStage.querySelectorAll<HTMLElement>('.specimen-panel')) {
+  for (const panel of rangePanels) {
     panel.hidden = !(panel.dataset.format === rangeState.format && panel.dataset.lang === rangeState.lang);
   }
 };
 for (const switcher of document.querySelectorAll<HTMLElement>('[data-island="switcher"]')) {
   const kind = switcher.dataset.switch;
-  if (kind === 'range-format') initSwitcher(switcher, { datasetKey: 'range-noop', onChange: (value) => { rangeState.format = value; applyRange(); } });
-  if (kind === 'range-lang') initSwitcher(switcher, { datasetKey: 'range-noop', onChange: (value) => { rangeState.lang = value; applyRange(); } });
-  if (kind === 'range-accent') initSwitcher(switcher, { datasetKey: 'range-noop', onChange: (value) => { if (rangeStage) rangeStage.className = rangeStage.className.replace(/\bcat-[\w-]+\b/, value); } });
+  if (kind === 'range-format') initSwitcher(switcher, { onChange: (value) => { rangeState.format = value; applyRange(); } });
+  if (kind === 'range-lang') initSwitcher(switcher, { onChange: (value) => { rangeState.lang = value; applyRange(); } });
+  if (kind === 'range-accent') initSwitcher(switcher, { onChange: (value) => { if (rangeStage) rangeStage.className = rangeStage.className.replace(/\bcat-[\w-]+\b/, value); } });
 }
 
 initSurfaces();

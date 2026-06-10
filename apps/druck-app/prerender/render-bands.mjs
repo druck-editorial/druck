@@ -1,7 +1,20 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { buildFrontPage, renderArticle, renderFrontPage } from '@druck/engine';
+import { buildFrontPage, escapeHtml, renderArticle, renderFrontPage } from '@druck/engine';
 import { GITHUB_PROFILE, GITHUB_URL, INSTALL_CMD } from './constants.mjs';
+
+const TOKENS = {
+  INSTALL_CMD,
+  GITHUB_URL,
+  GITHUB_PROFILE,
+};
+
+function applyTokens(html) {
+  return Object.entries(TOKENS).reduce(
+    (out, [name, value]) => out.replaceAll(`__DRUCK_${name}__`, value),
+    html,
+  );
+}
 
 const TOP_LEVEL_KEY_PATTERN = /^\s{2}"([a-zA-Z]+)"/;
 const HERO_JSON_MAX_LINES = 22;
@@ -11,14 +24,6 @@ const SPECIMEN_FORMATS = ['feature', 'quick_take', 'wire'];
 const SPECIMEN_STAT =
   '<div class="specimen-stat"><span class="ss-value">$14,250/month</span>' +
   '<span class="ss-label">average savings reported after moving inference to small models</span></div>';
-
-function escapeHtml(text) {
-  return String(text)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
-}
 
 function tokenizeLine(line) {
   const pattern = /("(?:[^"\\]|\\.)*")(\s*:)?|(-?\d+\.?\d*)|([{}\[\],:])/g;
@@ -147,14 +152,14 @@ function renderRangePanel(specimen, format, visible) {
 }
 
 async function renderRangePanels(fixturesDir) {
-  const panels = [];
-  for (const lang of SPECIMEN_LANGS) {
-    const fixture = await readFixture(fixturesDir, `specimen.${lang}.json`);
-    for (const format of SPECIMEN_FORMATS) {
-      panels.push(renderRangePanel(fixture.data, format, lang === 'en' && format === 'feature'));
-    }
-  }
-  return panels.join('');
+  const fixtures = await Promise.all(
+    SPECIMEN_LANGS.map((lang) => readFixture(fixturesDir, `specimen.${lang}.json`)),
+  );
+  return SPECIMEN_LANGS.flatMap((lang, i) =>
+    SPECIMEN_FORMATS.map((format) =>
+      renderRangePanel(fixtures[i].data, format, lang === 'en' && format === 'feature'),
+    ),
+  ).join('');
 }
 
 async function renderFrontPageBand(fixturesDir) {
@@ -163,13 +168,12 @@ async function renderFrontPageBand(fixturesDir) {
 }
 
 export async function buildLandingHtml(template, fixturesDir, auditSummary = null) {
-  const feature = await readFixture(fixturesDir, 'feature.json');
-  const frontPage = await renderFrontPageBand(fixturesDir);
-  const rangePanels = await renderRangePanels(fixturesDir);
-  return template
-    .replaceAll('__DRUCK_INSTALL_CMD__', INSTALL_CMD)
-    .replaceAll('__DRUCK_GITHUB_URL__', GITHUB_URL)
-    .replaceAll('__DRUCK_GITHUB_PROFILE__', GITHUB_PROFILE)
+  const [feature, frontPage, rangePanels] = await Promise.all([
+    readFixture(fixturesDir, 'feature.json'),
+    renderFrontPageBand(fixturesDir),
+    renderRangePanels(fixturesDir),
+  ]);
+  return applyTokens(template)
     .replace('<!--druck:hero-json-->', () => tokenizeJsonForPane(feature.raw))
     .replace('<!--druck:hero-magazine-->', () => renderHeroMagazinePane(feature.data))
     .replace('<!--druck:front-page-->', () => frontPage)

@@ -106,7 +106,7 @@ function renderShareBar(title: string, url?: string): string {
   );
 }
 
-function categoryClass(category: string): string {
+export function categoryClass(category: string): string {
   return `cat-${category}`;
 }
 

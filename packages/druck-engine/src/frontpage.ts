@@ -1,5 +1,5 @@
 import { escapeHtml, safeUrl } from './format.js';
-import { renderCard } from './render.js';
+import { categoryClass, renderCard } from './render.js';
 import type { ArticleData, RenderOptions } from './types.js';
 
 export type FrontPageRowType = 'hero' | 'feature' | 'triple' | 'brief';
@@ -29,7 +29,7 @@ function renderHeroCard(data: ArticleData): string {
   const href = safeUrl(data.shareUrl ?? '') || '#';
   const imgSrc = safeUrl(data.heroImage) || 'data:,';
   return (
-    `<a class="df-hero-card cat-${data.category}" href="${escapeHtml(href)}">` +
+    `<a class="df-hero-card ${categoryClass(data.category)}" href="${escapeHtml(href)}">` +
     `<img class="df-hero-img" src="${escapeHtml(imgSrc)}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" loading="lazy" width="1200" height="675">` +
     '<div class="df-hero-scrim" aria-hidden="true"></div>' +
     '<div class="df-hero-text">' +

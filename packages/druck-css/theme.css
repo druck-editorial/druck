@@ -12,15 +12,15 @@
   --shadow-card: none;
   --shadow-card-hover: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
-[data-theme="dark"] .article-shell.cat-ai             { --accent:#A9A6E8; }
-[data-theme="dark"] .article-shell.cat-security       { --accent:#E07070; }
-[data-theme="dark"] .article-shell.cat-dev-tools      { --accent:#93C4A8; }
-[data-theme="dark"] .article-shell.cat-infrastructure { --accent:#7BC4C4; }
-[data-theme="dark"] .article-shell.cat-business       { --accent:#D4A520; }
-[data-theme="dark"] .article-shell.cat-big-tech       { --accent:#7BC4C4; }
-[data-theme="dark"] .article-shell.cat-policy         { --accent:#c79e6a; }
-[data-theme="dark"] .article-shell.cat-science        { --accent:#5fc7b8; }
-[data-theme="dark"] .article-shell.cat-weekly          { --accent:#8ba4b8; }
+[data-theme="dark"] .article-shell.cat-ai, [data-theme="dark"] .range-stage.cat-ai { --accent:#A9A6E8; }
+[data-theme="dark"] .article-shell.cat-security, [data-theme="dark"] .range-stage.cat-security { --accent:#E07070; }
+[data-theme="dark"] .article-shell.cat-dev-tools, [data-theme="dark"] .range-stage.cat-dev-tools { --accent:#93C4A8; }
+[data-theme="dark"] .article-shell.cat-infrastructure, [data-theme="dark"] .range-stage.cat-infrastructure { --accent:#7BC4C4; }
+[data-theme="dark"] .article-shell.cat-business, [data-theme="dark"] .range-stage.cat-business { --accent:#D4A520; }
+[data-theme="dark"] .article-shell.cat-big-tech, [data-theme="dark"] .range-stage.cat-big-tech { --accent:#7BC4C4; }
+[data-theme="dark"] .article-shell.cat-policy, [data-theme="dark"] .range-stage.cat-policy { --accent:#c79e6a; }
+[data-theme="dark"] .article-shell.cat-science, [data-theme="dark"] .range-stage.cat-science { --accent:#5fc7b8; }
+[data-theme="dark"] .article-shell.cat-weekly, [data-theme="dark"] .range-stage.cat-weekly { --accent:#8ba4b8; }
 [data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="ai"] { --section-accent: #A9A6E8; }
 [data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="security"] { --section-accent: #E07070; }
 [data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="dev-tools"] { --section-accent: #93C4A8; }

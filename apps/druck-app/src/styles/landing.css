@@ -160,7 +160,6 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .specimen-panel[lang="ja"] .specimen-body { line-height: 1.88; letter-spacing: 0.012em; }
 
 .band-wild .frames { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-.band-feed druck-feed { display: block; margin-bottom: 0.5rem; }
 .frame { display: flex; flex-direction: column; border: 1px solid var(--ink-hairline); border-radius: var(--demo-radius-lg); overflow: hidden; background: var(--ink-surface); }
 .frame-chrome { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--ink-hairline); }
 .frame-chrome .dots { width: 38px; height: 8px; background: radial-gradient(circle 4px, rgba(255,255,255,0.25) 3.4px, transparent 4px) 0/14px 8px repeat-x; }
@@ -170,7 +169,6 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .frame-viewport { max-height: 62vh; overflow-y: auto; background: #fdfcfa; }
 .frame-caption { font-size: 12px; color: var(--demo-text-muted); padding: 12px 18px; margin: 0; }
 [data-surface="ink"] .frame-caption { color: var(--ink-text-secondary); }
-.band-feed .frame-caption { margin-top: 0.5rem; }
 .channel-strip { display: flex; gap: 8px; padding: 12px 14px 0; flex-wrap: wrap; }
 .channel-strip .bubble { font-size: 11.5px; color: var(--ink-text); background: rgba(42, 171, 238, 0.14); border: 1px solid rgba(42, 171, 238, 0.25); padding: 6px 12px; border-radius: 12px 12px 12px 3px; }
 
@@ -207,24 +205,6 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .specimen-stat .ss-label { font-size: 13px; opacity: 0.65; max-width: 44ch; }
 .specimen-kicker { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; }
 
-.range-stage.cat-ai             { --accent: #5F5AAF; }
-.range-stage.cat-security       { --accent: #9D3F2E; }
-.range-stage.cat-dev-tools      { --accent: #477259; }
-.range-stage.cat-infrastructure { --accent: #20756D; }
-.range-stage.cat-business       { --accent: #805F00; }
-.range-stage.cat-big-tech       { --accent: #20756D; }
-.range-stage.cat-policy         { --accent: #5F4425; }
-.range-stage.cat-science        { --accent: #216B61; }
-.range-stage.cat-weekly         { --accent: #40546A; }
-[data-theme="dark"] .range-stage.cat-ai             { --accent: #A9A6E8; }
-[data-theme="dark"] .range-stage.cat-security       { --accent: #E07070; }
-[data-theme="dark"] .range-stage.cat-dev-tools      { --accent: #93C4A8; }
-[data-theme="dark"] .range-stage.cat-infrastructure { --accent: #7BC4C4; }
-[data-theme="dark"] .range-stage.cat-business       { --accent: #D4A520; }
-[data-theme="dark"] .range-stage.cat-big-tech       { --accent: #7BC4C4; }
-[data-theme="dark"] .range-stage.cat-policy         { --accent: #c79e6a; }
-[data-theme="dark"] .range-stage.cat-science        { --accent: #5fc7b8; }
-[data-theme="dark"] .range-stage.cat-weekly         { --accent: #8ba4b8; }
 
 .colophon-analytics { font-size: 14px; opacity: 0.85; margin: 18px auto; max-width: 60ch; color: var(--ink-text); text-align: center; }
 .colophon-analytics [data-line] { font-variant-numeric: tabular-nums; font-weight: 700; }

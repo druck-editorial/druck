@@ -21,15 +21,15 @@
 }
 
 /* === Per-category palette === */
-.article-shell.cat-ai,             .post-simple.cat-ai             { --accent:#5F5AAF; --accent-tint:rgba(95,90,175,0.05);   --accent-wash:rgba(95,90,175,0.12); }
-.article-shell.cat-security,       .post-simple.cat-security       { --accent:#9D3F2E; --accent-tint:rgba(157,63,46,0.05);   --accent-wash:rgba(157,63,46,0.12); }
-.article-shell.cat-dev-tools,      .post-simple.cat-dev-tools      { --accent:#477259; --accent-tint:rgba(71,114,89,0.05);  --accent-wash:rgba(71,114,89,0.12); }
-.article-shell.cat-infrastructure, .post-simple.cat-infrastructure { --accent:#20756D; --accent-tint:rgba(32,117,109,0.05);   --accent-wash:rgba(32,117,109,0.12); }
-.article-shell.cat-business,       .post-simple.cat-business       { --accent:#805F00; --accent-tint:rgba(128,95,0,0.05);  --accent-wash:rgba(128,95,0,0.12); }
-.article-shell.cat-big-tech,       .post-simple.cat-big-tech       { --accent:#20756D; --accent-tint:rgba(32,117,109,0.05);   --accent-wash:rgba(32,117,109,0.12); }
-.article-shell.cat-policy,         .post-simple.cat-policy         { --accent:#5F4425; --accent-tint:rgba(95,68,37,0.05);   --accent-wash:rgba(95,68,37,0.12); }
-.article-shell.cat-science,        .post-simple.cat-science        { --accent:#216B61; --accent-tint:rgba(33,107,97,0.05);  --accent-wash:rgba(33,107,97,0.12); }
-.article-shell.cat-weekly,          .post-simple.cat-weekly          { --accent:#40546A; --accent-tint:rgba(64,84,106,0.05);   --accent-wash:rgba(64,84,106,0.12); }
+.article-shell.cat-ai,             .post-simple.cat-ai, .range-stage.cat-ai { --accent:#5F5AAF; --accent-tint:rgba(95,90,175,0.05);   --accent-wash:rgba(95,90,175,0.12); }
+.article-shell.cat-security,       .post-simple.cat-security, .range-stage.cat-security { --accent:#9D3F2E; --accent-tint:rgba(157,63,46,0.05);   --accent-wash:rgba(157,63,46,0.12); }
+.article-shell.cat-dev-tools,      .post-simple.cat-dev-tools, .range-stage.cat-dev-tools { --accent:#477259; --accent-tint:rgba(71,114,89,0.05);  --accent-wash:rgba(71,114,89,0.12); }
+.article-shell.cat-infrastructure, .post-simple.cat-infrastructure, .range-stage.cat-infrastructure { --accent:#20756D; --accent-tint:rgba(32,117,109,0.05);   --accent-wash:rgba(32,117,109,0.12); }
+.article-shell.cat-business,       .post-simple.cat-business, .range-stage.cat-business { --accent:#805F00; --accent-tint:rgba(128,95,0,0.05);  --accent-wash:rgba(128,95,0,0.12); }
+.article-shell.cat-big-tech,       .post-simple.cat-big-tech, .range-stage.cat-big-tech { --accent:#20756D; --accent-tint:rgba(32,117,109,0.05);   --accent-wash:rgba(32,117,109,0.12); }
+.article-shell.cat-policy,         .post-simple.cat-policy, .range-stage.cat-policy { --accent:#5F4425; --accent-tint:rgba(95,68,37,0.05);   --accent-wash:rgba(95,68,37,0.12); }
+.article-shell.cat-science,        .post-simple.cat-science, .range-stage.cat-science { --accent:#216B61; --accent-tint:rgba(33,107,97,0.05);  --accent-wash:rgba(33,107,97,0.12); }
+.article-shell.cat-weekly,          .post-simple.cat-weekly, .range-stage.cat-weekly { --accent:#40546A; --accent-tint:rgba(64,84,106,0.05);   --accent-wash:rgba(64,84,106,0.12); }
 
 /* === Reset === */
 .article-shell, .article-shell *, .article-shell *::before, .article-shell *::after { box-sizing: border-box; }
