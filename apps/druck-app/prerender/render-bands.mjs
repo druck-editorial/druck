@@ -141,7 +141,6 @@ export function renderColophonScores(summary) {
 }
 
 function renderRangePanel(specimen, format, visible) {
-  const shortBody = `${specimen.body.split('. ')[0]}.`;
   const inner =
     format === 'feature'
       ? `<h3 class="specimen-headline">${escapeHtml(specimen.headline)}</h3>` +
@@ -156,7 +155,7 @@ function renderRangePanel(specimen, format, visible) {
           `<blockquote class="specimen-quote">${escapeHtml(specimen.quote)}</blockquote>`
         : `<div class="specimen-kicker">wire</div>` +
           `<h3 class="specimen-headline">${escapeHtml(specimen.headline)}</h3>` +
-          `<p class="specimen-body">${escapeHtml(shortBody)}</p>`;
+          `<p class="specimen-body">${escapeHtml(specimen.body)}</p>`;
   return (
     `<article class="specimen-panel" lang="${escapeHtml(specimen.lang)}" data-lang="${escapeHtml(specimen.lang)}" data-format="${escapeHtml(format)}"${visible ? '' : ' hidden'}>` +
     inner +
