@@ -116,8 +116,24 @@ describe('renderCard', () => {
     expect(html).toContain('<time>');
   });
 
-  test('accepts hot and the widened category union', () => {
-    const html = renderCard(buildArticle({ hot: true, category: 'infrastructure' }));
+  test('accepts the widened category union', () => {
+    const html = renderCard(buildArticle({ category: 'infrastructure' }));
     expect(html).toContain('cat-infrastructure');
+  });
+});
+
+describe('renderArticle feature format', () => {
+  test('omits reading-time span in byline when readingTime is absent', () => {
+    const html = renderArticle(buildArticle({ format: 'feature', readingTime: undefined }));
+    expect(html).not.toContain('<span></span>');
+    expect(html).toContain('article-byline');
+  });
+});
+
+describe('renderArticle wire format', () => {
+  test('omits reading-time span in meta when readingTime is absent', () => {
+    const html = renderArticle(buildArticle({ format: 'wire', readingTime: undefined, bodyHtml: '<p>Wire body</p>' }));
+    expect(html).not.toContain('<span></span>');
+    expect(html).toContain('post-simple-meta');
   });
 });
