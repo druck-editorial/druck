@@ -12,3 +12,7 @@ apps/druck-app/audit/lighthouse.json
 test-results/
 
 .superpowers/
+
+.claude/
+.playwright-mcp/
+druck-avatar.png
