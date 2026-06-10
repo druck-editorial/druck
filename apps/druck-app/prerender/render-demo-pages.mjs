@@ -70,31 +70,6 @@ function embedFooterFeed(elementTag, srcAttr) {
   );
 }
 
-export async function renderDemoArticlePage(fixturesDir) {
-  const feature = await readFixture(fixturesDir, 'feature.json');
-  const article = renderArticle(feature);
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(feature.title)} — Druck demo</title>
-<meta name="description" content="${escapeHtml(feature.metaDescription)}">
-<meta name="robots" content="index, follow">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/fonts/source-serif-4-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/fonts.css">
-<link rel="stylesheet" href="/article.css">
-<script>(function(){try{var t=localStorage.getItem('druck-theme');if(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t)document.documentElement.dataset.theme=t;}catch(e){}})()</script>
-<style>body{margin:0;background:#f6f4f1}html[data-theme="dark"] body{background:#0c0c0e}</style>
-</head>
-<body>
-${article}
-<footer class="demo-article-footer"><a href="/">&larr; druck &mdash; the engine that rendered this page</a></footer>
-</body>
-</html>`;
-}
-
 export async function musicReview(fixturesDir) {
   const [data, feedItems] = await Promise.all([
     readFixture(fixturesDir, 'frame-music.json'),

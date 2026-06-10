@@ -5,7 +5,6 @@ import { join } from 'node:path';
 import {
   tokenizeJsonForPane,
   tokenizeJsonForFeedPane,
-  renderHeroMagazinePane,
   buildLandingHtml,
   renderColophonScores,
 } from './render-bands.mjs';
@@ -56,30 +55,6 @@ describe('tokenizeJsonForFeedPane', () => {
     expect(html).toContain('… 11 more stories');
     expect(html).toContain('class="jl muted"');
     expect(html).not.toContain('"B"');
-  });
-});
-
-describe('renderHeroMagazinePane', () => {
-  test('produces five stepped slots from article data', () => {
-    const data = {
-      title: 'A Story',
-      titleAccentWord: 'Story',
-      subtitle: 'Deck text',
-      category: 'ai',
-      format: 'feature',
-      readingTime: '8 min read',
-      heroImage: '/img/slm-hero.webp',
-      heroImageAlt: 'alt',
-      heroImageWidth: 1920,
-      heroImageHeight: 1047,
-      chapters: [{ title: 'One', bodyHtml: '<p>First chapter prose.</p>' }],
-    };
-    const html = renderHeroMagazinePane(data);
-    for (const step of [1, 2, 3, 4, 5]) {
-      expect(html).toContain(`data-step="${step}"`);
-    }
-    expect(html).toContain('accent-word');
-    expect(html).toContain('width="1920"');
   });
 });
 

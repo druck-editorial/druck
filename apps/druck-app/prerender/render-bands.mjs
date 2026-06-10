@@ -94,32 +94,6 @@ export function tokenizeJsonForPane(source) {
     .join('\n');
 }
 
-function titleWithAccent(title, accentWord) {
-  const safe = escapeHtml(title);
-  if (!accentWord) return safe;
-  const safeWord = escapeHtml(accentWord);
-  if (!safe.includes(safeWord)) return safe;
-  return safe.replace(safeWord, () => `<em class="accent-word">${safeWord}</em>`);
-}
-
-function firstChapterExcerpt(data) {
-  const body = data.chapters?.[0]?.bodyHtml ?? data.bodyHtml ?? '';
-  const firstParagraph = /<p>.*?<\/p>/s.exec(body);
-  return firstParagraph ? firstParagraph[0] : '';
-}
-
-export function renderHeroMagazinePane(data) {
-  return (
-    `<div class="hero-mag article-shell cat-${escapeHtml(data.category)}">` +
-    `<div class="hx article-kicker" data-step="1">${escapeHtml(data.category)} <span class="sep">&middot;</span> ${data.format === 'feature' ? 'Feature' : ''}</div>` +
-    `<h2 class="hx hero-mag-title" data-step="2">${titleWithAccent(data.title, data.titleAccentWord)}</h2>` +
-    `<p class="hx article-deck" data-step="3">${escapeHtml(data.subtitle)}</p>` +
-    `<figure class="hx hero-mag-img" data-step="4"><img src="${escapeHtml(safeUrl(data.heroImage) ?? '')}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" width="${data.heroImageWidth ?? 1920}" height="${data.heroImageHeight ?? 1080}" loading="eager" fetchpriority="high"></figure>` +
-    `<div class="hx hero-mag-body" data-step="5">${firstChapterExcerpt(data)}</div>` +
-    '</div>'
-  );
-}
-
 export function renderHeroFrontPagePane(items) {
   const t0 = performance.now();
   const html = renderFrontPage(buildFrontPage(items));
