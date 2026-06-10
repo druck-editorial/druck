@@ -9,7 +9,7 @@ const SUMMARY_PATH = join(AUDIT_DIR, 'summary.json');
 const TARGET_URL = 'http://localhost:4173/';
 const CATEGORIES = ['performance', 'accessibility', 'best-practices', 'seo'];
 const INITIAL_TRANSFER_BUDGET_KB = 250;
-const IMAGE_REQUEST_PATTERN = /\/img\/.+\.webp(?:\?|$)/;
+const IMAGE_REQUEST_PATTERN = /\/img\/.+\.webp(?:\?|$)|sonto\.tech\/cache\//;
 const PROFILE = 'local-preview';
 
 function run(command, args, options = {}) {

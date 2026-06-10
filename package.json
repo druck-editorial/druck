@@ -12,6 +12,7 @@
     "analytics:build": "pnpm --filter @druck/analytics build",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "check:links": "node scripts/check-links.mjs"
   }
 }
