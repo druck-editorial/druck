@@ -1,4 +1,4 @@
-🪶 # Druck
+# 🪶 Druck
 
 Structured article JSON in, magazine pages out.
 
