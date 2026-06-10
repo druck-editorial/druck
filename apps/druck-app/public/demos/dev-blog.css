@@ -1,0 +1,180 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --dl-bg: #f5f4f2;
+  --dl-surface: #ffffff;
+  --dl-text: #1e1e1e;
+  --dl-text-muted: #666;
+  --dl-accent: #20756d;
+  --dl-hairline: rgba(0,0,0,0.1);
+  --dl-font-logo: 'IBM Plex Mono', ui-monospace, monospace;
+  --dl-font-body: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--dl-bg);
+  color: var(--dl-text);
+  font-family: var(--dl-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.druck-attribution {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(245,244,242,0.96);
+  color: var(--dl-text);
+  text-align: center;
+  font-family: var(--dl-font-logo);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 1rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--dl-hairline);
+}
+
+.druck-attribution:hover { text-decoration: underline; }
+
+.dl-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.75rem;
+  border-bottom: 1px solid var(--dl-hairline);
+}
+
+.dl-logo {
+  font-family: var(--dl-font-logo);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--dl-text);
+  text-decoration: none;
+}
+
+.dl-logo:hover { color: var(--dl-accent); }
+
+.dl-nav { display: flex; gap: 1.25rem; }
+.dl-nav a { color: var(--dl-text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--dl-font-logo); }
+.dl-nav a:hover { color: var(--dl-accent); text-decoration: underline; }
+
+.dl-main { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+.dl-main .article-shell {
+  --color-bg: transparent;
+  --color-text: var(--dl-text);
+  --color-text-secondary: #333;
+  --color-text-muted: var(--dl-text-muted);
+  --color-hairline: var(--dl-hairline);
+  --color-surface: var(--dl-surface);
+  --accent: var(--dl-accent);
+  --type-headline-font: system-ui, -apple-system, sans-serif;
+  --type-headline-weight: 700;
+  --type-body-font: system-ui, -apple-system, sans-serif;
+}
+
+.dl-subscribe {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: var(--dl-surface);
+  border: 1px solid var(--dl-hairline);
+  border-left: 3px solid var(--dl-accent);
+}
+
+.dl-subscribe-heading {
+  font-family: var(--dl-font-logo);
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+  color: var(--dl-accent);
+}
+
+.dl-subscribe-body {
+  font-size: 0.85rem;
+  color: var(--dl-text-muted);
+  margin: 0 0 1rem;
+  line-height: 1.55;
+}
+
+.dl-subscribe-label {
+  display: block;
+  font-size: 0.8rem;
+  font-family: var(--dl-font-logo);
+  color: var(--dl-text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.dl-subscribe-row { display: flex; gap: 0.5rem; }
+
+.dl-subscribe-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--dl-hairline);
+  border-radius: 3px;
+  background: var(--dl-bg);
+  color: var(--dl-text);
+  font-family: var(--dl-font-body);
+  font-size: 0.85rem;
+}
+
+.dl-subscribe-input:focus { outline: 2px solid var(--dl-accent); outline-offset: 1px; }
+
+.dl-subscribe-btn {
+  padding: 0.5rem 1rem;
+  background: var(--dl-accent);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dl-subscribe-btn:hover { background: #195e57; }
+
+.dl-footer {
+  border-top: 1px solid var(--dl-hairline);
+  padding: 1.25rem 1.5rem;
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 0.78rem;
+  color: var(--dl-text-muted);
+  font-family: var(--dl-font-logo);
+}
+
+.demo-embed-footer {
+  border-top: 1px solid var(--dl-hairline);
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.demo-embed-label {
+  font-family: var(--dl-font-logo);
+  font-size: 0.72rem;
+  color: var(--dl-text-muted);
+  margin: 0 0 0.5rem;
+}
+
+.demo-embed-code {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: var(--dl-surface);
+  border: 1px solid var(--dl-hairline);
+  font-family: var(--dl-font-logo);
+  font-size: 0.76rem;
+  color: var(--dl-text);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+@media (max-width: 768px) {
+  .dl-header { padding: 1rem; }
+  .dl-main { padding: 1.25rem 1rem 3rem; }
+  .dl-subscribe-row { flex-direction: column; }
+  .demo-embed-footer { padding: 1rem; }
+}
