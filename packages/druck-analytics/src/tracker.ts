@@ -31,6 +31,8 @@ export class ReadingTracker {
   #sentMilestones = new Set<number>();
   #intervalId?: ReturnType<typeof setInterval>;
   #tickId?: ReturnType<typeof setInterval>;
+  #chapterTimers = new Set<ReturnType<typeof setTimeout>>();
+  #trackedListeners: Array<{ target: EventTarget; type: string; fn: EventListener; options?: AddEventListenerOptions | boolean }> = [];
 
   constructor(articleRoot: HTMLElement, slug: string, config?: AnalyticsConfig) {
     this.#config = { ...DEFAULT_CONFIG, ...config };
@@ -108,6 +110,7 @@ export class ReadingTracker {
       ev.detail = el.querySelector('.q')?.textContent?.slice(0, 50) ?? '';
     } else if (cls.includes('know-cards')) {
       ev.type = 'aside_view';
+      ev.detail = el.querySelector('h3, h4, .kc-title, .know-title')?.textContent?.trim() || 'know-cards';
     }
 
     this.#events.push(ev);
@@ -140,7 +143,8 @@ export class ReadingTracker {
   }
 
   #scheduleChapterRead(title: string): void {
-    setTimeout(() => {
+    const handle = setTimeout(() => {
+      this.#chapterTimers.delete(handle);
       const start = this.#elementTimers.get(`chapter-${title}`);
       if (start && Date.now() - start >= this.#config.chapterReadThresholdMs) {
         if (!this.#session.chaptersRead.includes(title)) {
@@ -155,12 +159,18 @@ export class ReadingTracker {
         }
       }
     }, this.#config.chapterReadThresholdMs);
+    this.#chapterTimers.add(handle);
   }
 
   #elementKey(el: HTMLElement): string {
     const title = el.querySelector('.chapter-title')?.textContent;
     if (title) return `chapter-${title}`;
     return `${el.className}-${el.querySelector('.big,.q,.lbl')?.textContent ?? ''}`;
+  }
+
+  #addListener(target: EventTarget, type: string, fn: EventListener, options?: AddEventListenerOptions | boolean): void {
+    target.addEventListener(type, fn, options);
+    this.#trackedListeners.push({ target, type, fn, options });
   }
 
   #trackActivity(): void {
@@ -177,16 +187,16 @@ export class ReadingTracker {
       }
     };
 
-    document.addEventListener('scroll', setActive, { passive: true });
-    document.addEventListener('click', setActive, { passive: true });
-    document.addEventListener('visibilitychange', () => {
+    this.#addListener(document, 'scroll', setActive as EventListener, { passive: true });
+    this.#addListener(document, 'click', setActive as EventListener, { passive: true });
+    this.#addListener(document, 'visibilitychange', (() => {
       if (document.hidden) setInactive();
       else setActive();
-    });
-    window.addEventListener('pagehide', setInactive);
+    }) as EventListener);
+    this.#addListener(window, 'pagehide', setInactive as EventListener);
 
     const debouncedInactive = debounce(setInactive, this.#config.debounceMs);
-    document.addEventListener('scroll', debouncedInactive, { passive: true });
+    this.#addListener(document, 'scroll', debouncedInactive as EventListener, { passive: true });
   }
 
   #trackDepth(): void {
@@ -213,12 +223,12 @@ export class ReadingTracker {
       }
     };
 
-    document.addEventListener('scroll', debounce(track, this.#config.debounceMs), { passive: true });
+    this.#addListener(document, 'scroll', debounce(track, this.#config.debounceMs) as EventListener, { passive: true });
   }
 
   #setupSend(): void {
     if (this.#config.sendOn === 'pagehide') {
-      window.addEventListener('pagehide', () => this.#send());
+      this.#addListener(window, 'pagehide', () => this.#send());
     } else if (this.#config.sendOn === 'interval') {
       this.#intervalId = setInterval(() => this.#send(), this.#config.intervalMs);
     }
@@ -264,6 +274,12 @@ export class ReadingTracker {
     this.#observer?.disconnect();
     if (this.#intervalId) clearInterval(this.#intervalId);
     if (this.#tickId) clearInterval(this.#tickId);
+    for (const handle of this.#chapterTimers) clearTimeout(handle);
+    this.#chapterTimers.clear();
+    for (const { target, type, fn, options } of this.#trackedListeners) {
+      target.removeEventListener(type, fn, options);
+    }
+    this.#trackedListeners = [];
     this.#send();
   }
 

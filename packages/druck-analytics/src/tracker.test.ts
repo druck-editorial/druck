@@ -66,4 +66,44 @@ describe('ReadingTracker', () => {
     expect(opts?.root).toBe(customRoot);
     tracker.destroy();
   });
+
+  test('records know-cards asides with a stable detail', () => {
+    const root = document.createElement('div');
+    const card = document.createElement('div');
+    card.className = 'know-cards';
+    const title = document.createElement('h3');
+    title.textContent = 'What you need to know';
+    card.appendChild(title);
+    root.appendChild(card);
+    const ObserverMock = vi.fn(() => ({
+      observe: vi.fn(),
+      disconnect: vi.fn(),
+      unobserve: vi.fn(),
+    }));
+    vi.stubGlobal('IntersectionObserver', ObserverMock);
+    const tracker = new ReadingTracker(root, 'slug', { sendOn: 'manual' });
+    tracker.destroy();
+    const session = tracker.getSession();
+    expect(session.asidesViewed).toBeDefined();
+  });
+
+  test('destroy() removes all document and window listeners it registered', () => {
+    const root = document.createElement('div');
+    const addSpy = vi.spyOn(document, 'addEventListener');
+    const addWindowSpy = vi.spyOn(window, 'addEventListener');
+    const removeSpy = vi.spyOn(document, 'removeEventListener');
+    const removeWindowSpy = vi.spyOn(window, 'removeEventListener');
+    const tracker = new ReadingTracker(root, 'slug', { sendOn: 'manual' });
+    const docAdded = addSpy.mock.calls.length;
+    const winAdded = addWindowSpy.mock.calls.length;
+    expect(docAdded).toBeGreaterThan(0);
+    expect(winAdded).toBeGreaterThan(0);
+    tracker.destroy();
+    expect(removeSpy.mock.calls.length).toBe(docAdded);
+    expect(removeWindowSpy.mock.calls.length).toBe(winAdded);
+    addSpy.mockRestore();
+    addWindowSpy.mockRestore();
+    removeSpy.mockRestore();
+    removeWindowSpy.mockRestore();
+  });
 });
