@@ -78,13 +78,29 @@ function sanitizeInline(html: string): string {
 const STAT_RE = /<aside\s+data-stat="(?<value>[^"]+)">(?<label>.*?)<\/aside>/gis;
 const QUOTE_RE = /<blockquote\s+(?:data-source="(?<src>[^"]*)"\s*)?(?:data-source-url="(?<url>[^"]*)"\s*)?(?:data-attr="(?<attr>[^"]*)"\s*)?>(?<text>.*?)<\/blockquote>/gis;
 const TAG_STRIP_RE = /<[^>]+>/g;
+const SCRIPT_RE = /<script\b[^>]*>[\s\S]*?<\/script\s*>/gi;
+const SCRIPT_OPEN_RE = /<script\b[^>]*>/gi;
+const ON_ATTR_RE = /\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
+const JS_HREF_RE = /\s+(?:href|src|xlink:href|formaction|poster)\s*=\s*(?:"\s*(?:javascript|vbscript|data)\s*:[^"]*"|'\s*(?:javascript|vbscript|data)\s*:[^']*')/gi;
+const DANGEROUS_TAG_RE = /<\/?(?:script|style|iframe|object|embed|form|input|button|textarea|select|meta|link|base|svg|math)\b[^>]*>/gi;
+
+function sanitizeBody(html: string): string {
+  return html
+    .replace(SCRIPT_RE, '')
+    .replace(SCRIPT_OPEN_RE, '')
+    .replace(DANGEROUS_TAG_RE, '')
+    .replace(ON_ATTR_RE, '')
+    .replace(JS_HREF_RE, '')
+    .replace(/javascript\s*:/gi, '');
+}
 
 function plainStatValue(raw: string): string {
   return raw.replace(TAG_STRIP_RE, '').trim();
 }
 
 function transformInlineBlocks(bodyHtml: string): string {
-  return bodyHtml
+  const safe = sanitizeBody(bodyHtml);
+  return safe
     .replace(STAT_RE, (_match, _value, _label, offset, str, groups) => {
       const value = plainStatValue(groups?.value ?? _value);
       const label = (groups?.label ?? _label ?? '').trim();

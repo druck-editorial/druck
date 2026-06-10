@@ -146,3 +146,47 @@ describe('renderArticle wire format', () => {
     expect(html).toContain('post-simple-meta');
   });
 });
+
+describe('body sanitization', () => {
+  test('strips <script> tags from chapter bodyHtml', () => {
+    const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<p>ok</p><script>alert(1)</script>' }] }));
+    expect(html).not.toContain('<script>');
+    expect(html).not.toContain('alert(1)');
+  });
+
+  test('strips on* event handler attributes from chapter bodyHtml', () => {
+    const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<p onload="alert(1)">ok</p>' }] }));
+    expect(html).not.toContain('onload');
+    expect(html).not.toContain('alert(1)');
+  });
+
+  test('strips javascript: URLs from chapter bodyHtml', () => {
+    const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<a href="javascript:alert(1)">x</a>' }] }));
+    expect(html).not.toContain('javascript:');
+  });
+
+  test('strips <script> tags from top-level bodyHtml', () => {
+    const html = renderArticle(buildArticle({ format: 'wire', bodyHtml: '<p>Wire</p><script>alert(2)</script>', chapters: undefined }));
+    expect(html).not.toContain('<script>');
+    expect(html).not.toContain('alert(2)');
+  });
+
+  test('strips dangerous tags (iframe, object, embed) from chapter bodyHtml', () => {
+    const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<iframe src="//evil"></iframe><p>safe</p>' }] }));
+    expect(html).not.toContain('<iframe');
+    expect(html).not.toContain('evil');
+  });
+
+  test('strips <style> and inline event attributes together', () => {
+    const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<style>body{}</style><img src=x onerror="alert(3)">' }] }));
+    expect(html).not.toContain('<style');
+    expect(html).not.toContain('onerror');
+    expect(html).not.toContain('alert(3)');
+  });
+
+  test('preserves allowed inline markup after sanitization', () => {
+    const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<p><em>ok</em> <a href="/x">link</a></p>' }] }));
+    expect(html).toContain('<em>ok</em>');
+    expect(html).toContain('href="/x"');
+  });
+});

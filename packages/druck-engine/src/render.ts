@@ -7,8 +7,6 @@ import type {
   KnowCard,
   RelatedArticle,
   RenderOptions,
-  WeeklyData,
-  WeeklySection,
 } from './types.js';
 import { escapeHtml, sanitizeInline, transformInlineBlocks, safeUrl } from './format.js';
 
@@ -233,38 +231,6 @@ function renderWireArticle(data: ArticleData, ctx: RenderContext): string {
   );
 }
 
-export function renderWeekly(data: WeeklyData, opts?: RenderOptions): string {
-  const sectionsHtml = data.sections
-    .map((s) => renderWeeklySection(s))
-    .join('');
-
-  return (
-    `<article class="article-shell cat-weekly">` +
-    '<div class="article-progress" aria-hidden="true"><div class="fill"></div></div>' +
-
-    '<header class="article-hero">' +
-    '<div class="article-hero-inner">' +
-    '<div class="article-kicker">Weekly Recap</div>' +
-    `<h1 class="article-title">${escapeHtml(data.title)}</h1>` +
-    `<p class="article-deck">${escapeHtml(data.subtitle)}</p>` +
-    '</div>' +
-    '</header>' +
-
-    `<figure class="article-hero-img"><img src="${escapeHtml(safeUrl(data.heroImage))}" alt="${escapeHtml(data.title)}" loading="eager" width="1920" height="1080"></figure>` +
-
-    `<div class="recap-thesis">${escapeHtml(data.thesis)}</div>` +
-
-    `<div class="article-body">${sectionsHtml}</div>` +
-
-    renderKeyPoints(data.keyPoints) +
-    renderKnowCards(data.known, data.unknown) +
-    renderRelated(data.related) +
-    renderShareBar(data.title, data.shareUrl) +
-
-    '</article>'
-  );
-}
-
 export function renderCard(data: ArticleData, opts?: RenderOptions): string {
   const catClass = categoryClass(data.category);
   const titleHtml = titleWithAccent(data.title, data.titleAccentWord);
@@ -284,35 +250,5 @@ export function renderCard(data: ArticleData, opts?: RenderOptions): string {
     `<div class="card-meta"><time>${escapeHtml(data.publishedAt)}</time>${data.readingTime ? `<span>${escapeHtml(data.readingTime)}</span>` : ''}</div>` +
     `</div>` +
     `</a>`
-  );
-}
-
-function renderWeeklySection(section: WeeklySection): string {
-  const narrativeHtml = transformInlineBlocks(section.narrative);
-  const keyPointsHtml = renderKeyPoints(section.keyPoints);
-
-  const articlesHtml = (section.articles ?? [])
-    .map(
-      (a) => {
-        const safeArticleUrl = safeUrl(a.url);
-        if (!safeArticleUrl) return '';
-        return (
-          `<a class="recap-article" href="${escapeHtml(safeArticleUrl)}">` +
-          (a.image ? `<img class="recap-article-thumb" src="${escapeHtml(safeUrl(a.image))}" alt="" loading="lazy">` : '') +
-          `<div class="recap-article-title">${escapeHtml(a.title)}</div>` +
-          (a.summary ? `<div class="recap-article-summary">${escapeHtml(a.summary)}</div>` : '') +
-          '</a>'
-        );
-      }
-    )
-    .join('');
-
-  return (
-    '<section class="chapter-panel recap-section">' +
-    `<h2 class="recap-section-title">${escapeHtml(section.title)}</h2>` +
-    `<div class="recap-section-narrative">${narrativeHtml}</div>` +
-    keyPointsHtml +
-    (articlesHtml ? `<div class="recap-articles">${articlesHtml}</div>` : '') +
-    '</section>'
   );
 }
