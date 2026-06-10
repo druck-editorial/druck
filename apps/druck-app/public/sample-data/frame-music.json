@@ -8,10 +8,10 @@
   "category": "general",
   "publishedAt": "2026-06-06",
   "readingTime": "3 min read",
-  "heroImage": "/img/frame-music-hero.webp",
-  "heroImageAlt": "Flat illustration of a lone figure seated at a table in warm light",
-  "heroImageWidth": 1248,
-  "heroImageHeight": 832,
+  "heroImage": "/img/demo/stage-band.webp",
+  "heroImageAlt": "Band silhouettes on a stage under crossed spotlights",
+  "heroImageWidth": 1200,
+  "heroImageHeight": 806,
   "chapters": [
     {
       "title": "Less signal, more nerve",

@@ -77,6 +77,21 @@ describe('druck-feed front-page mode', () => {
     expect(el.shadowRoot!.innerHTML).toContain('Failed to load feed');
   });
 
+  it('keeps the light DOM slotted until the shadow stylesheet settles', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(okResponse(ITEMS)));
+    const el = document.createElement('druck-feed');
+    el.innerHTML = '<div class="druck-front-page">prerendered</div>';
+    el.setAttribute('layout', 'front-page');
+    el.setAttribute('src', 'https://example.com/feed.json');
+    document.body.appendChild(el);
+    await vi.waitFor(() => { expect(el.shadowRoot).not.toBeNull(); });
+    expect(el.shadowRoot!.innerHTML).toContain('<slot>');
+    expect(el.shadowRoot!.innerHTML).not.toContain('df-row--hero');
+    await waitForEvent(el, 'druck:feed-rendered');
+    expect(el.shadowRoot!.innerHTML).toContain('df-row--hero');
+    expect(el.shadowRoot!.innerHTML).not.toContain('<slot>');
+  });
+
   it('keeps light DOM visible when no src is set (no shadow attached)', () => {
     // no async waiting needed — connectedCallback does nothing without src
     const el = document.createElement('druck-feed');

@@ -51,7 +51,7 @@ export function initReveal(): void {
         observer.unobserve(band);
       }
     },
-    { threshold: 0.2 },
+    { rootMargin: '0px 0px -15% 0px', threshold: 0 },
   );
 
   for (const band of bands) {

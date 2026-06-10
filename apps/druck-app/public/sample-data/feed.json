@@ -23,8 +23,8 @@
     "category": "ai",
     "publishedAt": "2026-06-03",
     "readingTime": "2 min read",
-    "heroImage": "/img/wire-hero.webp",
-    "heroImageAlt": "Minimal flat illustration of a sunlit empty room",
+    "heroImage": "/img/demo/energy-tech.webp",
+    "heroImageAlt": "Lightning refracting through tall glass panels above still water",
     "shareUrl": "https://druck.ing/articles/anthropic-claude-46-sonnet-200k/"
   },
   {
@@ -37,8 +37,8 @@
     "category": "business",
     "publishedAt": "2026-06-02",
     "readingTime": "4 min read",
-    "heroImage": "/img/frame-fashion-hero.webp",
-    "heroImageAlt": "Abstract illustration of overlapping geometric shapes",
+    "heroImage": "/img/demo/scales-justice.webp",
+    "heroImageAlt": "Brass scales in front of orange and teal filing cabinets",
     "shareUrl": "https://druck.ing/articles/germany-blocks-teams-bundling/"
   },
   {
@@ -51,8 +51,8 @@
     "category": "science",
     "publishedAt": "2026-06-01",
     "readingTime": "3 min read",
-    "heroImage": "/img/frame-music-hero.webp",
-    "heroImageAlt": "Stylized illustration of a rocket stage separation",
+    "heroImage": "/img/demo/tower-path.webp",
+    "heroImageAlt": "Winding gold path emerging from a dark tower entrance",
     "shareUrl": "https://druck.ing/articles/spacex-starship-orbital-refueling/"
   },
   {
@@ -65,8 +65,8 @@
     "category": "dev",
     "publishedAt": "2026-05-30",
     "readingTime": "5 min read",
-    "heroImage": "/img/slm-hero.webp",
-    "heroImageAlt": "Database diagram illustration",
+    "heroImage": "/img/demo/backpack-circuit.webp",
+    "heroImageAlt": "Open backpack revealing a circuit-board cathedral city",
     "shareUrl": "https://druck.ing/articles/postgresql-18-native-vector-search/"
   }
 ]

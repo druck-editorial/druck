@@ -93,6 +93,17 @@ test.describe('band frontpage', () => {
     await page.locator('.band-frontpage').scrollIntoViewIfNeeded();
     await expect(page.locator('.band-frontpage .df-row--hero').first()).toBeVisible({ timeout: 10_000 });
   });
+
+  test('band reveals after the hero front-page anchor jump', async ({ page }) => {
+    await page.route('https://sonto.tech/**', (route) => route.abort());
+    await page.goto('/');
+    await page.locator('a[href="#front-page"]').click();
+    for (const target of ['.band-frontpage .chapter-panel', '.band-frontpage druck-feed']) {
+      await expect
+        .poll(() => page.locator(target).evaluate((el) => getComputedStyle(el).opacity), { timeout: 6000 })
+        .toBe('1');
+    }
+  });
 });
 
 test.describe('band range', () => {

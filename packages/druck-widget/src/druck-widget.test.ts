@@ -31,6 +31,27 @@ describe('DruckArticleElement', () => {
     el.remove();
   });
 
+  test('keeps the light DOM slotted until the shadow stylesheet settles', async () => {
+    const el = document.createElement('druck-article') as DruckArticleElement;
+    el.innerHTML = '<article class="prerendered">static</article>';
+    const data = {
+      title: 'Test Story', subtitle: 'A subtitle', metaDescription: 'meta', slug: 'test-story',
+      format: 'feature', category: 'ai', publishedAt: '2026-06-09', readingTime: '3 min read',
+      heroImage: '/img/test.webp', chapters: [{ title: 'One', bodyHtml: '<p>Body</p>' }],
+    };
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify(data)));
+
+    el.setAttribute('src', '/article.json');
+    document.body.appendChild(el);
+
+    expect(el.shadowRoot!.innerHTML).toContain('<slot>');
+    await new Promise((resolve) => el.addEventListener('druck:rendered', resolve, { once: true }));
+    expect(el.shadowRoot!.innerHTML).toContain('Test Story');
+    expect(el.shadowRoot!.innerHTML).not.toContain('<slot>');
+    fetchSpy.mockRestore();
+    el.remove();
+  });
+
   test('escapes error messages in fallback UI', async () => {
     const el = document.createElement('druck-article') as DruckArticleElement;
     const fetchSpy = vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('<script>'));

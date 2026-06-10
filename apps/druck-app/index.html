@@ -1,6 +1,6 @@
 <!-- SPDX-License-Identifier: MIT | Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com> -->
 <!DOCTYPE html>
-<html lang="en" data-surface="paper">
+<html lang="en" data-surface="paper" data-i18n-pending>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,21 +28,27 @@
         var t = localStorage.getItem('druck-theme');
         if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
         if (t) document.documentElement.dataset.theme = t;
+        var l = localStorage.getItem('druck-lang');
+        if (!l && /^de/i.test(navigator.language)) l = 'de';
+        if (l) document.documentElement.lang = l;
       } catch(e) {}
     })();
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main" data-i18n="skip-link">Skip to content</a>
   <nav class="demo-nav" aria-label="Main">
     <div class="demo-nav-left">
       <a class="demo-logo" href="/" aria-label="Druck home"><img class="demo-logo-img demo-logo-img--light" src="/img/druck-logo-nav.png" alt="Druck" height="26" width="105"><img class="demo-logo-img demo-logo-img--dark" src="/img/druck-logo-nav-dark.png" alt="" aria-hidden="true" height="26" width="105"></a>
     </div>
     <div class="demo-nav-right">
-      <button class="theme-btn" data-island="theme" aria-label="Toggle color theme">
-        <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
+      <div class="nav-controls" role="group" aria-label="Preferences">
+        <button class="nav-ctrl-btn" data-island="lang" aria-label="Zur Deutsch wechseln">DE</button>
+        <button class="nav-ctrl-btn" data-island="theme" aria-label="Toggle color theme">
+          <svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
     </div>
   </nav>
   <div class="reading-progress" data-island="rail" aria-hidden="true"></div>
@@ -51,11 +57,11 @@
     <section class="band band-hero" data-surface="paper" aria-labelledby="hero-heading">
       <div class="demo-hero-text">
         <div class="chapter-panel">
-          <span class="chapter-marker"><span class="cm-dot"></span> 01 / ENGINE</span>
+          <span class="chapter-marker" data-i18n="chapter-engine"><span class="cm-dot"></span> 01 / ENGINE</span>
           <span class="chapter-numeral" aria-hidden="true">01</span>
-          <h1 id="hero-heading" class="demo-hero-h1 chapter-title">Paste JSON. Get a magazine.</h1>
-          <p class="demo-hero-body"><strong class="brand">Druck</strong> is a small open-source editorial renderer: one structured feed in — front pages, cards, and full articles out. Extracted from Sonto, where it already rendered thousands of production articles.</p>
-          <p class="demo-hero-position">Bring the data. <em>Druck</em> handles the magazine layer.</p>
+          <h1 id="hero-heading" class="demo-hero-h1 chapter-title" data-i18n="hero-heading">Paste JSON. Get a magazine.</h1>
+          <p class="demo-hero-body" data-i18n="hero-body"><strong class="brand">Druck</strong> is an open-source editorial renderer. Feed it structured article JSON, and it outputs front pages, cards, and full articles as static HTML. It already powers thousands of production articles inside <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>.</p>
+          <p class="demo-hero-position" data-i18n="hero-position">Bring the data. <em>Druck</em> handles the magazine layer.</p>
         </div>
         <div class="demo-hero-cta-row">
           <button class="demo-cta" data-island="copy" data-copy-text='<script type="module" src="__DRUCK_WIDGET_CDN_URL__"></script>
@@ -63,10 +69,10 @@
             <code>&lt;druck-article src="story.json"&gt;</code>
             <span class="icon-slot" data-icon="copy" aria-hidden="true"></span>
           </button>
-          <a class="demo-cta demo-cta-ghost" href="__DRUCK_GITHUB_URL__" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a class="demo-cta demo-cta-ghost" href="#colophon">Install &darr;</a>
+          <a class="demo-cta demo-cta-ghost" href="__DRUCK_GITHUB_URL__" target="_blank" rel="noopener noreferrer" data-i18n="cta-github">GitHub</a>
+          <a class="demo-cta demo-cta-ghost" href="#colophon" data-i18n="cta-install">Install &darr;</a>
         </div>
-        <p class="demo-hero-proof">It already runs in production: the <a href="#front-page">sonto.tech front page</a> further down renders from live data, as static HTML — zero JavaScript needed to read it.</p>
+        <p class="demo-hero-proof" data-i18n="hero-proof">Already running in production on Sonto: live data in, static HTML out, zero JavaScript required to read.</p>
       </div>
       <div class="hero-stage" data-island="sequence" data-step-keys="heroImage,title,title,publishedAt,">
         <div class="hero-pane hero-pane-json" aria-label="The feed source data">
@@ -74,41 +80,42 @@
           <pre class="json-pane" tabindex="0" role="region" aria-label="feed.json source"><code><!--druck:hero-json--></code></pre>
         </div>
         <div class="pane-connector" aria-hidden="true">
-          <span>one structured feed</span>
+          <span data-i18n="connector-feed">one structured feed</span>
           <span class="connector-arrow"></span>
-          <span>rendered front page</span>
+          <span data-i18n="connector-rendered">rendered front page</span>
         </div>
         <div class="hero-pane hero-pane-mag" aria-label="The rendered front page">
           <div class="pane-chrome">front page<span class="chrome-note">static html &middot; set in <!--druck:hero-render-ms--> ms</span></div>
           <!--druck:hero-front-page-->
         </div>
       </div>
+      <div class="facts-header"><span class="cm-dot"></span> <span data-i18n="fact-header">Production numbers</span></div>
       <div class="facts-strip">
         <a class="fact" href="#colophon">
           <span class="fact-num">__DRUCK_WIDGET_KB__ kB</span>
-          <span class="fact-label">the entire widget, gzipped</span>
+          <span class="fact-label" data-i18n="fact-widget">the entire widget, gzipped</span>
         </a>
         <a class="fact" href="#analytics">
           <span class="fact-num">0 · 0 · 0</span>
-          <span class="fact-label">cookies · trackers · consent banners</span>
+          <span class="fact-label" data-i18n="fact-cookies">cookies · trackers · consent banners</span>
         </a>
         <a class="fact" href="#colophon">
           <span class="fact-num">100 × 4</span>
-          <span class="fact-label">Lighthouse, all four categories</span>
+          <span class="fact-label" data-i18n="fact-lighthouse">Lighthouse, all four categories</span>
         </a>
         <a class="fact" href="__DRUCK_GITHUB_URL__">
           <span class="fact-num">MIT</span>
-          <span class="fact-label">use it, fork it, ship it</span>
+          <span class="fact-label" data-i18n="fact-license">use it, fork it, ship it</span>
         </a>
       </div>
     </section>
 
     <section class="band band-surfaces" data-surface="paper" aria-labelledby="surfaces-heading" data-island="surfaces-band">
       <div class="chapter-panel">
-        <span class="chapter-marker"><span class="cm-dot"></span> 02 / SURFACES</span>
+        <span class="chapter-marker" data-i18n="chapter-surfaces"><span class="cm-dot"></span> 02 / SURFACES</span>
         <span class="chapter-numeral" aria-hidden="true">02</span>
-        <h2 id="surfaces-heading" class="band-title chapter-title">One story, many <em>surfaces</em></h2>
-        <p class="band-lede">The same article adapts to cards, briefs, features, and full pages. Hover a sheet to see which keys drive it.</p>
+        <h2 id="surfaces-heading" class="band-title chapter-title" data-i18n="surfaces-heading">One story, many <em>surfaces</em></h2>
+        <p class="band-lede" data-i18n="surfaces-lede">The same article adapts to cards, briefs, features, and full pages. Hover a sheet to see which keys drive it.</p>
       </div>
       <div class="surfaces-stage">
         <div class="surfaces-stack" aria-label="Rendered surfaces">
@@ -120,12 +127,16 @@
       </div>
     </section>
 
+    <div class="band-bridge" data-surface="paper">
+      <p class="bridge-text" data-i18n="bridge">Not a template. A rendering system.</p>
+    </div>
+
     <section class="band band-wild" data-surface="ink" aria-labelledby="wild-heading" data-island="embeds">
       <div class="chapter-panel">
-        <span class="chapter-marker"><span class="cm-dot"></span> 03 / IN THE WILD</span>
+        <span class="chapter-marker" data-i18n="chapter-wild"><span class="cm-dot"></span> 03 / IN THE WILD</span>
         <span class="chapter-numeral" aria-hidden="true">03</span>
-        <h2 id="wild-heading" class="band-title chapter-title">In the <em>wild</em></h2>
-        <p class="band-lede">Three publications that do not exist. One renderer that does. Host styles clash on purpose; the article inside never flinches. Click any of them for the full site &mdash; or visit the <a href="/demos/newsroom/">corporate newsroom</a> or the <a href="/demos/dev-blog/">dev blog</a>.</p>
+        <h2 id="wild-heading" class="band-title chapter-title" data-i18n="wild-heading">In the <em>wild</em></h2>
+        <p class="band-lede" data-i18n="wild-lede">Three publications that do not exist. One renderer that does. Host styles clash on purpose; the article inside never flinches. Click any of them for the full site &mdash; or visit the <a href="/demos/newsroom/">corporate newsroom</a> or the <a href="/demos/dev-blog/">dev blog</a>.</p>
       </div>
       <div class="frames frames--top">
         <article class="frame frame--music" aria-label="PITCH &amp; REVERB, a music magazine">
@@ -145,38 +156,44 @@
           <p class="frame-caption">Bodoni Moda display &middot; near-black &middot; quick_take &middot; <a href="/demos/fashion-magazine/">Open the full site &rarr;</a></p>
         </article>
       </div>
-      <p class="band-pull">Create a new <em>media</em> &mdash; straight from a Telegram channel.</p>
+      <p class="band-pull" data-i18n="wild-pull">Turn a channel into a <em>publication</em>.</p>
       <div class="ledgerline-pipeline" data-island="ledgerline">
-        <div class="tg-panel scene-step" data-scene-step="bubbles" data-scene-index="0" role="region" aria-label="LEDGERLINE Telegram channel posts">
-          <header class="tg-header">
-            <span class="tg-avatar" aria-hidden="true">L</span>
-            <span class="tg-channel">
-              <span class="tg-channel-name">LEDGERLINE</span>
-              <span class="tg-channel-sub">12 480 subscribers</span>
-            </span>
-          </header>
-          <div class="tg-thread">
-            <span class="tg-date" aria-hidden="true">Today</span>
-            <!--druck:ledgerline-bubbles-->
+        <div class="ledgerline-col">
+          <span class="ledgerline-label" data-i18n="tg-label-channel">Telegram channel</span>
+          <div class="tg-panel scene-step" data-scene-step="bubbles" data-scene-index="0" role="region" aria-label="LEDGERLINE Telegram channel posts">
+            <header class="tg-header">
+              <span class="tg-avatar" aria-hidden="true">L</span>
+              <span class="tg-channel">
+                <span class="tg-channel-name">LEDGERLINE</span>
+                <span class="tg-channel-sub">12 480 subscribers</span>
+              </span>
+            </header>
+            <div class="tg-thread">
+              <span class="tg-date" aria-hidden="true">Today</span>
+              <!--druck:ledgerline-bubbles-->
+            </div>
           </div>
         </div>
-        <article class="ledgerline-site frame frame--markets scene-step" data-scene-step="cards" data-scene-index="1" aria-label="The LEDGERLINE site rendered from the channel">
-          <div class="frame-chrome"><span class="dots" aria-hidden="true"></span><span class="frame-host">ledgerline.news</span></div>
-          <header class="frame-masthead">LEDGERLINE<nav aria-hidden="true"><span>Markets</span><span>Briefs</span><span>Data</span></nav></header>
-          <div class="frame-viewport">
-            <druck-feed layout="grid" columns="2" data-src="/sample-data/ledgerline-feed.json" css-url="/feed.css"></druck-feed>
+        <div class="ledgerline-col ledgerline-col--result">
+          <span class="ledgerline-label" data-i18n="tg-label-frontpage">Druck front page</span>
+          <div class="ledgerline-site frame frame--markets scene-step" data-scene-step="cards" data-scene-index="1" aria-label="The LEDGERLINE site rendered from the channel">
+            <div class="frame-chrome"><span class="dots" aria-hidden="true"></span><span class="frame-host">ledgerline.news</span></div>
+            <header class="frame-masthead">LEDGERLINE<nav aria-hidden="true"><span>Markets</span><span>Briefs</span><span>Data</span></nav></header>
+            <div class="frame-viewport">
+              <druck-feed layout="grid" columns="2" data-src="/sample-data/ledgerline-feed.json" css-url="/feed.css"></druck-feed>
+            </div>
           </div>
-        </article>
+        </div>
       </div>
-      <p class="frame-caption">They post in Telegram. Your bot maps it. Druck renders it. &middot; <a href="/demos/telegram-brief/">Open the full site &rarr;</a></p>
+      <p class="frame-caption" data-i18n="tg-caption">They post in Telegram. Your bot maps it. Druck renders it. &middot; <a href="/demos/telegram-brief/">Open the full site &rarr;</a></p>
     </section>
 
     <section class="band band-frontpage" id="front-page" data-surface="paper" aria-labelledby="frontpage-heading" data-island="embeds">
       <div class="chapter-panel">
-        <span class="chapter-marker"><span class="cm-dot"></span> 04 / FRONT PAGE</span>
+        <span class="chapter-marker" data-i18n="chapter-frontpage"><span class="cm-dot"></span> 04 / FRONT PAGE</span>
         <span class="chapter-numeral" aria-hidden="true">04</span>
-        <h2 id="frontpage-heading" class="band-title chapter-title">The <em>front page</em>, live</h2>
-        <p class="band-lede">This is sonto.tech — live, right now — rendered by one widget. Druck was extracted from its pipeline; now it renders its parent.</p>
+        <h2 id="frontpage-heading" class="band-title chapter-title" data-i18n="frontpage-heading">The <em>front page</em>, live</h2>
+        <p class="band-lede" data-i18n="frontpage-lede">This is sonto.tech — live, right now — rendered by one widget. Druck was extracted from its pipeline; now it renders its parent.</p>
       </div>
       <druck-feed layout="front-page"
         data-src="https://sonto.tech/data/druck-feed.json"
@@ -184,17 +201,17 @@
         css-url="/feed.css">
         <!--druck:front-page-->
       </druck-feed>
-      <p class="frame-caption"><code class="caption-code">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.json"&gt;</code> &mdash; a magazine front page from one JSON file. Cards link to the real articles.</p>
+      <p class="frame-caption" data-i18n="frontpage-caption"><code class="caption-code">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.json"&gt;</code> &mdash; a magazine front page from one JSON file. Cards link to the real articles.</p>
     </section>
 
     <section class="band band-range" data-surface="paper" aria-labelledby="range-heading">
       <div class="chapter-panel">
-        <span class="chapter-marker"><span class="cm-dot"></span> 05 / RANGE</span>
+        <span class="chapter-marker" data-i18n="chapter-range"><span class="cm-dot"></span> 05 / RANGE</span>
         <span class="chapter-numeral" aria-hidden="true">05</span>
-        <h2 id="range-heading" class="band-title chapter-title">One JSON, <em>120</em> magazines</h2>
-        <p class="band-lede">One structured story, typeset across three formats, five languages, and eight accents. The specimen text is demo content.</p>
+        <h2 id="range-heading" class="band-title chapter-title" data-i18n="range-heading">One JSON, <em>60</em> magazines</h2>
+        <p class="band-lede" data-i18n="range-lede">One structured story, typeset across three formats, five languages, and four accents. The specimen text is demo content.</p>
       </div>
-      <p class="band-pull">Create <em>articles</em> for your magazines &mdash; the typesetting is already done.</p>
+      <p class="band-pull" data-i18n="range-pull">Create <em>articles</em> for your magazines &mdash; the typesetting is already done.</p>
       <div class="range-workspace">
         <div class="range-main">
           <div class="range-controls">
@@ -214,11 +231,7 @@
               <button role="radio" aria-checked="true" data-value="cat-ai">AI</button>
               <button role="radio" aria-checked="false" data-value="cat-security">Security</button>
               <button role="radio" aria-checked="false" data-value="cat-dev-tools">Dev Tools</button>
-              <button role="radio" aria-checked="false" data-value="cat-infrastructure">Infrastructure</button>
-              <button role="radio" aria-checked="false" data-value="cat-business">Business</button>
               <button role="radio" aria-checked="false" data-value="cat-science">Science</button>
-              <button role="radio" aria-checked="false" data-value="cat-policy">Policy</button>
-              <button role="radio" aria-checked="false" data-value="cat-weekly">Weekly</button>
             </div>
           </div>
           <div class="specimen-stage range-stage cat-ai" aria-live="polite">
@@ -227,36 +240,36 @@
         </div>
         <div class="range-recipe" role="group" aria-label="Recipe">
           <div class="recipe-block">
-            <div class="recipe-line"><span class="recipe-label">Format</span><span class="recipe-value" data-recipe="format">Feature</span></div>
-            <div class="recipe-line"><span class="recipe-label">Language</span><span class="recipe-value" data-recipe="lang">EN</span></div>
-            <div class="recipe-line"><span class="recipe-label">Accent</span><span class="recipe-value" data-recipe="accent">AI</span></div>
-            <div class="recipe-line"><span class="recipe-label">Output</span><span class="recipe-value">static HTML</span></div>
-            <div class="recipe-line"><span class="recipe-label">Specimen</span><span class="recipe-value" data-recipe="counter">1 of 120</span></div>
+            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-format">Format</span><span class="recipe-value" data-recipe="format">Feature</span></div>
+            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-language">Language</span><span class="recipe-value" data-recipe="lang">EN</span></div>
+            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-accent">Accent</span><span class="recipe-value" data-recipe="accent">AI</span></div>
+            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-output">Output</span><span class="recipe-value">static HTML</span></div>
+            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-specimen">Specimen</span><span class="recipe-value" data-recipe="counter">1 of 60</span></div>
           </div>
         </div>
       </div>
-      <p class="frame-caption">Read a full issue &mdash; <a href="/articles/quiet-revolution-small-language-models/">the feature this specimen is cut from</a>, rendered by the engine at build time.</p>
+      <p class="frame-caption" data-i18n="range-caption">Read a full issue &mdash; <a href="/articles/quiet-revolution-small-language-models/">the feature this specimen is cut from</a>, rendered by the engine at build time.</p>
     </section>
 
     <section class="band band-analytics" id="analytics" data-surface="ink" aria-labelledby="analytics-heading">
       <div class="chapter-panel">
-        <span class="chapter-marker"><span class="cm-dot"></span> 06 / ANALYTICS</span>
+        <span class="chapter-marker" data-i18n="chapter-analytics"><span class="cm-dot"></span> 06 / ANALYTICS</span>
         <span class="chapter-numeral" aria-hidden="true">06</span>
-        <h2 id="analytics-heading" class="band-title chapter-title">Static pages. Live reading <em>memory</em>.</h2>
-        <p class="band-lede">It measures reading, not readers.</p>
+        <h2 id="analytics-heading" class="band-title chapter-title" data-i18n="analytics-heading">Static pages. Live reading <em>memory</em>.</h2>
+        <p class="band-lede" data-i18n="analytics-lede">It measures reading, not readers.</p>
       </div>
       <div class="analytics-cards" data-island="analytics">
         <div class="analytics-card">
-          <span class="ac-label">Depth</span>
+          <span class="ac-label" data-i18n="analytics-depth">Depth</span>
           <span class="ac-value" data-analytics="depth">0%</span>
           <div class="ac-bar"><div class="ac-bar-fill" data-analytics="depth-bar" style="width: 0%"></div></div>
         </div>
         <div class="analytics-card">
-          <span class="ac-label">Active time</span>
+          <span class="ac-label" data-i18n="analytics-time">Active time</span>
           <span class="ac-value" data-analytics="time">0:00</span>
         </div>
         <div class="analytics-card">
-          <span class="ac-label">Sections read</span>
+          <span class="ac-label" data-i18n="analytics-sections">Sections read</span>
           <span class="ac-value" data-analytics="chapters">0/7</span>
           <div class="ac-dots" data-analytics="dots">
             <span class="ac-dot"></span><span class="ac-dot"></span><span class="ac-dot"></span>
@@ -265,43 +278,43 @@
           </div>
         </div>
       </div>
-      <p class="band-pull">Pipe it into <em>your</em> stack &mdash; GA4, GTM, Plausible &mdash; with one callback.</p>
+      <p class="band-pull" data-i18n="analytics-pull">Pipe it into <em>your</em> stack &mdash; GA4, GTM, Plausible &mdash; with one callback.</p>
       <div class="analytics-infographic">
-        <h3>Where the reading signal can go</h3>
+        <h3 data-i18n="analytics-where-heading">Where the reading signal can go</h3>
         <div class="ai-grid">
           <div class="ai-path">
-            <h4>Default</h4>
-            <p>Nowhere. No endpoint configured; the numbers die with the tab.</p>
+            <h4 data-i18n="analytics-path-default-title">Default</h4>
+            <p data-i18n="analytics-path-default-text">Nowhere. No endpoint configured; the numbers die with the tab.</p>
           </div>
           <div class="ai-path">
-            <h4>Your stack</h4>
-            <p>Callbacks forward into GA4 / GTM / Plausible already on the host page.</p>
+            <h4 data-i18n="analytics-path-stack-title">Your stack</h4>
+            <p data-i18n="analytics-path-stack-text">Callbacks forward into GA4 / GTM / Plausible already on the host page.</p>
             <code>new ReadingTracker(el, slug, { onDepth: d => gtag('event', 'read_depth', { value: d }) })</code>
           </div>
           <div class="ai-path">
-            <h4>Your endpoint</h4>
-            <p>Sessions POST via <code>sendBeacon</code> on pagehide.</p>
+            <h4 data-i18n="analytics-path-endpoint-title">Your endpoint</h4>
+            <p data-i18n="analytics-path-endpoint-text">Sessions POST via <code>sendBeacon</code> on pagehide.</p>
             <code>{ endpoint: '/ingest', sendOn: 'pagehide' }</code>
           </div>
         </div>
       </div>
       <div class="analytics-privacy">
-        <h3 class="analytics-privacy-title">What the analytics see</h3>
-        <p>It measures reading, not readers: scroll depth, active time, chapters read. The numbers live in page memory.</p>
-        <p>No cookies, no fingerprinting, no third-party scripts, no IP logging. Nothing is transmitted unless the site owner sets an endpoint. This page sets none, so the numbers above stay in your tab and die with it.</p>
-        <p>No personal data is processed, which is why there is no consent banner to click.</p>
-        <p>Your own analytics keep working: druck output is plain HTML, so GA4, GTM, or Plausible on the host page see it like any other content. The reading tracker can forward its events into them through callbacks.</p>
+        <h3 class="analytics-privacy-title" data-i18n="privacy-title">What the analytics see</h3>
+        <p data-i18n="privacy-p1">It measures reading, not readers: scroll depth, active time, chapters read. The numbers live in page memory.</p>
+        <p data-i18n="privacy-p2">No cookies, no fingerprinting, no third-party scripts, no IP logging. Nothing is transmitted unless the site owner sets an endpoint. This page sets none, so the numbers above stay in your tab and die with it.</p>
+        <p data-i18n="privacy-p3">No personal data is processed, which is why there is no consent banner to click.</p>
+        <p data-i18n="privacy-p4">Your own analytics keep working: druck output is plain HTML, so GA4, GTM, or Plausible on the host page see it like any other content. The reading tracker can forward its events into them through callbacks.</p>
       </div>
       <div class="analytics-pricing">
-        <h3 class="pricing-title">What is free, and what will cost money</h3>
+        <h3 class="pricing-title" data-i18n="pricing-heading">What is free, and what will cost money</h3>
         <div class="pricing-grid">
           <div class="pricing-col">
-            <h4>Free. MIT. Forever.</h4>
-            <p>Everything on this page: the engine, the stylesheet, the widgets, the reading tracker. Self-hosted, no tiers, no locked features. Fork it, ship it, sell with it.</p>
+            <h4 data-i18n="pricing-free-title">Free. MIT. Forever.</h4>
+            <p data-i18n="pricing-free-text">Everything on this page: the engine, the stylesheet, the widgets, the reading tracker. Self-hosted, no tiers, no locked features. Fork it, ship it, sell with it.</p>
           </div>
           <div class="pricing-col pricing-col--planned">
-            <h4>Planned, and paid</h4>
-            <p>A hosted endpoint with a reading dashboard, a feed API that turns RSS into <code>ArticleData</code>, and a Telegram channel importer. The MIT tracker keeps working without any of it. Also planned: publishing <code>@druck-editorial/analytics</code> to npm.</p>
+            <h4 data-i18n="pricing-paid-title">Planned, and paid</h4>
+            <p data-i18n="pricing-paid-text">A hosted endpoint with a reading dashboard, a feed API that turns RSS into <code>ArticleData</code>, and a Telegram channel importer. The MIT tracker keeps working without any of it. Also planned: publishing <code>@druck-editorial/analytics</code> to npm.</p>
           </div>
         </div>
       </div>
@@ -309,24 +322,24 @@
 
     <section class="band band-colophon" id="colophon" data-surface="ink" aria-labelledby="colophon-heading">
       <div class="chapter-panel">
-        <span class="chapter-marker"><span class="cm-dot"></span> 07 / COLOPHON</span>
+        <span class="chapter-marker" data-i18n="chapter-colophon"><span class="cm-dot"></span> 07 / COLOPHON</span>
         <span class="chapter-numeral" aria-hidden="true">07</span>
-        <h2 id="colophon-heading" class="band-title chapter-title">Colophon</h2>
+        <h2 id="colophon-heading" class="band-title chapter-title" data-i18n="colophon-heading">Colophon</h2>
       </div>
       <!--druck:colophon-scores-->
-      <p class="colophon-claim">Rendered output requires zero JavaScript. This page's interactivity ships as small islands; the article you read above arrived as static HTML. View source — it is all there.</p>
+      <p class="colophon-claim" data-i18n="colophon-claim">Static output, measured like production software.</p>
+      <p class="colophon-method" data-i18n="colophon-method">Rendered articles require zero JavaScript. This page's interactivity ships as small islands; the article you read above arrived as static HTML. View source.</p>
       <div class="colophon-snippet">
         <pre><code>&lt;script type="module" src="__DRUCK_WIDGET_CDN_URL__"&gt;&lt;/script&gt;
 &lt;druck-article src="story.json"&gt;&lt;/druck-article&gt;</code></pre>
-        <button class="demo-cta demo-cta-ghost" data-island="copy" data-copy-text='<script type="module" src="__DRUCK_WIDGET_CDN_URL__"></script>
-<druck-article src="story.json"></druck-article>'>
-          <span class="icon-slot" data-icon="copy" aria-hidden="true"></span>Copy
+        <button class="demo-cta demo-cta-ghost" data-island="copy" data-copy-text='<script type="module" src="__DRUCK_WIDGET_CDN_URL__"></script><druck-article src="story.json"></druck-article>'>
+          <span class="icon-slot" data-icon="copy" aria-hidden="true"></span><span data-i18n="copy-btn">Copy</span>
         </button>
       </div>
-      <p class="colophon-method">The widget is __DRUCK_WIDGET_KB__ kB gzipped, served by jsDelivr. Prefer npm: <code>__DRUCK_INSTALL_CMD__</code>.</p>
+      <p class="colophon-method" data-i18n="colophon-install">The widget is __DRUCK_WIDGET_KB__ kB gzipped, served by jsDelivr. Prefer npm: <code>__DRUCK_INSTALL_CMD__</code>.</p>
       <div class="colophon-signature">
         <p class="sig-name">Artem Iagovdik</p>
-        <p class="sig-provenance">Druck is extracted from <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>, where this engine rendered thousands of production articles in five languages.</p>
+        <p class="sig-provenance" data-i18n="signature">Druck is extracted from <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>, where this engine rendered thousands of production articles in five languages.</p>
       </div>
       <p class="colophon-links">
         <a href="mailto:artyom.yagovdik@gmail.com">Email</a>

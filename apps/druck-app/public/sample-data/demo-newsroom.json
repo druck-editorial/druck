@@ -8,10 +8,10 @@
   "category": "infrastructure",
   "publishedAt": "Jun 10, 2026",
   "readingTime": "3 min read",
-  "heroImage": "/img/frame-markets-hero.webp",
-  "heroImageAlt": "Modern office with glass walls and open floor plan",
-  "heroImageWidth": 1168,
-  "heroImageHeight": 784,
+  "heroImage": "/img/demo/scale-monolith.webp",
+  "heroImageAlt": "Crowd approaching a monumental dark tower at golden hour",
+  "heroImageWidth": 1200,
+  "heroImageHeight": 800,
   "chapters": [
     {
       "title": "What Meridian does",

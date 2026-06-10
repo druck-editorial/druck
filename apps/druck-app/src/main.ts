@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import copyIcon from './icons/copy.svg?raw';
+import { initLang } from './i18n/translations.js';
 import { initThemeToggle } from './islands/theme.js';
 import { initCopyButton } from './islands/copy.js';
 import { initProgressRail } from './islands/rail.js';
@@ -25,6 +26,9 @@ for (const slot of document.querySelectorAll<HTMLElement>('.icon-slot[data-icon]
 
 const themeButton = document.querySelector<HTMLElement>('[data-island="theme"]');
 if (themeButton) initThemeToggle(themeButton);
+
+const langButton = document.querySelector<HTMLElement>('[data-island="lang"]');
+if (langButton) initLang(langButton);
 
 for (const button of document.querySelectorAll<HTMLElement>('[data-island="copy"]')) {
   initCopyButton(button);
@@ -51,14 +55,15 @@ const rangeRecipe = {
 };
 const FORMATS = ['feature', 'quick_take', 'wire'];
 const LANGS = ['en', 'de', 'fr', 'es', 'ja'];
-const ACCENTS = ['cat-ai', 'cat-security', 'cat-dev-tools', 'cat-infrastructure', 'cat-business', 'cat-science', 'cat-policy', 'cat-weekly'];
+const ACCENTS = ['cat-ai', 'cat-security', 'cat-dev-tools', 'cat-science'];
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function computeSpecimenIndex(): number {
   const f = FORMATS.indexOf(rangeState.format);
   const l = LANGS.indexOf(rangeState.lang);
   const a = ACCENTS.indexOf(rangeState.accent);
-  return f * LANGS.length * ACCENTS.length + l * ACCENTS.length + a + 1;
+  const total = LANGS.length * ACCENTS.length;
+  return f * total + l * ACCENTS.length + a + 1;
 }
 
 function updateRecipe(): void {

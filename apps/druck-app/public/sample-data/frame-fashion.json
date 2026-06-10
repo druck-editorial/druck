@@ -8,10 +8,10 @@
   "category": "general",
   "publishedAt": "2026-06-02",
   "readingTime": "3 min read",
-  "heroImage": "/img/frame-fashion-hero.webp",
-  "heroImageAlt": "Flat illustration of a single figure walking in an editorial palette",
-  "heroImageWidth": 1168,
-  "heroImageHeight": 784,
+  "heroImage": "/img/demo/fashion-mannequin.webp",
+  "heroImageAlt": "Fashion mannequin with draped terracotta and cream fabric",
+  "heroImageWidth": 1200,
+  "heroImageHeight": 800,
   "chapters": [
     {
       "title": "Repetition as signature",

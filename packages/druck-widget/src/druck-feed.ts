@@ -15,6 +15,7 @@ class DruckFeedElement extends HTMLElement {
   #shadow: ShadowRoot | null = null;
   #feedContainer!: HTMLDivElement;
   #cssLink!: HTMLLinkElement;
+  #cssReady: Promise<void> = Promise.resolve();
   #renderGeneration = 0;
 
   #ensureShadow(): void {
@@ -22,9 +23,14 @@ class DruckFeedElement extends HTMLElement {
     this.#shadow = this.attachShadow({ mode: 'open' });
     this.#feedContainer = document.createElement('div');
     this.#feedContainer.className = 'druck-feed';
+    this.#feedContainer.innerHTML = '<slot></slot>';
     this.#cssLink = document.createElement('link');
     this.#cssLink.rel = 'stylesheet';
     this.#cssLink.href = this.#getCssUrl();
+    this.#cssReady = new Promise((resolve) => {
+      this.#cssLink.addEventListener('load', () => resolve(), { once: true });
+      this.#cssLink.addEventListener('error', () => resolve(), { once: true });
+    });
     this.#shadow.appendChild(this.#cssLink);
     this.#shadow.appendChild(this.#feedContainer);
   }
@@ -79,14 +85,14 @@ class DruckFeedElement extends HTMLElement {
     try {
       const items = await this.#fetchItems(src);
       if (gen !== this.#renderGeneration) return;
-      this.#render(items);
+      await this.#render(items, gen);
     } catch (primaryError) {
       const fallback = this.getAttribute('fallback-src');
       if (fallback) {
         try {
           const items = await this.#fetchItems(fallback);
           if (gen !== this.#renderGeneration) return;
-          this.#render(items);
+          await this.#render(items, gen);
           return;
         } catch {}
       }
@@ -95,8 +101,10 @@ class DruckFeedElement extends HTMLElement {
     }
   }
 
-  #render(items: ArticleData[]): void {
+  async #render(items: ArticleData[], gen: number): Promise<void> {
     this.#ensureShadow();
+    await this.#cssReady;
+    if (gen !== this.#renderGeneration) return;
     this.#applyContainerAttrs();
     const opts: RenderOptions = {
       lang: this.getAttribute('lang') ?? undefined,

@@ -238,7 +238,7 @@ export function renderColophonScores(summary) {
   const method = summary
     ? `Measured with Lighthouse ${escapeHtml(summary.lighthouseVersion)}, ${auditProfileLabel(summary.profile)}, static production build, ${escapeHtml(summary.measuredAt)}. Initial transfer ${escapeHtml(String(summary.totalTransferKB))} KB.`
     : 'Scores not yet measured for this revision. Run node scripts/audit.mjs.';
-  return `<div class="rings">${rings}</div><p class="colophon-method">${method}</p>`;
+  return `<div class="colophon-card"><div class="rings">${rings}</div></div><p class="colophon-method">${method}</p>`;
 }
 
 function renderRangePanel(specimen, format, visible) {

@@ -14,6 +14,7 @@ class DruckArticleElement extends HTMLElement {
   #shadow: ShadowRoot;
   #articleContainer: HTMLDivElement;
   #cssLink: HTMLLinkElement;
+  #cssReady: Promise<void>;
   #resizeObserver?: ResizeObserver;
 
   constructor() {
@@ -21,9 +22,14 @@ class DruckArticleElement extends HTMLElement {
     this.#shadow = this.attachShadow({ mode: 'open' });
     this.#articleContainer = document.createElement('div');
     this.#articleContainer.className = 'druck-article-root';
+    this.#articleContainer.innerHTML = '<slot></slot>';
     this.#cssLink = document.createElement('link');
     this.#cssLink.rel = 'stylesheet';
     this.#cssLink.href = this.#getCssUrl();
+    this.#cssReady = new Promise((resolve) => {
+      this.#cssLink.addEventListener('load', () => resolve(), { once: true });
+      this.#cssLink.addEventListener('error', () => resolve(), { once: true });
+    });
     this.#shadow.appendChild(this.#cssLink);
     this.#shadow.appendChild(this.#articleContainer);
   }
@@ -68,6 +74,7 @@ class DruckArticleElement extends HTMLElement {
       const res = await fetch(safeSrc);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data: ArticleData = await res.json();
+      await this.#cssReady;
       this.#applyContainerAttrs();
       const opts: RenderOptions = {
         lang: this.getAttribute('lang') ?? undefined,
