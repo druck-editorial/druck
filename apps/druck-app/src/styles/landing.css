@@ -166,7 +166,7 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .frame-host { font: 400 11px/1 ui-monospace, Menlo, monospace; color: var(--ink-text-secondary); }
 .frame-masthead { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 18px; border-bottom: 1px solid var(--ink-hairline); color: var(--ink-text); }
 .frame-masthead nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-text-secondary); }
-.frame-viewport { max-height: 62vh; overflow-y: auto; background: #fdfcfa; }
+.frame-viewport { max-height: 62vh; overflow-y: auto; overflow-x: hidden; background: #fdfcfa; }
 .frame-caption { font-size: 12px; color: var(--demo-text-muted); padding: 12px 18px; margin: 0; }
 [data-surface="ink"] .frame-caption { color: var(--ink-text-secondary); }
 .channel-strip { display: flex; gap: 8px; padding: 12px 14px 0; flex-wrap: wrap; }
@@ -199,7 +199,7 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .band-frontpage druck-feed { display: block; }
 
 .range-controls { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-bottom: 20px; }
-.specimen-panel { max-width: 64ch; }
+.specimen-panel { max-width: 64ch; margin-inline: auto; }
 .specimen-stat { display: flex; flex-direction: column; gap: 6px; margin: 18px 0; }
 .specimen-stat .ss-value { font-size: clamp(30px, 4.5vw, 54px); font-weight: 800; white-space: nowrap; line-height: 1; color: var(--accent, #b84a34); }
 .specimen-stat .ss-label { font-size: 13px; opacity: 0.65; max-width: 44ch; }
@@ -228,3 +228,22 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
   .hx, .json-pane .jl, .skip-link, body { transition: none; }
   .replay-btn { display: none; }
 }
+
+.frame-viewport { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.22) transparent; }
+.frame-viewport::-webkit-scrollbar { width: 8px; }
+.frame-viewport::-webkit-scrollbar-track { background: transparent; }
+.frame-viewport::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); border-radius: 4px; }
+
+.range-stage.cat-weekly .specimen-panel { border-top: 2px solid var(--accent); padding-top: 18px; }
+.range-stage.cat-weekly .specimen-headline { font-family: var(--font-serif, 'Source Serif 4', Georgia, serif); font-weight: 600; }
+.range-stage.cat-weekly .specimen-body { font-family: var(--font-serif, 'Source Serif 4', Georgia, serif); line-height: 1.75; }
+.range-stage.cat-weekly .specimen-body::first-letter { float: left; font-size: 3em; line-height: 0.85; padding: 0.04em 0.12em 0 0; font-weight: 600; color: var(--accent); }
+.range-stage.cat-weekly .specimen-quote { border: 0; text-align: center; font-family: var(--font-serif, 'Source Serif 4', Georgia, serif); color: var(--accent); }
+
+.colophon-signature a { color: inherit; }
+[data-surface="ink"] .colophon-analytics { color: var(--ink-text-secondary); }
+[data-surface="ink"] .colophon-signature .sig-name { color: var(--ink-text); }
+[data-surface="ink"] .colophon-signature .sig-provenance { color: var(--ink-text-secondary); }
+[data-surface="ink"] .colophon-signature a { color: var(--ink-text); }
+
+[data-theme="dark"] .band-frontpage druck-feed { color: #e8e6e3; --color-surface: #18181c; --color-border: rgba(255,255,255,0.12); --color-muted: #222226; --color-text: #f0f0f0; --color-text-secondary: #a8a5a0; --color-text-muted: #7d7a75; }
