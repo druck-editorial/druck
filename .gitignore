@@ -16,3 +16,5 @@ test-results/
 .claude/
 .playwright-mcp/
 druck-avatar.png
+*.png
+!apps/druck-app/public/img/**/*.png
