@@ -75,18 +75,6 @@ export function renderHeroMagazinePane(data) {
   );
 }
 
-export function renderSpecimenPanel(specimen, visible = false) {
-  return (
-    `<article class="specimen-panel" lang="${escapeHtml(specimen.lang)}" data-lang="${escapeHtml(specimen.lang)}"${visible ? '' : ' hidden'}>` +
-    `<h3 class="specimen-headline">${escapeHtml(specimen.headline)}</h3>` +
-    `<p class="specimen-body">${escapeHtml(specimen.body)}</p>` +
-    `<blockquote class="specimen-quote">${escapeHtml(specimen.quote)}</blockquote>` +
-    `<p class="specimen-rule-label">${escapeHtml(specimen.ruleLabel)}</p>` +
-    `<code class="specimen-rule">${escapeHtml(specimen.rule)}</code>` +
-    '</article>'
-  );
-}
-
 async function readFixture(dir, name) {
   const raw = await readFile(join(dir, name), 'utf8');
   try {
