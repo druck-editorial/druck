@@ -150,3 +150,6 @@ body {
   .ph-main { padding: 1rem 1rem 3rem; }
   .demo-embed-footer { padding: 1rem; }
 }
+
+.ph-main .article-hero::before { display: none; }
+.ph-main .article-kicker { display: none; }

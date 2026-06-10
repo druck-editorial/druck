@@ -1,9 +1,26 @@
-import { readFile, access } from 'node:fs/promises';
+import { readFile, access, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const DIST = join(import.meta.dirname, '../apps/druck-app/dist');
-const PAGES = ['index.html', 'articles/quiet-revolution-small-language-models/index.html'];
 const FETCH_OPTS = { redirect: 'follow', signal: AbortSignal.timeout(8000) };
+
+async function collectPages() {
+  const pages = ['index.html'];
+  for (const subdir of ['articles', 'demos']) {
+    try {
+      const entries = await readdir(join(DIST, subdir), { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.isDirectory()) {
+          pages.push(`${subdir}/${entry.name}/index.html`);
+        }
+      }
+    } catch {
+    }
+  }
+  return pages;
+}
+
+const PAGES = await collectPages();
 
 async function checkExternal(href) {
   const res = await fetch(href, { ...FETCH_OPTS, method: 'HEAD' });

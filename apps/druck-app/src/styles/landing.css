@@ -256,3 +256,6 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .colophon-privacy p { font-size: 14px; line-height: 1.6; margin: 0 0 10px; }
 [data-surface="ink"] .colophon-privacy-title { color: var(--ink-text); }
 [data-surface="ink"] .colophon-privacy p { color: var(--ink-text-secondary); }
+
+.demo-logo-img { display: block; height: 26px; width: auto; }
+[data-theme="dark"] .demo-logo-img { filter: brightness(0) invert(1); }

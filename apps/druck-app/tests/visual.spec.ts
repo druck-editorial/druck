@@ -18,6 +18,14 @@ const BANDS = [
 
 const THEMES = ['light', 'dark'] as const;
 
+const DEMO_SLUGS = [
+  'music-review',
+  'fashion-magazine',
+  'dev-blog',
+  'newsroom',
+  'telegram-brief',
+] as const;
+
 test.beforeEach(async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop', 'manual viewport matrix');
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -55,6 +63,25 @@ for (const viewport of VIEWPORTS) {
           ],
         });
       }
+    });
+  }
+}
+
+for (const slug of DEMO_SLUGS) {
+  for (const viewport of [
+    { name: 'desktop', width: 1440, height: 900 },
+    { name: 'mobile', width: 375, height: 812 },
+  ] as const) {
+    test(`demo ${slug} at ${viewport.name}`, async ({ page }, testInfo) => {
+      test.skip(testInfo.project.name !== 'desktop', 'manual viewport matrix');
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.goto(`/demos/${slug}/`);
+      await expect(page).toHaveScreenshot(`demo-${slug}-${viewport.name}.png`, {
+        animations: 'disabled',
+        fullPage: true,
+        maxDiffPixelRatio: 0.02,
+      });
     });
   }
 }

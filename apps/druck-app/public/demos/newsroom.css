@@ -187,3 +187,6 @@ body {
   .nw-breadcrumbs { padding: 0.5rem 1rem; }
   .demo-embed-footer { padding: 1rem; }
 }
+
+.nw-main .article-title { font-size: clamp(26px, 3.2vw, 40px); }
+.nw-main .article-hero::before { display: none; }

@@ -136,3 +136,6 @@ body {
   .at-main { padding: 0 1rem 3rem; }
   .demo-embed-footer { padding: 1rem; }
 }
+
+.at-main .article-hero::before { display: none; }
+.at-main .article-kicker { display: none; }
