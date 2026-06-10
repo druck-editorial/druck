@@ -4,13 +4,12 @@ import { readFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { defineConfig } from 'vite';
-import { buildLandingHtml } from './prerender/render-bands.mjs';
+import { buildLandingHtml, renderDemoArticlePage } from './prerender/render-bands.mjs';
 import {
   devBlog,
   fashionMagazine,
   musicReview,
   newsroom,
-  renderDemoArticlePage,
   telegramBrief,
 } from './prerender/render-demo-pages.mjs';
 

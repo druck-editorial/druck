@@ -22,9 +22,10 @@
   "keywords": ["editorial", "typography", "rendering", "magazine", "web-components"],
   "publishConfig": { "access": "public" },
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "pnpm build && pnpm test"
   },
   "devDependencies": {
     "typescript": "^5.8.0",

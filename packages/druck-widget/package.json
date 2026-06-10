@@ -27,9 +27,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc && node scripts/bundle.mjs",
+    "build": "rm -rf dist && tsc && node scripts/bundle.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "pnpm build && pnpm test"
   },
   "dependencies": {
     "@druck-editorial/engine": "workspace:*"
