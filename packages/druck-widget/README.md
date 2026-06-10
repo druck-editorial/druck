@@ -14,6 +14,17 @@ Or load from a self-hosted bundle:
 <script type="module" src="/assets/druck-widget.js"></script>
 ```
 
+Or from a CDN, version-pinned with subresource integrity:
+
+```html
+<script type="module"
+  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.0/dist/druck-widget.js"
+  integrity="sha384-XJ0XvPb20yRQfswItj7AkAygMHH8HSAF/OpkbJ/K+xHj0YznMbKrQw+bJEiEDYC8"
+  crossorigin="anonymous"></script>
+```
+
+unpkg works too: `https://unpkg.com/@druck-editorial/widget@0.1.0/dist/druck-widget.js` with the same integrity hash.
+
 ## druck-article
 
 Fetches `ArticleData` JSON from `src` and renders a full article.
@@ -31,7 +42,7 @@ Fetches `ArticleData` JSON from `src` and renders a full article.
 | Attribute | Description |
 |---|---|
 | `src` | URL of an `ArticleData` JSON file. Required. |
-| `css-url` | URL of the stylesheet to load inside the shadow root. Defaults to the unpkg CDN path for `@druck-editorial/css`. Set this to a self-hosted URL in production. |
+| `css-url` | URL of the stylesheet to load inside the shadow root. Defaults to the unpkg CDN path for `@druck-editorial/css`; a jsDelivr URL (`https://cdn.jsdelivr.net/npm/@druck-editorial/css/article.css`) works the same way. Set this to a self-hosted URL in production. |
 | `lang` | Sets the `lang` attribute on the article container. |
 | `theme` | `'light'` or `'dark'`. Sets `data-theme` on the container. |
 | `accent` | CSS color value applied to `--accent`. |

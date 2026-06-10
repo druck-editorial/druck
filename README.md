@@ -37,12 +37,17 @@ document.getElementById('article').innerHTML = html;
 ## Web components
 
 ```html
-<script type="module" src="https://unpkg.com/@druck-editorial/widget/dist/druck-widget.js"></script>
+<script type="module"
+  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.0/dist/druck-widget.js"
+  integrity="sha384-XJ0XvPb20yRQfswItj7AkAygMHH8HSAF/OpkbJ/K+xHj0YznMbKrQw+bJEiEDYC8"
+  crossorigin="anonymous"></script>
 
 <druck-article src="story.json"></druck-article>
 
 <druck-feed layout="front-page" src="feed.json"></druck-feed>
 ```
+
+unpkg works the same way: `https://unpkg.com/@druck-editorial/widget@0.1.0/dist/druck-widget.js` with the same integrity hash. Self-hosting the bundle is the recommended production setup.
 
 ## Packages
 
