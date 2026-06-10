@@ -13,13 +13,13 @@ class DruckFeedElement extends HTMLElement {
   #shadow: ShadowRoot | null = null;
   #feedContainer!: HTMLDivElement;
   #cssLink!: HTMLLinkElement;
+  #renderGeneration = 0;
 
   #ensureShadow(): void {
     if (this.#shadow) return;
     this.#shadow = this.attachShadow({ mode: 'open' });
     this.#feedContainer = document.createElement('div');
     this.#feedContainer.className = 'druck-feed';
-    this.#feedContainer.setAttribute('role', 'list');
     this.#cssLink = document.createElement('link');
     this.#cssLink.rel = 'stylesheet';
     this.#cssLink.href = this.#getCssUrl();
@@ -73,16 +73,22 @@ class DruckFeedElement extends HTMLElement {
   }
 
   async #loadAndRender(src: string): Promise<void> {
+    const gen = ++this.#renderGeneration;
     try {
-      this.#render(await this.#fetchItems(src));
+      const items = await this.#fetchItems(src);
+      if (gen !== this.#renderGeneration) return;
+      this.#render(items);
     } catch (primaryError) {
       const fallback = this.getAttribute('fallback-src');
       if (fallback) {
         try {
-          this.#render(await this.#fetchItems(fallback));
+          const items = await this.#fetchItems(fallback);
+          if (gen !== this.#renderGeneration) return;
+          this.#render(items);
           return;
         } catch {}
       }
+      if (gen !== this.#renderGeneration) return;
       this.#renderFailure((primaryError as Error).message);
     }
   }
@@ -97,9 +103,11 @@ class DruckFeedElement extends HTMLElement {
     };
     if (this.getAttribute('layout') === 'front-page') {
       this.#feedContainer.className = 'druck-feed-host';
+      this.#feedContainer.removeAttribute('role');
       this.#feedContainer.innerHTML = renderFrontPage(buildFrontPage(items), opts);
     } else {
       this.#feedContainer.className = 'druck-feed';
+      this.#feedContainer.setAttribute('role', 'list');
       this.#feedContainer.setAttribute('data-columns', this.getAttribute('columns') || '3');
       this.#feedContainer.innerHTML = items
         .map((data) => `<div role="listitem">${renderCard(data, opts)}</div>`)
@@ -110,14 +118,17 @@ class DruckFeedElement extends HTMLElement {
 
   #renderFailure(message: string): void {
     this.#ensureShadow();
-    const prerendered = this.innerHTML.trim();
-    if (prerendered) {
-      this.#feedContainer.innerHTML = prerendered;
+    const hasPrerendered = this.innerHTML.trim().length > 0;
+    if (hasPrerendered) {
+      this.#feedContainer.innerHTML = '<slot></slot>';
     } else {
       this.#feedContainer.innerHTML =
         `<div style="padding:24px;color:#999;font-family:system-ui">Failed to load feed: ${escapeHtml(message)}</div>`;
     }
-    this.dispatchEvent(new CustomEvent('druck:feed-error', { bubbles: true, detail: { error: escapeHtml(message) } }));
+    this.dispatchEvent(new CustomEvent('druck:feed-error', {
+      bubbles: true,
+      detail: { error: escapeHtml(message), recovered: hasPrerendered },
+    }));
   }
 }
 
