@@ -12,19 +12,27 @@ async function readFixture(dir, name) {
   }
 }
 
-function embedFooter(elementTag, srcAttr) {
+function embedFooter(articleTag, articleSrcAttr, feedTag, feedSrcAttr) {
   const scriptTag = escapeHtml(`<script type="module" src="${WIDGET_CDN_URL}"></script>`);
-  const elementLine = escapeHtml(`<${elementTag} ${srcAttr}></${elementTag}>`);
+  const feedLine = feedTag ? escapeHtml(`<${feedTag} ${feedSrcAttr}></${feedTag}>`) : null;
+  const articleLine = escapeHtml(`<${articleTag} ${articleSrcAttr}></${articleTag}>`);
+  const codeLines = [scriptTag, feedLine, articleLine].filter(Boolean).join('\n');
+  const label = feedTag
+    ? 'Embeds that produce this page at runtime'
+    : 'Embed that produces this page at runtime';
   return (
     '<footer class="demo-embed-footer">' +
-    '<p class="demo-embed-label">Embed that produces this page at runtime</p>' +
-    `<pre class="demo-embed-code"><code>${scriptTag}\n${elementLine}</code></pre>` +
+    `<p class="demo-embed-label">${label}</p>` +
+    `<pre class="demo-embed-code"><code>${codeLines}</code></pre>` +
     '</footer>'
   );
 }
 
-function demoShell({ slug, title, description, css, bodyHtml, feedPage = false }) {
-  const articleCss = feedPage ? '/feed.css' : '/article.css';
+function demoShell({ slug, title, description, css, bodyHtml, includeArticleCss = false, includeFeedCss = false }) {
+  const extra = [
+    includeFeedCss ? '<link rel="stylesheet" href="/feed.css">' : '',
+    includeArticleCss ? '<link rel="stylesheet" href="/article.css">' : '',
+  ].filter(Boolean).join('\n');
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,13 +44,28 @@ function demoShell({ slug, title, description, css, bodyHtml, feedPage = false }
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/fonts.css">
 <link rel="stylesheet" href="/demos/${escapeHtml(slug)}.css">
-<link rel="stylesheet" href="${articleCss}">
+${extra}
 </head>
 <body>
 <a class="druck-attribution" href="/">A druck demo &mdash; this publication does not exist. &larr; druck</a>
 ${bodyHtml}
 </body>
 </html>`;
+}
+
+function sectionDivider(text) {
+  return `<div class="demo-section-divider" aria-hidden="true"><span>${escapeHtml(text)}</span></div>`;
+}
+
+function embedFooterFeed(elementTag, srcAttr) {
+  const scriptTag = escapeHtml(`<script type="module" src="${WIDGET_CDN_URL}"></script>`);
+  const elementLine = escapeHtml(`<${elementTag} ${srcAttr}></${elementTag}>`);
+  return (
+    '<footer class="demo-embed-footer">' +
+    '<p class="demo-embed-label">Embed that produces this front page at runtime</p>' +
+    `<pre class="demo-embed-code"><code>${scriptTag}\n${elementLine}</code></pre>` +
+    '</footer>'
+  );
 }
 
 export async function renderDemoArticlePage(fixturesDir) {
@@ -71,8 +94,12 @@ ${article}
 }
 
 export async function musicReview(fixturesDir) {
-  const data = await readFixture(fixturesDir, 'frame-music.json');
+  const [data, feedItems] = await Promise.all([
+    readFixture(fixturesDir, 'frame-music.json'),
+    readFixture(fixturesDir, 'tuning-fork-feed.json'),
+  ]);
   const articleHtml = renderArticle(data);
+  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems));
 
   const scoreMatch = /<aside data-stat="([^"]+)">/.exec(data.chapters?.[0]?.bodyHtml ?? '');
   const score = scoreMatch ? scoreMatch[1] : '8.4';
@@ -82,14 +109,18 @@ export async function musicReview(fixturesDir) {
     '<a class="ph-logo" href="/">TUNING FORK</a>' +
     '<nav class="ph-nav" aria-label="Site navigation"><a href="#">Reviews</a><a href="#">Lists</a><a href="#">Features</a><a href="#">Live</a></nav>' +
     '</header>' +
+    '<main class="ph-main">' +
+    frontPageHtml +
+    '</main>' +
+    sectionDivider('Now playing') +
     '<div class="ph-score-bar">' +
     `<span class="ph-score-number">${escapeHtml(score)}</span>` +
     '<span class="ph-score-label">Best New Music</span>' +
     '</div>' +
-    '<main class="ph-main">' +
+    '<main class="ph-main ph-main--article">' +
     articleHtml +
     '</main>' +
-    embedFooter('druck-article', 'src="story.json"') +
+    embedFooter('druck-article', 'src="story.json"', 'druck-feed', 'layout="front-page" src="feed.json"') +
     '<footer class="ph-footer"><p>TUNING FORK &mdash; independent music criticism since 2019. This publication does not exist.</p></footer>';
 
   return {
@@ -100,13 +131,19 @@ export async function musicReview(fixturesDir) {
       description: data.metaDescription,
       css: 'music-review',
       bodyHtml: body,
+      includeArticleCss: true,
+      includeFeedCss: true,
     }),
   };
 }
 
 export async function fashionMagazine(fixturesDir) {
-  const data = await readFixture(fixturesDir, 'frame-fashion.json');
+  const [data, feedItems] = await Promise.all([
+    readFixture(fixturesDir, 'frame-fashion.json'),
+    readFixture(fixturesDir, 'atelier-feed.json'),
+  ]);
   const articleHtml = renderArticle(data);
+  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems));
 
   const body =
     '<header class="at-header">' +
@@ -117,9 +154,13 @@ export async function fashionMagazine(fixturesDir) {
     '</div>' +
     '</header>' +
     '<main class="at-main">' +
+    frontPageHtml +
+    '</main>' +
+    sectionDivider('From the current issue') +
+    '<main class="at-main at-main--article">' +
     articleHtml +
     '</main>' +
-    embedFooter('druck-article', 'src="story.json"') +
+    embedFooter('druck-article', 'src="story.json"', 'druck-feed', 'layout="front-page" src="feed.json"') +
     '<footer class="at-footer"><p>ATELIER Journal &mdash; fashion, culture, criticism. This publication does not exist.</p></footer>';
 
   return {
@@ -130,13 +171,19 @@ export async function fashionMagazine(fixturesDir) {
       description: data.metaDescription,
       css: 'fashion-magazine',
       bodyHtml: body,
+      includeArticleCss: true,
+      includeFeedCss: true,
     }),
   };
 }
 
 export async function devBlog(fixturesDir) {
-  const data = await readFixture(fixturesDir, 'wire.json');
+  const [data, feedItems] = await Promise.all([
+    readFixture(fixturesDir, 'wire.json'),
+    readFixture(fixturesDir, 'deploy-log-feed.json'),
+  ]);
   const articleHtml = renderArticle(data);
+  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems));
 
   const body =
     '<header class="dl-header">' +
@@ -144,6 +191,10 @@ export async function devBlog(fixturesDir) {
     '<nav class="dl-nav" aria-label="Site navigation"><a href="#">posts</a><a href="#">rss</a><a href="#">about</a></nav>' +
     '</header>' +
     '<main class="dl-main">' +
+    frontPageHtml +
+    '</main>' +
+    sectionDivider('Latest post') +
+    '<main class="dl-main dl-main--article">' +
     articleHtml +
     '<aside class="dl-subscribe">' +
     '<p class="dl-subscribe-heading">Get posts by email</p>' +
@@ -157,7 +208,7 @@ export async function devBlog(fixturesDir) {
     '</form>' +
     '</aside>' +
     '</main>' +
-    embedFooter('druck-article', 'src="story.json"') +
+    embedFooter('druck-article', 'src="story.json"', 'druck-feed', 'layout="front-page" src="feed.json"') +
     '<footer class="dl-footer"><p>deploy.log &mdash; a personal technical blog. This publication does not exist.</p></footer>';
 
   return {
@@ -168,13 +219,19 @@ export async function devBlog(fixturesDir) {
       description: data.metaDescription,
       css: 'dev-blog',
       bodyHtml: body,
+      includeArticleCss: true,
+      includeFeedCss: true,
     }),
   };
 }
 
 export async function newsroom(fixturesDir) {
-  const data = await readFixture(fixturesDir, 'demo-newsroom.json');
+  const [data, feedItems] = await Promise.all([
+    readFixture(fixturesDir, 'demo-newsroom.json'),
+    readFixture(fixturesDir, 'northwind-feed.json'),
+  ]);
   const articleHtml = renderArticle(data);
+  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems));
 
   const body =
     '<header class="nw-header">' +
@@ -183,6 +240,12 @@ export async function newsroom(fixturesDir) {
     '<nav class="nw-nav" aria-label="Site navigation"><a href="#">Product</a><a href="#">Newsroom</a><a href="#">Docs</a><a href="#">Company</a></nav>' +
     '</div>' +
     '</header>' +
+    '<section class="nw-feed-section" aria-label="Latest from newsroom">' +
+    '<div class="nw-feed-inner">' +
+    frontPageHtml +
+    '</div>' +
+    '</section>' +
+    sectionDivider('Full release') +
     '<div class="nw-breadcrumbs" aria-label="Breadcrumb">' +
     '<a href="/">Home</a><span aria-hidden="true">/</span><a href="#">Newsroom</a><span aria-hidden="true">/</span><span aria-current="page">Press Release</span>' +
     '</div>' +
@@ -207,7 +270,7 @@ export async function newsroom(fixturesDir) {
     '</div>' +
     '</aside>' +
     '</div>' +
-    embedFooter('druck-article', 'src="story.json"') +
+    embedFooter('druck-article', 'src="story.json"', 'druck-feed', 'layout="front-page" src="feed.json"') +
     '<footer class="nw-footer"><p>&copy; 2026 Northwind Inc. &mdash; This company does not exist.</p></footer>';
 
   return {
@@ -218,6 +281,8 @@ export async function newsroom(fixturesDir) {
       description: data.metaDescription,
       css: 'newsroom',
       bodyHtml: body,
+      includeArticleCss: true,
+      includeFeedCss: true,
     }),
   };
 }
@@ -330,7 +395,7 @@ export async function telegramBrief(fixturesDir) {
       description: 'Daily markets intelligence published from a Telegram channel via druck.',
       css: 'telegram-brief',
       bodyHtml: body,
-      feedPage: true,
+      includeFeedCss: true,
     }),
   };
 }

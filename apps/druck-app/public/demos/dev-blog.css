@@ -64,7 +64,17 @@ body {
 .dl-nav a { color: var(--dl-text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--dl-font-logo); }
 .dl-nav a:hover { color: var(--dl-accent); text-decoration: underline; }
 
-.dl-main { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+.dl-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 2rem;
+}
+
+.dl-main--article {
+  max-width: 680px;
+  padding-top: 0;
+  padding-bottom: 4rem;
+}
 
 .dl-main .article-shell {
   --color-bg: transparent;
@@ -77,6 +87,30 @@ body {
   --type-headline-font: system-ui, -apple-system, sans-serif;
   --type-headline-weight: 700;
   --type-body-font: system-ui, -apple-system, sans-serif;
+}
+
+.demo-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0.65rem 1.5rem;
+  border-top: 1px solid var(--dl-hairline);
+  border-bottom: 1px solid var(--dl-hairline);
+  font-family: var(--dl-font-logo);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--dl-accent);
+}
+
+.dl-main .druck-front-page {
+  --color-surface: var(--dl-surface);
+  --color-border: var(--dl-hairline);
+  --color-text: var(--dl-text);
+  --color-text-muted: var(--dl-text-muted);
+  --font-headline: system-ui, -apple-system, sans-serif;
+  --font-sans: system-ui, -apple-system, sans-serif;
 }
 
 .dl-subscribe {
@@ -174,7 +208,9 @@ body {
 
 @media (max-width: 768px) {
   .dl-header { padding: 1rem; }
-  .dl-main { padding: 1.25rem 1rem 3rem; }
+  .dl-main { padding: 1.25rem 1rem 2rem; }
+  .dl-main--article { padding-bottom: 3rem; }
+  .demo-section-divider { padding: 0.6rem 1rem; }
   .dl-subscribe-row { flex-direction: column; }
   .demo-embed-footer { padding: 1rem; }
 }

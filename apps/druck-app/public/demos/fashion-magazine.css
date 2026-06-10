@@ -76,7 +76,17 @@ body {
 .at-nav a { color: var(--at-text-muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .at-nav a:hover { color: var(--at-text); }
 
-.at-main { max-width: 820px; margin: 0 auto; padding: 0 2rem 4rem; }
+.at-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem 2rem 2rem;
+}
+
+.at-main--article {
+  max-width: 820px;
+  padding-top: 0;
+  padding-bottom: 4rem;
+}
 
 .at-main .article-shell {
   --color-bg: transparent;
@@ -90,6 +100,31 @@ body {
   --type-headline-weight: 600;
   --type-headline-tracking: -0.02em;
   --type-accent-font: 'Bodoni Moda', serif;
+}
+
+.demo-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
+  border-top: 2px solid var(--at-text);
+  border-bottom: 1px solid var(--at-hairline);
+  font-family: var(--at-font-logo);
+  font-size: 0.85rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: var(--at-text-muted);
+}
+
+.at-main .druck-front-page {
+  --color-surface: var(--at-surface);
+  --color-border: var(--at-hairline);
+  --color-text: var(--at-text);
+  --color-text-muted: var(--at-text-muted);
+  --font-headline: 'Bodoni Moda', 'Times New Roman', serif;
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
 }
 
 .at-footer {
@@ -133,7 +168,9 @@ body {
 @media (max-width: 768px) {
   .at-header { padding: 2rem 1rem 0; }
   .at-logo { font-size: 2rem; letter-spacing: 0.3em; }
-  .at-main { padding: 0 1rem 3rem; }
+  .at-main { padding: 1rem 1rem 2rem; }
+  .at-main--article { padding-bottom: 3rem; }
+  .demo-section-divider { padding: 1rem; }
   .demo-embed-footer { padding: 1rem; }
 }
 

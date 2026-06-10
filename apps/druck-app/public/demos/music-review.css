@@ -93,7 +93,17 @@ body {
   border-radius: 2px;
 }
 
-.ph-main { max-width: 860px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+.ph-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem 2rem 2rem;
+}
+
+.ph-main--article {
+  max-width: 860px;
+  padding-top: 0;
+  padding-bottom: 4rem;
+}
 
 .ph-main .article-shell {
   --color-bg: transparent;
@@ -105,6 +115,56 @@ body {
   --color-surface: var(--ph-surface);
   --accent: var(--ph-accent);
   --type-headline-font: 'Archivo Black', sans-serif;
+}
+
+.demo-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  border-top: 1px solid var(--ph-hairline);
+  border-bottom: 1px solid var(--ph-hairline);
+  font-family: var(--ph-font-logo);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ph-accent);
+}
+
+.ph-main .druck-front-page {
+  --color-surface: #1c1c1f;
+  --color-border: rgba(255,255,255,0.1);
+  --color-text: #f0ede8;
+  --color-text-muted: #9a9590;
+  --color-muted: #2a2a2e;
+  --font-headline: 'Archivo Black', sans-serif;
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+}
+
+.ph-main .druck-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+.ph-main .card-title {
+  color: var(--color-text);
+}
+
+.ph-main .card-subtitle,
+.ph-main .card-meta {
+  color: var(--color-text-muted);
+}
+
+.ph-main .df-row--brief {
+  background: #1c1c1f;
+  border-color: rgba(255,255,255,0.1);
+  color: #f0ede8;
+}
+
+.ph-main .df-row--brief time {
+  color: #9a9590;
 }
 
 .ph-footer {
@@ -147,7 +207,9 @@ body {
   .ph-header { padding: 0.75rem 1rem; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
   .ph-score-bar { padding: 1rem; }
   .ph-score-number { font-size: 2.8rem; }
-  .ph-main { padding: 1rem 1rem 3rem; }
+  .ph-main { padding: 1rem 1rem 2rem; }
+  .ph-main--article { padding-bottom: 3rem; }
+  .demo-section-divider { padding: 0.6rem 1rem; }
   .demo-embed-footer { padding: 1rem; }
 }
 

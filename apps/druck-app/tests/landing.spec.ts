@@ -70,16 +70,17 @@ test.describe('band wild', () => {
     await expect(page.locator('html')).toHaveAttribute('data-surface', 'paper', { timeout: 8000 });
   });
 
-  test('frame viewports respect max-height and allow inner scroll', async ({ page }) => {
+  test('frame viewports clip overflow and fade at the bottom', async ({ page }) => {
     await page.goto('/');
     await page.locator('.band-wild').scrollIntoViewIfNeeded();
-    const metrics = await page.locator('.frame-viewport').first().evaluate((el) => ({
-      overflowY: getComputedStyle(el).overflowY,
-      clientHeight: el.clientHeight,
-      viewportHeight: window.innerHeight,
-    }));
-    expect(['auto', 'scroll']).toContain(metrics.overflowY);
-    expect(metrics.clientHeight).toBeLessThanOrEqual(metrics.viewportHeight * 0.65);
+    const el = page.locator('.frame-viewport').first();
+    const overflowY = await el.evaluate((node) => getComputedStyle(node).overflowY);
+    expect(overflowY).toBe('hidden');
+    const clientHeight = await el.evaluate((node) => node.clientHeight);
+    const viewportHeight = await page.evaluate(() => window.innerHeight);
+    expect(clientHeight).toBeLessThanOrEqual(viewportHeight * 0.65);
+    const afterContent = await el.evaluate((node) => getComputedStyle(node, '::after').content);
+    expect(afterContent).not.toBe('none');
   });
 });
 

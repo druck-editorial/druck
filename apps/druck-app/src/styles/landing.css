@@ -166,7 +166,7 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .frame-host { font: 400 11px/1 ui-monospace, Menlo, monospace; color: var(--ink-text-secondary); }
 .frame-masthead { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 18px; border-bottom: 1px solid var(--ink-hairline); color: var(--ink-text); }
 .frame-masthead nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 14px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-text-secondary); }
-.frame-viewport { max-height: 62vh; overflow-y: auto; overflow-x: hidden; background: #fdfcfa; }
+.frame-viewport { max-height: 62vh; overflow: hidden; position: relative; background: #fdfcfa; }
 .frame-caption { font-size: 12px; color: var(--demo-text-muted); padding: 12px 18px; margin: 0; }
 .frame-caption a { color: var(--demo-text-secondary); }
 [data-theme="dark"] .frame-caption a { color: var(--demo-text-secondary); }
@@ -232,10 +232,7 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
   .replay-btn { display: none; }
 }
 
-.frame-viewport { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.22) transparent; }
-.frame-viewport::-webkit-scrollbar { width: 8px; }
-.frame-viewport::-webkit-scrollbar-track { background: transparent; }
-.frame-viewport::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); border-radius: 4px; }
+.frame-viewport::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 96px; background: linear-gradient(to bottom, rgba(253,252,250,0), #fdfcfa 85%); pointer-events: none; }
 
 .range-stage.cat-weekly .specimen-panel { border-top: 2px solid var(--accent); padding-top: 18px; }
 .range-stage.cat-weekly .specimen-headline { font-family: var(--font-serif, 'Source Serif 4', Georgia, serif); font-weight: 600; }
@@ -259,3 +256,7 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 
 .demo-logo-img { display: block; height: 26px; width: auto; }
 [data-theme="dark"] .demo-logo-img { filter: brightness(0) invert(1); }
+
+[data-surface="ink"] .band-lede a { color: var(--ink-text); }
+
+.colophon-method code, .colophon-links code { overflow-wrap: anywhere; }

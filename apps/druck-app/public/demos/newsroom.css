@@ -83,6 +83,43 @@ body {
 .nw-breadcrumbs a:hover { text-decoration: underline; }
 .nw-breadcrumbs span[aria-hidden] { color: var(--nw-hairline); }
 
+.nw-feed-section {
+  background: var(--nw-surface);
+  border-bottom: 1px solid var(--nw-hairline);
+  padding: 2rem 0;
+}
+
+.nw-feed-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.nw-feed-inner .druck-front-page {
+  --color-surface: var(--nw-surface);
+  --color-border: var(--nw-hairline);
+  --color-text: var(--nw-text);
+  --color-text-muted: var(--nw-text-muted);
+  --font-headline: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.demo-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  font-family: var(--nw-font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nw-text-muted);
+  border-bottom: 1px solid var(--nw-hairline);
+}
+
 .nw-layout {
   display: grid;
   grid-template-columns: 1fr 280px;
@@ -181,10 +218,13 @@ body {
 }
 
 @media (max-width: 768px) {
+  .nw-feed-inner { padding: 0 1rem; }
+  .nw-feed-section { padding: 1rem 0; }
   .nw-layout { grid-template-columns: 1fr; padding: 0 1rem; margin: 1rem auto; }
   .nw-sidebar { order: 2; }
   .nw-header-inner { padding: 0.75rem 1rem; }
   .nw-breadcrumbs { padding: 0.5rem 1rem; }
+  .demo-section-divider { padding: 0.6rem 1rem; }
   .demo-embed-footer { padding: 1rem; }
 }
 
