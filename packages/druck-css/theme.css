@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT | Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com> */
 /* === Dark theme === */
 [data-theme="dark"] :is(.article-shell, .post-simple) {
   --color-text: #DDD8D2;

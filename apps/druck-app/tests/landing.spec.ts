@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { expect, test } from '@playwright/test';
 
 test.describe('band 1 hero', () => {

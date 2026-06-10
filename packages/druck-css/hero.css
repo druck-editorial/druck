@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT | Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com> */
 /* === Progress bar === */
 .article-progress { position: sticky; top: 0; height: 2px; background: rgba(0,0,0,0.04); z-index: 20; }
 .article-progress .fill { height: 100%; width: 0%; background: var(--accent); transition: width 80ms linear, background .35s; }

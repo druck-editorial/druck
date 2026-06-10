@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT | Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com> */
 /* === Body === */
 .article-body { max-width: 680px; margin: 0 auto; padding: clamp(36px, 5vw, 56px) 22px 0; font-family: var(--type-body-font); font-size: 17.5px; line-height: var(--type-body-leading); font-weight: var(--type-body-weight); color: var(--color-text); }
 .article-body p { margin: 0 0 1.2em; }

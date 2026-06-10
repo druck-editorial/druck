@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import type { AnalyticsConfig, ReadingEvent, ReadingSession } from './types.js';
 
 type MergedConfig = Omit<Required<AnalyticsConfig>, 'onDepth' | 'onActiveReading' | 'onChapterRead' | 'siteToken'> & {
@@ -14,6 +16,7 @@ const DEFAULT_CONFIG: MergedConfig = {
   depthMilestones: [25, 50, 75, 100],
   chapterReadThresholdMs: 3000,
   debounceMs: 100,
+  root: null,
 };
 
 export class ReadingTracker {
@@ -64,7 +67,7 @@ export class ReadingTracker {
           }
         }
       },
-      { threshold: 0.5, root: this.#articleRoot }
+      { threshold: 0.5, root: this.#config.root }
     );
 
     const selectors = [

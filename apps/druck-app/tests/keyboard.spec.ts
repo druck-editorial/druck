@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { expect, test } from '@playwright/test';
 
 test('skip link is first tab stop and jumps to main', async ({ page }) => {

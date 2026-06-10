@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { build } from 'esbuild';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,5 +14,8 @@ await build({
   minify: true,
   outfile: join(root, 'dist/druck-widget.js'),
   allowOverwrite: true,
+  banner: {
+    js: '/*! SPDX-License-Identifier: MIT | Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com> */',
+  },
 });
 console.log('bundled dist/druck-widget.js');

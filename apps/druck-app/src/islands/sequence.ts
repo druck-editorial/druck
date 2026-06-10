@@ -1,18 +1,29 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 export const SEQUENCE_STEP_MS = 700;
-const STEP_TO_KEY: Record<string, string> = {
-  '1': 'category',
-  '2': 'title',
-  '3': 'subtitle',
-  '4': 'heroImage',
-  '5': 'chapters',
-};
+
+function stepToKey(stage: HTMLElement, step: number): string | undefined {
+  const custom = stage.dataset.stepKeys;
+  if (custom) {
+    const keys = custom.split(',');
+    return keys[step - 1]?.trim();
+  }
+  const defaults: Record<string, string> = {
+    '1': 'category',
+    '2': 'title',
+    '3': 'subtitle',
+    '4': 'heroImage',
+    '5': 'chapters',
+  };
+  return defaults[String(step)];
+}
 
 function setStep(stage: HTMLElement, step: number): void {
   for (const el of stage.querySelectorAll<HTMLElement>('.hx')) {
     el.classList.toggle('on', Number(el.dataset.step) <= step);
   }
   for (const line of stage.querySelectorAll<HTMLElement>('.jl[data-key]')) {
-    line.classList.toggle('lit', line.dataset.key === STEP_TO_KEY[String(step)]);
+    line.classList.toggle('lit', line.dataset.key === stepToKey(stage, step));
   }
 }
 

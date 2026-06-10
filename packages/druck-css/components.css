@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT | Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com> */
 /* === Mid-article Read Next === */
 .read-next-feature { max-width: 880px; margin: 64px auto; background: var(--color-surface); border-radius: 16px; overflow: hidden; cursor: pointer; transition: transform .25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .25s; box-shadow: var(--shadow-card); display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; text-decoration: none; color: inherit; }
 .read-next-feature:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-hover); }

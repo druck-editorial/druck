@@ -24,7 +24,7 @@ druck/
 
 ## Rules
 
-- No source-file comments. Naming carries meaning.
+- No source-file comments. Naming carries meaning. (Exception: the SPDX license header is required attribution, not commentary.)
 - No emojis in code or commits.
 - No external CDN deps. Self-host everything.
 - Edit existing files over creating new ones.

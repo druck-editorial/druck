@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 export function initSurfaces(): void {
   const inkBands = document.querySelectorAll<HTMLElement>('[data-surface="ink"]');
   if (inkBands.length === 0) return;

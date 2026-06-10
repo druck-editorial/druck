@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT | Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com> */
 :root {
   --demo-bg: #faf8f5;
   --demo-surface: #ffffff;
@@ -30,6 +31,7 @@
   --demo-text-faint: #3e3e50;
   --demo-hairline: rgba(255, 255, 255, 0.06);
   --demo-hairline-strong: rgba(255, 255, 255, 0.12);
+  --demo-accent-clay: #d2624a;
   --demo-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
   --demo-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
   --demo-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
@@ -81,6 +83,9 @@ body {
   letter-spacing: -0.03em;
   color: var(--demo-text);
   transition: color var(--demo-transition);
+  display: flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .demo-logo-accent {
@@ -235,6 +240,21 @@ html:not([data-theme="dark"]) .theme-btn svg.moon { display: none; }
 
 .demo-cta:active { transform: translateY(0); }
 .demo-cta:focus-visible { outline: 2px solid var(--demo-accent); outline-offset: 2px; }
+
+.demo-cta[data-copied="true"] { position: relative; overflow: hidden; }
+.demo-cta[data-copied="true"] > * { opacity: 0; }
+.demo-cta[data-copied="true"]::after { content: 'Copied'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.demo-cta[data-copied="true"]::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: copy-sweep 1.2s ease-out;
+}
+
+@keyframes copy-sweep {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
 
 .demo-cta-ghost {
   background: transparent;

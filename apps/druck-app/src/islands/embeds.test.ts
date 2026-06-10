@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 // @vitest-environment happy-dom
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { initEmbeds } from './embeds.js';

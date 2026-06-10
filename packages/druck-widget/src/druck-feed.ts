@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import type { ArticleData, RenderOptions } from '@druck-editorial/engine';
 import { buildFrontPage, renderCard, renderFrontPage, safeUrl, escapeHtml } from '@druck-editorial/engine';
 

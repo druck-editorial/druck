@@ -32,9 +32,15 @@
     }
   ],
   "keyPoints": [
-    { "text": "70B models perform within 5% of frontier on most business tasks, at 10-20x lower cost" },
-    { "text": "Synthetic training data let 8B models match GPT-3.5 quality — quality over quantity" },
-    { "text": "Fine-tuned small models outperform general frontier models on domain-specific tasks" }
+    {
+      "text": "70B models perform within 5% of frontier on most business tasks, at 10-20x lower cost"
+    },
+    {
+      "text": "Synthetic training data let 8B models match GPT-3.5 quality — quality over quantity"
+    },
+    {
+      "text": "Fine-tuned small models outperform general frontier models on domain-specific tasks"
+    }
   ],
   "known": {
     "items": [
@@ -52,7 +58,7 @@
   },
   "editorsNote": "This analysis focuses on production deployment patterns, not benchmark performance. The gap between lab results and real-world utility is the story.",
   "sourceCount": 14,
-  "shareUrl": "https://druck.ing/articles/quiet-revolution-small-language-models/",
+  "shareUrl": "/articles/quiet-revolution-small-language-models/",
   "related": [
     {
       "title": "Edge AI and the Privacy Imperative",

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 const COPIED_RESET_MS = 1600;
 
 export function initCopyButton(button: HTMLElement): void {

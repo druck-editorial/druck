@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 

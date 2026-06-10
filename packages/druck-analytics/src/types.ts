@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 export interface ReadingEvent {
   type: 'chapter_enter' | 'chapter_read' | 'keypoint_view' | 'aside_view' | 'quote_view' | 'share_click' | 'depth_milestone';
   articleSlug: string;
@@ -26,6 +28,7 @@ export interface AnalyticsConfig {
   depthMilestones?: number[];
   chapterReadThresholdMs?: number;
   debounceMs?: number;
+  root?: Element | Document | null;
   onDepth?: (depthPercent: number) => void;
   onActiveReading?: (activeSec: number) => void;
   onChapterRead?: (title: string) => void;

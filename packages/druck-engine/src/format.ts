@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 const INLINE_ALLOWED_TAGS = new Set(['strong', 'em', 'b', 'i', 'span', 'a']);
 const INLINE_ALLOWED_ATTRS: Record<string, Set<string>> = {
   a: new Set(['href']),

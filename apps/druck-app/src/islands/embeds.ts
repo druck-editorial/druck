@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 const THEME_FONTS_ID = 'druck-theme-fonts';
 const FEED_DEFERRED_ATTRS = ['fallback-src', 'layout', 'css-url', 'src'];
 

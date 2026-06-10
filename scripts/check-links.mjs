@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { readFile, access, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 

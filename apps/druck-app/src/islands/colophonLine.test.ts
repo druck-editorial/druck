@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 // @vitest-environment happy-dom
 import { describe, expect, it, vi } from 'vitest';
 import { initColophonLine } from './colophonLine.js';

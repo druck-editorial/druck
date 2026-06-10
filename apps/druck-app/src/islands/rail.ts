@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 export function initProgressRail(rail: HTMLElement): void {
   let ticking = false;
   const update = (): void => {

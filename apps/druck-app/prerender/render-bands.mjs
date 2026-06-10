@@ -1,8 +1,10 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { readFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
-import { buildFrontPage, escapeHtml, renderArticle, renderFrontPage } from '@druck-editorial/engine';
+import { buildFrontPage, escapeHtml, renderArticle, renderCard, renderFrontPage, safeUrl } from '@druck-editorial/engine';
 import { GITHUB_PROFILE, GITHUB_URL, INSTALL_CMD, WIDGET_CDN_URL } from './constants.mjs';
 
 function widgetGzipKb() {
@@ -29,10 +31,35 @@ function applyTokens(html) {
   );
 }
 
-const TOP_LEVEL_KEY_PATTERN = /^\s{2}"([a-zA-Z]+)"/;
+const TOP_LEVEL_KEY_PATTERN = /^\s{2,}"([a-zA-Z]+)"/;
 const HERO_JSON_MAX_LINES = 22;
 const SPECIMEN_LANGS = ['en', 'de', 'fr', 'es', 'ja'];
 const SPECIMEN_FORMATS = ['feature', 'quick_take', 'wire'];
+
+export function tokenizeJsonForFeedPane(source) {
+  const lines = source.split('\n');
+  const out = [];
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (trimmed === '[') {
+      out.push(`<span class="jl">${tokenizeLine(line)}</span>`);
+      continue;
+    }
+    if (trimmed === '{') {
+      out.push(`<span class="jl">${tokenizeLine(line)}</span>`);
+      continue;
+    }
+    if (trimmed === '}' || trimmed === '},') {
+      out.push(`<span class="jl">${tokenizeLine(line)}</span>`);
+      break;
+    }
+    const keyMatch = TOP_LEVEL_KEY_PATTERN.exec(line);
+    const keyAttr = keyMatch ? ` data-key="${keyMatch[1]}"` : '';
+    out.push(`<span class="jl"${keyAttr}>${tokenizeLine(line)}</span>`);
+  }
+  out.push('<span class="jl muted">  … 11 more stories</span>');
+  return out.join('\n');
+}
 
 const SPECIMEN_STAT =
   '<div class="specimen-stat"><span class="ss-value">$14,250/month</span>' +
@@ -87,10 +114,84 @@ export function renderHeroMagazinePane(data) {
     `<div class="hx article-kicker" data-step="1">${escapeHtml(data.category)} <span class="sep">&middot;</span> ${data.format === 'feature' ? 'Feature' : ''}</div>` +
     `<h2 class="hx hero-mag-title" data-step="2">${titleWithAccent(data.title, data.titleAccentWord)}</h2>` +
     `<p class="hx article-deck" data-step="3">${escapeHtml(data.subtitle)}</p>` +
-    `<figure class="hx hero-mag-img" data-step="4"><img src="${escapeHtml(data.heroImage)}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" width="${data.heroImageWidth ?? 1920}" height="${data.heroImageHeight ?? 1080}" loading="eager" fetchpriority="high"></figure>` +
+    `<figure class="hx hero-mag-img" data-step="4"><img src="${escapeHtml(safeUrl(data.heroImage) ?? '')}" alt="${escapeHtml(data.heroImageAlt ?? data.title)}" width="${data.heroImageWidth ?? 1920}" height="${data.heroImageHeight ?? 1080}" loading="eager" fetchpriority="high"></figure>` +
     `<div class="hx hero-mag-body" data-step="5">${firstChapterExcerpt(data)}</div>` +
     '</div>'
   );
+}
+
+export function renderHeroFrontPagePane(items) {
+  const t0 = performance.now();
+  const html = renderFrontPage(buildFrontPage(items));
+  const ms = performance.now() - t0;
+  const formatted = ms < 10 ? ms.toFixed(1) : Math.round(ms).toString();
+  const stepped = html
+    .replace('<div class="df-row df-row--hero">', '<div class="df-row df-row--hero hx" data-step="1">')
+    .replace('<div class="df-row df-row--feature">', '<div class="df-row df-row--feature hx" data-step="2">')
+    .replace('<div class="df-row df-row--triple">', '<div class="df-row df-row--triple hx" data-step="3">')
+    .replace('<div class="df-row df-row--brief">', '<div class="df-row df-row--brief hx" data-step="4">');
+  const demoted = stepped.replace(/<h3\b/g, '<div').replace(/<\/h3>/g, '</div>');
+  const eager = demoted.replace(/<img class="df-hero-img"([^>]*) loading="lazy"/, '<img class="df-hero-img"$1 loading="eager" fetchpriority="high"');
+  return { html: eager + '<div class="hx" data-step="5" aria-hidden="true" style="display:none;"></div>', ms: formatted };
+}
+
+function extractHeroCard(frontPageHtml) {
+  const match = frontPageHtml.match(/<a class="df-hero-card[\s\S]*?<\/a>/);
+  return match ? match[0] : '';
+}
+
+function renderBriefRow(data) {
+  const href = escapeHtml(safeUrl(data.shareUrl ?? '') ?? '#');
+  return (
+    `<div class="df-row df-row--brief">` +
+    `<div class="df-brief-label">In brief</div>` +
+    `<ul><li><a href="${href}"><span class="df-brief-title">${escapeHtml(data.title)}</span><time>${escapeHtml(data.publishedAt)}</time></a></li></ul>` +
+    `</div>`
+  );
+}
+
+function renderAnalyticsEventJson(data) {
+  const event = {
+    type: 'chapter_read',
+    articleSlug: data.slug,
+    timestamp: 1718000000000,
+    depthPercent: 42,
+    detail: data.chapters?.[0]?.title ?? '',
+  };
+  return escapeHtml(JSON.stringify(event, null, 2));
+}
+
+function renderEmbedSnippet(data) {
+  return (
+    `<pre class="json-pane"><code>` +
+    escapeHtml(`<script type="module" src="${WIDGET_CDN_URL}"></script>\n<druck-article src="${data.slug}.json"></druck-article>`) +
+    `</code></pre>`
+  );
+}
+
+export function renderSurfacesSheets(data) {
+  const heroCard = extractHeroCard(renderFrontPage(buildFrontPage([data])));
+  const card = renderCard(data);
+  const brief = renderBriefRow(data);
+  const articleMini = `<div class="surface-article-mini">${renderArticle(data)}</div>`;
+  const embed = renderEmbedSnippet(data);
+  const analytics = `<pre class="json-pane"><code>${renderAnalyticsEventJson(data)}</code></pre>`;
+
+  const sheets = [
+    { html: heroCard, keys: 'title,heroImage,subtitle,category,shareUrl', label: 'Front-page hero card', cls: 'surface-sheet--hero' },
+    { html: card, keys: 'title,category,heroImage,shareUrl', label: 'Grid card', cls: 'surface-sheet--card' },
+    { html: brief, keys: 'title,publishedAt,shareUrl', label: 'In brief row', cls: 'surface-sheet--brief' },
+    { html: articleMini, keys: 'title,subtitle,heroImage,chapters,keyPoints,shareUrl', label: 'Full article', cls: 'surface-sheet--article' },
+    { html: embed, keys: 'slug,title', label: 'Embed snippet', cls: 'surface-sheet--embed' },
+    { html: analytics, keys: 'slug,title', label: 'Analytics event', cls: 'surface-sheet--analytics' },
+  ];
+
+  return sheets
+    .map(
+      (s, i) =>
+        `<div class="surface-sheet ${s.cls}" data-keys="${s.keys}" data-index="${i}" aria-label="${s.label}" tabindex="0">${s.html}</div>`,
+    )
+    .join('');
 }
 
 async function readFixture(dir, name) {
@@ -179,15 +280,41 @@ async function renderFrontPageBand(fixturesDir) {
   return renderFrontPage(buildFrontPage(snapshot.data));
 }
 
+function renderLedgerlineBubbles(tgPosts) {
+  const max = Math.min(tgPosts.length, 5);
+  return tgPosts
+    .slice(0, max)
+    .map(
+      (post, i) =>
+        `<span class="bubble" data-index="${i}" tabindex="0">${escapeHtml(post.time)} · ${escapeHtml(post.text)}</span>`,
+    )
+    .join('');
+}
+
+function renderLedgerlineJson(articleData) {
+  const raw = JSON.stringify(articleData, null, 2);
+  return tokenizeJsonForPane(raw);
+}
+
 export async function buildLandingHtml(template, fixturesDir, auditSummary = null) {
-  const [feature, frontPage, rangePanels] = await Promise.all([
+  const [heroFeed, feature, frontPage, rangePanels, tgPosts, ledgerlineFeed] = await Promise.all([
+    readFixture(fixturesDir, 'hero-feed.json'),
     readFixture(fixturesDir, 'feature.json'),
     renderFrontPageBand(fixturesDir),
     renderRangePanels(fixturesDir),
+    readFixture(fixturesDir, 'tg-posts.json'),
+    readFixture(fixturesDir, 'ledgerline-feed.json'),
   ]);
+  const heroFrontPage = renderHeroFrontPagePane(heroFeed.data);
+  const surfacesSheets = renderSurfacesSheets(feature.data);
   return applyTokens(template)
-    .replace('<!--druck:hero-json-->', () => tokenizeJsonForPane(feature.raw))
-    .replace('<!--druck:hero-magazine-->', () => renderHeroMagazinePane(feature.data))
+    .replace('<!--druck:hero-json-->', () => tokenizeJsonForFeedPane(heroFeed.raw))
+    .replace('<!--druck:hero-front-page-->', () => heroFrontPage.html)
+    .replace('<!--druck:hero-render-ms-->', () => heroFrontPage.ms)
+    .replace('<!--druck:surfaces-json-->', () => tokenizeJsonForPane(feature.raw))
+    .replace('<!--druck:surfaces-sheets-->', () => surfacesSheets)
+    .replace('<!--druck:ledgerline-bubbles-->', () => renderLedgerlineBubbles(tgPosts.data))
+    .replace('<!--druck:ledgerline-json-->', () => renderLedgerlineJson(ledgerlineFeed.data[0]))
     .replace('<!--druck:front-page-->', () => frontPage)
     .replace('<!--druck:range-panels-->', () => rangePanels)
     .replace('<!--druck:colophon-scores-->', () => renderColophonScores(auditSummary));

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 // @vitest-environment happy-dom
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { playSequence, SEQUENCE_STEP_MS } from './sequence.js';
@@ -39,5 +41,24 @@ describe('playSequence', () => {
     playSequence(stage);
     vi.advanceTimersByTime(SEQUENCE_STEP_MS);
     expect(stage.querySelector('[data-key="category"]')!.classList.contains('lit')).toBe(true);
+  });
+
+  test('uses custom step-keys when provided', () => {
+    document.body.innerHTML = `
+      <div class="hero-stage" data-step-keys="heroImage,title">
+        <pre><code>
+          <span class="jl" data-key="heroImage">i</span>
+          <span class="jl" data-key="title">t</span>
+        </code></pre>
+        <div><div class="hx" data-step="1"></div><div class="hx" data-step="2"></div></div>
+        <button data-role="replay" hidden></button>
+      </div>`;
+    const stage = document.querySelector('.hero-stage') as HTMLElement;
+    playSequence(stage);
+    vi.advanceTimersByTime(SEQUENCE_STEP_MS);
+    expect(stage.querySelector('[data-key="heroImage"]')!.classList.contains('lit')).toBe(true);
+    expect(stage.querySelector('[data-key="title"]')!.classList.contains('lit')).toBe(false);
+    vi.advanceTimersByTime(SEQUENCE_STEP_MS);
+    expect(stage.querySelector('[data-key="title"]')!.classList.contains('lit')).toBe(true);
   });
 });

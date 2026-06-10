@@ -1,7 +1,10 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { describe, expect, test } from 'vitest';
 import { join } from 'node:path';
 import {
   tokenizeJsonForPane,
+  tokenizeJsonForFeedPane,
   renderHeroMagazinePane,
   buildLandingHtml,
   renderColophonScores,
@@ -12,7 +15,12 @@ const MARKER_TEMPLATE = [
   '__DRUCK_GITHUB_URL__',
   '__DRUCK_GITHUB_PROFILE__',
   '<!--druck:hero-json-->',
-  '<!--druck:hero-magazine-->',
+  '<!--druck:hero-front-page-->',
+  '<!--druck:hero-render-ms-->',
+  '<!--druck:surfaces-json-->',
+  '<!--druck:surfaces-sheets-->',
+  '<!--druck:ledgerline-bubbles-->',
+  '<!--druck:ledgerline-json-->',
   '<!--druck:front-page-->',
   '<!--druck:range-panels-->',
   '<!--druck:colophon-scores-->',
@@ -38,6 +46,17 @@ describe('tokenizeJsonForPane', () => {
     const html = tokenizeJsonForPane('{\n  "title": "Hello"\n}');
     expect(html).toContain('class="jk"');
     expect(html).toContain('class="js"');
+  });
+});
+
+describe('tokenizeJsonForFeedPane', () => {
+  test('shows first object and pseudo-line', () => {
+    const html = tokenizeJsonForFeedPane('[\n  {\n    "title": "A",\n    "category": "ai"\n  },\n  {\n    "title": "B"\n  }\n]');
+    expect(html).toContain('data-key="title"');
+    expect(html).toContain('data-key="category"');
+    expect(html).toContain('… 11 more stories');
+    expect(html).toContain('class="jl muted"');
+    expect(html).not.toContain('"B"');
   });
 });
 
@@ -71,8 +90,13 @@ describe('buildLandingHtml', () => {
     expect(html).not.toContain('<!--druck:');
     expect(html).not.toContain('__DRUCK_');
     expect(html).toContain('druck-front-page');
+    expect(html).toContain('df-row--hero');
     expect(html).toContain('specimen-panel');
     expect(html).toContain('pnpm add @druck-editorial/engine');
+    expect(html).toContain('surface-sheet');
+    expect(html).toContain('data-keys=');
+    expect(html).toContain('bubble');
+    expect(html).toContain('data-index=');
   });
 
   test('throws on a missing fixture directory', async () => {

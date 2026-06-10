@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { describe, expect, test } from 'vitest';
 import { renderArticle, renderCard } from './render.js';
 import type { ArticleData } from './types.js';

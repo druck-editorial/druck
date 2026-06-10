@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { describe, expect, it } from 'vitest';
 import { buildFrontPage, renderFrontPage } from './frontpage.js';
 import type { ArticleData } from './types.js';
