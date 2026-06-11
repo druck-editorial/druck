@@ -61,17 +61,17 @@
 /* === Hero image print reveal === */
 .article-hero-img img,
 .post-simple-img img {
-  filter: saturate(0.55) contrast(1.08) blur(1.2px);
-  transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.article-hero-img img.is-visible,
-.post-simple-img img.is-visible {
   filter: saturate(1) contrast(1) blur(0px);
+  animation: hero-print-reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes hero-print-reveal {
+  from { filter: saturate(0.55) contrast(1.08) blur(1.2px); }
+  to { filter: saturate(1) contrast(1) blur(0px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .article-hero-img img,
   .post-simple-img img {
     filter: none;
-    transition: none;
+    animation: none;
   }
 }
