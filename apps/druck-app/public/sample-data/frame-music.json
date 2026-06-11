@@ -8,7 +8,7 @@
   "category": "general",
   "publishedAt": "2026-06-06",
   "readingTime": "3 min read",
-  "heroImage": "/img/demo/stage-band.webp",
+  "heroImage": "/img/demo/music-studio.webp",
   "heroImageAlt": "Band silhouettes on a stage under crossed spotlights",
   "heroImageWidth": 1200,
   "heroImageHeight": 806,
@@ -19,8 +19,14 @@
     }
   ],
   "keyPoints": [
-    { "text": "Sparse arrangements foreground the strongest vocal work of the band's run." },
-    { "text": "Mid-album ballad sequence is structural, not filler." },
-    { "text": "Best entry point for new listeners despite being a fourth album." }
+    {
+      "text": "Sparse arrangements foreground the strongest vocal work of the band's run."
+    },
+    {
+      "text": "Mid-album ballad sequence is structural, not filler."
+    },
+    {
+      "text": "Best entry point for new listeners despite being a fourth album."
+    }
   ]
 }
