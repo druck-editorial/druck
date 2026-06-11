@@ -24,7 +24,7 @@ export function initAnalytics(el: HTMLElement): void {
   const updateChapters = (): void => {
     const session = tracker.getSession();
     const count = session.chaptersRead.length;
-    if (chaptersEl) chaptersEl.textContent = `${count}/7`;
+    if (chaptersEl) chaptersEl.textContent = `${count}/${dots.length}`;
     for (let i = 0; i < dots.length; i++) {
       dots[i].classList.toggle('is-read', i < count);
     }
