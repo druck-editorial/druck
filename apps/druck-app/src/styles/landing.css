@@ -257,6 +257,49 @@ html.js .frame-viewport { height: 62vh; }
 .pricing-col--planned h4::after { content: 'TBD'; font: 600 9.5px/1 'IBM Plex Mono', monospace; letter-spacing: 0.08em; color: var(--ink-text-secondary); border: 1px solid var(--ink-hairline); border-radius: 999px; padding: 3px 8px; margin-left: 10px; vertical-align: 2px; }
 @media (max-width: 767px) { .pricing-grid { grid-template-columns: 1fr; } }
 [data-surface="ink"] .caption-code { color: var(--ink-text); background: rgba(255, 255, 255, 0.05); border-color: var(--ink-hairline); }
+.band-frontpage .frame-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 760px;
+  margin: 22px auto 0;
+  padding: 0 18px;
+  text-align: center;
+}
+.caption-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 600 10px/1 'IBM Plex Mono', monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--demo-accent-clay);
+}
+.caption-live::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d6492f;
+  box-shadow: 0 0 0 0 rgba(214, 73, 47, 0.5);
+  animation: caption-pulse 2s var(--ease-out) infinite;
+}
+@keyframes caption-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(214, 73, 47, 0.45); }
+  70% { box-shadow: 0 0 0 7px rgba(214, 73, 47, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(214, 73, 47, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caption-live::before { animation: none; }
+}
+.band-frontpage .caption-note {
+  flex-basis: 100%;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--demo-text-muted);
+}
 .frame-caption a { color: var(--demo-text-secondary); }
 [data-theme="dark"] .frame-caption a { color: var(--demo-text-secondary); }
 [data-surface="ink"] .frame-caption { color: var(--ink-text-secondary); }
@@ -359,7 +402,8 @@ html.js .scene-step:not(.revealed) { opacity: 0; transform: translateY(14px); }
   .hero-stage { grid-template-columns: 1fr; grid-template-rows: none; }
   .hero-pane-json, .hero-pane-mag { grid-column: 1; grid-row: auto; }
   .band-wild .frames { grid-template-columns: 1fr; }
-  .facts-strip { grid-template-columns: repeat(2, 1fr); }
+  .facts-strip { grid-template-columns: repeat(2, 1fr); row-gap: 32px; margin-bottom: 32px; }
+  .fact { min-height: 56px; padding: 12px 0; }
   .pane-connector { display: none; }
   .ledgerline-pipeline { grid-template-columns: 1fr; }
   .ledgerline-label { text-align: center; }
