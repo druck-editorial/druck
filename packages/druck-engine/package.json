@@ -1,13 +1,15 @@
 {
   "name": "@druck-editorial/engine",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Editorial rendering engine: structured article JSON in, magazine-quality pages out.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -21,8 +23,16 @@
     "directory": "packages/druck-engine"
   },
   "homepage": "https://github.com/druck-editorial/druck",
-  "keywords": ["editorial", "typography", "rendering", "magazine", "web-components"],
-  "publishConfig": { "access": "public" },
+  "keywords": [
+    "editorial",
+    "typography",
+    "rendering",
+    "magazine",
+    "web-components"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "rm -rf dist && tsc",
     "typecheck": "tsc --noEmit",

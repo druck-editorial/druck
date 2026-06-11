@@ -1,6 +1,6 @@
 {
   "name": "@druck-editorial/analytics",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Local-first reading analytics for druck pages: depth, active time, chapters.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
   "license": "MIT",
@@ -19,8 +19,16 @@
     "directory": "packages/druck-analytics"
   },
   "homepage": "https://github.com/druck-editorial/druck",
-  "keywords": ["editorial", "typography", "rendering", "magazine", "web-components"],
-  "publishConfig": { "access": "public" },
+  "keywords": [
+    "editorial",
+    "typography",
+    "rendering",
+    "magazine",
+    "web-components"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "rm -rf dist && tsc",
     "typecheck": "tsc --noEmit",
