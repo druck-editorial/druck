@@ -145,6 +145,8 @@ body {
   transition: transform 150ms ease, opacity 150ms ease, background var(--demo-transition), color var(--demo-transition), box-shadow 150ms ease;
 }
 
+.demo-cta code { font-weight: 400; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; letter-spacing: -0.01em; }
+
 .demo-cta:hover {
   transform: translateY(-1px);
   box-shadow: var(--demo-shadow-md);
