@@ -1,6 +1,6 @@
 {
   "name": "@druck-editorial/css",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Editorial stylesheet for druck: article, weekly, feed, and per-language typography.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
   "license": "MIT",
@@ -8,6 +8,7 @@
   "style": "article.css",
   "files": [
     "article.css",
+    "feed.css",
     "tokens.css",
     "hero.css",
     "body.css",

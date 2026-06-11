@@ -11,7 +11,7 @@
     "preview": "vite preview --port 4173 --strictPort",
     "audit": "node scripts/audit.mjs",
     "build:druck": "pnpm build && DRUCK_BASE=/druck/ node scripts/apply-base.mjs",
-    "deploy:druck": "pnpm build:druck && rsync -az --delete -e ssh dist/ wolton:/root/workspaces/sonto-news/_site/druck/",
+    "deploy:druck": "pnpm build:druck && rsync -az --delete --exclude=data/ -e ssh dist/ wolton:/root/workspaces/sonto-news/_site/druck/",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
