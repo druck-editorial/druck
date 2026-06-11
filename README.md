@@ -80,7 +80,7 @@ Articles without a `heroImage` render an automatic category-tinted placeholder o
 
 Everything in this repository is MIT and self-hostable: the engine, the stylesheet, the widgets, and the reading tracker. There are no locked features and no tiers in the code you install.
 
-The paid layer is hosted infrastructure, planned and in progress (see [docs/MONETIZATION.md](docs/MONETIZATION.md) for the full boundary):
+A paid layer of hosted infrastructure is planned (none of it is built or sold yet — see [docs/MONETIZATION.md](docs/MONETIZATION.md) for the full boundary):
 
 - **Druck Dashboard** — aggregation and visualization for reading analytics. Freemium by event volume.
 - **Druck Feed API** — RSS/API/CSV converted into hosted `ArticleData[]` with edge caching.
@@ -114,4 +114,4 @@ pnpm test
 
 ## License
 
-MIT. Copyright 2026 Artem Iagovdik. Client packages are MIT; the hosted dashboard, feed API, and importer are proprietary. The Druck name and wordmark are trademarks of the project author.
+MIT. Copyright 2026 Artem Iagovdik. Client packages are MIT; any future hosted services (dashboard, feed API, importer) would be proprietary. The Druck name and wordmark are trademarks of the project author.
