@@ -22,8 +22,12 @@ function setStep(stage: HTMLElement, step: number): void {
   for (const el of stage.querySelectorAll<HTMLElement>('.hx')) {
     el.classList.toggle('on', Number(el.dataset.step) <= step);
   }
+  const key = stepToKey(stage, step);
+  let lit = false;
   for (const line of stage.querySelectorAll<HTMLElement>('.jl[data-key]')) {
-    line.classList.toggle('lit', line.dataset.key === stepToKey(stage, step));
+    const hit: boolean = !lit && line.dataset.key === key;
+    line.classList.toggle('lit', hit);
+    if (hit) lit = true;
   }
 }
 

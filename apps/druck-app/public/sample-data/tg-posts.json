@@ -2,8 +2,10 @@
   {
     "time": "07:04",
     "views": "14.2K",
-    "image": "/img/demo/druck-og.jpg",
-    "text": "📈 BTC pushing $71K pre-market. ETF inflows at +$2.1B over six sessions — longest run of the quarter. Full brief incoming."
+    "image": "/img/demo/finance-skyline.webp",
+    "text": "📈 BTC pushing $71K pre-market. ETF inflows at +$2.1B over six sessions — longest run of the quarter. Full brief incoming.",
+    "imageWidth": 1200,
+    "imageHeight": 800
   },
   {
     "time": "07:31",
@@ -13,8 +15,10 @@
   {
     "time": "08:15",
     "views": "12.6K",
-    "image": "/img/demo/druck-og.jpg",
-    "text": "⚡ SOL DEX vol: $48B in May vs ETH $41B. Third month in a row. Lower fees doing the work."
+    "image": "/img/demo/tower-path.webp",
+    "text": "⚡ SOL DEX vol: $48B in May vs ETH $41B. Third month in a row. Lower fees doing the work.",
+    "imageWidth": 1200,
+    "imageHeight": 806
   },
   {
     "time": "09:44",

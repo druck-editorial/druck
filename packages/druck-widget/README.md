@@ -51,7 +51,7 @@ Fires `druck:rendered` on success (`detail.slug`) and `druck:error` on failure (
 
 ## druck-feed
 
-Fetches an array of `ArticleData` JSON from `src` and renders a card grid or front-page layout.
+Fetches an array of `ArticleData` JSON from `src` and renders a card grid, a horizontal list, or a front-page layout.
 
 ```html
 <druck-feed
@@ -67,7 +67,7 @@ Fetches an array of `ArticleData` JSON from `src` and renders a card grid or fro
 | Attribute | Description |
 |---|---|
 | `src` | URL of a JSON array of `ArticleData`. Required. |
-| `layout` | `'grid'` (default) or `'front-page'`. Front-page uses `buildFrontPage` row layout. |
+| `layout` | `'grid'` (default), `'list'`, or `'front-page'`. List renders horizontal rows (thumb left, text right) that stack back into cards below a 560px container width. Front-page uses `buildFrontPage` row layout. All layouts respond to the container width via container queries, not the viewport. |
 | `fallback-src` | Secondary URL fetched when `src` fails. |
 | `columns` | Number of columns in grid layout. Default `3`. |
 | `css-url` | Stylesheet URL for the shadow root. |

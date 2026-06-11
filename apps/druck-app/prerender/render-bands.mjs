@@ -31,39 +31,33 @@ function applyTokens(html) {
   );
 }
 
-const TOP_LEVEL_KEY_PATTERN = /^\s{2,}"([a-zA-Z]+)"/;
-const HERO_JSON_MAX_LINES = 22;
+const OBJECT_KEY_PATTERN = /^ {2}"([a-zA-Z]+)"/;
+const ARRAY_ITEM_KEY_PATTERN = /^ {4}"([a-zA-Z]+)"/;
+const HERO_JSON_MAX_ITEMS = 1;
 const SPECIMEN_LANGS = ['en', 'de', 'fr', 'es', 'ja'];
 const SPECIMEN_FORMATS = ['feature', 'quick_take', 'wire'];
 
-export function tokenizeJsonForFeedPane(source) {
-  const lines = source.split('\n');
-  const out = [];
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (trimmed === '[') {
-      out.push(`<span class="jl">${tokenizeLine(line)}</span>`);
-      continue;
-    }
-    if (trimmed === '{') {
-      out.push(`<span class="jl">${tokenizeLine(line)}</span>`);
-      continue;
-    }
-    if (trimmed === '}' || trimmed === '},') {
-      out.push(`<span class="jl">${tokenizeLine(line)}</span>`);
-      break;
-    }
-    const keyMatch = TOP_LEVEL_KEY_PATTERN.exec(line);
-    const keyAttr = keyMatch ? ` data-key="${keyMatch[1]}"` : '';
-    out.push(`<span class="jl"${keyAttr}>${tokenizeLine(line)}</span>`);
-  }
-  out.push('<span class="jl muted">  … 11 more stories</span>');
-  return out.join('\n');
+function tokenizeJsonLines(text, keyPattern) {
+  return text
+    .split('\n')
+    .map((line) => {
+      const keyMatch = keyPattern.exec(line);
+      const keyAttr = keyMatch ? ` data-key="${keyMatch[1]}"` : '';
+      return `<span class="jl"${keyAttr}>${tokenizeLine(line)}</span>`;
+    })
+    .join('\n');
+}
+
+export function tokenizeJsonForFeedPane(source, maxItems = HERO_JSON_MAX_ITEMS) {
+  const items = JSON.parse(source);
+  const shown = items.slice(0, maxItems);
+  const html = tokenizeJsonLines(JSON.stringify(shown, null, 2), ARRAY_ITEM_KEY_PATTERN);
+  return { html, shown: shown.length, total: items.length };
 }
 
 const SPECIMEN_STAT =
-  '<div class="specimen-stat"><span class="ss-value">$14,250/month</span>' +
-  '<span class="ss-label">average savings reported after moving inference to small models</span></div>';
+  '<div class="specimen-stat"><span class="ss-value">66 ch</span>' +
+  '<span class="ss-label">the measure this column holds at every viewport</span></div>';
 
 function tokenizeLine(line) {
   const pattern = /("(?:[^"\\]|\\.)*")(\s*:)?|(-?\d+\.?\d*)|([{}\[\],:])/g;
@@ -84,14 +78,7 @@ function tokenizeLine(line) {
 }
 
 export function tokenizeJsonForPane(source) {
-  const lines = source.split('\n').slice(0, HERO_JSON_MAX_LINES);
-  return lines
-    .map((line) => {
-      const keyMatch = TOP_LEVEL_KEY_PATTERN.exec(line);
-      const keyAttr = keyMatch ? ` data-key="${keyMatch[1]}"` : '';
-      return `<span class="jl"${keyAttr}>${tokenizeLine(line)}</span>`;
-    })
-    .join('\n');
+  return tokenizeJsonLines(source, OBJECT_KEY_PATTERN);
 }
 
 export function renderHeroFrontPagePane(items) {
@@ -265,7 +252,7 @@ function renderLedgerlineBubbles(tgPosts) {
       (post, i) =>
         `<div class="tg-msg${post.image ? ' tg-msg--photo' : ''}" data-index="${i}" tabindex="0" style="--msg-i:${i}">` +
         (post.image
-          ? `<img class="tg-msg-img" src="${escapeHtml(post.image)}" alt="" loading="lazy" width="1168" height="778">`
+          ? `<img class="tg-msg-img" src="${escapeHtml(post.image)}" alt="" loading="lazy" width="${post.imageWidth ?? 1200}" height="${post.imageHeight ?? 800}">`
           : '') +
         `<p class="tg-msg-text">${escapeHtml(post.text)}</p>` +
         `<span class="tg-msg-meta">${TG_EYE_SVG}${escapeHtml(post.views)}<span class="tg-msg-time">${escapeHtml(post.time)}</span></span>` +
@@ -283,9 +270,11 @@ export async function buildLandingHtml(template, fixturesDir, auditSummary = nul
     readFixture(fixturesDir, 'tg-posts.json'),
   ]);
   const heroFrontPage = renderHeroFrontPagePane(heroFeed.data);
+  const heroJson = tokenizeJsonForFeedPane(heroFeed.raw);
   const surfacesSheets = renderSurfacesSheets(feature.data);
   return applyTokens(template)
-    .replace('<!--druck:hero-json-->', () => tokenizeJsonForFeedPane(heroFeed.raw))
+    .replace('<!--druck:hero-json-->', () => heroJson.html)
+    .replace('<!--druck:hero-json-note-->', () => `${heroJson.shown} of ${heroJson.total} stories`)
     .replace('<!--druck:hero-front-page-->', () => heroFrontPage.html)
     .replace('<!--druck:hero-render-ms-->', () => heroFrontPage.ms)
     .replace('<!--druck:surfaces-json-->', () => tokenizeJsonForPane(feature.raw))

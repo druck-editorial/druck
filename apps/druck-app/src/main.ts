@@ -44,31 +44,7 @@ const rangeState = {
   lang: 'en',
   accent: rangeStage?.className.match(/\bcat-[\w-]+\b/)?.[0] ?? 'cat-ai',
 };
-const rangeRecipe = {
-  format: document.querySelector<HTMLElement>('[data-recipe="format"]'),
-  lang: document.querySelector<HTMLElement>('[data-recipe="lang"]'),
-  accent: document.querySelector<HTMLElement>('[data-recipe="accent"]'),
-  counter: document.querySelector<HTMLElement>('[data-recipe="counter"]'),
-};
-const FORMATS = ['feature', 'quick_take', 'wire'];
-const LANGS = ['en', 'de', 'fr', 'es', 'ja'];
-const ACCENTS = ['cat-ai', 'cat-security', 'cat-dev-tools', 'cat-science'];
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-function computeSpecimenIndex(): number {
-  const f = FORMATS.indexOf(rangeState.format);
-  const l = LANGS.indexOf(rangeState.lang);
-  const a = ACCENTS.indexOf(rangeState.accent);
-  const total = LANGS.length * ACCENTS.length;
-  return f * total + l * ACCENTS.length + a + 1;
-}
-
-function updateRecipe(): void {
-  if (rangeRecipe.format) rangeRecipe.format.textContent = rangeState.format.replace(/_/g, ' ');
-  if (rangeRecipe.lang) rangeRecipe.lang.textContent = rangeState.lang.toUpperCase();
-  if (rangeRecipe.accent) rangeRecipe.accent.textContent = rangeState.accent.replace('cat-', '').replace(/-/g, ' ');
-  if (rangeRecipe.counter) rangeRecipe.counter.textContent = `${computeSpecimenIndex()} of 120`;
-}
 
 let exitTimer: ReturnType<typeof setTimeout> | null = null;
 let enterTimer: ReturnType<typeof setTimeout> | null = null;
@@ -112,16 +88,13 @@ function applyRange(): void {
 
 for (const switcher of document.querySelectorAll<HTMLElement>('[data-island="switcher"]')) {
   const kind = switcher.dataset.switch;
-  if (kind === 'range-format') initSwitcher(switcher, { onChange: (value) => { rangeState.format = value; applyRange(); updateRecipe(); } });
-  if (kind === 'range-lang') initSwitcher(switcher, { onChange: (value) => { rangeState.lang = value; applyRange(); updateRecipe(); } });
+  if (kind === 'range-format') initSwitcher(switcher, { onChange: (value) => { rangeState.format = value; applyRange(); } });
+  if (kind === 'range-lang') initSwitcher(switcher, { onChange: (value) => { rangeState.lang = value; applyRange(); } });
   if (kind === 'range-accent') initSwitcher(switcher, { onChange: (value) => {
     if (rangeStage) rangeStage.className = rangeStage.className.replace(/\bcat-[\w-]+\b/, value);
     rangeState.accent = value;
-    updateRecipe();
   } });
 }
-
-updateRecipe();
 
 initSurfaces();
 initSurfacesBand();

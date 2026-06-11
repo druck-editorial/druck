@@ -1,23 +1,22 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 
-function updateThemeButtons(theme: string): void {
-  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-island="theme"]')) {
-    const pressed = btn.dataset.theme === theme;
-    btn.setAttribute('aria-pressed', String(pressed));
-  }
+function reflectTheme(btn: HTMLButtonElement, theme: string): void {
+  const isDark = theme === 'dark';
+  btn.setAttribute('aria-pressed', String(isDark));
+  btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
 }
 
 export function initThemeToggle(): void {
-  const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-  updateThemeButtons(current);
+  const btn = document.querySelector<HTMLButtonElement>('[data-island="theme"]');
+  if (!btn) return;
 
-  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-island="theme"]')) {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.theme === 'dark' ? 'dark' : 'light';
-      document.documentElement.dataset.theme = target;
-      try { localStorage.setItem('druck-theme', target); } catch {}
-      updateThemeButtons(target);
-    });
-  }
+  reflectTheme(btn, document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+
+  btn.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('druck-theme', next); } catch {}
+    reflectTheme(btn, next);
+  });
 }

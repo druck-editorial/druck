@@ -120,4 +120,18 @@ describe('druck-feed front-page mode', () => {
     const container = el.shadowRoot!.querySelector('.druck-feed');
     expect(container?.getAttribute('role')).toBe('list');
   });
+
+  it('list layout sets data-layout and drops data-columns', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(okResponse(ITEMS)));
+    const el = document.createElement('druck-feed');
+    el.setAttribute('layout', 'list');
+    el.setAttribute('src', 'https://example.com/feed.json');
+    document.body.appendChild(el);
+    await waitForEvent(el, 'druck:feed-rendered');
+    const container = el.shadowRoot!.querySelector('.druck-feed');
+    expect(container?.getAttribute('data-layout')).toBe('list');
+    expect(container?.getAttribute('data-columns')).toBeNull();
+    expect(container?.getAttribute('role')).toBe('list');
+    expect(container?.querySelectorAll('[role="listitem"] .druck-card')).toHaveLength(1);
+  });
 });

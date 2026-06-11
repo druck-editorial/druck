@@ -14,6 +14,7 @@ const MARKER_TEMPLATE = [
   '__DRUCK_GITHUB_URL__',
   '__DRUCK_GITHUB_PROFILE__',
   '<!--druck:hero-json-->',
+  '<!--druck:hero-json-note-->',
   '<!--druck:hero-front-page-->',
   '<!--druck:hero-render-ms-->',
   '<!--druck:surfaces-json-->',
@@ -48,13 +49,33 @@ describe('tokenizeJsonForPane', () => {
 });
 
 describe('tokenizeJsonForFeedPane', () => {
-  test('shows first object and pseudo-line', () => {
-    const html = tokenizeJsonForFeedPane('[\n  {\n    "title": "A",\n    "category": "ai"\n  },\n  {\n    "title": "B"\n  }\n]');
+  const SOURCE = JSON.stringify(
+    [
+      { title: 'A', category: 'ai' },
+      { title: 'B', category: 'dev' },
+      { title: 'C', category: 'science' },
+      { title: 'D', category: 'general' },
+    ],
+    null,
+    2,
+  );
+
+  test('renders a complete, valid JSON array capped at maxItems', () => {
+    const { html, shown, total } = tokenizeJsonForFeedPane(SOURCE, 3);
+    expect(shown).toBe(3);
+    expect(total).toBe(4);
     expect(html).toContain('data-key="title"');
     expect(html).toContain('data-key="category"');
-    expect(html).toContain('… 11 more stories');
-    expect(html).toContain('class="jl muted"');
-    expect(html).not.toContain('"B"');
+    expect(html).not.toContain('"D"');
+    const text = html.replace(/<[^>]+>/g, '').replace(/&quot;/g, '"');
+    expect(() => JSON.parse(text)).not.toThrow();
+    expect(JSON.parse(text)).toHaveLength(3);
+  });
+
+  test('keeps no truncation pseudo-lines', () => {
+    const { html } = tokenizeJsonForFeedPane(SOURCE, 2);
+    expect(html).not.toContain('more stories');
+    expect(html).not.toContain('muted');
   });
 });
 

@@ -91,8 +91,11 @@ export async function musicReview(fixturesDir) {
     '</main>' +
     sectionDivider('Now playing') +
     '<div class="ph-score-bar">' +
-    `<span class="ph-score-number">${escapeHtml(score)}</span>` +
+    `<span class="ph-score-number" aria-label="Rated ${escapeHtml(score)} out of 10">${escapeHtml(score)}</span>` +
+    '<span class="ph-score-meta">' +
     '<span class="ph-score-label">Best New Music</span>' +
+    `<span class="ph-score-caption">PITCH &amp; REVERB rating &middot; ${escapeHtml(score)} / 10</span>` +
+    '</span>' +
     '</div>' +
     '<main class="ph-main ph-main--article">' +
     articleHtml +
@@ -318,8 +321,11 @@ export async function telegramBrief(fixturesDir) {
     '<div class="ll-layout">' +
     '<aside class="ll-rail">' +
     '<div class="ll-channel-header">' +
+    '<span class="ll-channel-avatar" aria-hidden="true">L</span>' +
+    '<span class="ll-channel-text">' +
     '<span class="ll-channel-name">t.me/ledgerline</span>' +
     '<span class="ll-channel-sub">4,812 subscribers</span>' +
+    '</span>' +
     '</div>' +
     '<div class="ll-posts">' +
     postBubbles +

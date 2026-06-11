@@ -14,34 +14,38 @@ describe('initThemeToggle', () => {
     });
     document.documentElement.dataset.theme = '';
     localStorage.clear();
+    document.body.innerHTML = '';
   });
 
-  test('toggles and persists the document theme', () => {
-    const light = document.createElement('button');
-    light.dataset.island = 'theme';
-    light.dataset.theme = 'light';
-    document.body.appendChild(light);
-
-    const dark = document.createElement('button');
-    dark.dataset.island = 'theme';
-    dark.dataset.theme = 'dark';
-    document.body.appendChild(dark);
+  test('toggles and persists the document theme from a single button', () => {
+    const btn = document.createElement('button');
+    btn.dataset.island = 'theme';
+    document.body.appendChild(btn);
 
     initThemeToggle();
+    expect(btn.getAttribute('aria-pressed')).toBe('false');
+    expect(btn.getAttribute('aria-label')).toBe('Switch to dark theme');
 
-    dark.click();
+    btn.click();
     expect(document.documentElement.dataset.theme).toBe('dark');
     expect(localStorage.getItem('druck-theme')).toBe('dark');
-    expect(dark.getAttribute('aria-pressed')).toBe('true');
-    expect(light.getAttribute('aria-pressed')).toBe('false');
+    expect(btn.getAttribute('aria-pressed')).toBe('true');
+    expect(btn.getAttribute('aria-label')).toBe('Switch to light theme');
 
-    light.click();
+    btn.click();
     expect(document.documentElement.dataset.theme).toBe('light');
     expect(localStorage.getItem('druck-theme')).toBe('light');
-    expect(light.getAttribute('aria-pressed')).toBe('true');
-    expect(dark.getAttribute('aria-pressed')).toBe('false');
+    expect(btn.getAttribute('aria-pressed')).toBe('false');
+  });
 
-    light.remove();
-    dark.remove();
+  test('reflects a dark theme already set before init', () => {
+    document.documentElement.dataset.theme = 'dark';
+    const btn = document.createElement('button');
+    btn.dataset.island = 'theme';
+    document.body.appendChild(btn);
+
+    initThemeToggle();
+    expect(btn.getAttribute('aria-pressed')).toBe('true');
+    expect(btn.getAttribute('aria-label')).toBe('Switch to light theme');
   });
 });

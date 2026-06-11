@@ -16,7 +16,7 @@ import {
 const FIXTURES_DIR = join(import.meta.dirname, 'public/sample-data');
 const AUDIT_SUMMARY_PATH = join(import.meta.dirname, 'audit/summary.json');
 
-const DEMO_ARTICLE_DIR = join(import.meta.dirname, 'dist/articles/quiet-revolution-small-language-models');
+const DEMO_ARTICLE_DIR = join(import.meta.dirname, 'dist/articles/quiet-revolution-grid-scale-batteries');
 const DEMOS_BASE_DIR = join(import.meta.dirname, 'dist/demos');
 
 function readAuditSummary(): unknown {
@@ -52,7 +52,7 @@ function druckPrerender() {
         const url = (req.url ?? '').split('?')[0];
         let key: string | undefined;
         let render: (() => Promise<string>) | undefined;
-        if (url.startsWith('/articles/quiet-revolution-small-language-models')) {
+        if (url.startsWith('/articles/quiet-revolution-grid-scale-batteries')) {
           key = 'article';
           render = () => renderDemoArticlePage(FIXTURES_DIR);
         } else {

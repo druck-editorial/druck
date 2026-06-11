@@ -1,74 +1,74 @@
 {
-  "title": "The Quiet Revolution in Small Language Models",
+  "title": "The Quiet Revolution in Grid-Scale Batteries",
   "titleAccentWord": "Revolution",
-  "subtitle": "As frontier models chase scale, a counter-movement builds production-grade AI that fits in a backpack",
-  "metaDescription": "Small language models are reshaping how companies deploy AI — faster, cheaper, private, and surprisingly capable.",
-  "slug": "quiet-revolution-small-language-models",
+  "subtitle": "As evening peaks strain the grid, utilities bet on warehouse-sized batteries that turn stored sunlight into the new baseload",
+  "metaDescription": "Grid-scale batteries are reshaping how utilities survive the evening peak — cheaper, faster, and quieter than the gas plants they replace.",
+  "slug": "quiet-revolution-grid-scale-batteries",
   "format": "feature",
-  "category": "ai",
+  "category": "science",
   "publishedAt": "2026-06-04",
   "readingTime": "8 min read",
-  "heroImage": "/img/slm-hero.webp",
-  "heroImageAlt": "Low-poly illustration of an open backpack holding a laptop and chips, a faceted cathedral city rising from it",
-  "heroImageWidth": 1536,
-  "heroImageHeight": 1024,
+  "heroImage": "/img/grid-hero.webp",
+  "heroImageAlt": "Lightning arcs across a row of tall glass panels standing in shallow water at dusk",
+  "heroImageWidth": 1000,
+  "heroImageHeight": 667,
   "lens": "second_order",
-  "lensRationale": "The real story is not the models themselves but what they unlock in edge deployment and data sovereignty",
+  "lensRationale": "The real story is not the batteries themselves but what they unlock in market design and the retirement of peaker plants",
   "chapters": [
     {
-      "title": "The scale illusion",
+      "title": "The peaker illusion",
       "titleAccentWord": "illusion",
-      "bodyHtml": "<p>For two years, the AI industry operated under a single assumption: bigger is better. GPT-4 at 1.8 trillion parameters. Gemini Ultra. Claude Opus. Each generation pushed further up the parameter count, and the benchmarks climbed with them.</p><p>But benchmarks are not deployments. Behind the leaderboard scores, a different trend was taking shape. Companies running LLMs in production found that the 70B-parameter models they could actually serve — not the 1.8T ones they could only rent — were where the business value lived.</p><aside data-stat=\"4.2%\">of enterprises using LLMs in production run models larger than 70B parameters</aside><p>The reasons were not ideological. They were practical. A 70B model fits on a single A100. It responds in under 200ms. It stays running when the API provider has an outage. And for most business tasks — summarization, extraction, classification, light reasoning — it performs within 5% of the frontier.</p>"
+      "bodyHtml": "<p>For fifty years, the grid solved its hardest hour the same way: when demand spiked at sunset, a gas peaker plant somewhere spun up, burned expensive fuel for ninety minutes, and shut back down. The plants sat idle 95% of the year, and ratepayers carried them anyway.</p><p>But idle capacity is not resilience. Behind the reserve-margin spreadsheets, a different machine was taking over the evening. By 2025, batteries charged on midday solar were bidding into the same peak — and clearing it at half the price.</p><aside data-stat=\"38 GW\">of grid-scale battery capacity now bids into US evening peaks, up from 9 GW in 2023</aside><p>The reasons were not ideological. They were practical. A four-hour battery sited next to a substation responds in milliseconds, needs no fuel contract, no water permit, and no smokestack. And for the actual job — covering the four hours after sunset — it does exactly what the peaker did, without the part where it sits idle all winter.</p>"
     },
     {
-      "title": "The deployment gap",
+      "title": "The dispatch gap",
       "titleAccentWord": "gap",
-      "bodyHtml": "<p>The gap between what researchers benchmark and what engineers deploy has a name in the industry: the deployment gap. It widened dramatically in 2025, when frontier model sizes doubled but inference hardware budgets did not.</p><p>Consider the economics. Running GPT-4-class inference at scale costs between $12-30 per million tokens. Running Llama 3 70B on owned infrastructure costs $0.80-1.50. For a company processing 500 million tokens per month — a realistic figure for a mid-size SaaS platform — that is the difference between $15,000/month and $750/month.</p><aside data-stat=\"$14,250/month\">average savings when switching from API frontier models to self-hosted 70B models at scale</aside><p>But cost was never the only factor. Latency matters for real-time applications. Privacy regulations in the EU and healthcare sectors mandate that certain data never leaves the building. And reliability — the ability to serve traffic during an OpenAI outage — became a competitive advantage.</p><blockquote data-source=\"VP Engineering, Series B SaaS\" data-attr=\"Private deployment changed our unit economics entirely\">We went from paying $18K/month in API fees to $1.2K in cloud GPU costs. Same accuracy on our benchmarks. Different business.</blockquote>"
+      "bodyHtml": "<p>The gap between what planners model and what operators dispatch has a name in the control room: the dispatch gap. It widened dramatically in 2025, when solar buildout doubled the midday glut but the evening ramp stayed as steep as ever.</p><p>Consider the economics. Running a gas peaker through the evening ramp costs $150&ndash;200 per megawatt-hour once fuel, starts, and maintenance are counted. A battery that bought the same energy at noon for $18 sells it back at sunset for $60 and still undercuts the turbine by half.</p><aside data-stat=\"$62\">average evening clearing price per megawatt-hour in California last summer, down from $114 two years earlier</aside><p>But cost was never the only factor. Ramp speed matters when a cloud bank rolls in. Siting matters where no one will permit a new gas line. And reliability — the ability to hold frequency through a heat-wave evening — became a competitive advantage.</p><blockquote data-source=\"Director of grid operations, Western utility\" data-attr=\"Storage changed our evening playbook entirely\">We used to spin up three gas units at five o'clock and hope. Now we watch the batteries discharge, and the curve just flattens.</blockquote>"
     },
     {
-      "title": "What small models actually do well",
+      "title": "What batteries actually do well",
       "titleAccentWord": "well",
-      "bodyHtml": "<p>The capabilities of modern 7B-70B models surprise people who last checked in 2023. Llama 3.1 8B scores 79% on MMLU — higher than GPT-3.5-turbo scored at launch. Gemma 2 9B handles multilingual reasoning that was frontier-class eighteen months ago. Phi-3 mini at 3.8B parameters runs on a phone and still passes medical licensing exam questions.</p><p>What changed was not the architecture. It was the training data. Microsoft's Phi models proved that you could match models 25x larger by curating textbook-quality synthetic data instead of dumping the entire internet into training. Quality over quantity — a lesson the rest of the field absorbed quickly.</p><p>For specific domains, fine-tuned small models regularly outperform general-purpose frontier models. A 7B model fine-tuned on legal documents outperforms GPT-4 on contract analysis. A 13B model trained on medical literature matches Claude on clinical reasoning. Specialization beats scale when the task is narrow.</p>"
+      "bodyHtml": "<p>The capabilities of modern storage surprise people who last checked in 2022. Four-hour lithium-iron-phosphate systems ship below $200 per kilowatt-hour installed — a third of what they cost five years ago. Sodium-ion cells, with no lithium or cobalt at all, reached commercial scale this spring. Grid forming inverters now let a battery farm restart a dead section of grid by itself.</p><p>What changed was not the chemistry. It was the manufacturing. Storage rode the same factory curve that made solar cheap: standardized containers, predictable degradation warranties, and a supply chain that learned to ship gigawatt-hours the way it once shipped megawatts.</p><p>For specific jobs, batteries simply outclass the incumbents. Frequency regulation that once needed a spinning turbine is now a firmware setting. A solar-plus-storage plant bids into the evening like a gas plant, minus the gas. The one job they still cannot do — carrying the grid through a windless week — is the honest boundary of the revolution, and the next one.</p>"
     }
   ],
   "keyPoints": [
     {
-      "text": "70B models perform within 5% of frontier on most business tasks, at 10-20x lower cost"
+      "text": "Four-hour batteries now clear evening peaks at roughly half the cost of gas peakers"
     },
     {
-      "text": "Synthetic training data let 8B models match GPT-3.5 quality — quality over quantity"
+      "text": "Storage responds in milliseconds — frequency regulation became a firmware setting"
     },
     {
-      "text": "Fine-tuned small models outperform general frontier models on domain-specific tasks"
+      "text": "Paired with solar, batteries turn the midday glut into dispatchable evening supply"
     }
   ],
   "known": {
     "items": [
-      "Small model quality improved dramatically through better training data",
-      "Self-hosting eliminates API dependency and latency",
-      "Edge deployment (phones, IoT) requires sub-7B models"
+      "Battery costs fell faster than every official forecast",
+      "Storage already sets evening prices in California and South Australia",
+      "Four-hour duration covers the typical sunset ramp"
     ]
   },
   "unknown": {
     "items": [
-      "Whether small models can match frontier on complex multi-step reasoning",
-      "Long-term economics as GPU supply tightens",
-      "Regulatory treatment of on-premise vs cloud AI"
+      "Whether supply chains can keep pace with interconnection queues",
+      "Degradation economics past the ten-year mark",
+      "Which chemistry wins the multi-day storage problem"
     ]
   },
-  "editorsNote": "This analysis focuses on production deployment patterns, not benchmark performance. The gap between lab results and real-world utility is the story.",
+  "editorsNote": "This analysis focuses on deployed storage and market outcomes, not lab announcements. The gap between pilot projects and price-setting capacity is the story.",
   "sourceCount": 14,
-  "shareUrl": "/articles/quiet-revolution-small-language-models/",
+  "shareUrl": "/articles/quiet-revolution-grid-scale-batteries/",
   "related": [
     {
-      "title": "Edge AI and the Privacy Imperative",
-      "url": "#",
-      "category": "ai"
-    },
-    {
-      "title": "The Economics of Self-Hosted LLMs",
+      "title": "The Slow Death of the Gas Peaker",
       "url": "#",
       "category": "business"
+    },
+    {
+      "title": "Sodium-Ion Cells Reach Commercial Scale",
+      "url": "#",
+      "category": "science"
     }
   ]
 }

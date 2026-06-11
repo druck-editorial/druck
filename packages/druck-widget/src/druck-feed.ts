@@ -111,14 +111,21 @@ class DruckFeedElement extends HTMLElement {
       theme: (this.getAttribute('theme') as RenderOptions['theme']) ?? undefined,
       accentColor: this.getAttribute('accent') ?? undefined,
     };
-    if (this.getAttribute('layout') === 'front-page') {
+    const layout = this.getAttribute('layout');
+    if (layout === 'front-page') {
       this.#feedContainer.className = 'druck-feed-host';
       this.#feedContainer.removeAttribute('role');
       this.#feedContainer.innerHTML = renderFrontPage(buildFrontPage(items), opts);
     } else {
       this.#feedContainer.className = 'druck-feed';
       this.#feedContainer.setAttribute('role', 'list');
-      this.#feedContainer.setAttribute('data-columns', this.getAttribute('columns') || '3');
+      if (layout === 'list') {
+        this.#feedContainer.setAttribute('data-layout', 'list');
+        this.#feedContainer.removeAttribute('data-columns');
+      } else {
+        this.#feedContainer.removeAttribute('data-layout');
+        this.#feedContainer.setAttribute('data-columns', this.getAttribute('columns') || '3');
+      }
       this.#feedContainer.innerHTML = items
         .map((data) => `<div role="listitem">${renderCard(data, opts)}</div>`)
         .join('');

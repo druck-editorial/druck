@@ -43,18 +43,15 @@
     </div>
     <div class="demo-nav-right">
       <div class="nav-controls" role="group" aria-label="Preferences">
-        <div class="nav-seg" role="group" aria-label="Language">
-          <button class="nav-ctrl-btn" data-island="lang" data-lang="en" aria-pressed="true">EN</button>
-          <button class="nav-ctrl-btn" data-island="lang" data-lang="de" aria-pressed="false">DE</button>
+        <div class="nav-lang" role="group" aria-label="Language">
+          <button class="nav-lang-btn" data-island="lang" data-lang="en" aria-pressed="true">EN</button>
+          <span class="nav-lang-sep" aria-hidden="true">/</span>
+          <button class="nav-lang-btn" data-island="lang" data-lang="de" aria-pressed="false">DE</button>
         </div>
-        <div class="nav-seg" role="group" aria-label="Theme">
-          <button class="nav-ctrl-btn" data-island="theme" data-theme="light" aria-pressed="true" aria-label="Light theme">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          </button>
-          <button class="nav-ctrl-btn" data-island="theme" data-theme="dark" aria-pressed="false" aria-label="Dark theme">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </button>
-        </div>
+        <button class="nav-theme-btn" data-island="theme" aria-pressed="false" aria-label="Switch to dark theme">
+          <svg class="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
       </div>
     </div>
   </nav>
@@ -83,7 +80,7 @@
       </div>
       <div class="hero-stage" data-island="sequence" data-step-keys="heroImage,title,title,publishedAt,">
         <div class="hero-pane hero-pane-json" aria-label="The feed source data">
-          <div class="pane-chrome">feed.json</div>
+          <div class="pane-chrome">feed.json<span class="chrome-note"><!--druck:hero-json-note--></span></div>
           <pre class="json-pane" tabindex="0" role="region" aria-label="feed.json source"><code><!--druck:hero-json--></code></pre>
         </div>
         <div class="pane-connector" aria-hidden="true">
@@ -219,8 +216,7 @@
         <p class="band-lede" data-i18n="range-lede">One structured story, typeset across three formats, five languages, and four accents. The specimen text is demo content.</p>
       </div>
       <p class="band-pull" data-i18n="range-pull">Create <em>articles</em> for your magazines &mdash; the typesetting is already done.</p>
-      <div class="range-workspace">
-        <div class="range-main">
+      <div class="range-main">
           <div class="range-controls">
             <div class="format-switch" data-island="switcher" data-switch="range-format" role="radiogroup" aria-label="Article format">
               <button role="radio" aria-checked="true" data-value="feature">Feature</button>
@@ -244,18 +240,8 @@
           <div class="specimen-stage range-stage cat-ai" aria-live="polite">
             <!--druck:range-panels-->
           </div>
-        </div>
-        <div class="range-recipe" role="group" aria-label="Recipe">
-          <div class="recipe-block">
-            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-format">Format</span><span class="recipe-value" data-recipe="format">Feature</span></div>
-            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-language">Language</span><span class="recipe-value" data-recipe="lang">EN</span></div>
-            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-accent">Accent</span><span class="recipe-value" data-recipe="accent">AI</span></div>
-            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-output">Output</span><span class="recipe-value">static HTML</span></div>
-            <div class="recipe-line"><span class="recipe-label" data-i18n="recipe-specimen">Specimen</span><span class="recipe-value" data-recipe="counter">1 of 60</span></div>
-          </div>
-        </div>
       </div>
-      <p class="frame-caption" data-i18n="range-caption">Read a full issue &mdash; <a href="/articles/quiet-revolution-small-language-models/">the feature this specimen is cut from</a>, rendered by the engine at build time.</p>
+      <p class="frame-caption" data-i18n="range-caption">Read a full issue &mdash; <a href="/articles/quiet-revolution-grid-scale-batteries/">the feature this specimen is cut from</a>, rendered by the engine at build time.</p>
     </section>
 
     <section class="band band-analytics" id="analytics" data-surface="ink" aria-labelledby="analytics-heading">
@@ -321,7 +307,7 @@
           </div>
           <div class="pricing-col pricing-col--planned">
             <h4 data-i18n="pricing-paid-title">Planned, and paid</h4>
-            <p data-i18n="pricing-paid-text">A hosted endpoint with a reading dashboard, a feed API that turns RSS into <code>ArticleData</code>, and a Telegram channel importer. The MIT tracker keeps working without any of it. Also planned: publishing <code>@druck-editorial/analytics</code> to npm.</p>
+            <p data-i18n="pricing-paid-text">A hosted reading dashboard, a feed API for RSS, and a Telegram importer. The MIT tracker keeps working without them.</p>
           </div>
         </div>
       </div>
@@ -352,8 +338,7 @@
         <a href="mailto:artyom.yagovdik@gmail.com">Email</a>
         <span>&middot;</span>
         <a href="__DRUCK_GITHUB_URL__" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <span>&middot;</span><span>&copy; 2026 &middot; MIT</span><span>&middot;</span>
-        <code>__DRUCK_INSTALL_CMD__</code>
+        <span>&middot;</span><span>&copy; 2026 &middot; MIT</span>
       </p>
     </section>
   </main>
