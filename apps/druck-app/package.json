@@ -7,9 +7,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node prerender/fetch-snapshot.mjs && cp ../../packages/druck-css/feed.css public/feed.css && cp src/styles/fonts.css public/fonts.css && pnpm --filter @druck-editorial/engine build && pnpm --filter @druck-editorial/widget build && tsc --noEmit && vite build",
+    "build": "node prerender/fetch-snapshot.mjs && cp ../../packages/druck-css/feed.css public/feed.css && cp src/styles/fonts.css public/fonts.css && pnpm --filter @druck-editorial/engine build && pnpm --filter @druck-editorial/widget build && pnpm --filter @druck-editorial/analytics build && tsc --noEmit && vite build",
     "preview": "vite preview --port 4173 --strictPort",
     "audit": "node scripts/audit.mjs",
+    "build:druck": "pnpm build && DRUCK_BASE=/druck/ node scripts/apply-base.mjs",
+    "deploy:druck": "pnpm build:druck && rsync -az --delete -e ssh dist/ wolton:/root/workspaces/sonto-news/_site/druck/",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
