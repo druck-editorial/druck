@@ -32,7 +32,7 @@ The first argument is the article root element. The second is the article slug u
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `endpoint` | `string` | `''` | URL to POST session data to. When empty, data stays local. |
-| `siteToken` | `string` | — | Sent as `x-druck-site` header. Optional for self-hosted endpoints. |
+| `siteToken` | `string` | — | Sent in the event payload (and the `x-druck-site` header on the fetch fallback). Optional for self-hosted endpoints. |
 | `sendOn` | `'pagehide' \| 'interval' \| 'manual'` | `'pagehide'` | When to flush the session. |
 | `intervalMs` | `number` | `30000` | Flush interval when `sendOn` is `'interval'`. |
 | `depthMilestones` | `number[]` | `[25, 50, 75, 100]` | Scroll depth percentages that fire `onDepth` once per session. |

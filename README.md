@@ -8,8 +8,8 @@ Druck renders articles the way a print magazine sets them: three formats (featur
 
 ```html
 <script type="module"
-  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.0/dist/druck-widget.js"
-  integrity="sha384-XJ0XvPb20yRQfswItj7AkAygMHH8HSAF/OpkbJ/K+xHj0YznMbKrQw+bJEiEDYC8"
+  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.2/dist/druck-widget.js"
+  integrity="sha384-dmcA5KriM2sjE8cKbSqEty6bJwaw0hekUf6xb+PmtXAgl9e+pr9gsufryoN4WSjJ"
   crossorigin="anonymous"></script>
 <druck-article src="story.json"></druck-article>
 ```
@@ -54,8 +54,8 @@ For production, pin the version and add the integrity hash:
 
 ```html
 <script type="module"
-  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.0/dist/druck-widget.js"
-  integrity="sha384-XJ0XvPb20yRQfswItj7AkAygMHH8HSAF/OpkbJ/K+xHj0YznMbKrQw+bJEiEDYC8"
+  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.2/dist/druck-widget.js"
+  integrity="sha384-dmcA5KriM2sjE8cKbSqEty6bJwaw0hekUf6xb+PmtXAgl9e+pr9gsufryoN4WSjJ"
   crossorigin="anonymous"></script>
 
 <druck-article src="story.json"></druck-article>
@@ -63,7 +63,7 @@ For production, pin the version and add the integrity hash:
 <druck-feed layout="front-page" src="feed.json"></druck-feed>
 ```
 
-The same file is on unpkg at `https://unpkg.com/@druck-editorial/widget@0.1.0/dist/druck-widget.js`. For production, self-host the bundle. When a new widget version is published, recompute the integrity hash: `curl -s <cdn-url> | openssl dgst -sha384 -binary | openssl base64 -A`.
+The same file is on unpkg at `https://unpkg.com/@druck-editorial/widget@0.1.2/dist/druck-widget.js`. For production, self-host the bundle. When a new widget version is published, recompute the integrity hash: `curl -s <cdn-url> | openssl dgst -sha384 -binary | openssl base64 -A`.
 
 Articles without a `heroImage` render an automatic category-tinted placeholder on cards, so partial feeds still produce a complete front page.
 
@@ -91,7 +91,7 @@ The MIT tracker keeps working without any of it. If you run your own endpoint, y
 
 ### Analytics site tokens
 
-The hosted endpoint identifies sites by token. Pass it as `siteToken`; the tracker sends it as the `x-druck-site` header with every event batch:
+The hosted endpoint identifies sites by token. Pass it as `siteToken`; the tracker includes it in the event payload body (and as the `x-druck-site` header on the fetch fallback) with every batch:
 
 ```js
 import { ReadingTracker } from '@druck-editorial/analytics';
@@ -102,7 +102,7 @@ new ReadingTracker(root, slug, {
 });
 ```
 
-Requests with a missing or unregistered token get `401`. Self-hosters point `endpoint` at their own server and omit `siteToken` entirely — the header is simply not sent.
+Requests with a missing or unregistered token get `401`. Self-hosters point `endpoint` at their own server and omit `siteToken` entirely — nothing identifying is sent.
 
 ## Development
 
