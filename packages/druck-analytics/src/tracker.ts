@@ -19,6 +19,9 @@ const DEFAULT_CONFIG: MergedConfig = {
   root: null,
 };
 
+const VISIBILITY_THRESHOLDS = Array.from({ length: 21 }, (_, i) => i / 20);
+const VISIBLE_COVERAGE = 0.5;
+
 export class ReadingTracker {
   #config: MergedConfig;
   #events: ReadingEvent[] = [];
@@ -27,11 +30,11 @@ export class ReadingTracker {
   #isActive = false;
   #articleRoot: HTMLElement;
   #observer?: IntersectionObserver;
-  #elementTimers = new Map<string, number>();
+  #visibility = new Map<string, { accumulatedMs: number; enteredAt: number | null }>();
   #sentMilestones = new Set<number>();
   #intervalId?: ReturnType<typeof setInterval>;
   #tickId?: ReturnType<typeof setInterval>;
-  #chapterTimers = new Set<ReturnType<typeof setTimeout>>();
+  #chapterTimers = new Map<string, ReturnType<typeof setTimeout>>();
   #trackedListeners: Array<{ target: EventTarget; type: string; fn: EventListener; options?: AddEventListenerOptions | boolean }> = [];
 
   constructor(articleRoot: HTMLElement, slug: string, config?: AnalyticsConfig) {
@@ -55,21 +58,36 @@ export class ReadingTracker {
     this.#startActiveReadingTick();
   }
 
+  #coverage(entry: IntersectionObserverEntry): number {
+    const rootHeight = entry.rootBounds?.height ?? (typeof window !== 'undefined' ? window.innerHeight : 0);
+    const reference = Math.max(1, Math.min(entry.boundingClientRect.height, rootHeight));
+    return entry.intersectionRect.height / reference;
+  }
+
   #observeElements(): void {
     this.#observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           const el = entry.target as HTMLElement;
           const key = this.#elementKey(el);
-          if (entry.isIntersecting) {
-            this.#elementTimers.set(key, Date.now());
+          const isVisible = entry.isIntersecting && this.#coverage(entry) >= VISIBLE_COVERAGE;
+          const state = this.#visibility.get(key) ?? { accumulatedMs: 0, enteredAt: null };
+          if (isVisible && state.enteredAt === null) {
+            state.enteredAt = Date.now();
+            this.#visibility.set(key, state);
             this.#emitView(el, true);
-          } else {
-            this.#elementTimers.delete(key);
+          } else if (!isVisible && state.enteredAt !== null) {
+            state.accumulatedMs += Date.now() - state.enteredAt;
+            state.enteredAt = null;
+            const pending = this.#chapterTimers.get(key);
+            if (pending) {
+              clearTimeout(pending);
+              this.#chapterTimers.delete(key);
+            }
           }
         }
       },
-      { threshold: 0.5, root: this.#config.root }
+      { threshold: VISIBILITY_THRESHOLDS, root: this.#config.root }
     );
 
     const selectors = [
@@ -142,24 +160,34 @@ export class ReadingTracker {
     }
   }
 
+  #visibleMs(key: string): number {
+    const state = this.#visibility.get(key);
+    if (!state) return 0;
+    return state.accumulatedMs + (state.enteredAt !== null ? Date.now() - state.enteredAt : 0);
+  }
+
   #scheduleChapterRead(title: string): void {
+    const key = `chapter-${title}`;
+    if (this.#chapterTimers.has(key)) return;
+    const remaining = Math.max(0, this.#config.chapterReadThresholdMs - this.#visibleMs(key));
     const handle = setTimeout(() => {
-      this.#chapterTimers.delete(handle);
-      const start = this.#elementTimers.get(`chapter-${title}`);
-      if (start && Date.now() - start >= this.#config.chapterReadThresholdMs) {
-        if (!this.#session.chaptersRead.includes(title)) {
-          this.#session.chaptersRead.push(title);
-          this.#events.push({
-            type: 'chapter_read',
-            articleSlug: this.#session.articleSlug,
-            timestamp: Date.now(),
-            detail: title,
-          });
-          this.#config.onChapterRead?.(title);
-        }
-      }
-    }, this.#config.chapterReadThresholdMs);
-    this.#chapterTimers.add(handle);
+      this.#chapterTimers.delete(key);
+      this.#markChapterRead(title);
+    }, remaining);
+    this.#chapterTimers.set(key, handle);
+  }
+
+  #markChapterRead(title: string): void {
+    if (this.#session.chaptersRead.includes(title)) return;
+    if (this.#visibleMs(`chapter-${title}`) < this.#config.chapterReadThresholdMs) return;
+    this.#session.chaptersRead.push(title);
+    this.#events.push({
+      type: 'chapter_read',
+      articleSlug: this.#session.articleSlug,
+      timestamp: Date.now(),
+      detail: title,
+    });
+    this.#config.onChapterRead?.(title);
   }
 
   #elementKey(el: HTMLElement): string {
@@ -240,6 +268,7 @@ export class ReadingTracker {
     const payload = {
       session: this.#session,
       events: this.#events.slice(-50),
+      ...(this.#config.siteToken ? { siteToken: this.#config.siteToken } : {}),
     };
 
     this.#events = [];
@@ -274,7 +303,7 @@ export class ReadingTracker {
     this.#observer?.disconnect();
     if (this.#intervalId) clearInterval(this.#intervalId);
     if (this.#tickId) clearInterval(this.#tickId);
-    for (const handle of this.#chapterTimers) clearTimeout(handle);
+    for (const handle of this.#chapterTimers.values()) clearTimeout(handle);
     this.#chapterTimers.clear();
     for (const { target, type, fn, options } of this.#trackedListeners) {
       target.removeEventListener(type, fn, options);

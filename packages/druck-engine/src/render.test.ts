@@ -184,6 +184,31 @@ describe('body sanitization', () => {
     expect(html).not.toContain('alert(3)');
   });
 
+  test('strips slash-separated event handlers (img/onerror bypass)', () => {
+    const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<img/onerror=alert(1)><img src=x/onerror=alert(2)>' }] }));
+    expect(html).not.toContain('onerror');
+    expect(html).not.toContain('alert(1)');
+    expect(html).not.toContain('alert(2)');
+  });
+
+  test('strips entity-encoded javascript: hrefs from chapter bodyHtml', () => {
+    const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<a href="&#106;avascript:alert(1)">x</a>' }] }));
+    expect(html).not.toContain('avascript:alert(1)');
+    expect(html).not.toContain('href="&#106;');
+  });
+
+  test('strips javascript: hrefs split by control characters', () => {
+    const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<a href="java\nscript:alert(1)">x</a>' }] }));
+    expect(html).not.toContain('script:alert(1)');
+  });
+
+  test('escapes category to prevent class attribute injection', () => {
+    const malicious = { category: 'ai" onmouseover="alert(1)' } as unknown as Partial<ArticleData>;
+    const html = renderArticle(buildArticle(malicious));
+    expect(html).not.toContain('onmouseover="alert(1)"');
+    expect(html).toContain('&quot;');
+  });
+
   test('preserves allowed inline markup after sanitization', () => {
     const html = renderArticle(buildArticle({ chapters: [{ title: 'X', bodyHtml: '<p><em>ok</em> <a href="/x">link</a></p>' }] }));
     expect(html).toContain('<em>ok</em>');

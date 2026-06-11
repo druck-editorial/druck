@@ -80,18 +80,37 @@ const QUOTE_RE = /<blockquote\s+(?:data-source="(?<src>[^"]*)"\s*)?(?:data-sourc
 const TAG_STRIP_RE = /<[^>]+>/g;
 const SCRIPT_RE = /<script\b[^>]*>[\s\S]*?<\/script\s*>/gi;
 const SCRIPT_OPEN_RE = /<script\b[^>]*>/gi;
-const ON_ATTR_RE = /\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
-const JS_HREF_RE = /\s+(?:href|src|xlink:href|formaction|poster)\s*=\s*(?:"\s*(?:javascript|vbscript|data)\s*:[^"]*"|'\s*(?:javascript|vbscript|data)\s*:[^']*')/gi;
+const ON_ATTR_RE = /[\s/]+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
+const URL_ATTR_RE = /[\s/]+(?:href|src|xlink:href|formaction|poster)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi;
+const DANGEROUS_SCHEME_RE = /^(?:javascript|vbscript|data)\s*:/i;
 const DANGEROUS_TAG_RE = /<\/?(?:script|style|iframe|object|embed|form|input|button|textarea|select|meta|link|base|svg|math)\b[^>]*>/gi;
 
+function fromCodePoint(code: number): string {
+  return code >= 0 && code <= 0x10ffff ? String.fromCodePoint(code) : '';
+}
+
+function decodeEntities(value: string): string {
+  return value
+    .replace(/&#x([0-9a-f]+);?/gi, (_m, hex) => fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);?/g, (_m, dec) => fromCodePoint(parseInt(dec, 10)));
+}
+
+function stripDangerousUrlAttrs(html: string): string {
+  return html.replace(URL_ATTR_RE, (match, doubleQuoted, singleQuoted) => {
+    const raw = doubleQuoted ?? singleQuoted ?? '';
+    const normalized = decodeEntities(raw).replace(/[\s\u0000-\u001f]+/g, '');
+    return DANGEROUS_SCHEME_RE.test(normalized) ? '' : match;
+  });
+}
+
 function sanitizeBody(html: string): string {
-  return html
-    .replace(SCRIPT_RE, '')
-    .replace(SCRIPT_OPEN_RE, '')
-    .replace(DANGEROUS_TAG_RE, '')
-    .replace(ON_ATTR_RE, '')
-    .replace(JS_HREF_RE, '')
-    .replace(/javascript\s*:/gi, '');
+  return stripDangerousUrlAttrs(
+    html
+      .replace(SCRIPT_RE, '')
+      .replace(SCRIPT_OPEN_RE, '')
+      .replace(DANGEROUS_TAG_RE, '')
+      .replace(ON_ATTR_RE, '')
+  ).replace(/javascript\s*:/gi, '');
 }
 
 function plainStatValue(raw: string): string {

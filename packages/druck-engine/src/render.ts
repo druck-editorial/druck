@@ -107,7 +107,7 @@ function renderShareBar(title: string, url?: string): string {
 }
 
 export function categoryClass(category: string): string {
-  return `cat-${category}`;
+  return `cat-${escapeHtml(category)}`;
 }
 
 function formatLabel(format: string): string {

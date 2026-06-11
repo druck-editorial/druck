@@ -4,6 +4,18 @@
 import { describe, test, expect, vi } from 'vitest';
 import { ReadingTracker } from './tracker.js';
 
+function makeEntry(el: Element, visibleHeight: number, elementHeight: number, rootHeight = 900): IntersectionObserverEntry {
+  return {
+    target: el,
+    isIntersecting: visibleHeight > 0,
+    intersectionRatio: visibleHeight / elementHeight,
+    boundingClientRect: { height: elementHeight } as DOMRectReadOnly,
+    intersectionRect: { height: visibleHeight } as DOMRectReadOnly,
+    rootBounds: { height: rootHeight } as DOMRectReadOnly,
+    time: 0,
+  } as IntersectionObserverEntry;
+}
+
 describe('ReadingTracker', () => {
   test('accepts siteToken and exposes it in config', () => {
     const root = document.createElement('div');
@@ -85,6 +97,118 @@ describe('ReadingTracker', () => {
     tracker.destroy();
     const session = tracker.getSession();
     expect(session.asidesViewed).toBeDefined();
+  });
+
+  test('chapter read accumulates visible time across interruptions', () => {
+    vi.useFakeTimers();
+    let callback: IntersectionObserverCallback = () => {};
+    const ObserverMock = vi.fn((cb: IntersectionObserverCallback) => {
+      callback = cb;
+      return { observe: vi.fn(), disconnect: vi.fn(), unobserve: vi.fn() };
+    });
+    vi.stubGlobal('IntersectionObserver', ObserverMock);
+
+    const root = document.createElement('div');
+    root.innerHTML = '<div class="chapter-panel"><span class="chapter-title">Intro</span></div>';
+    const panel = root.querySelector('.chapter-panel')!;
+    const onChapterRead = vi.fn();
+    const tracker = new ReadingTracker(root, 'slug', { sendOn: 'manual', onChapterRead });
+
+    callback([makeEntry(panel, 300, 300)], {} as IntersectionObserver);
+    vi.advanceTimersByTime(2000);
+    callback([makeEntry(panel, 0, 300)], {} as IntersectionObserver);
+    vi.advanceTimersByTime(5000);
+    expect(onChapterRead).not.toHaveBeenCalled();
+
+    callback([makeEntry(panel, 300, 300)], {} as IntersectionObserver);
+    vi.advanceTimersByTime(1000);
+    expect(onChapterRead).toHaveBeenCalledWith('Intro');
+    expect(tracker.getSession().chaptersRead).toContain('Intro');
+
+    tracker.destroy();
+    vi.useRealTimers();
+  });
+
+  test('skimming past a chapter does not mark it read', () => {
+    vi.useFakeTimers();
+    let callback: IntersectionObserverCallback = () => {};
+    const ObserverMock = vi.fn((cb: IntersectionObserverCallback) => {
+      callback = cb;
+      return { observe: vi.fn(), disconnect: vi.fn(), unobserve: vi.fn() };
+    });
+    vi.stubGlobal('IntersectionObserver', ObserverMock);
+
+    const root = document.createElement('div');
+    root.innerHTML = '<div class="chapter-panel"><span class="chapter-title">Intro</span></div>';
+    const panel = root.querySelector('.chapter-panel')!;
+    const onChapterRead = vi.fn();
+    const tracker = new ReadingTracker(root, 'slug', { sendOn: 'manual', onChapterRead });
+
+    callback([makeEntry(panel, 300, 300)], {} as IntersectionObserver);
+    vi.advanceTimersByTime(1000);
+    callback([makeEntry(panel, 0, 300)], {} as IntersectionObserver);
+    vi.advanceTimersByTime(5000);
+
+    expect(onChapterRead).not.toHaveBeenCalled();
+    expect(tracker.getSession().chaptersRead).toHaveLength(0);
+    tracker.destroy();
+    vi.useRealTimers();
+  });
+
+  test('tall chapters count via viewport coverage even below 50% ratio', () => {
+    vi.useFakeTimers();
+    let callback: IntersectionObserverCallback = () => {};
+    const ObserverMock = vi.fn((cb: IntersectionObserverCallback) => {
+      callback = cb;
+      return { observe: vi.fn(), disconnect: vi.fn(), unobserve: vi.fn() };
+    });
+    vi.stubGlobal('IntersectionObserver', ObserverMock);
+
+    const root = document.createElement('div');
+    root.innerHTML = '<div class="chapter-panel"><span class="chapter-title">Deep dive</span></div>';
+    const panel = root.querySelector('.chapter-panel')!;
+    const onChapterRead = vi.fn();
+    const tracker = new ReadingTracker(root, 'slug', { sendOn: 'manual', onChapterRead });
+
+    callback([makeEntry(panel, 500, 3000)], {} as IntersectionObserver);
+    vi.advanceTimersByTime(3000);
+
+    expect(onChapterRead).toHaveBeenCalledWith('Deep dive');
+    tracker.destroy();
+    vi.useRealTimers();
+  });
+
+  test('siteToken travels in the sendBeacon payload body', () => {
+    vi.useFakeTimers();
+    let callback: IntersectionObserverCallback = () => {};
+    const ObserverMock = vi.fn((cb: IntersectionObserverCallback) => {
+      callback = cb;
+      return { observe: vi.fn(), disconnect: vi.fn(), unobserve: vi.fn() };
+    });
+    vi.stubGlobal('IntersectionObserver', ObserverMock);
+    const beacon = vi.fn().mockReturnValue(true);
+    vi.stubGlobal('navigator', { sendBeacon: beacon } as unknown as Navigator);
+
+    const root = document.createElement('div');
+    root.innerHTML = '<div class="chapter-panel"><span class="chapter-title">Intro</span></div>';
+    const panel = root.querySelector('.chapter-panel')!;
+    const tracker = new ReadingTracker(root, 'slug', {
+      endpoint: 'https://api.example.com/events',
+      siteToken: 'tok_abc123',
+      sendOn: 'manual',
+    });
+
+    callback([makeEntry(panel, 300, 300)], {} as IntersectionObserver);
+    vi.advanceTimersByTime(3000);
+
+    tracker.destroy();
+
+    expect(beacon).toHaveBeenCalledTimes(1);
+    const body = beacon.mock.calls[0][1] as Blob;
+    return body.text().then((text) => {
+      expect(JSON.parse(text).siteToken).toBe('tok_abc123');
+      vi.useRealTimers();
+    });
   });
 
   test('destroy() removes all document and window listeners it registered', () => {
