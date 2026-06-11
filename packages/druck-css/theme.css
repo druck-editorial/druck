@@ -22,6 +22,15 @@
 [data-theme="dark"] .article-shell.cat-policy, [data-theme="dark"] .range-stage.cat-policy { --accent:#c79e6a; }
 [data-theme="dark"] .article-shell.cat-science, [data-theme="dark"] .range-stage.cat-science { --accent:#5fc7b8; }
 [data-theme="dark"] .article-shell.cat-weekly, [data-theme="dark"] .range-stage.cat-weekly { --accent:#8ba4b8; }
+[data-theme="dark"] .post-simple { --accent:#9aa6e0; }
+[data-theme="dark"] .post-simple.cat-ai { --accent:#A9A6E8; }
+[data-theme="dark"] .post-simple.cat-security { --accent:#E07070; }
+[data-theme="dark"] .post-simple.cat-dev-tools { --accent:#93C4A8; }
+[data-theme="dark"] .post-simple.cat-infrastructure { --accent:#7BC4C4; }
+[data-theme="dark"] .post-simple.cat-business { --accent:#D4A520; }
+[data-theme="dark"] .post-simple.cat-big-tech { --accent:#7BC4C4; }
+[data-theme="dark"] .post-simple.cat-policy { --accent:#c79e6a; }
+[data-theme="dark"] .post-simple.cat-science { --accent:#5fc7b8; }
 [data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="ai"] { --section-accent: #A9A6E8; }
 [data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="security"] { --section-accent: #E07070; }
 [data-theme="dark"] .article-shell.cat-weekly .recap-section[data-accent="dev-tools"] { --section-accent: #93C4A8; }
