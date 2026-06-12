@@ -27,7 +27,7 @@ function readAuditSummary(): unknown {
   }
 }
 
-const DEMO_EMITTERS: Record<string, (dir: string) => Promise<{ slug: string; html: string }>> = {
+const DEMO_EMITTERS: Record<string, (dir: string, lang?: string) => Promise<{ slug: string; html: string }>> = {
   'music-review': musicReview,
   'fashion-magazine': fashionMagazine,
   'dev-blog': devBlog,
@@ -56,11 +56,13 @@ function druckPrerender() {
           key = 'article';
           render = () => renderDemoArticlePage(FIXTURES_DIR);
         } else {
-          const slug = url.match(/^\/demos\/([\w-]+)\/?$/)?.[1];
+          const demoMatch = url.match(/^\/demos\/([\w-]+)(?:\/(de))?\/?$/);
+          const slug = demoMatch?.[1];
+          const lang = demoMatch?.[2] === 'de' ? 'de' : 'en';
           const emitter = slug ? DEMO_EMITTERS[slug] : undefined;
           if (slug && emitter) {
-            key = slug;
-            render = () => emitter(FIXTURES_DIR).then((r) => r.html);
+            key = `${slug}:${lang}`;
+            render = () => emitter(FIXTURES_DIR, lang).then((r) => r.html);
           }
         }
         if (!key || !render) {
@@ -83,13 +85,16 @@ function druckPrerender() {
       await writeFile(join(DEMO_ARTICLE_DIR, 'index.html'), await renderDemoArticlePage(FIXTURES_DIR));
 
       const demoEmitters = [musicReview, fashionMagazine, devBlog, newsroom, telegramBrief];
-      const demoResults = await Promise.all(demoEmitters.map((fn) => fn(FIXTURES_DIR)));
+      const langs = ['en', 'de'] as const;
       await Promise.all(
-        demoResults.map(async ({ slug, html }) => {
-          const dir = join(DEMOS_BASE_DIR, slug);
-          await mkdir(dir, { recursive: true });
-          await writeFile(join(dir, 'index.html'), html);
-        }),
+        demoEmitters.flatMap((fn) =>
+          langs.map(async (lang) => {
+            const { slug, html } = await fn(FIXTURES_DIR, lang);
+            const dir = lang === 'de' ? join(DEMOS_BASE_DIR, slug, 'de') : join(DEMOS_BASE_DIR, slug);
+            await mkdir(dir, { recursive: true });
+            await writeFile(join(dir, 'index.html'), html);
+          }),
+        ),
       );
     },
   };

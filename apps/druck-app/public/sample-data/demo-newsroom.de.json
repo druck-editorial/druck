@@ -1,0 +1,27 @@
+{
+  "title": "Northwind stellt Meridian vor: Vertragsintelligenz für Infrastrukturteams",
+  "titleAccentWord": "Meridian",
+  "subtitle": "Die Plattform führt Beschaffungsdaten, Compliance-Status und Lieferantenleistung in einem prüfungssicheren Datensatz zusammen",
+  "metaDescription": "Northwind kündigt Meridian an, eine Plattform für Vertragsintelligenz für Infrastruktur- und Facility-Teams, die Beschaffung über mehrere Lieferanten hinweg steuern.",
+  "slug": "northwind-launches-meridian",
+  "format": "quick_take",
+  "category": "infrastructure",
+  "publishedAt": "Jun 10, 2026",
+  "readingTime": "3 Min. Lesezeit",
+  "heroImage": "/img/demo/scale-monolith.webp",
+  "heroImageAlt": "Menschenmenge nähert sich bei goldenem Abendlicht einem monumentalen dunklen Turm",
+  "heroImageWidth": 1200,
+  "heroImageHeight": 800,
+  "chapters": [
+    {
+      "title": "Was Meridian leistet",
+      "bodyHtml": "<p>Meridian erfasst Verträge aus jeder Quelle — PDFs, DocuSign-Exporte, ERP-Systeme — und erzeugt für jede Verpflichtung einen normalisierten Datensatz: Verlängerungstermin, Ausgabenobergrenze, SLA-Klausel, Compliance-Anforderung. Der Datensatz aktualisiert sich automatisch, sobald Lieferanten Änderungen einreichen oder Aufsichtsbehörden in den erfassten Rechtsräumen neue Vorgaben veröffentlichen.</p><blockquote data-source=\"Northwind customer, facilities operations lead, North American logistics company\">Wir hatten 340 aktive Lieferantenverträge in 12 Systemen. Meridian verschaffte uns in vier Tagen einen einheitlichen Überblick. Allein die Verlängerungserinnerung hat das erste Jahr finanziert.</blockquote><p>Die Plattform lässt sich ab Werk mit 47 Beschaffungs- und ERP-Systemen verbinden. Eigene Konnektoren stehen über die Northwind Partner API zur Verfügung, die öffentlich dokumentiert ist und ein Verfügbarkeits-SLA von 99,9 % bietet.</p>"
+    }
+  ],
+  "keyPoints": [
+    { "text": "Erfasst Verträge aus PDF, DocuSign und 47 ERP-Integrationen in einem normalisierten Datensatz." },
+    { "text": "Aktualisiert Verpflichtungsdatensätze automatisch, wenn Lieferanten Änderungen einreichen oder sich Vorschriften ändern." },
+    { "text": "Ab 30. Juni für Enterprise-Konten verfügbar; die SMB-Stufe folgt im 3. Quartal 2026." }
+  ],
+  "shareUrl": "/demos/newsroom/"
+}

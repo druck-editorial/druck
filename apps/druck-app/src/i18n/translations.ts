@@ -209,4 +209,9 @@ export function applyLang(lang: Lang): void {
       widget.setAttribute('src', lang === 'de' ? deSrc : enSrc);
     }
   }
+
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('a[href^="/demos/"]')) {
+    const slug = link.getAttribute('href')?.match(/^\/demos\/([\w-]+)\//)?.[1];
+    if (slug) link.setAttribute('href', `/demos/${slug}/${lang === 'de' ? 'de/' : ''}`);
+  }
 }
