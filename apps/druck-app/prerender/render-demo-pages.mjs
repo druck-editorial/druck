@@ -180,8 +180,8 @@ export async function musicReview(fixturesDir, lang = 'en') {
     readFixture(fixturesDir, 'frame-music.json', lang),
     readFixture(fixturesDir, 'tuning-fork-feed.json', lang),
   ]);
-  const articleHtml = renderArticle(data);
-  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems));
+  const articleHtml = renderArticle(data, { lang });
+  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems), { lang });
 
   const scoreMatch = /<aside data-stat="([^"]+)">/.exec(data.chapters?.[0]?.bodyHtml ?? '');
   const score = scoreMatch ? scoreMatch[1] : '8.4';
@@ -230,8 +230,8 @@ export async function fashionMagazine(fixturesDir, lang = 'en') {
     readFixture(fixturesDir, 'frame-fashion.json', lang),
     readFixture(fixturesDir, 'atelier-feed.json', lang),
   ]);
-  const articleHtml = renderArticle(data);
-  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems));
+  const articleHtml = renderArticle(data, { lang });
+  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems), { lang });
 
   const body =
     '<header class="at-header">' +
@@ -273,8 +273,8 @@ export async function devBlog(fixturesDir, lang = 'en') {
     readFixture(fixturesDir, 'wire.json', lang),
     readFixture(fixturesDir, 'deploy-log-feed.json', lang),
   ]);
-  const articleHtml = renderArticle(data);
-  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems));
+  const articleHtml = renderArticle(data, { lang });
+  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems), { lang });
 
   const body =
     '<header class="dl-header">' +
@@ -324,8 +324,8 @@ export async function newsroom(fixturesDir, lang = 'en') {
     readFixture(fixturesDir, 'demo-newsroom.json', lang),
     readFixture(fixturesDir, 'northwind-feed.json', lang),
   ]);
-  const articleHtml = renderArticle(data);
-  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems));
+  const articleHtml = renderArticle(data, { lang });
+  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems), { lang });
 
   const body =
     '<header class="nw-header">' +
@@ -424,7 +424,7 @@ export async function telegramBrief(fixturesDir, lang = 'en') {
     readFixture(fixturesDir, 'tg-posts.json', lang),
   ]);
 
-  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems));
+  const frontPageHtml = renderFrontPage(buildFrontPage(feedItems), { lang });
 
   const postBubbles = posts.map(renderTgPost).join('');
 
