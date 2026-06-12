@@ -210,8 +210,8 @@ export function applyLang(lang: Lang): void {
     }
   }
 
-  for (const link of document.querySelectorAll<HTMLAnchorElement>('a[href^="/demos/"]')) {
-    const slug = link.getAttribute('href')?.match(/^\/demos\/([\w-]+)\//)?.[1];
-    if (slug) link.setAttribute('href', `/demos/${slug}/${lang === 'de' ? 'de/' : ''}`);
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('a[href*="/demos/"]')) {
+    const base = link.getAttribute('href')?.match(/^(.*\/demos\/[\w-]+)\/(?:de\/)?$/)?.[1];
+    if (base) link.setAttribute('href', `${base}/${lang === 'de' ? 'de/' : ''}`);
   }
 }
