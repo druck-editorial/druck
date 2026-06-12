@@ -1,0 +1,134 @@
+[
+  {
+    "title": "Anthropic leitet Bedrock-Traffic aus der AWS-Sicherheitsgrenze heraus",
+    "subtitle": "Für Fable 5, Mythos 5 und künftige Modelle auf Bedrock mit ähnlicher oder höherer Leistungsfähigkeit verlangt Anthropic eine 30-tägige Speicherung des gesamten Traffics auf Mythos-Klasse-Modellen. Eine befristete Speicherung erlaubt es Anthropic, Missbrauchsmuster zu erkennen, die aus einem einzelnen Austausch nicht sichtbar sind.",
+    "metaDescription": "> For Fable 5, Mythos 5, and future models on Bedrock with similar or higher capability levels, Anthropic will require 30-day retention for all traffic on Mytho",
+    "slug": "anthropic-pulls-bedrock-traffic-outside-aws-security-boundary",
+    "format": "wire",
+    "category": "general",
+    "publishedAt": "Jun 10, 2026",
+    "heroImage": "https://sonto.tech/assets/img/placeholders/tech_gen__reddit__atlassian__d9c22189.webp",
+    "shareUrl": "https://sonto.tech/articles/anthropic-pulls-bedrock-traffic-outside-aws-security-boundary/"
+  },
+  {
+    "title": "Gemma 4 widersteht Ragebait-Versuchen, finden Forscher",
+    "subtitle": "Ein LessWrong-Autor dokumentiert wiederholte gescheiterte Versuche, dem neuen Gemma-Modell von Google feindselige Antworten zu entlocken. Das Experiment zeigt, wie aggressiv abgestimmt die Sicherheitsfilter beim Blockieren emotional aufgeladener Ausgaben inzwischen sind.",
+    "metaDescription": "A LessWrong author documents repeated failed attempts to provoke hostile responses from Google's new Gemma model. The experiment highlights how aggressively tun",
+    "slug": "gemma-4-resists-ragebait-attempts-researchers-find",
+    "format": "wire",
+    "category": "ai",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/assets/img/placeholders/ai_gen__reddit__349b4481.webp",
+    "shareUrl": "https://sonto.tech/articles/gemma-4-resists-ragebait-attempts-researchers-find/"
+  },
+  {
+    "title": "xAI feuerte Ingenieur wegen Hinweis auf Grok-Sicherheitsrisiken, sagt Klage",
+    "subtitle": "Ein ehemaliger xAI-Ingenieur verklagt das Unternehmen und behauptet, er sei entlassen worden, weil er Sicherheitsbedenken zum Grok-Chatbot ansprach. Die Klage rückt internen Widerspruch in Elon Musks KI-Unternehmen ins Licht, während es mit OpenAI und Google konkurriert.",
+    "metaDescription": "A former xAI engineer is suing the company, alleging he was fired for raising Grok chatbot safety concerns. The lawsuit spotlights internal dissent at Elon Musk",
+    "slug": "xai-fired-engineer-for-flagging-grok-safety-risks-lawsuit-says",
+    "format": "wire",
+    "category": "business",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/assets/img/placeholders/tech_gen__ca3add33.webp",
+    "shareUrl": "https://sonto.tech/articles/xai-fired-engineer-for-flagging-grok-safety-risks-lawsuit-says/"
+  },
+  {
+    "title": "Marathon-Chef nennt SpaceX-Anleihe den 'größten aufsteigenden Stern' vor dem IPO",
+    "subtitle": "Bruce Richards, Vorsitzender von Marathon Asset Management, bezeichnete SpaceX' Schulden als 'größten aufsteigenden Stern aller Zeiten' an den Kreditmärkten. Der Kommentar fällt, während SpaceX sich auf einen möglicherweise rekordverdächtigen Börsengang vorbereitet.",
+    "metaDescription": "Bruce Richards, chairman of Marathon Asset Management, labeled SpaceX's debt the 'biggest rising star of all time' in credit markets. The comment comes as Space",
+    "slug": "marathon-chief-calls-spacex-debt-credits-biggest-rising-star-before-ipo",
+    "format": "wire",
+    "category": "startup",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/cache/articles/marathon-chief-calls-spacex-debt-credits-biggest-rising-star-before-ipo-source.jpg",
+    "shareUrl": "https://sonto.tech/articles/marathon-chief-calls-spacex-debt-credits-biggest-rising-star-before-ipo/"
+  },
+  {
+    "title": "SpaceX-Ingenieure bauten Gopuffs KI-Agenten günstiger",
+    "subtitle": "Gopuff-Co-CEO Rafael Ilishayev sagte, SpaceX-Ingenieure hätten den KI-Agenten des Lieferunternehmens günstiger gebaut als die Konkurrenz. Die Vereinbarung zeigt, dass Musk-nahe Teams nun KI-Entwicklung an externe Firmen verkaufen.",
+    "metaDescription": "Gopuff co-CEO Rafael Ilishayev said SpaceX engineers built the delivery company's AI agent at lower cost than competitors. The arrangement shows Musk-affiliated",
+    "slug": "spacex-engineers-built-gopuffs-ai-agent-for-less",
+    "format": "wire",
+    "category": "business",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/cache/articles/spacex-engineers-built-gopuffs-ai-agent-for-less-source.jpg",
+    "shareUrl": "https://sonto.tech/articles/spacex-engineers-built-gopuffs-ai-agent-for-less/"
+  },
+  {
+    "title": "Eine Nachrichtenseite erfand fünf falsche EFF-Experten",
+    "subtitle": "Eine Seite namens News-USA Today veröffentlichte in den letzten zwei Monaten Artikel, die fünf erfundene EFF-Mitarbeiter zitieren. Die halluzinierten Experten verdeutlichen die wachsende Sorge über KI-generierte Inhalte, die Nachrichten-Ökosysteme verschmutzen.",
+    "metaDescription": "A site called News-USA Today has published articles quoting five fabricated EFF staffers over the past two months. The hallucinated experts highlight growing co",
+    "slug": "a-news-site-invented-five-fake-eff-experts",
+    "format": "wire",
+    "category": "ai",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/assets/img/placeholders/ai_gen__159d8b4b.webp",
+    "shareUrl": "https://sonto.tech/articles/a-news-site-invented-five-fake-eff-experts/"
+  },
+  {
+    "title": "Theker sammelt 85 Mio. $ ein, um den starren Fabrikroboter abzulösen",
+    "subtitle": "Das in Barcelona ansässige KI-Robotik-Startup Theker sammelte eine Series A über 85 Mio. $ unter Führung des US-VC CRV ein — laut Unternehmen die größte Robotik-Series-A Europas. Die Runde signalisiert anhaltendes US-Investoreninteresse an europäischer KI-Hardware und Robotik-Talenten.",
+    "metaDescription": "Barcelona-based AI robotics startup Theker raised an $85 million Series A led by US VC CRV, which the company calls the largest robotics Series A in Europe. The",
+    "slug": "theker-raises-85m-to-retire-the-rigid-factory-robot",
+    "format": "wire",
+    "category": "startup",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/cache/articles/theker-raises-85m-to-retire-the-rigid-factory-robot-source.jpg",
+    "shareUrl": "https://sonto.tech/articles/theker-raises-85m-to-retire-the-rigid-factory-robot/"
+  },
+  {
+    "title": "Coinbase lässt KI-Agenten handeln und für Recherche zahlen",
+    "subtitle": "Coinbase startete einen KI-Agenten, der Krypto-Trades ausführen und über das x402-Protokoll für Premium-Recherche, Daten und APIs zahlen kann. Der Aufbau deutet auf Maschine-zu-Maschine-Handel auf Coinbases Infrastruktur hin.",
+    "metaDescription": "Coinbase launched an AI agent that can execute crypto trades and pay for premium research using the x402 protocol to access data and APIs. The setup points to m",
+    "slug": "coinbase-lets-ai-agents-trade-and-pay-for-research",
+    "format": "wire",
+    "category": "business",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/cache/articles/coinbase-lets-ai-agents-trade-and-pay-for-research-source.webp",
+    "shareUrl": "https://sonto.tech/articles/coinbase-lets-ai-agents-trade-and-pay-for-research/"
+  },
+  {
+    "title": "Ghaffarian setzt 1,2-Mrd.-$-SPAC auf Nachfrage der Space Force",
+    "subtitle": "Quantum Space verfolgt eine SPAC-Fusion über 1,2 Mrd. $, um die Produktion militärischer Raumfahrzeuge zu finanzieren. Der Deal spiegelt neues Investoreninteresse an Blankoscheck-Firmen im Raumfahrtsektor wider, teils befeuert von der Erwartung des bevorstehenden SpaceX-IPO.",
+    "metaDescription": "Quantum Space is pursuing a $1.2 billion SPAC merger to fund military spacecraft production. The deal reflects renewed investor interest in space-sector blank-c",
+    "slug": "ghaffarian-bets-12b-spac-on-space-force-demand",
+    "format": "wire",
+    "category": "startup",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/cache/articles/ghaffarian-bets-12b-spac-on-space-force-demand-source.webp",
+    "shareUrl": "https://sonto.tech/articles/ghaffarian-bets-12b-spac-on-space-force-demand/"
+  },
+  {
+    "title": "Solar schlägt Kohle im ersten vollen Monat",
+    "subtitle": "Solarstrom erzeugte in den USA einen vollen Monat lang mehr Elektrizität als Kohle — das erste Mal überhaupt. Der Wendepunkt spiegelt sinkende Solarkosten und die laufende Stilllegung von Kohlekraftwerken wider.",
+    "metaDescription": "Solar power generated more electricity than coal in the US for a full month, marking the first time on record. The crossover reflects falling solar costs and on",
+    "slug": "solar-beats-coal-for-first-full-month",
+    "format": "wire",
+    "category": "infrastructure",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/cache/articles/solar-beats-coal-for-first-full-month-hero.webp",
+    "shareUrl": "https://sonto.tech/articles/solar-beats-coal-for-first-full-month/"
+  },
+  {
+    "title": "DigitalBridge-CEO nennt Strom als nächsten Engpass der KI",
+    "subtitle": "DigitalBridge-CEO Marc Ganzi sagt, der nächste KI-Engpass sei Strom, nicht Chips oder Rechenzentren, und verweist auf die Gigawatt-Pipeline des Unternehmens und die ArcLight-Übernahme. Weltraumbasierte Rechenzentren tat er eher als 'Wissenschaftsprojekt' denn als baldige Realität ab.",
+    "metaDescription": "DigitalBridge CEO Marc Ganzi says the next AI bottleneck is power, not chips or data centers, citing the company's gigawatt pipeline and ArcLight acquisition. H",
+    "slug": "digitalbridge-ceo-names-power-as-ais-next-bottleneck",
+    "format": "wire",
+    "category": "infrastructure",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/cache/articles/digitalbridge-ceo-names-power-as-ais-next-bottleneck-source.jpg",
+    "shareUrl": "https://sonto.tech/articles/digitalbridge-ceo-names-power-as-ais-next-bottleneck/"
+  },
+  {
+    "title": "Deezers KI-Musikdetektor scannt 20 rivalisierende Streaming-Plattformen",
+    "subtitle": "Deezer startete ein Tool, das Playlists auf Spotify, Apple Music und anderen Diensten scannt, um KI-generierte Tracks zu erkennen. Der Schritt kommt, während Plattformen unter Druck von Hörern und Rechteinhabern stehen, synthetische Musik zu kennzeichnen.",
+    "metaDescription": "Deezer launched a tool that scans playlists on Spotify, Apple Music, and other services to identify AI-generated tracks. The move comes as platforms face pressu",
+    "slug": "deezers-ai-music-detector-scans-20-rival-streaming-platforms",
+    "format": "wire",
+    "category": "ai",
+    "publishedAt": "Jun 11, 2026",
+    "heroImage": "https://sonto.tech/cache/articles/deezers-ai-music-detector-scans-20-rival-streaming-platforms-source.webp",
+    "shareUrl": "https://sonto.tech/articles/deezers-ai-music-detector-scans-20-rival-streaming-platforms/"
+  }
+]

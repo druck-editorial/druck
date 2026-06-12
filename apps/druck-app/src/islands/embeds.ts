@@ -16,11 +16,18 @@ async function activate(band: HTMLElement): Promise<void> {
     document.head.appendChild(link);
   }
   await import('@druck-editorial/widget');
+  const de = document.documentElement.lang === 'de';
+  const srcFor = (widget: HTMLElement): string =>
+    (de && widget.dataset.srcDe ? widget.dataset.srcDe : widget.dataset.src) ?? '';
   for (const widget of band.querySelectorAll<HTMLElement>('druck-article[data-src]')) {
-    widget.setAttribute('src', widget.dataset.src ?? '');
+    widget.setAttribute('src', srcFor(widget));
   }
   for (const widget of band.querySelectorAll<HTMLElement>('druck-feed[data-src]')) {
     for (const attr of FEED_DEFERRED_ATTRS) {
+      if (attr === 'src') {
+        widget.setAttribute('src', srcFor(widget));
+        continue;
+      }
       const value = widget.dataset[toDatasetKey(attr)];
       if (value != null) widget.setAttribute(attr, value);
     }

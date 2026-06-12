@@ -203,5 +203,10 @@ export function applyLang(lang: Lang): void {
 
   for (const widget of document.querySelectorAll('druck-feed, druck-article')) {
     widget.setAttribute('lang', lang);
+    const deSrc = widget.getAttribute('data-src-de');
+    const enSrc = widget.getAttribute('data-src');
+    if (deSrc && enSrc && widget.hasAttribute('src')) {
+      widget.setAttribute('src', lang === 'de' ? deSrc : enSrc);
+    }
   }
 }
