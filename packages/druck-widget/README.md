@@ -18,12 +18,12 @@ Or from a CDN, version-pinned with subresource integrity:
 
 ```html
 <script type="module"
-  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.2/dist/druck-widget.js"
-  integrity="sha384-dmcA5KriM2sjE8cKbSqEty6bJwaw0hekUf6xb+PmtXAgl9e+pr9gsufryoN4WSjJ"
+  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.3/dist/druck-widget.js"
+  integrity="sha384-esj/A5oU02NjQfYaGd+aPurlSJ7jMIjiRgWqWWVe/CjMYv34EDzhJSiUx0XL+opw"
   crossorigin="anonymous"></script>
 ```
 
-unpkg works too: `https://unpkg.com/@druck-editorial/widget@0.1.2/dist/druck-widget.js` with the same integrity hash.
+unpkg works too: `https://unpkg.com/@druck-editorial/widget@0.1.3/dist/druck-widget.js` with the same integrity hash.
 
 ## druck-article
 

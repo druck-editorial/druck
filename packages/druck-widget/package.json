@@ -1,6 +1,6 @@
 {
   "name": "@druck-editorial/widget",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Custom elements that render druck articles and front pages anywhere: druck-article, druck-feed.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
   "license": "MIT",

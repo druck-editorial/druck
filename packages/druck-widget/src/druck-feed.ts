@@ -12,14 +12,14 @@ class DruckFeedElement extends HTMLElement {
     return ['src', 'lang', 'theme', 'accent', CSS_URL_ATTR, 'columns', 'layout', 'fallback-src'];
   }
 
-  #shadow: ShadowRoot | null = null;
-  #feedContainer!: HTMLDivElement;
-  #cssLink!: HTMLLinkElement;
-  #cssReady: Promise<void> = Promise.resolve();
+  #shadow: ShadowRoot;
+  #feedContainer: HTMLDivElement;
+  #cssLink: HTMLLinkElement;
+  #cssReady: Promise<void>;
   #renderGeneration = 0;
 
-  #ensureShadow(): void {
-    if (this.#shadow) return;
+  constructor() {
+    super();
     this.#shadow = this.attachShadow({ mode: 'open' });
     this.#feedContainer = document.createElement('div');
     this.#feedContainer.className = 'druck-feed';
@@ -43,11 +43,11 @@ class DruckFeedElement extends HTMLElement {
   attributeChangedCallback(name: string, _old: string, _new: string): void {
     if (name === 'src' && _new && this.isConnected) {
       void this.#loadAndRender(_new);
-    } else if (name === CSS_URL_ATTR && this.#shadow) {
+    } else if (name === CSS_URL_ATTR) {
       this.#cssLink.href = this.#getCssUrl();
-    } else if ((name === 'lang' || name === 'theme' || name === 'accent') && this.#shadow) {
+    } else if (name === 'lang' || name === 'theme' || name === 'accent') {
       this.#applyContainerAttrs();
-    } else if (name === 'columns' && this.#shadow) {
+    } else if (name === 'columns') {
       this.#feedContainer.setAttribute('data-columns', _new || '3');
     }
   }
@@ -102,7 +102,6 @@ class DruckFeedElement extends HTMLElement {
   }
 
   async #render(items: ArticleData[], gen: number): Promise<void> {
-    this.#ensureShadow();
     await this.#cssReady;
     if (gen !== this.#renderGeneration) return;
     this.#applyContainerAttrs();
@@ -134,7 +133,6 @@ class DruckFeedElement extends HTMLElement {
   }
 
   #renderFailure(message: string): void {
-    this.#ensureShadow();
     const hasPrerendered = this.innerHTML.trim().length > 0;
     if (hasPrerendered) {
       this.#feedContainer.innerHTML = '<slot></slot>';

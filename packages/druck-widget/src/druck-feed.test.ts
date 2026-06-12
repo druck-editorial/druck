@@ -84,7 +84,6 @@ describe('druck-feed front-page mode', () => {
     el.setAttribute('layout', 'front-page');
     el.setAttribute('src', 'https://example.com/feed.json');
     document.body.appendChild(el);
-    await vi.waitFor(() => { expect(el.shadowRoot).not.toBeNull(); });
     expect(el.shadowRoot!.innerHTML).toContain('<slot>');
     expect(el.shadowRoot!.innerHTML).not.toContain('df-row--hero');
     await waitForEvent(el, 'druck:feed-rendered');
@@ -92,12 +91,12 @@ describe('druck-feed front-page mode', () => {
     expect(el.shadowRoot!.innerHTML).not.toContain('<slot>');
   });
 
-  it('keeps light DOM visible when no src is set (no shadow attached)', () => {
-    // no async waiting needed — connectedCallback does nothing without src
+  it('keeps light DOM visible when no src is set (shadow shows slot)', () => {
     const el = document.createElement('druck-feed');
     el.innerHTML = '<div class="druck-front-page">static</div>';
     document.body.appendChild(el);
-    expect(el.shadowRoot).toBeNull();
+    expect(el.shadowRoot).not.toBeNull();
+    expect(el.shadowRoot!.innerHTML).toContain('<slot>');
   });
 
   it('front-page layout has no role="list" on the container', async () => {

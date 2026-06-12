@@ -8,8 +8,8 @@ Druck renders articles the way a print magazine sets them: three formats (featur
 
 ```html
 <script type="module"
-  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.2/dist/druck-widget.js"
-  integrity="sha384-dmcA5KriM2sjE8cKbSqEty6bJwaw0hekUf6xb+PmtXAgl9e+pr9gsufryoN4WSjJ"
+  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.3/dist/druck-widget.js"
+  integrity="sha384-esj/A5oU02NjQfYaGd+aPurlSJ7jMIjiRgWqWWVe/CjMYv34EDzhJSiUx0XL+opw"
   crossorigin="anonymous"></script>
 <druck-article src="story.json"></druck-article>
 ```
@@ -54,8 +54,8 @@ For production, pin the version and add the integrity hash:
 
 ```html
 <script type="module"
-  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.2/dist/druck-widget.js"
-  integrity="sha384-dmcA5KriM2sjE8cKbSqEty6bJwaw0hekUf6xb+PmtXAgl9e+pr9gsufryoN4WSjJ"
+  src="https://cdn.jsdelivr.net/npm/@druck-editorial/widget@0.1.3/dist/druck-widget.js"
+  integrity="sha384-esj/A5oU02NjQfYaGd+aPurlSJ7jMIjiRgWqWWVe/CjMYv34EDzhJSiUx0XL+opw"
   crossorigin="anonymous"></script>
 
 <druck-article src="story.json"></druck-article>
@@ -63,7 +63,7 @@ For production, pin the version and add the integrity hash:
 <druck-feed layout="front-page" src="feed.json"></druck-feed>
 ```
 
-The same file is on unpkg at `https://unpkg.com/@druck-editorial/widget@0.1.2/dist/druck-widget.js`. For production, self-host the bundle. When a new widget version is published, recompute the integrity hash: `curl -s <cdn-url> | openssl dgst -sha384 -binary | openssl base64 -A`.
+The same file is on unpkg at `https://unpkg.com/@druck-editorial/widget@0.1.3/dist/druck-widget.js`. For production, self-host the bundle. When a new widget version is published, recompute the integrity hash: `curl -s <cdn-url> | openssl dgst -sha384 -binary | openssl base64 -A`.
 
 Articles without a `heroImage` render an automatic category-tinted placeholder on cards, so partial feeds still produce a complete front page.
 
