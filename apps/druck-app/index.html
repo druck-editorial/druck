@@ -117,7 +117,7 @@
           <span data-i18n="connector-rendered">rendered front page</span>
         </div>
         <div class="hero-pane hero-pane-mag" aria-label="The rendered front page">
-          <div class="pane-chrome">front page<span class="chrome-note">static html &middot; set in <!--druck:hero-render-ms--> ms</span></div>
+          <div class="pane-chrome"><span data-i18n="pane-frontpage">front page</span><span class="chrome-note"><span data-i18n="pane-render-note">static html &middot; set in</span> <!--druck:hero-render-ms--> ms</span></div>
           <div class="hero-pane-render" inert>
           <!--druck:hero-front-page-->
           </div>
@@ -179,7 +179,7 @@
           <div class="frame-viewport">
             <druck-feed layout="front-page" data-src="/sample-data/frame-tuning-feed.json" data-src-de="/sample-data/frame-tuning-feed.de.json" css-url="/feed.css" inert></druck-feed>
           </div>
-          <p class="frame-caption">Archivo Black mastheads &middot; hot red &middot; quick_take &middot; <a href="/demos/music-review/">Open the full site &rarr;</a></p>
+          <p class="frame-caption" data-i18n="wild-cap-music">Archivo Black mastheads &middot; hot red &middot; quick_take &middot; <a href="/demos/music-review/">Open the full site &rarr;</a></p>
         </article>
         <article class="frame frame--fashion" aria-label="ATELIER, a fashion magazine">
           <div class="frame-chrome"><span class="dots" aria-hidden="true"></span><span class="frame-host">atelier-journal.com</span></div>
@@ -187,7 +187,7 @@
           <div class="frame-viewport">
             <druck-article data-src="/sample-data/frame-fashion.json" data-src-de="/sample-data/frame-fashion.de.json" css-url="/article.css" accent="#1c1a18" inert></druck-article>
           </div>
-          <p class="frame-caption">Bodoni Moda display &middot; near-black &middot; quick_take &middot; <a href="/demos/fashion-magazine/">Open the full site &rarr;</a></p>
+          <p class="frame-caption" data-i18n="wild-cap-fashion">Bodoni Moda display &middot; near-black &middot; quick_take &middot; <a href="/demos/fashion-magazine/">Open the full site &rarr;</a></p>
         </article>
       </div>
       <p class="band-pull" data-i18n="wild-pull">Turn a channel into a <em>publication</em>.</p>
@@ -199,11 +199,11 @@
               <span class="tg-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 16 9 10 13 14 21 6"/><polyline points="15 6 21 6 21 12"/></svg></span>
               <span class="tg-channel">
                 <span class="tg-channel-name">LEDGERLINE</span>
-                <span class="tg-channel-sub">12 480 subscribers</span>
+                <span class="tg-channel-sub" data-i18n="tg-subscribers">12 480 subscribers</span>
               </span>
             </header>
             <div class="tg-thread">
-              <span class="tg-date" aria-hidden="true">Today</span>
+              <span class="tg-date" aria-hidden="true" data-i18n="tg-today">Today</span>
               <!--druck:ledgerline-bubbles-->
             </div>
           </div>
@@ -230,8 +230,9 @@
         <p class="band-lede" data-i18n="frontpage-lede">This is sonto.tech — live, right now — rendered by one widget. Druck was extracted from its pipeline; now it renders its parent.</p>
       </div>
       <druck-feed layout="front-page"
-        data-src="https://sonto.tech/data/druck-feed.json" data-src-de="/sample-data/sonto-snapshot.de.json"
-        data-fallback-src="/sample-data/sonto-snapshot.json"
+        data-src="https://sonto.tech/data/druck-feed.json"
+        data-src-de="https://sonto.tech/data/druck-feed.de.json"
+        data-fallback-src="https://sonto.tech/data/druck-feed.json"
         css-url="/feed.css">
         <!--druck:front-page-->
       </druck-feed>

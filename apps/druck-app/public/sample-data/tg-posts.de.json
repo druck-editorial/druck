@@ -1,0 +1,43 @@
+[
+  {
+    "time": "07:04",
+    "views": "14.2K",
+    "image": "/img/demo/finance-skyline.webp",
+    "text": "📈 BTC läuft vorbörslich Richtung $71K. ETF-Zuflüsse +$2.1B über sechs Sessions — längste Serie im Quartal. Voller Brief kommt gleich.",
+    "imageWidth": 1200,
+    "imageHeight": 800
+  },
+  {
+    "time": "07:31",
+    "views": "13.8K",
+    "text": "ETH-Staking-Rendite runter auf 3.1%. Validator-Queue bei elf Tagen, Tendenz steigend. Restaking-Spillover im Auge behalten."
+  },
+  {
+    "time": "08:15",
+    "views": "12.6K",
+    "image": "/img/demo/tower-path.webp",
+    "text": "⚡ SOL DEX-Volumen: $48B im Mai vs ETH $41B. Dritten Monat in Folge. Niedrigere Gebühren machen den Job.",
+    "imageWidth": 1200,
+    "imageHeight": 806
+  },
+  {
+    "time": "09:44",
+    "views": "10.3K",
+    "text": "🏛 Fed hält still. Powell: zwei Cuts weiter drin, wenn PCE mitspielt. Renditen -3bps auf 2y. Risiko neutral."
+  },
+  {
+    "time": "10:18",
+    "views": "9.7K",
+    "text": "🏦 BlackRock Krypto-AUM gerade über $30B. Der institutionelle Bid ist echt. Chart im Brief."
+  },
+  {
+    "time": "11:05",
+    "views": "9.1K",
+    "text": "GBTC bei +0.3% Aufschlag zum NAV. Erstes Mal seit der ETF-Umwandlung. Zwangsverkäufer endlich durch."
+  },
+  {
+    "time": "12:30",
+    "views": "8.4K",
+    "text": "Ripple hat gewonnen. XRP binnen 6h wieder auf CB/Kraken/Gemini gelistet. +38% Spike, zurück auf +22%. Langes juristisches Damoklesschwert endlich weg."
+  }
+]

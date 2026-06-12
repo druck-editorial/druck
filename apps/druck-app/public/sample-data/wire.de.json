@@ -1,0 +1,19 @@
+{
+  "title": "Anthropic veröffentlicht Claude 4.6 Sonnet mit 200K-Kontext",
+  "titleAccentWord": "4.6",
+  "subtitle": "Das Mittelklasse-Modell bekommt ein größeres Kontextfenster und folgt Anweisungen genauer",
+  "metaDescription": "Anthropic bringt Claude 4.6 Sonnet mit 200K-Kontextfenster und besserem Befolgen von Anweisungen.",
+  "slug": "anthropic-claude-46-sonnet-200k",
+  "format": "wire",
+  "category": "ai",
+  "publishedAt": "2026-06-03",
+  "readingTime": "2 Min. Lesezeit",
+  "heroImage": "/img/demo/energy-tech.webp",
+  "heroImageAlt": "Ein Blitz bricht sich durch hohe Glaspaneele über stillem Wasser",
+  "heroImageWidth": 1200,
+  "heroImageHeight": 800,
+  "bodyHtml": "<p>Anthropic hat Claude 4.6 Sonnet am Dienstag veröffentlicht und vergrößert das Kontextfenster des Mittelklasse-Modells von 128K auf 200K Token. Das Unternehmen verspricht messbare Fortschritte beim Befolgen von Anweisungen und bei der Codegenerierung. Das Modell steht ab sofort über die Anthropic-API und Amazon Bedrock bereit.</p><p>Mit dem größeren Kontext zieht Sonnet bei dokumentenlastigen Aufgaben mit dem Opus-Tier des Unternehmens gleich — etwa beim Prüfen von Verträgen, beim Analysieren wissenschaftlicher Arbeiten und bei Aufgaben über mehrere Dateien hinweg, wo das alte 128K-Limit Chunking-Strategien erzwang, die den Zusammenhang zerlegten.</p><p>Die Benchmark-Zuwächse waren eher schrittweise als ein Sprung: 3,2 Punkte bei MMLU, 4,1 bei HumanEval und 2,8 bei GSM8K. Anthropic betonte den praktischen Nutzen statt der Schlagzeilen-Werte — konkret eine Reduktion der Anweisungsfehler um 15 Prozent, die per Red-Teaming aufgespürt wurden.</p>",
+  "pullQuote": "Das größere Kontextfenster erfüllt den mit Abstand häufigsten Wunsch von Geschäftskunden — sie wollen die Kosten der Mittelklasse mit fast frontierwürdiger Kapazität für Dokumentenaufgaben.",
+  "whyItMatters": "200K Kontext zum Sonnet-Preis verändert die Wirtschaftlichkeit dokumentenlastiger Abläufe. Firmen, die für lange Kontexte bisher zu Opus greifen mussten, können dieselben Workloads jetzt für rund 60 Prozent weniger laufen lassen.",
+  "shareUrl": "https://druck.ing/articles/anthropic-claude-46-sonnet-200k/"
+}

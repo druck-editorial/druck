@@ -1,0 +1,74 @@
+{
+  "title": "Die stille Revolution bei Großspeicher-Batterien",
+  "titleAccentWord": "Revolution",
+  "subtitle": "Wenn die Abendspitze das Netz belastet, setzen Versorger auf lagerhallengroße Batterien, die gespeicherten Sonnenstrom in die neue Grundlast verwandeln",
+  "metaDescription": "Großspeicher-Batterien verändern, wie Versorger die Abendspitze überstehen — günstiger, schneller und leiser als die Gaskraftwerke, die sie ablösen.",
+  "slug": "quiet-revolution-grid-scale-batteries",
+  "format": "feature",
+  "category": "science",
+  "publishedAt": "2026-06-04",
+  "readingTime": "8 Min. Lesezeit",
+  "heroImage": "/img/grid-hero.webp",
+  "heroImageAlt": "Blitze zucken über einer Reihe hoher Glaspaneele, die in der Abenddämmerung in flachem Wasser stehen",
+  "heroImageWidth": 1000,
+  "heroImageHeight": 667,
+  "lens": "second_order",
+  "lensRationale": "Die eigentliche Geschichte sind nicht die Batterien selbst, sondern das, was sie im Marktdesign und bei der Stilllegung der Spitzenlastkraftwerke freisetzen",
+  "chapters": [
+    {
+      "title": "Die Illusion der Spitzenlast",
+      "titleAccentWord": "Illusion",
+      "bodyHtml": "<p>Fünfzig Jahre lang löste das Netz seine schwierigste Stunde auf dieselbe Weise: Wenn der Bedarf bei Sonnenuntergang in die Höhe schnellte, fuhr irgendwo ein Gas-Spitzenlastkraftwerk hoch, verbrannte neunzig Minuten lang teuren Brennstoff und schaltete wieder ab. Die Anlagen standen 95 % des Jahres still, und die Stromkunden bezahlten sie trotzdem.</p><p>Doch ungenutzte Kapazität ist keine Versorgungssicherheit. Hinter den Tabellen zur Reservemarge übernahm eine andere Maschine den Abend. Bis 2025 boten Batterien, die mit Solarstrom der Mittagsstunden geladen wurden, in dieselbe Spitze hinein — und deckten sie zum halben Preis.</p><aside data-stat=\"38 GW\">an Großspeicher-Kapazität bieten inzwischen in die abendlichen Verbrauchsspitzen der USA, nach 9 GW im Jahr 2023</aside><p>Die Gründe waren nicht ideologisch, sondern praktisch. Eine Vier-Stunden-Batterie neben einem Umspannwerk reagiert in Millisekunden, braucht keinen Brennstoffvertrag, keine Wassergenehmigung und keinen Schornstein. Und für die eigentliche Aufgabe — die vier Stunden nach Sonnenuntergang zu überbrücken — tut sie genau das, was das Spitzenlastkraftwerk tat, nur ohne den Teil, in dem sie den ganzen Winter über stillsteht.</p>"
+    },
+    {
+      "title": "Die Lücke im Lastabwurf",
+      "titleAccentWord": "Lücke",
+      "bodyHtml": "<p>Die Kluft zwischen dem, was Planer modellieren, und dem, was die Betreiber tatsächlich abrufen, hat in der Leitwarte einen Namen: die Dispatch-Lücke. Sie weitete sich 2025 dramatisch, als der Solarausbau den Mittagsüberschuss verdoppelte, der abendliche Anstieg aber so steil blieb wie eh und je.</p><p>Man betrachte die Wirtschaftlichkeit. Ein Gas-Spitzenlastkraftwerk durch den Abendanstieg laufen zu lassen kostet 150 bis 200 Dollar pro Megawattstunde, wenn man Brennstoff, Anfahrvorgänge und Wartung einrechnet. Eine Batterie, die dieselbe Energie mittags für 18 Dollar gekauft hat, verkauft sie bei Sonnenuntergang für 60 Dollar zurück und unterbietet die Turbine immer noch um die Hälfte.</p><aside data-stat=\"$62\">durchschnittlicher abendlicher Markträumungspreis pro Megawattstunde in Kalifornien im vergangenen Sommer, nach 114 Dollar zwei Jahre zuvor</aside><p>Doch der Preis war nie der einzige Faktor. Die Anfahrgeschwindigkeit zählt, wenn eine Wolkenbank aufzieht. Der Standort zählt dort, wo niemand eine neue Gasleitung genehmigt. Und die Zuverlässigkeit — die Fähigkeit, an einem Hitzewellen-Abend die Frequenz zu halten — wurde zum Wettbewerbsvorteil.</p><blockquote data-source=\"Leiter Netzbetrieb, Versorger im Westen\" data-attr=\"Speicher haben unseren Abend-Spielplan komplett verändert\">Früher haben wir um fünf Uhr drei Gasblöcke hochgefahren und gehofft. Jetzt schauen wir den Batterien beim Entladen zu, und die Kurve flacht einfach ab.</blockquote>"
+    },
+    {
+      "title": "Worin Batterien wirklich gut sind",
+      "titleAccentWord": "gut",
+      "bodyHtml": "<p>Die Fähigkeiten moderner Speicher überraschen alle, die zuletzt 2022 hingeschaut haben. Vier-Stunden-Systeme auf Lithium-Eisenphosphat-Basis werden für unter 200 Dollar pro Kilowattstunde installiert ausgeliefert — ein Drittel dessen, was sie vor fünf Jahren kosteten. Natrium-Ionen-Zellen, ganz ohne Lithium und Kobalt, erreichten in diesem Frühjahr den kommerziellen Maßstab. Netzbildende Wechselrichter erlauben es einem Batteriepark inzwischen, einen toten Netzabschnitt eigenständig wieder hochzufahren.</p><p>Was sich änderte, war nicht die Chemie, sondern die Fertigung. Die Speicher folgten derselben Fabrikkurve, die Solar günstig machte: standardisierte Container, verlässliche Degradationsgarantien und eine Lieferkette, die lernte, Gigawattstunden so zu liefern, wie sie einst Megawatt lieferte.</p><p>Für bestimmte Aufgaben übertreffen Batterien die etablierte Technik schlicht. Frequenzhaltung, die früher eine drehende Turbine brauchte, ist heute eine Firmware-Einstellung. Ein Solar-plus-Speicher-Kraftwerk bietet am Abend wie ein Gaskraftwerk, nur ohne das Gas. Die eine Aufgabe, die sie noch nicht leisten können — das Netz durch eine windstille Woche zu tragen — ist die ehrliche Grenze dieser Revolution und zugleich die nächste.</p>"
+    }
+  ],
+  "keyPoints": [
+    {
+      "text": "Vier-Stunden-Batterien decken die Abendspitzen heute zu etwa der Hälfte der Kosten von Gas-Spitzenlastkraftwerken"
+    },
+    {
+      "text": "Speicher reagieren in Millisekunden — Frequenzhaltung wurde zur Firmware-Einstellung"
+    },
+    {
+      "text": "Zusammen mit Solar verwandeln Batterien den Mittagsüberschuss in abrufbare Abendversorgung"
+    }
+  ],
+  "known": {
+    "items": [
+      "Die Batteriekosten fielen schneller als jede offizielle Prognose",
+      "Speicher bestimmen in Kalifornien und Südaustralien bereits die Abendpreise",
+      "Eine Vier-Stunden-Dauer deckt den typischen Anstieg bei Sonnenuntergang ab"
+    ]
+  },
+  "unknown": {
+    "items": [
+      "Ob die Lieferketten mit den Netzanschluss-Warteschlangen Schritt halten können",
+      "Die Degradationsökonomie jenseits der Zehnjahresmarke",
+      "Welche Chemie das Problem der mehrtägigen Speicherung gewinnt"
+    ]
+  },
+  "editorsNote": "Diese Analyse betrachtet installierte Speicher und Marktergebnisse, nicht Ankündigungen aus dem Labor. Die Kluft zwischen Pilotprojekten und preisbestimmender Kapazität ist die eigentliche Geschichte.",
+  "sourceCount": 14,
+  "shareUrl": "/articles/quiet-revolution-grid-scale-batteries/",
+  "related": [
+    {
+      "title": "Der langsame Tod des Gas-Spitzenlastkraftwerks",
+      "url": "#",
+      "category": "business"
+    },
+    {
+      "title": "Natrium-Ionen-Zellen erreichen den kommerziellen Maßstab",
+      "url": "#",
+      "category": "science"
+    }
+  ]
+}

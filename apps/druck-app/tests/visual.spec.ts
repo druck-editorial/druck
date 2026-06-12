@@ -69,21 +69,24 @@ for (const viewport of VIEWPORTS) {
   }
 }
 
-for (const slug of DEMO_SLUGS) {
-  for (const viewport of [
-    { name: 'desktop', width: 1440, height: 900 },
-    { name: 'mobile', width: 375, height: 812 },
-  ] as const) {
-    test(`demo ${slug} at ${viewport.name}`, async ({ page }, testInfo) => {
-      test.skip(testInfo.project.name !== 'desktop', 'manual viewport matrix');
-      await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await page.emulateMedia({ reducedMotion: 'reduce' });
-      await page.goto(`/demos/${slug}/`);
-      await expect(page).toHaveScreenshot(`demo-${slug}-${viewport.name}.png`, {
-        animations: 'disabled',
-        fullPage: true,
-        maxDiffPixelRatio: 0.02,
+for (const lang of ['en', 'de'] as const) {
+  for (const slug of DEMO_SLUGS) {
+    for (const viewport of [
+      { name: 'desktop', width: 1440, height: 900 },
+      { name: 'mobile', width: 375, height: 812 },
+    ] as const) {
+      const langSeg = lang === 'de' ? '-de' : '';
+      test(`demo ${slug}${langSeg} at ${viewport.name}`, async ({ page }, testInfo) => {
+        test.skip(testInfo.project.name !== 'desktop', 'manual viewport matrix');
+        await page.setViewportSize({ width: viewport.width, height: viewport.height });
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+        await page.goto(`/demos/${slug}/${lang === 'de' ? 'de/' : ''}`);
+        await expect(page).toHaveScreenshot(`demo-${slug}${langSeg}-${viewport.name}.png`, {
+          animations: 'disabled',
+          fullPage: true,
+          maxDiffPixelRatio: 0.02,
+        });
       });
-    });
+    }
   }
 }

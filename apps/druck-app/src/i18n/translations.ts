@@ -29,7 +29,13 @@ export const translations: Record<Lang, Record<string, string>> = {
     'wild-heading': 'In the <em>wild</em>',
     'wild-lede': 'Three publications that do not exist. One renderer that does. Host styles clash on purpose; the article inside never flinches. Click any of them for the full site &mdash; or visit the <a href="/demos/newsroom/">corporate newsroom</a> or the <a href="/demos/dev-blog/">dev blog</a>.',
     'wild-pull': 'Turn a channel into a <em>publication</em>.',
+    'wild-cap-music': 'Archivo Black mastheads &middot; hot red &middot; quick_take &middot; <a href="/demos/music-review/">Open the full site &rarr;</a>',
+    'wild-cap-fashion': 'Bodoni Moda display &middot; near-black &middot; quick_take &middot; <a href="/demos/fashion-magazine/">Open the full site &rarr;</a>',
+    'pane-frontpage': 'front page',
+    'pane-render-note': 'static html &middot; set in',
     'tg-label-channel': 'Telegram channel',
+    'tg-subscribers': '12 480 subscribers',
+    'tg-today': 'Today',
     'tg-label-frontpage': 'Druck front page',
     'tg-caption': 'They post in Telegram. Your bot maps it. Druck renders it. &middot; <a href="/demos/telegram-brief/">Open the full site &rarr;</a>',
     'chapter-frontpage': '04 / FRONT PAGE',
@@ -80,12 +86,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     'connector-rendered': 'gerenderte Frontpage',
     'chapter-surfaces': '02 / SURFACES',
     'hero-heading': 'JSON rein. Magazin raus.',
-    'hero-body': '<strong class="brand">Druck</strong> ist ein Open-Source-Renderer. Strukturiertes Article-JSON rein &mdash; Frontpages, Cards und ganze Artikel als statisches HTML raus. Rendert bereits tausende Produktions-Artikel in <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>.',
-    'hero-position': 'Bring die Daten mit. <em>Druck</em> macht das Magazin.',
+    'hero-body': '<strong class="brand">Druck</strong> ist ein Open-Source-Renderer. Strukturierte Artikeldaten als JSON rein, Frontpages, Cards und ganze Artikel als statisches HTML raus. Rendert bereits Tausende Produktionsartikel auf <a href="https://sonto.tech" target="_blank" rel="noopener noreferrer">Sonto</a>.',
+    'hero-position': 'Du bringst die Daten. <em>Druck</em> macht das Magazin.',
     'hero-proof': 'L&auml;uft produktiv auf Sonto: Live-Daten rein, statisches HTML raus, null JavaScript zum Lesen.',
     'cta-install': 'Installieren ↓',
     'cta-github': 'GitHub',
-    'copy-btn': 'Kopieren',
+    'copy-btn': 'Code kopieren',
     'fact-widget': 'das ganze Widget, gzipped',
     'fact-cookies': 'Cookies · Tracker · Consent-Banner',
     'fact-lighthouse': 'Lighthouse, alle vier Kategorien',
@@ -96,17 +102,23 @@ export const translations: Record<Lang, Record<string, string>> = {
     'bridge': 'Kein Template. Ein Rendering-System.',
     'chapter-wild': '03 / IN THE WILD',
     'wild-heading': 'In the <em>wild</em>',
-    'wild-lede': 'Drei Publikationen, die nicht existieren. Ein Renderer, der es tut. Die Host-Styles clashen absichtlich &mdash; der Artikel darin zuckt nicht. Klick auf eine f&uuml;r die volle Site &mdash; oder schau dir den <a href="/demos/newsroom/">Corporate-Newsroom</a> oder den <a href="/demos/dev-blog/">Dev-Blog</a> an.',
+    'wild-lede': 'Drei Publikationen, die nicht existieren. Ein Renderer, den es gibt. Die Host-Styles kollidieren absichtlich, der Artikel darin bleibt stabil. Klick auf eine, um die volle Site zu &ouml;ffnen &mdash; oder schau dir den <a href="/demos/newsroom/">Corporate-Newsroom</a> oder den <a href="/demos/dev-blog/">Dev-Blog</a> an.',
     'wild-pull': 'Aus einem Kanal wird eine <em>Publikation</em>.',
+    'wild-cap-music': 'Archivo-Black-Titel &middot; Hot Red &middot; quick_take &middot; <a href="/demos/music-review/">Volle Site &ouml;ffnen &rarr;</a>',
+    'wild-cap-fashion': 'Bodoni-Moda-Display &middot; Near-Black &middot; quick_take &middot; <a href="/demos/fashion-magazine/">Volle Site &ouml;ffnen &rarr;</a>',
+    'pane-frontpage': 'Frontpage',
+    'pane-render-note': 'statisches HTML &middot; gerendert in',
     'tg-label-channel': 'Telegram-Kanal',
+    'tg-subscribers': '12 480 Abonnenten',
+    'tg-today': 'Heute',
     'tg-label-frontpage': 'Druck-Frontpage',
     'tg-caption': 'Sie posten im Telegram-Kanal. Dein Bot mappt es. Druck rendert es. &middot; <a href="/demos/telegram-brief/">Volle Site &ouml;ffnen &rarr;</a>',
     'chapter-frontpage': '04 / FRONT PAGE',
     'frontpage-heading': 'Die <em>Frontpage</em>, live',
-    'frontpage-lede': 'Das ist sonto.tech &mdash; live, jetzt &mdash; gerendert von einem Widget. Druck wurde aus dessen Pipeline extrahiert; jetzt rendert es das &uuml;bergeordnete Projekt.',
-    'frontpage-caption': '<span class="caption-live">Live</span><code class="caption-code">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.json"&gt;</code><span class="caption-note">Eine Magazin-Frontpage aus einer JSON-Datei. Jede Card linkt zu einem echten Artikel.</span>',
+    'frontpage-lede': 'Das ist sonto.tech &mdash; live, jetzt &mdash; gerendert von einem Widget. Druck wurde aus dessen Pipeline extrahiert, jetzt rendert es auch die Sonto-Frontpage.',
+    'frontpage-caption': '<span class="caption-live">Live</span><code class="caption-code">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.de.json"&gt;</code><span class="caption-note">Eine Magazin-Frontpage aus einer JSON-Datei. Jede Card linkt zu einem echten Artikel.</span>',
     'chapter-range': '05 / RANGE',
-    'range-heading': 'Ein JSON, <em>60</em> Magazine',
+    'range-heading': 'Ein JSON, <em>60</em> Magazinvarianten',
     'range-lede': 'Eine strukturierte Story, gesetzt in drei Formaten, f&uuml;nf Sprachen und vier Akzenten. Der Specimen-Text ist Demo-Inhalt.',
     'range-pull': 'Erstelle <em>Artikel</em> f&uuml;r deine Magazine &mdash; das Typesetting ist schon erledigt.',
     'range-caption': 'Ein ganzes Heft lesen &mdash; <a href="/articles/quiet-revolution-grid-scale-batteries/">das Feature, aus dem dieses Specimen geschnitten ist</a>, gerendert von der Engine zur Build-Zeit.',
@@ -128,7 +140,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'privacy-p1': 'Misst Lesen, nicht Leser: Scroll-Tiefe, aktive Zeit, gelesene Kapitel. Die Zahlen leben im Page-Memory.',
     'privacy-p2': 'Keine Cookies, kein Fingerprinting, keine Third-Party-Scripts, kein IP-Logging. Nichts wird &uuml;bertragen, au&szlig;er der Seitenbetreiber setzt einen Endpoint. Diese Seite setzt keinen &mdash; die Zahlen oben bleiben in deinem Tab und sterben mit ihm.',
     'privacy-p3': 'Keine pers&ouml;nlichen Daten werden verarbeitet &mdash; deshalb gibt es auch kein Consent-Banner zum Klicken.',
-    'privacy-p4': 'Deine eigenen Analytics laufen weiter: Druck-Output ist plain HTML, also sehen GA4, GTM oder Plausible auf der Host-Seite ihn wie jeden anderen Content. Der Reading-Tracker kann seine Events per Callbacks dorthin weiterleiten.',
+    'privacy-p4': 'Deine eigenen Analytics laufen weiter: Druck-Output ist schlichtes HTML, also sehen GA4, GTM oder Plausible auf der Host-Seite ihn wie jeden anderen Content. Der Reading-Tracker kann seine Events per Callbacks dorthin weiterleiten.',
     'pricing-heading': 'Kostenlos. MIT. F&uuml;r immer.',
     'pricing-free-text': 'Alles auf dieser Seite: die Engine, das Stylesheet, die Widgets, der Reading-Tracker. Self-hosted, keine Tiers, keine Features hinter Paywalls. Forken, shippen, damit Geld verdienen.',
     'chapter-colophon': '07 / COLOPHON',
@@ -142,14 +154,22 @@ export const translations: Record<Lang, Record<string, string>> = {
 
 const STORAGE_KEY = 'druck-lang';
 
-function detectLang(): Lang {
+function pageLang(): Lang {
+  return document.documentElement.dataset.lang === 'de' ? 'de' : 'en';
+}
+
+function storedLang(): Lang | null {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'en' || stored === 'de') return stored;
   } catch {}
-  const nav = navigator.language?.toLowerCase() ?? '';
-  if (nav.startsWith('de')) return 'de';
-  return 'en';
+  return null;
+}
+
+function landingUrlFor(lang: Lang): string {
+  const enPath = location.pathname.replace(/de\/$/, '');
+  const base = enPath.endsWith('/') ? enPath : `${enPath}/`;
+  return lang === 'de' ? `${base}de/` : base;
 }
 
 function updateLangButtons(lang: Lang): void {
@@ -160,7 +180,16 @@ function updateLangButtons(lang: Lang): void {
 }
 
 export function initLang(): void {
-  const lang = detectLang();
+  const lang = pageLang();
+  const stored = storedLang();
+  if (stored && stored !== lang) {
+    const target = landingUrlFor(stored);
+    if (target !== location.pathname) {
+      location.replace(target + location.search + location.hash);
+      return;
+    }
+  }
+
   applyLang(lang);
   updateLangButtons(lang);
   document.documentElement.lang = lang;
@@ -170,9 +199,8 @@ export function initLang(): void {
     btn.addEventListener('click', () => {
       const target = (btn.dataset.lang === 'de' ? 'de' : 'en') as Lang;
       try { localStorage.setItem(STORAGE_KEY, target); } catch {}
-      applyLang(target);
-      updateLangButtons(target);
-      document.documentElement.lang = target;
+      if (target === pageLang()) return;
+      location.assign(landingUrlFor(target) + location.search + location.hash);
     });
   }
 }
@@ -208,5 +236,10 @@ export function applyLang(lang: Lang): void {
     if (deSrc && enSrc && widget.hasAttribute('src')) {
       widget.setAttribute('src', lang === 'de' ? deSrc : enSrc);
     }
+  }
+
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('a[href*="/demos/"]')) {
+    const base = link.getAttribute('href')?.match(/^(.*\/demos\/[\w-]+)\/(?:de\/)?$/)?.[1];
+    if (base) link.setAttribute('href', `${base}/${lang === 'de' ? 'de/' : ''}`);
   }
 }

@@ -81,9 +81,9 @@ export function tokenizeJsonForPane(source) {
   return tokenizeJsonLines(source, OBJECT_KEY_PATTERN);
 }
 
-export function renderHeroFrontPagePane(items) {
+export function renderHeroFrontPagePane(items, lang = 'en') {
   const t0 = performance.now();
-  const html = renderFrontPage(buildFrontPage(items));
+  const html = renderFrontPage(buildFrontPage(items), { lang });
   const ms = performance.now() - t0;
   const formatted = ms < 1 ? ms.toFixed(2) : ms < 10 ? ms.toFixed(1) : Math.round(ms).toString();
   const stepped = html
@@ -130,11 +130,11 @@ function renderEmbedSnippet(data) {
   );
 }
 
-export function renderSurfacesSheets(data) {
-  const heroCard = extractHeroCard(renderFrontPage(buildFrontPage([data])));
-  const card = renderCard(data);
+export function renderSurfacesSheets(data, lang = 'en') {
+  const heroCard = extractHeroCard(renderFrontPage(buildFrontPage([data]), { lang }));
+  const card = renderCard(data, { lang });
   const brief = renderBriefRow(data);
-  const articleMini = `<div class="surface-article-mini">${renderArticle(data)}</div>`;
+  const articleMini = `<div class="surface-article-mini">${renderArticle(data, { lang })}</div>`;
   const embed = renderEmbedSnippet(data);
   const analytics = `<pre class="json-pane"><code>${renderAnalyticsEventJson(data)}</code></pre>`;
 
@@ -155,12 +155,13 @@ export function renderSurfacesSheets(data) {
     .join('');
 }
 
-async function readFixture(dir, name) {
-  const raw = await readFile(join(dir, name), 'utf8');
+async function readFixture(dir, name, lang = 'en') {
+  const file = lang === 'de' ? name.replace(/\.json$/, '.de.json') : name;
+  const raw = await readFile(join(dir, file), 'utf8');
   try {
     return { raw, data: JSON.parse(raw) };
   } catch (error) {
-    throw new Error(`fixture ${name} is not valid JSON: ${error.message}`);
+    throw new Error(`fixture ${file} is not valid JSON: ${error.message}`);
   }
 }
 
@@ -261,20 +262,27 @@ function renderLedgerlineBubbles(tgPosts) {
     .join('');
 }
 
-export async function buildLandingHtml(template, fixturesDir, auditSummary = null) {
+export async function buildLandingHtml(template, fixturesDir, auditSummary = null, lang = 'en') {
   const [heroFeed, feature, frontPage, rangePanels, tgPosts] = await Promise.all([
-    readFixture(fixturesDir, 'hero-feed.json'),
-    readFixture(fixturesDir, 'feature.json'),
+    readFixture(fixturesDir, 'hero-feed.json', lang),
+    readFixture(fixturesDir, 'feature.json', lang),
     renderFrontPageBand(fixturesDir),
     renderRangePanels(fixturesDir),
-    readFixture(fixturesDir, 'tg-posts.json'),
+    readFixture(fixturesDir, 'tg-posts.json', lang),
   ]);
-  const heroFrontPage = renderHeroFrontPagePane(heroFeed.data);
+  const heroFrontPage = renderHeroFrontPagePane(heroFeed.data, lang);
   const heroJson = tokenizeJsonForFeedPane(heroFeed.raw);
-  const surfacesSheets = renderSurfacesSheets(feature.data);
+  const surfacesSheets = renderSurfacesSheets(feature.data, lang);
+  const storiesNote = lang === 'de'
+    ? `${heroJson.shown} von ${heroJson.total} Storys`
+    : `${heroJson.shown} of ${heroJson.total} stories`;
+  const htmlTag = lang === 'de'
+    ? '<html lang="de" data-lang="de"'
+    : '<html lang="en" data-lang="en"';
   return applyTokens(template)
+    .replace('<html lang="en"', htmlTag)
     .replace('<!--druck:hero-json-->', () => heroJson.html)
-    .replace('<!--druck:hero-json-note-->', () => `${heroJson.shown} of ${heroJson.total} stories`)
+    .replace('<!--druck:hero-json-note-->', () => storiesNote)
     .replace('<!--druck:hero-front-page-->', () => heroFrontPage.html)
     .replace('<!--druck:hero-render-ms-->', () => heroFrontPage.ms)
     .replace('<!--druck:surfaces-json-->', () => tokenizeJsonForPane(feature.raw))
