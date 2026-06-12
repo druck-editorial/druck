@@ -179,13 +179,21 @@ function updateLangButtons(lang: Lang): void {
   }
 }
 
+function prefersGerman(): boolean {
+  return (navigator.languages ?? [navigator.language ?? '']).some((l) => l?.toLowerCase().startsWith('de'));
+}
+
 export function initLang(): void {
   const lang = pageLang();
   const stored = storedLang();
-  if (stored && stored !== lang) {
-    const target = landingUrlFor(stored);
-    if (target !== location.pathname) {
-      location.replace(target + location.search + location.hash);
+  // Explicit choice wins both ways; otherwise a German browser on the canonical
+  // English page is routed to /de/. A visitor who opened /de/ directly is never
+  // bounced back to English.
+  const target = stored ?? (lang === 'en' && prefersGerman() ? 'de' : null);
+  if (target && target !== lang) {
+    const url = landingUrlFor(target);
+    if (url !== location.pathname) {
+      location.replace(url + location.search + location.hash);
       return;
     }
   }
