@@ -15,9 +15,21 @@ import {
 
 const FIXTURES_DIR = join(import.meta.dirname, 'public/sample-data');
 const AUDIT_SUMMARY_PATH = join(import.meta.dirname, 'audit/summary.json');
+const RAW_TEMPLATE_PATH = join(import.meta.dirname, 'index.html');
+const DIST_INDEX_PATH = join(import.meta.dirname, 'dist/index.html');
 
 const DEMO_ARTICLE_DIR = join(import.meta.dirname, 'dist/articles/quiet-revolution-grid-scale-batteries');
 const DEMOS_BASE_DIR = join(import.meta.dirname, 'dist/demos');
+const DE_LANDING_DIR = join(import.meta.dirname, 'dist/de');
+
+function portViteAssets(deHtml: string, builtEnHtml: string): string {
+  const script = builtEnHtml.match(/<script[^>]*type="module"[^>]*src="[^"]*\/assets\/[^"]+\.js"[^>]*><\/script>/)?.[0] ?? '';
+  const css = builtEnHtml.match(/<link[^>]*rel="stylesheet"[^>]*href="[^"]*\/assets\/[^"]+\.css"[^>]*>/)?.[0] ?? '';
+  return deHtml
+    .replace(/[ \t]*<link rel="stylesheet" href="\/src\/[^"]+">\n?/g, '')
+    .replace('<script type="module" src="/src/main.ts"></script>', script)
+    .replace('</head>', `${css}\n</head>`);
+}
 
 function readAuditSummary(): unknown {
   try {
@@ -45,6 +57,7 @@ function druckPrerender() {
     configureServer(server: {
       middlewares: { use: (fn: (req: any, res: any, next: () => void) => void) => void };
       watcher: { on: (event: string, fn: () => void) => void };
+      transformIndexHtml: (url: string, html: string) => Promise<string>;
     }) {
       const pageCache = new Map<string, Promise<string>>();
       server.watcher.on('change', () => pageCache.clear());
@@ -52,7 +65,14 @@ function druckPrerender() {
         const url = (req.url ?? '').split('?')[0];
         let key: string | undefined;
         let render: (() => Promise<string>) | undefined;
-        if (url.startsWith('/articles/quiet-revolution-grid-scale-batteries')) {
+        if (url === '/de' || url === '/de/') {
+          key = 'landing:de';
+          render = async () => {
+            const raw = readFileSync(RAW_TEMPLATE_PATH, 'utf8');
+            const de = await buildLandingHtml(raw, FIXTURES_DIR, readAuditSummary(), 'de');
+            return server.transformIndexHtml('/de/', de);
+          };
+        } else if (url.startsWith('/articles/quiet-revolution-grid-scale-batteries')) {
           key = 'article';
           render = () => renderDemoArticlePage(FIXTURES_DIR);
         } else {
@@ -81,6 +101,12 @@ function druckPrerender() {
       });
     },
     closeBundle: async () => {
+      const builtEn = readFileSync(DIST_INDEX_PATH, 'utf8');
+      const rawTemplate = readFileSync(RAW_TEMPLATE_PATH, 'utf8');
+      const deLanding = await buildLandingHtml(rawTemplate, FIXTURES_DIR, readAuditSummary(), 'de');
+      await mkdir(DE_LANDING_DIR, { recursive: true });
+      await writeFile(join(DE_LANDING_DIR, 'index.html'), portViteAssets(deLanding, builtEn));
+
       await mkdir(DEMO_ARTICLE_DIR, { recursive: true });
       await writeFile(join(DEMO_ARTICLE_DIR, 'index.html'), await renderDemoArticlePage(FIXTURES_DIR));
 

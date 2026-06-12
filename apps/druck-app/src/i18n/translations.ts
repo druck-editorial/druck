@@ -104,7 +104,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'chapter-frontpage': '04 / FRONT PAGE',
     'frontpage-heading': 'Die <em>Frontpage</em>, live',
     'frontpage-lede': 'Das ist sonto.tech &mdash; live, jetzt &mdash; gerendert von einem Widget. Druck wurde aus dessen Pipeline extrahiert; jetzt rendert es das &uuml;bergeordnete Projekt.',
-    'frontpage-caption': '<span class="caption-live">Live</span><code class="caption-code">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.json"&gt;</code><span class="caption-note">Eine Magazin-Frontpage aus einer JSON-Datei. Jede Card linkt zu einem echten Artikel.</span>',
+    'frontpage-caption': '<span class="caption-live">Live</span><code class="caption-code">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.de.json"&gt;</code><span class="caption-note">Eine Magazin-Frontpage aus einer JSON-Datei. Jede Card linkt zu einem echten Artikel.</span>',
     'chapter-range': '05 / RANGE',
     'range-heading': 'Ein JSON, <em>60</em> Magazine',
     'range-lede': 'Eine strukturierte Story, gesetzt in drei Formaten, f&uuml;nf Sprachen und vier Akzenten. Der Specimen-Text ist Demo-Inhalt.',
@@ -142,14 +142,22 @@ export const translations: Record<Lang, Record<string, string>> = {
 
 const STORAGE_KEY = 'druck-lang';
 
-function detectLang(): Lang {
+function pageLang(): Lang {
+  return document.documentElement.dataset.lang === 'de' ? 'de' : 'en';
+}
+
+function storedLang(): Lang | null {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'en' || stored === 'de') return stored;
   } catch {}
-  const nav = navigator.language?.toLowerCase() ?? '';
-  if (nav.startsWith('de')) return 'de';
-  return 'en';
+  return null;
+}
+
+function landingUrlFor(lang: Lang): string {
+  const enPath = location.pathname.replace(/de\/$/, '');
+  const base = enPath.endsWith('/') ? enPath : `${enPath}/`;
+  return lang === 'de' ? `${base}de/` : base;
 }
 
 function updateLangButtons(lang: Lang): void {
@@ -160,7 +168,16 @@ function updateLangButtons(lang: Lang): void {
 }
 
 export function initLang(): void {
-  const lang = detectLang();
+  const lang = pageLang();
+  const stored = storedLang();
+  if (stored && stored !== lang) {
+    const target = landingUrlFor(stored);
+    if (target !== location.pathname) {
+      location.replace(target + location.search + location.hash);
+      return;
+    }
+  }
+
   applyLang(lang);
   updateLangButtons(lang);
   document.documentElement.lang = lang;
@@ -170,9 +187,8 @@ export function initLang(): void {
     btn.addEventListener('click', () => {
       const target = (btn.dataset.lang === 'de' ? 'de' : 'en') as Lang;
       try { localStorage.setItem(STORAGE_KEY, target); } catch {}
-      applyLang(target);
-      updateLangButtons(target);
-      document.documentElement.lang = target;
+      if (target === pageLang()) return;
+      location.assign(landingUrlFor(target) + location.search + location.hash);
     });
   }
 }
