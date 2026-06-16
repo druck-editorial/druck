@@ -1,9 +1,16 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import { buildFrontPage, escapeHtml, renderArticle, renderFrontPage } from '@druck-editorial/engine';
 import { WIDGET_CDN_URL } from './constants.mjs';
+
+function cssVersion(slug) {
+  const path = join(import.meta.dirname, '..', 'public', 'demos', `${slug}.css`);
+  return createHash('sha1').update(readFileSync(path)).digest('hex').slice(0, 8);
+}
 
 const STRINGS = {
   en: {
@@ -159,7 +166,7 @@ function demoShell({ slug, title, description, bodyHtml, lang, attribution, incl
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/fonts.css">
-<link rel="stylesheet" href="/demos/${escapeHtml(slug)}.css">
+<link rel="stylesheet" href="/demos/${escapeHtml(slug)}.css?v=${cssVersion(slug)}">
 ${extra}
 </head>
 <body>

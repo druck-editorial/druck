@@ -21,7 +21,10 @@ body {
 }
 
 .druck-attribution {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 1.75rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -29,11 +32,11 @@ body {
   z-index: 100;
   background: rgba(0,0,0,0.85);
   color: #fff;
-  text-align: center;
+  text-align: left;
   font-family: var(--ph-font-nav);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
-  padding: 0.35rem 1rem;
+  padding: 0 1rem;
   text-decoration: none;
   border-bottom: 1px solid var(--ph-hairline);
 }
