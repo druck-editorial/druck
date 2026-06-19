@@ -51,6 +51,19 @@ describe('buildFrontPage', () => {
     expect(rows.at(-1)?.items.length).toBe(5);
     expect(rows.flatMap((r) => r.items).length).toBe(11);
   });
+
+  it('enriches items with role and hasImage', () => {
+    const rows = buildFrontPage(eleven);
+    expect(rows[0].items[0].role).toBe('lead');
+    expect(rows[1].items[0].role).toBe('feature');
+    expect(rows[3].items[0].role).toBe('brief');
+    expect(rows[0].items[0].hasImage).toBe(true);
+  });
+
+  it('marks items without a usable hero image as hasImage=false', () => {
+    const rows = buildFrontPage([item(0, { heroImage: '' })]);
+    expect(rows[0].items[0].hasImage).toBe(false);
+  });
 });
 
 describe('renderFrontPage', () => {

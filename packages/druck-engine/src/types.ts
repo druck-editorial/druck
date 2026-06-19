@@ -133,6 +133,17 @@ export interface WeeklySectionArticle {
   summary?: string;
 }
 
+export type FrontPageLook =
+  | 'classic'
+  | 'swiss'
+  | 'helvetica'
+  | 'broadsheet'
+  | 'brutalist'
+  | 'luxury'
+  | 'noir'
+  | 'bento'
+  | 'almanac';
+
 export interface RenderOptions {
   lang?: string;
   theme?: 'light' | 'dark';
@@ -141,4 +152,5 @@ export interface RenderOptions {
   siteUrl?: string;
   canonicalUrl?: string;
   ogImageUrl?: string;
+  look?: FrontPageLook;
 }

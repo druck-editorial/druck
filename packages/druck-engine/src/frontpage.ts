@@ -6,12 +6,28 @@ import type { ArticleData, RenderOptions } from './types.js';
 
 export type FrontPageRowType = 'hero' | 'feature' | 'triple' | 'brief';
 
+export interface FrontPageItem extends ArticleData {
+  role: 'lead' | 'feature' | 'brief';
+  hasImage: boolean;
+}
+
 export interface FrontPageRow {
   type: FrontPageRowType;
-  items: ArticleData[];
+  items: FrontPageItem[];
 }
 
 const BRIEF_MAX = 5;
+
+const ROLE_BY_TYPE: Record<FrontPageRowType, FrontPageItem['role']> = {
+  hero: 'lead',
+  feature: 'feature',
+  triple: 'feature',
+  brief: 'brief',
+};
+
+function enrichItem(data: ArticleData, role: FrontPageItem['role']): FrontPageItem {
+  return { ...data, role, hasImage: Boolean(safeUrl(data.heroImage)) };
+}
 
 export function buildFrontPage(items: ArticleData[]): FrontPageRow[] {
   if (!items.length) return [];
@@ -19,12 +35,18 @@ export function buildFrontPage(items: ArticleData[]): FrontPageRow[] {
   const hotIdx = pool.findIndex((entry) => entry.hot);
   if (hotIdx > 0) pool.unshift(pool.splice(hotIdx, 1)[0]);
 
-  const rows: FrontPageRow[] = [{ type: 'hero', items: pool.splice(0, 1) }];
-  if (pool.length >= 2) rows.push({ type: 'feature', items: pool.splice(0, 2) });
-  if (pool.length >= 3) rows.push({ type: 'triple', items: pool.splice(0, 3) });
+  const raw: { type: FrontPageRowType; items: ArticleData[] }[] = [
+    { type: 'hero', items: pool.splice(0, 1) },
+  ];
+  if (pool.length >= 2) raw.push({ type: 'feature', items: pool.splice(0, 2) });
+  if (pool.length >= 3) raw.push({ type: 'triple', items: pool.splice(0, 3) });
   const brief = pool.splice(0, BRIEF_MAX);
-  if (brief.length) rows.push({ type: 'brief', items: brief });
-  return rows;
+  if (brief.length) raw.push({ type: 'brief', items: brief });
+
+  return raw.map((row) => ({
+    type: row.type,
+    items: row.items.map((data) => enrichItem(data, ROLE_BY_TYPE[row.type])),
+  }));
 }
 
 function renderHeroCard(data: ArticleData): string {
