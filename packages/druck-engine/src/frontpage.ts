@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { escapeHtml, safeUrl } from './format.js';
 import { categoryClass, renderCard } from './render.js';
-import type { ArticleData, RenderOptions } from './types.js';
+import type { ArticleData, FrontPageLook, RenderOptions } from './types.js';
 
 export type FrontPageRowType = 'hero' | 'feature' | 'triple' | 'brief';
 
@@ -75,18 +75,33 @@ function renderBriefItem(data: ArticleData): string {
   );
 }
 
+export type FrontPageComposer = (rows: FrontPageRow[], opts?: RenderOptions) => string;
+
+function composeClassic(rows: FrontPageRow[], opts?: RenderOptions): string {
+  return rows
+    .map((row) => {
+      if (row.type === 'hero') {
+        return `<div class="df-row df-row--hero">${renderHeroCard(row.items[0])}</div>`;
+      }
+      if (row.type === 'brief') {
+        const lis = row.items.map(renderBriefItem).join('');
+        return `<div class="df-row df-row--brief"><div class="df-brief-label">In brief</div><ul>${lis}</ul></div>`;
+      }
+      const cls = row.type === 'feature' ? 'df-row--feature' : 'df-row--triple';
+      const cards = row.items.map((entry) => renderCard(entry, opts)).join('');
+      return `<div class="df-row ${cls}">${cards}</div>`;
+    })
+    .join('');
+}
+
+const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
+  classic: composeClassic,
+};
+
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {
-  const rendered = rows.map((row) => {
-    if (row.type === 'hero') {
-      return `<div class="df-row df-row--hero">${renderHeroCard(row.items[0])}</div>`;
-    }
-    if (row.type === 'brief') {
-      const lis = row.items.map(renderBriefItem).join('');
-      return `<div class="df-row df-row--brief"><div class="df-brief-label">In brief</div><ul>${lis}</ul></div>`;
-    }
-    const cls = row.type === 'feature' ? 'df-row--feature' : 'df-row--triple';
-    const cards = row.items.map((entry) => renderCard(entry, opts)).join('');
-    return `<div class="df-row ${cls}">${cards}</div>`;
-  });
-  return `<div class="druck-front-page">${rendered.join('')}</div>`;
+  const requested = opts?.look ?? 'classic';
+  const compose = COMPOSERS[requested] ?? composeClassic;
+  const look: FrontPageLook = COMPOSERS[requested] ? requested : 'classic';
+  const lookClass = look === 'classic' ? '' : ` druck-front-page--${look}`;
+  return `<div class="druck-front-page${lookClass}">${compose(rows, opts)}</div>`;
 }

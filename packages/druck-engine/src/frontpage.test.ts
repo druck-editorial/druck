@@ -100,3 +100,20 @@ describe('renderFrontPage', () => {
     expect(html).not.toContain('src=""');
   });
 });
+
+describe('renderFrontPage look dispatch', () => {
+  it('classic output is unchanged by the look parameter', () => {
+    const a = renderFrontPage(buildFrontPage(eleven));
+    const b = renderFrontPage(buildFrontPage(eleven), { look: 'classic' });
+    expect(a).toBe(b);
+    expect(a.startsWith('<div class="druck-front-page">')).toBe(true);
+    expect(a).toContain('df-row--hero');
+  });
+
+  it('falls back to classic with no scoping class for an unimplemented look', () => {
+    const classic = renderFrontPage(buildFrontPage(eleven), { look: 'classic' });
+    const swiss = renderFrontPage(buildFrontPage(eleven), { look: 'swiss' });
+    expect(swiss).toBe(classic);
+    expect(swiss).not.toContain('druck-front-page--swiss');
+  });
+});
