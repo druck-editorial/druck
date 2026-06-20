@@ -108,6 +108,14 @@ function composeTabloid(items) {
     `</div></div>`;
 }
 
+function composeNeubrutalism(items) {
+  const { lead, rest } = partition(items);
+  return `<div class="sx-neubrutalism"><div class="nb-inner">` +
+    (lead ? `<a class="nb-card" href="${href(lead)}"><span class="nb-badge">HOT</span><span class="nb-k">${escapeHtml(lead.category)}</span><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
+    `<ul class="nb-list">${rest.slice(0, 6).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
@@ -120,4 +128,5 @@ export const SPECTACLE = [
   { key: 'letterpress', name: 'Letterpress', render: composeLetterpress },
   { key: 'bauhaus', name: 'Bauhaus', render: composeBauhaus },
   { key: 'tabloid', name: 'Tabloid', render: composeTabloid },
+  { key: 'neubrutalism', name: 'Neubrutalism', render: composeNeubrutalism },
 ];
