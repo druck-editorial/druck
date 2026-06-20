@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
 import { describe, expect, it } from 'vitest';
-import { buildFrontPage, renderFrontPage } from './frontpage.js';
+import { buildFrontPage, renderFrontPage, partitionRows } from './frontpage.js';
 import type { ArticleData } from './types.js';
 
 function item(n: number, extra: Partial<ArticleData> = {}): ArticleData {
@@ -115,6 +115,23 @@ describe('renderFrontPage look dispatch', () => {
     const swiss = renderFrontPage(buildFrontPage(eleven), { look: 'swiss' });
     expect(swiss).toBe(classic);
     expect(swiss).not.toContain('druck-front-page--swiss');
+  });
+});
+
+describe('partitionRows', () => {
+  it('splits rows into lead, cells, and brief', () => {
+    const rows = buildFrontPage(eleven);
+    const p = partitionRows(rows);
+    expect(p.lead?.slug).toBe(rows[0].items[0].slug);
+    expect(p.cells.length).toBe(5);
+    expect(p.brief.length).toBe(5);
+  });
+
+  it('returns an empty partition for no rows', () => {
+    const p = partitionRows([]);
+    expect(p.lead).toBeUndefined();
+    expect(p.cells).toEqual([]);
+    expect(p.brief).toEqual([]);
   });
 });
 
