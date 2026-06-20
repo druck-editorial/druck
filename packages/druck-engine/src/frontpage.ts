@@ -94,8 +94,68 @@ function composeClassic(rows: FrontPageRow[], opts?: RenderOptions): string {
     .join('');
 }
 
+function brutalistLead(item: FrontPageItem): string {
+  const href = safeUrl(item.shareUrl ?? '') || '#';
+  const img = safeUrl(item.heroImage) || 'data:,';
+  const kicker = `${item.category}${item.hot ? ' / Hot' : ''}`;
+  return (
+    '<div class="dfb-lead">' +
+    '<div class="dfb-head">' +
+    `<span class="dfb-kicker">${escapeHtml(kicker)}</span>` +
+    `<a class="dfb-title" href="${escapeHtml(href)}"><h2>${escapeHtml(item.title)}</h2></a>` +
+    '</div>' +
+    `<a class="dfb-img" href="${escapeHtml(href)}">` +
+    `<img src="${escapeHtml(img)}" alt="${escapeHtml(item.heroImageAlt ?? item.title)}" loading="lazy" width="1200" height="675">` +
+    '</a>' +
+    '</div>'
+  );
+}
+
+function brutalistCell(item: FrontPageItem, n: number): string {
+  const href = safeUrl(item.shareUrl ?? '') || '#';
+  return (
+    `<a class="dfb-cell" href="${escapeHtml(href)}">` +
+    `<span class="dfb-n">${String(n).padStart(2, '0')}</span>` +
+    `<span class="dfb-ck">${escapeHtml(item.category)}</span>` +
+    `<h3>${escapeHtml(item.title)}</h3>` +
+    '</a>'
+  );
+}
+
+function brutalistBriefItem(item: FrontPageItem): string {
+  const href = safeUrl(item.shareUrl ?? '') || '#';
+  return (
+    `<li><a href="${escapeHtml(href)}">` +
+    `<span class="dfb-bt">${escapeHtml(item.title)}</span>` +
+    `<time>${escapeHtml(item.publishedAt)}</time>` +
+    '</a></li>'
+  );
+}
+
+function composeBrutalist(rows: FrontPageRow[], _opts?: RenderOptions): string {
+  const lead = rows.find((r) => r.type === 'hero')?.items[0];
+  const cells = rows
+    .filter((r) => r.type === 'feature' || r.type === 'triple')
+    .flatMap((r) => r.items);
+  const brief = rows.find((r) => r.type === 'brief')?.items ?? [];
+
+  const parts: string[] = [
+    '<div class="dfb-mast"><span class="dfb-wm">Druck</span></div><div class="dfb-rule"></div>',
+  ];
+  if (lead) parts.push(brutalistLead(lead));
+  if (cells.length) {
+    const cellHtml = cells.map((c, i) => brutalistCell(c, i + 2)).join('');
+    parts.push(`<div class="dfb-grid">${cellHtml}</div>`);
+  }
+  if (brief.length) {
+    parts.push(`<ol class="dfb-brief">${brief.map(brutalistBriefItem).join('')}</ol>`);
+  }
+  return parts.join('');
+}
+
 const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   classic: composeClassic,
+  brutalist: composeBrutalist,
 };
 
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {

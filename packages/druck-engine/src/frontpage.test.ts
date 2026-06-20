@@ -117,3 +117,25 @@ describe('renderFrontPage look dispatch', () => {
     expect(swiss).not.toContain('druck-front-page--swiss');
   });
 });
+
+describe('composeBrutalist', () => {
+  it('scopes the wrapper and renders masthead, lead, cells and brief', () => {
+    const html = renderFrontPage(buildFrontPage(eleven), { look: 'brutalist' });
+    expect(html).toContain('druck-front-page--brutalist');
+    expect(html).toContain('dfb-mast');
+    expect(html).toContain('dfb-lead');
+    expect(html).toContain('dfb-grid');
+    expect(html).toContain('dfb-brief');
+  });
+
+  it('escapes titles and only emits safe hrefs', () => {
+    const items = [
+      item(0, { hot: true, title: '<script>x</script>', shareUrl: 'javascript:alert(1)' }),
+      item(1), item(2), item(3),
+    ];
+    const html = renderFrontPage(buildFrontPage(items), { look: 'brutalist' });
+    expect(html).not.toContain('<script>x</script>');
+    expect(html).toContain('&lt;script&gt;');
+    expect(html).not.toContain('javascript:alert(1)');
+  });
+});
