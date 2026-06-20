@@ -288,15 +288,16 @@ function renderLedgerlineBubbles(tgPosts) {
 }
 
 export async function buildLandingHtml(template, fixturesDir, auditSummary = null, lang = 'en') {
-  const [heroFeed, feature, snapshot, rangePanels, tgPosts] = await Promise.all([
+  const [heroFeed, feature, snapshot, rangePanels, tgPosts, showcaseFeed] = await Promise.all([
     readFixture(fixturesDir, 'hero-feed.json', lang),
     readFixture(fixturesDir, 'feature.json', lang),
     readFixture(fixturesDir, 'sonto-snapshot.json'),
     renderRangePanels(fixturesDir),
     readFixture(fixturesDir, 'tg-posts.json', lang),
+    readFixture(fixturesDir, 'showcase-feed.json'),
   ]);
   const frontPage = renderFrontPage(buildFrontPage(snapshot.data));
-  const showcase = renderShowcase(snapshot.data);
+  const showcase = renderShowcase(showcaseFeed.data);
   const heroFrontPage = renderHeroFrontPagePane(heroFeed.data, lang);
   const heroJson = tokenizeJsonForFeedPane(heroFeed.raw);
   const surfacesSheets = renderSurfacesSheets(feature.data, lang);

@@ -1,0 +1,203 @@
+[
+  {
+    "title": "Ukraine signs minerals deal with US after months of negotiations",
+    "subtitle": "Kyiv and Washington reached a long-delayed agreement giving American firms preferred access to Ukrainian rare-earth deposits in exchange for continued military support.",
+    "metaDescription": "Kyiv and Washington reached a long-delayed agreement giving American firms preferred access to Ukrainian rare-earth deposits in exchange for continued military s",
+    "slug": "ukraine-minerals-deal-us",
+    "format": "feature",
+    "category": "world",
+    "publishedAt": "Jun 19, 2026",
+    "heroImage": "/img/demo/scales-justice.webp",
+    "shareUrl": "https://sonto.tech/druck/",
+    "hot": true
+  },
+  {
+    "title": "S&P 500 closes at record high as rate-cut bets push yields lower",
+    "subtitle": "Equity markets gained on Friday after a softer-than-expected jobs report reinforced expectations that the Fed will cut rates twice before year-end.",
+    "metaDescription": "Equity markets gained on Friday after a softer-than-expected jobs report reinforced expectations that the Fed will cut rates twice before year-end.",
+    "slug": "sp500-record-rate-cut-bets",
+    "format": "wire",
+    "category": "business",
+    "publishedAt": "Jun 20, 2026",
+    "heroImage": "/img/demo/finance-skyline.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "CERN physicists detect a fourth neutrino flavor, shaking the Standard Model",
+    "subtitle": "A sterile neutrino candidate emerged from 18 months of anomaly data at the LHC, a finding that could force a revision of particle physics textbooks if confirmed.",
+    "metaDescription": "A sterile neutrino candidate emerged from 18 months of anomaly data at the LHC, a finding that could force a revision of particle physics textbooks if confirmed.",
+    "slug": "cern-fourth-neutrino-standard-model",
+    "format": "feature",
+    "category": "science",
+    "publishedAt": "Jun 18, 2026",
+    "heroImage": "/img/demo/insight-window.webp",
+    "shareUrl": "https://sonto.tech/druck/",
+    "hot": true
+  },
+  {
+    "title": "The Met's Costume Institute puts AI-generated textiles on display",
+    "subtitle": "An exhibition opening next month will feature eighteen gowns whose fabric patterns were designed by generative models trained on historical textile archives.",
+    "metaDescription": "An exhibition opening next month will feature eighteen gowns whose fabric patterns were designed by generative models trained on historical textile archives.",
+    "slug": "met-costume-institute-ai-textiles",
+    "format": "quick_take",
+    "category": "culture",
+    "publishedAt": "Jun 17, 2026",
+    "heroImage": "/img/demo/atelier-drapes.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Anthropic ships Claude 4 with a 2M-token context window",
+    "subtitle": "The new flagship model can ingest an entire software repository or a year of email in a single prompt, a milestone that changes how teams use context-heavy workflows.",
+    "metaDescription": "The new flagship model can ingest an entire software repository or a year of email in a single prompt, a milestone that changes how teams use context-heavy work",
+    "slug": "anthropic-claude-4-2m-context",
+    "format": "feature",
+    "category": "ai",
+    "publishedAt": "Jun 20, 2026",
+    "heroImage": "/img/demo/dev-terminal.webp",
+    "shareUrl": "https://sonto.tech/druck/",
+    "hot": true
+  },
+  {
+    "title": "Manchester City's summer rebuild starts with a 90M-euro left back",
+    "subtitle": "City confirmed the signing of Alejandro Bernal from Atletico Madrid, a left back rated as the most defensively sound in La Liga over the last two seasons.",
+    "metaDescription": "City confirmed the signing of Alejandro Bernal from Atletico Madrid, a left back rated as the most defensively sound in La Liga over the last two seasons.",
+    "slug": "man-city-bernal-signing",
+    "format": "wire",
+    "category": "sport",
+    "publishedAt": "Jun 19, 2026",
+    "heroImage": "/img/demo/stage-band.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Norway's Equinor cuts North Sea output targets over carbon cost projections",
+    "subtitle": "The state oil company revised its 2030 production plan down by 12 percent after a new internal carbon-pricing model made several offshore fields uneconomic.",
+    "metaDescription": "The state oil company revised its 2030 production plan down by 12 percent after a new internal carbon-pricing model made several offshore fields uneconomic.",
+    "slug": "equinor-north-sea-carbon-cuts",
+    "format": "quick_take",
+    "category": "climate",
+    "publishedAt": "Jun 18, 2026",
+    "heroImage": "/img/demo/energy-tech.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "A phase-3 trial of a GLP-1 pill shows 14 percent weight loss at 52 weeks",
+    "subtitle": "Oral semaglutide at a 50 mg dose matched injectable outcomes in a 3,200-person study, a result that could reshape how obesity drugs are prescribed worldwide.",
+    "metaDescription": "Oral semaglutide at a 50 mg dose matched injectable outcomes in a 3,200-person study, a result that could reshape how obesity drugs are prescribed worldwide.",
+    "slug": "glp1-pill-trial-weight-loss",
+    "format": "feature",
+    "category": "health",
+    "publishedAt": "Jun 17, 2026",
+    "heroImage": "/img/demo/m3.jpg",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Wicked director Jon M. Chu to adapt Colson Whitehead's 'Zone One' for HBO",
+    "subtitle": "The Pulitzer-winning novel's adaptation will be a six-part limited series, with Chu both directing and executive-producing all episodes.",
+    "metaDescription": "The Pulitzer-winning novel's adaptation will be a six-part limited series, with Chu both directing and executive-producing all episodes.",
+    "slug": "jon-chu-zone-one-hbo",
+    "format": "wire",
+    "category": "culture",
+    "publishedAt": "Jun 16, 2026",
+    "heroImage": "/img/demo/music-concert.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Rust overtakes Go in backend service adoption according to a new Stack Overflow poll",
+    "subtitle": "For the first time in the annual survey, more backend engineers reported using Rust in production than Go, driven by latency-critical systems and WebAssembly targets.",
+    "metaDescription": "For the first time in the annual survey, more backend engineers reported using Rust in production than Go, driven by latency-critical systems and WebAssembly tar",
+    "slug": "rust-overtakes-go-backend-adoption",
+    "format": "quick_take",
+    "category": "dev",
+    "publishedAt": "Jun 20, 2026",
+    "heroImage": "/img/demo/dev-keyboard.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Noma alumni open a fermentation-only restaurant in Copenhagen's Meatpacking District",
+    "subtitle": "The twelve-seat counter serves a single tasting menu built entirely around lacto-fermented and koji-cured ingredients, with no fresh produce on the plate.",
+    "metaDescription": "The twelve-seat counter serves a single tasting menu built entirely around lacto-fermented and koji-cured ingredients, with no fresh produce on the plate.",
+    "slug": "noma-alumni-fermentation-restaurant",
+    "format": "wire",
+    "category": "design",
+    "publishedAt": "Jun 15, 2026",
+    "heroImage": "/img/demo/atelier-linen.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Google DeepMind's AlphaProtein predicts enzyme catalytic rates from sequence alone",
+    "subtitle": "The model estimates kcat values for novel enzymes with a correlation of 0.87 against experimental measurements, a step toward engineering proteins without wet-lab iteration.",
+    "metaDescription": "The model estimates kcat values for novel enzymes with a correlation of 0.87 against experimental measurements, a step toward engineering proteins without wet-la",
+    "slug": "deepmind-alphaprotein-enzyme-rates",
+    "format": "feature",
+    "category": "science",
+    "publishedAt": "Jun 19, 2026",
+    "heroImage": "/img/demo/backpack-circuit.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "India's central bank cuts rates for the third time this year amid a rural slowdown",
+    "subtitle": "The RBI trimmed the repo rate by 25 basis points to 5.75 percent, flagging weak agricultural incomes and slowing credit growth in tier-3 cities as its main concerns.",
+    "metaDescription": "The RBI trimmed the repo rate by 25 basis points to 5.75 percent, flagging weak agricultural incomes and slowing credit growth in tier-3 cities as its main con",
+    "slug": "india-rbi-rate-cut-rural-slowdown",
+    "format": "wire",
+    "category": "business",
+    "publishedAt": "Jun 18, 2026",
+    "heroImage": "/img/demo/tower-gold.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "The Dieter Rams retrospective at Vitra Design Museum opens to the public this weekend",
+    "subtitle": "The exhibition covers sixty years of industrial design through 400 objects, including Rams's original 606 shelving system prototypes never before displayed publicly.",
+    "metaDescription": "The exhibition covers sixty years of industrial design through 400 objects, including Rams's original 606 shelving system prototypes never before displayed publi",
+    "slug": "dieter-rams-vitra-retrospective",
+    "format": "quick_take",
+    "category": "design",
+    "publishedAt": "Jun 17, 2026",
+    "heroImage": "/img/demo/atelier-portfolio.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Cloudflare's new edge runtime cuts cold-start latency to under 1 ms globally",
+    "subtitle": "A rewritten V8 isolate scheduler dropped median cold-start times from 5 ms to 0.8 ms in a 300-region rollout, making stateless edge functions competitive with in-region compute.",
+    "metaDescription": "A rewritten V8 isolate scheduler dropped median cold-start times from 5 ms to 0.8 ms in a 300-region rollout, making stateless edge functions competitive with i",
+    "slug": "cloudflare-edge-runtime-cold-start",
+    "format": "wire",
+    "category": "infrastructure",
+    "publishedAt": "Jun 20, 2026",
+    "heroImage": "/img/demo/dev-server.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Amazon's $4 billion fulfillment robot rollout is eliminating 80,000 picker roles",
+    "subtitle": "Internal projections shared with warehouse managers show that Sparrow-generation robots will replace the majority of single-item picking tasks by the end of 2027.",
+    "metaDescription": "Internal projections shared with warehouse managers show that Sparrow-generation robots will replace the majority of single-item picking tasks by the end of 2027",
+    "slug": "amazon-fulfillment-robot-roles",
+    "format": "feature",
+    "category": "business",
+    "publishedAt": "Jun 19, 2026",
+    "heroImage": "/img/demo/scale-monolith.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Patagonia launches a lifetime repair-and-resell program across Europe",
+    "subtitle": "Starting in September, any Patagonia garment bought anywhere can be returned to a European store for free repair or resale credit, regardless of age or condition.",
+    "metaDescription": "Starting in September, any Patagonia garment bought anywhere can be returned to a European store for free repair or resale credit, regardless of age or condition",
+    "slug": "patagonia-europe-repair-resell",
+    "format": "quick_take",
+    "category": "climate",
+    "publishedAt": "Jun 16, 2026",
+    "heroImage": "/img/demo/street-style.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  },
+  {
+    "title": "Beyonce's Renaissance Tour film grosses $28 million in its opening weekend",
+    "subtitle": "The concert film, released in 4,200 theaters across 42 countries, became the highest-grossing music documentary opening in history by its third day of release.",
+    "metaDescription": "The concert film, released in 4,200 theaters across 42 countries, became the highest-grossing music documentary opening in history by its third day of release.",
+    "slug": "beyonce-renaissance-tour-film",
+    "format": "wire",
+    "category": "culture",
+    "publishedAt": "Jun 15, 2026",
+    "heroImage": "/img/demo/music-vinyl.webp",
+    "shareUrl": "https://sonto.tech/druck/"
+  }
+]
