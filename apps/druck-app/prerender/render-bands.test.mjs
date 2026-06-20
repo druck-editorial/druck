@@ -151,4 +151,11 @@ describe('renderShowcase', () => {
     expect(html).toContain('sx-aero');
     expect(html).toContain('class="sc-close"');
   });
+
+  it('renders the themes nav with jump-links and section ids', () => {
+    const html = renderShowcase(items);
+    expect(html).toContain('class="sc-nav"');
+    expect(html).toContain('href="#ms-0"');
+    expect(html).toContain('id="ms-0"');
+  });
 });

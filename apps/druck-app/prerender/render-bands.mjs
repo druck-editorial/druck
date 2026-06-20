@@ -240,6 +240,16 @@ async function renderRangePanels(fixturesDir) {
 
 const SHOWCASE_ENGINE_LOOKS = ['brutalist', 'swiss', 'helvetica', 'broadsheet', 'luxury', 'noir', 'bento', 'almanac'];
 
+function shortLookName(name) {
+  return name.replace(/ \(engine\)$/, '').replace(/ \(spectacle\)$/, '');
+}
+
+function lookTag(name) {
+  if (name.endsWith('(engine)')) return 'eng';
+  if (name.endsWith('(spectacle)')) return 'spec';
+  return '';
+}
+
 export function renderShowcase(items) {
   const engineSections = SHOWCASE_ENGINE_LOOKS.map((look) => ({
     name: `${look} (engine)`,
@@ -252,12 +262,29 @@ export function renderShowcase(items) {
   const sections = [...engineSections, ...spectacleSections];
   const morph = sections
     .map((s, i) =>
-      `<section class="ms"><div class="ms-label">${String(i + 1).padStart(2, '0')} / ${escapeHtml(s.name)}</div>` +
+      `<section class="ms" id="ms-${i}"><div class="ms-label">${String(i + 1).padStart(2, '0')} / ${escapeHtml(s.name)}</div>` +
       `<div class="ms-look reveal">${s.html}</div></section>`,
     )
     .join('');
+  const navItems = sections
+    .map((s, i) =>
+      `<a class="sc-nav-item" href="#ms-${i}">` +
+      `<span class="sc-nav-n">${String(i + 1).padStart(2, '0')}</span>` +
+      `<span class="sc-nav-name">${escapeHtml(shortLookName(s.name))}</span>` +
+      `<span class="sc-nav-tag">${lookTag(s.name)}</span>` +
+      `</a>`,
+    )
+    .join('');
+  const nav =
+    `<nav class="sc-nav" aria-label="Jump to a look">` +
+    `<div class="sc-nav-head">` +
+    `<span class="sc-nav-title">Looks</span>` +
+    `<a class="sc-close" href="#" aria-label="Close showcase">Close</a>` +
+    `</div>` +
+    `<div class="sc-nav-list">${navItems}</div>` +
+    `</nav>`;
   return (
-    '<a class="sc-close" href="#" aria-label="Close showcase">Close</a>' +
+    nav +
     '<section class="sc-intro"><div><div class="sc-eye">One feed</div>' +
     '<h2>Twenty ways to print the same news.</h2>' +
     '<p>The same stories. Scroll, and watch the front page transform.</p>' +
