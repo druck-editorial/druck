@@ -267,11 +267,6 @@ export function renderShowcase(items) {
   );
 }
 
-async function renderFrontPageBand(fixturesDir) {
-  const snapshot = await readFixture(fixturesDir, 'sonto-snapshot.json');
-  return renderFrontPage(buildFrontPage(snapshot.data));
-}
-
 const TG_EYE_SVG =
   '<svg class="tg-eye" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2C4.7 3.2 2 5.2.9 8c1.1 2.8 3.8 4.8 7.1 4.8s6-2 7.1-4.8C14 5.2 11.3 3.2 8 3.2zm0 8a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM8 6.1a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8z"/></svg>';
 

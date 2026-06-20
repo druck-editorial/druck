@@ -22,6 +22,7 @@ const MARKER_TEMPLATE = [
   '<!--druck:surfaces-sheets-->',
   '<!--druck:ledgerline-bubbles-->',
   '<!--druck:front-page-->',
+  '<!--druck:showcase-->',
   '<!--druck:range-panels-->',
   '<!--druck:colophon-scores-->',
 ].join('\n');
@@ -94,6 +95,8 @@ describe('buildLandingHtml', () => {
     expect(html).toContain('tg-msg');
     expect(html).toContain('tg-msg-meta');
     expect(html).toContain('data-index=');
+    expect(html).toContain('sc-intro');
+    expect(html).toContain('druck-front-page--brutalist');
   });
 
   test('throws on a missing fixture directory', async () => {
