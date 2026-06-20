@@ -25,8 +25,8 @@ function composeBloomberg(items) {
 
 function composeBauhaus(items) {
   const { lead, rest } = partition(items);
-  return `<div class="sx-bauhaus"><span class="bh-circ"></span><span class="bh-bar"></span><span class="bh-sq"></span><div class="bh-inner">` +
-    (lead ? `<a class="bh-lead" href="${href(lead)}"><div class="bh-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
+  return `<div class="sx-bauhaus"><span class="bh-sq"></span><span class="bh-circ"></span><span class="bh-tri"></span><span class="bh-bar"></span><div class="bh-inner">` +
+    (lead ? `<a class="bh-hero" href="${href(lead)}"><span class="bh-art"><img src="/img/demo/sc-bauhaus.webp" alt="" loading="lazy" width="1400" height="781"></span><span class="bh-plate"><span class="bh-k">${escapeHtml(lead.category)}</span><h2>${escapeHtml(lead.title)}</h2></span></a>` : '') +
     `<ul class="bh-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
     `</div></div>`;
 }
