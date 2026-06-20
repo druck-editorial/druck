@@ -217,3 +217,18 @@ describe('engine look: luxury', () => {
     expect(html).not.toContain('javascript:alert(1)');
   });
 });
+
+describe('engine look: noir', () => {
+  it('scopes the wrapper, renders hero + blocks, and escapes', () => {
+    const items = [
+      item(0, { hot: true, title: '<script>x</script>', shareUrl: 'javascript:alert(1)' }),
+      item(1), item(2), item(3), item(4), item(5),
+    ];
+    const html = renderFrontPage(buildFrontPage(items), { look: 'noir' });
+    expect(html).toContain('druck-front-page--noir');
+    expect(html).toContain('dfnr-hero');
+    expect(html).toContain('dfnr-body');
+    expect(html).not.toContain('<script>x</script>');
+    expect(html).not.toContain('javascript:alert(1)');
+  });
+});

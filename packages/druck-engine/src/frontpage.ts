@@ -260,6 +260,10 @@ function composeLuxury(rows: FrontPageRow[], _opts?: RenderOptions): string {
   return composeHeroBlocks(rows, 'dflx');
 }
 
+function composeNoir(rows: FrontPageRow[], _opts?: RenderOptions): string {
+  return composeHeroBlocks(rows, 'dfnr');
+}
+
 const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   classic: composeClassic,
   brutalist: composeBrutalist,
@@ -267,6 +271,7 @@ const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   helvetica: composeHelvetica,
   broadsheet: composeBroadsheet,
   luxury: composeLuxury,
+  noir: composeNoir,
 };
 
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {

@@ -827,3 +827,93 @@
     gap: 28px;
   }
 }
+/* Noir look */
+.druck-front-page--noir {
+  background: #0c0b0a;
+  color: #e8e2d6;
+  font-family: Georgia, serif;
+}
+.druck-front-page--noir .dfnr-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(360px, 60vh, 560px);
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+}
+.druck-front-page--noir .dfnr-hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.6) brightness(0.7);
+}
+.druck-front-page--noir .dfnr-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.9) 100%);
+}
+.druck-front-page--noir .dfnr-htext {
+  position: relative;
+  padding: 56px clamp(20px, 7vw, 80px);
+  max-width: 60ch;
+}
+.druck-front-page--noir .dfnr-kick {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: #c9a86a;
+  margin-bottom: 20px;
+}
+.druck-front-page--noir .dfnr-htext h2 {
+  margin: 0;
+  font-size: clamp(38px, 5.6vw, 82px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+.druck-front-page--noir .dfnr-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  padding: 54px clamp(20px, 6vw, 64px);
+}
+.druck-front-page--noir .dfnr-story {
+  color: inherit;
+  text-decoration: none;
+  border-top: 1px solid #2a2722;
+  padding-top: 18px;
+}
+.druck-front-page--noir .dfnr-k {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #c9a86a;
+  margin-bottom: 14px;
+}
+.druck-front-page--noir .dfnr-story h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.14;
+}
+.druck-front-page--noir .dfnr-story p {
+  margin: 13px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #8c857a;
+}
+@media (max-width: 800px) {
+  .druck-front-page--noir .dfnr-body {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
