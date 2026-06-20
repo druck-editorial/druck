@@ -92,6 +92,14 @@ function composeLetterpress(items) {
     `</div></div>`;
 }
 
+function composeBauhaus(items) {
+  const { lead, rest } = partition(items);
+  return `<div class="sx-bauhaus"><span class="bh-circ"></span><span class="bh-bar"></span><span class="bh-sq"></span><div class="bh-inner">` +
+    (lead ? `<a class="bh-lead" href="${href(lead)}"><div class="bh-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
+    `<ul class="bh-list">${rest.slice(0, 6).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
@@ -102,4 +110,5 @@ export const SPECTACLE = [
   { key: 'terminal', name: 'Terminal', render: composeTerminal },
   { key: 'bloomberg', name: 'Bloomberg', render: composeBloomberg },
   { key: 'letterpress', name: 'Letterpress', render: composeLetterpress },
+  { key: 'bauhaus', name: 'Bauhaus', render: composeBauhaus },
 ];
