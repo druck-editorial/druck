@@ -136,7 +136,6 @@ export interface WeeklySectionArticle {
 export type FrontPageLook =
   | 'classic'
   | 'swiss'
-  | 'helvetica'
   | 'broadsheet'
   | 'brutalist'
   | 'luxury'

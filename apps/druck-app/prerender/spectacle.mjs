@@ -24,14 +24,6 @@ function composeAqua(items) {
     `</div></div></div>`;
 }
 
-function composeAero(items) {
-  const { lead, rest } = partition(items);
-  return `<div class="sx-aero"><div class="ae-glass"><div class="ae-orb"></div>` +
-    (lead ? `<a class="ae-lead" href="${href(lead)}"><div class="ae-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2><p>${escapeHtml(lead.subtitle)}</p></a>` : '') +
-    `<ul class="ae-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
-    `</div></div>`;
-}
-
 function composeVaporwave(items) {
   const { lead, rest } = partition(items);
   return `<div class="sx-vaporwave"><img class="vw-bg" src="/img/demo/sc-vapor.webp" alt="" loading="lazy"><div class="vw-sun"></div><div class="vw-grid"></div><div class="vw-inner">` +
@@ -40,38 +32,11 @@ function composeVaporwave(items) {
     `</div></div>`;
 }
 
-function composeMemphis(items) {
-  const { lead, rest } = partition(items);
-  return `<div class="sx-memphis"><span class="mp-sq"></span><span class="mp-ci"></span><span class="mp-tr"></span><div class="mp-inner">` +
-    (lead ? `<a class="mp-lead" href="${href(lead)}"><div class="mp-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2><p>${escapeHtml(lead.subtitle)}</p></a>` : '') +
-    `<ul class="mp-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
-    `</div></div>`;
-}
-
 function composeRiso(items) {
   const { lead, rest } = partition(items);
   return `<div class="sx-riso"><div class="ri-inner">` +
     (lead ? `<a class="ri-lead" href="${href(lead)}"><div class="ri-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
     `<ul class="ri-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
-    `</div></div>`;
-}
-
-function composeZine(items) {
-  const { lead, rest } = partition(items);
-  const cut = (t) => t.split(' ').map((w, i) => `<span class="zn-w zn-w${i % 4}">${escapeHtml(w)}</span>`).join(' ');
-  return `<div class="sx-zine"><span class="zn-tape"></span><div class="zn-inner">` +
-    (lead ? `<a class="zn-lead" href="${href(lead)}"><h2>${cut(lead.title)}</h2></a>` : '') +
-    `<ul class="zn-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
-    `</div></div>`;
-}
-
-function composeTerminal(items) {
-  const { lead, rest } = partition(items);
-  const line = (i) => `<div class="tm-line">&gt; ${escapeHtml(i.title)}</div>`;
-  return `<div class="sx-terminal"><img class="tm-bg" src="/img/demo/sc-matrix.webp" alt="" loading="lazy"><div class="tm-scan"></div><div class="tm-inner">` +
-    `<div class="tm-head">DRUCK://feed</div>` +
-    (lead ? `<a class="tm-lead" href="${href(lead)}"><div class="tm-line tm-hot">&gt; ${escapeHtml(lead.title)}<span class="tm-cur"></span></div></a>` : '') +
-    rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<a class="tm-row" href="${href(i)}">${line(i)}</a>`).join('') +
     `</div></div>`;
 }
 
@@ -120,12 +85,8 @@ function composeNeubrutalism(items) {
 
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
-  { key: 'aero', name: 'Aero', render: composeAero },
   { key: 'vaporwave', name: 'Vaporwave', render: composeVaporwave },
-  { key: 'memphis', name: 'Memphis', render: composeMemphis },
   { key: 'riso', name: 'Risograph', render: composeRiso },
-  { key: 'zine', name: 'Ransom-note zine', render: composeZine },
-  { key: 'terminal', name: 'Terminal', render: composeTerminal },
   { key: 'bloomberg', name: 'Bloomberg', render: composeBloomberg },
   { key: 'letterpress', name: 'Letterpress', render: composeLetterpress },
   { key: 'bauhaus', name: 'Bauhaus', render: composeBauhaus },

@@ -238,7 +238,7 @@ async function renderRangePanels(fixturesDir) {
   ).join('');
 }
 
-const SHOWCASE_ENGINE_LOOKS = ['brutalist', 'swiss', 'helvetica', 'broadsheet', 'luxury', 'noir', 'bento', 'almanac'];
+const SHOWCASE_ENGINE_LOOKS = ['brutalist', 'swiss', 'broadsheet', 'luxury', 'noir', 'bento', 'almanac'];
 
 function shortLookName(name) {
   return name.replace(/ \(engine\)$/, '').replace(/ \(spectacle\)$/, '');
@@ -316,11 +316,11 @@ export function renderShowcase(items) {
     `<a class="sc-close-m" href="#" aria-label="Close showcase">Close</a>` +
     nav +
     '<section class="sc-intro"><div><div class="sc-eye">One feed</div>' +
-    '<h2>Twenty ways to print the same news.</h2>' +
+    '<h2>Fifteen ways to print the same news.</h2>' +
     '<p>The same stories. Scroll, and watch the front page transform.</p>' +
     '<div class="sc-dn">scroll</div></div></section>' +
     morph +
-    '<section class="sc-outro"><div><div class="sc-big">20 looks</div><p>Zero bytes of JavaScript.</p></div></section>'
+    '<section class="sc-outro"><div><div class="sc-big">15 looks</div><p>Zero bytes of JavaScript.</p></div></section>'
   );
 }
 

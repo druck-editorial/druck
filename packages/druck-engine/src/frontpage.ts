@@ -194,28 +194,6 @@ function composeSwiss(rows: FrontPageRow[], _opts?: RenderOptions): string {
   return parts.join('');
 }
 
-function composeHelvetica(rows: FrontPageRow[], _opts?: RenderOptions): string {
-  const { lead, cells, brief } = partitionRows(rows);
-  const parts: string[] = [
-    `<div class="dfhe-top"><span class="dfhe-wm">Druck</span><span class="dfhe-meta">${escapeHtml(lead?.publishedAt ?? '')}</span></div>`,
-  ];
-  if (lead) {
-    parts.push(
-      `<a class="dfhe-lead" href="${safeHref(lead)}">` +
-      `<span class="dfhe-cat">${escapeHtml(lead.category)}</span>` +
-      `<h2>${escapeHtml(lead.title)}</h2><p>${escapeHtml(lead.subtitle)}</p></a>`
-    );
-  }
-  const rest = [...cells, ...brief];
-  if (rest.length) {
-    parts.push('<ol class="dfhe-list">' + rest.map((i) =>
-      `<li><a href="${safeHref(i)}"><span class="dfhe-c">${escapeHtml(i.category)}</span>` +
-      `<span class="dfhe-t">${escapeHtml(i.title)}</span></a></li>`
-    ).join('') + '</ol>');
-  }
-  return parts.join('');
-}
-
 function composeBroadsheet(rows: FrontPageRow[], _opts?: RenderOptions): string {
   const { lead, cells, brief } = partitionRows(rows);
   const parts: string[] = ['<div class="dfbr-mast">The Druck</div><div class="dfbr-rule"></div>'];
@@ -277,8 +255,12 @@ function composeBento(rows: FrontPageRow[], _opts?: RenderOptions): string {
     );
   }
   cells.forEach((c) => {
+    const media = c.hasImage
+      ? `<img src="${safeImg(c)}" alt="${escapeHtml(c.heroImageAlt ?? c.title)}" loading="lazy" width="800" height="600"><span class="dfbn-ov"></span>`
+      : '';
     tiles.push(
-      `<a class="dfbn-tile" href="${safeHref(c)}"><span class="dfbn-tag">${escapeHtml(c.category)}</span>` +
+      `<a class="dfbn-tile${c.hasImage ? ' dfbn-img' : ''}" href="${safeHref(c)}">${media}` +
+      `<span class="dfbn-tag">${escapeHtml(c.category)}</span>` +
       `<h4>${escapeHtml(c.title)}</h4></a>`
     );
   });
@@ -311,7 +293,6 @@ const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   classic: composeClassic,
   brutalist: composeBrutalist,
   swiss: composeSwiss,
-  helvetica: composeHelvetica,
   broadsheet: composeBroadsheet,
   luxury: composeLuxury,
   noir: composeNoir,

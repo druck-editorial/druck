@@ -155,13 +155,13 @@ describe('renderFeaturedLooks', () => {
     const html = renderFeaturedLooks(items);
     expect(html).toContain('href="#ms-0"');
   });
-  it('links vaporwave to ms-10', () => {
+  it('links vaporwave to ms-8', () => {
     const html = renderFeaturedLooks(items);
-    expect(html).toContain('href="#ms-10"');
+    expect(html).toContain('href="#ms-8"');
   });
-  it('links neubrutalism to ms-19', () => {
+  it('links neubrutalism to ms-14', () => {
     const html = renderFeaturedLooks(items);
-    expect(html).toContain('href="#ms-19"');
+    expect(html).toContain('href="#ms-14"');
   });
   it('renders correct display names', () => {
     const html = renderFeaturedLooks(items);
@@ -183,7 +183,7 @@ describe('renderShowcase', () => {
     expect(html).toContain('druck-front-page--brutalist');
     expect(html).toContain('druck-front-page--almanac');
     expect(html).toContain('sx-aqua');
-    expect(html).toContain('sx-aero');
+    expect(html).toContain('sx-vaporwave');
     expect(html).toContain('class="sc-close"');
   });
 
