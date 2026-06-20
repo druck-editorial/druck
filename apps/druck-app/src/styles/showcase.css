@@ -67,3 +67,14 @@
 .sx-aero .ae-list a { display: block; padding: 9px 0; color: #fff; text-decoration: none; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.14); }
 
 @media (max-width: 760px) { .sx-aqua .aq-body { grid-template-columns: 1fr; } }
+
+/* Vaporwave */
+.sx-vaporwave { position: relative; overflow: hidden; background: linear-gradient(#1b0b3a, #3a0b52 52%, #ff2d95); font-family: 'Arial Black', Arial, sans-serif; padding: 80px clamp(16px, 5vw, 64px); }
+.sx-vaporwave .vw-sun { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); width: 220px; height: 220px; border-radius: 50%; background: linear-gradient(#ffe53b, #ff2d95); }
+.sx-vaporwave .vw-grid { position: absolute; left: -25%; right: -25%; bottom: -40px; height: 50%; background-image: linear-gradient(rgba(0,255,231,0.55) 2px, transparent 2px), linear-gradient(90deg, rgba(0,255,231,0.55) 2px, transparent 2px); background-size: 40px 30px; transform: perspective(200px) rotateX(62deg); transform-origin: bottom; }
+.sx-vaporwave .vw-inner { position: relative; max-width: 800px; margin: 0 auto; text-align: center; }
+.sx-vaporwave .vw-k { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: #00ffe7; margin-bottom: 14px; }
+.sx-vaporwave .vw-lead { text-decoration: none; }
+.sx-vaporwave .vw-lead h2 { margin: 0 0 36px; color: #fff; font-size: clamp(34px, 6vw, 72px); text-transform: uppercase; letter-spacing: 0.04em; line-height: 0.95; text-shadow: 3px 3px 0 #00ffe7, -3px -3px 0 #ff2d95; }
+.sx-vaporwave .vw-list { list-style: none; margin: 0; padding: 0; }
+.sx-vaporwave .vw-list a { display: block; padding: 11px 0; color: #fff; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 16px; border-bottom: 1px solid rgba(0,255,231,0.4); }

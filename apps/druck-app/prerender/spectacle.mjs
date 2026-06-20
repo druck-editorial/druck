@@ -30,7 +30,16 @@ function composeAero(items) {
     `</div></div>`;
 }
 
+function composeVaporwave(items) {
+  const { lead, rest } = partition(items);
+  return `<div class="sx-vaporwave"><div class="vw-sun"></div><div class="vw-grid"></div><div class="vw-inner">` +
+    (lead ? `<a class="vw-lead" href="${href(lead)}"><div class="vw-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
+    `<ul class="vw-list">${rest.slice(0, 6).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
+  { key: 'vaporwave', name: 'Vaporwave', render: composeVaporwave },
 ];
