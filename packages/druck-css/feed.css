@@ -1044,7 +1044,6 @@
   text-decoration: none;
 }
 .druck-front-page--almanac .dfal-leadtitle h2 {
-  margin: 0;
   text-align: center;
   font-size: clamp(28px, 4.4vw, 50px);
   font-weight: 700;
