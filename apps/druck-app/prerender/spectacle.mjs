@@ -10,14 +10,14 @@ export function partition(items) {
 }
 
 const href = (item) => escapeHtml(safeUrl(item.shareUrl ?? '') || '#');
-const img = (item) => escapeHtml(safeUrl(item.heroImage) || 'data:,');
+const img = (item) => escapeHtml(safeUrl(item.heroImage ?? '') || 'data:,');
 
 function composeAqua(items) {
   const { lead, rest } = partition(items);
   return `<div class="sx-aqua"><div class="aq-win">` +
     `<div class="aq-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="aq-t">Druck</span></div>` +
     `<div class="aq-body">` +
-    (lead ? `<a class="aq-lead" href="${href(lead)}"><img src="${img(lead)}" alt="" loading="lazy" width="1200" height="675"><div class="aq-txt"><div class="aq-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2><p>${escapeHtml(lead.subtitle)}</p><span class="aq-btn">Read</span></div></a>` : '') +
+    (lead ? `<a class="aq-lead" href="${href(lead)}"><img src="${img(lead)}" alt="" loading="lazy" width="1200" height="675"><div class="aq-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2><p>${escapeHtml(lead.subtitle)}</p><span class="aq-btn">Read</span></a>` : '') +
     `<ul class="aq-list">${rest.slice(0, 7).map((i) => `<li><a href="${href(i)}"><span class="aq-dot"></span>${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
     `</div></div></div>`;
 }
