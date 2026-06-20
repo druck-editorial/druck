@@ -216,11 +216,30 @@ function composeHelvetica(rows: FrontPageRow[], _opts?: RenderOptions): string {
   return parts.join('');
 }
 
+function composeBroadsheet(rows: FrontPageRow[], _opts?: RenderOptions): string {
+  const { lead, cells, brief } = partitionRows(rows);
+  const parts: string[] = ['<div class="dfbr-mast">The Druck</div><div class="dfbr-rule"></div>'];
+  if (lead) {
+    parts.push(`<div class="dfbr-date">${escapeHtml(lead.publishedAt)}</div>`);
+    parts.push(`<a class="dfbr-leadtitle" href="${safeHref(lead)}"><h2>${escapeHtml(lead.title)}</h2></a>`);
+    parts.push(`<p class="dfbr-sub">${escapeHtml(lead.subtitle)}</p>`);
+  }
+  const stories = [...cells, ...brief];
+  if (stories.length) {
+    parts.push('<div class="dfbr-cols">' + stories.map((s, i) =>
+      `<div class="dfbr-story${i === 0 ? ' dfbr-drop' : ''}"><h3>${escapeHtml(s.category)}</h3>` +
+      `<a href="${safeHref(s)}"><b>${escapeHtml(s.title)}</b></a> ${escapeHtml(s.subtitle)}</div>`
+    ).join('') + '</div>');
+  }
+  return parts.join('');
+}
+
 const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   classic: composeClassic,
   brutalist: composeBrutalist,
   swiss: composeSwiss,
   helvetica: composeHelvetica,
+  broadsheet: composeBroadsheet,
 };
 
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {

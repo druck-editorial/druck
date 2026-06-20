@@ -653,3 +653,89 @@
     gap: 4px;
   }
 }
+/* Broadsheet look */
+.druck-front-page--broadsheet {
+  background: #f6f1e6;
+  color: #1a1611;
+  font-family: Georgia, "Times New Roman", serif;
+  padding: 30px clamp(16px, 4vw, 40px) 60px;
+}
+.druck-front-page--broadsheet .dfbr-mast {
+  text-align: center;
+  font-size: clamp(34px, 5vw, 58px);
+  font-weight: 700;
+  font-variant: small-caps;
+  letter-spacing: 0.02em;
+}
+.druck-front-page--broadsheet .dfbr-rule {
+  border-top: 3px double #1a1611;
+  border-bottom: 1px solid #1a1611;
+  height: 4px;
+  margin: 8px 0;
+}
+.druck-front-page--broadsheet .dfbr-date {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #6a5f4c;
+  margin-bottom: 22px;
+}
+.druck-front-page--broadsheet .dfbr-leadtitle {
+  color: inherit;
+  text-decoration: none;
+}
+.druck-front-page--broadsheet .dfbr-leadtitle h2 {
+  margin: 0 auto 14px;
+  text-align: center;
+  font-size: clamp(34px, 5.4vw, 66px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+.druck-front-page--broadsheet .dfbr-sub {
+  text-align: center;
+  font-style: italic;
+  font-size: 18px;
+  color: #54493a;
+  margin: 0 auto 28px;
+  max-width: 48ch;
+}
+.druck-front-page--broadsheet .dfbr-cols {
+  columns: 3;
+  column-gap: 30px;
+  column-rule: 1px solid #cdc3ad;
+  font-size: 15px;
+  line-height: 1.55;
+  text-align: justify;
+  hyphens: auto;
+}
+.druck-front-page--broadsheet .dfbr-story {
+  margin: 0 0 14px;
+  break-inside: avoid;
+}
+.druck-front-page--broadsheet .dfbr-story h3 {
+  font-variant: small-caps;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #1a1611;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+.druck-front-page--broadsheet .dfbr-story a {
+  color: inherit;
+}
+.druck-front-page--broadsheet .dfbr-drop::first-letter {
+  float: left;
+  font-size: 58px;
+  line-height: 0.72;
+  font-weight: 700;
+  padding: 6px 8px 0 0;
+}
+@media (max-width: 800px) {
+  .druck-front-page--broadsheet .dfbr-cols {
+    columns: 1;
+  }
+}
