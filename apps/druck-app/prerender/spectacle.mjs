@@ -73,6 +73,16 @@ function composeTerminal(items) {
     `</div></div>`;
 }
 
+function composeBloomberg(items) {
+  const { lead, rest } = partition(items);
+  const row = (i) => `<a class="bb-row" href="${href(i)}"><span class="bb-t">${escapeHtml(i.title)}</span><span class="bb-c">${escapeHtml(i.category)}</span></a>`;
+  return `<div class="sx-bloomberg"><div class="bb-inner">` +
+    `<div class="bb-top"><span>DRUCK TERMINAL</span><span>TOP STORIES</span></div>` +
+    (lead ? `<a class="bb-row bb-lead" href="${href(lead)}"><span class="bb-t">${escapeHtml(lead.title)}</span><span class="bb-c bb-hot">HOT</span></a>` : '') +
+    rest.slice(0, 8).map(row).join('') +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
@@ -81,4 +91,5 @@ export const SPECTACLE = [
   { key: 'riso', name: 'Risograph', render: composeRiso },
   { key: 'zine', name: 'Ransom-note zine', render: composeZine },
   { key: 'terminal', name: 'Terminal', render: composeTerminal },
+  { key: 'bloomberg', name: 'Bloomberg', render: composeBloomberg },
 ];
