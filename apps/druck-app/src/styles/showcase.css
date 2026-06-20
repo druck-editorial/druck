@@ -52,7 +52,7 @@
 @media (prefers-reduced-motion: reduce) { .ms-look.reveal { animation: none; } }
 @supports not (animation-timeline: view()) { .ms-look.reveal { animation: none; } }
 
-.sc-intro, .sc-outro { min-height: 100vh; scroll-snap-align: start; display: grid; place-items: center; text-align: center; color: #fff; padding: 40px; }
+.sc-intro, .sc-outro { min-height: 100vh; scroll-snap-align: start; display: grid; place-items: center; text-align: left; color: #fff; padding: 40px; }
 .sc-intro { background: radial-gradient(120% 80% at 50% 0%, #1a1a26, #06060a); }
 .sc-outro { background: radial-gradient(120% 80% at 50% 100%, #1a1a26, #06060a); }
 .sc-eye { font: 600 13px/1 'IBM Plex Mono', monospace; letter-spacing: 0.32em; text-transform: uppercase; color: #9bff5a; margin-bottom: 22px; }
