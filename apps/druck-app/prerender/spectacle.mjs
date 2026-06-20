@@ -34,7 +34,7 @@ function composeAero(items) {
 
 function composeVaporwave(items) {
   const { lead, rest } = partition(items);
-  return `<div class="sx-vaporwave"><div class="vw-sun"></div><div class="vw-grid"></div><div class="vw-inner">` +
+  return `<div class="sx-vaporwave"><img class="vw-bg" src="/img/demo/sc-vapor.webp" alt="" loading="lazy"><div class="vw-sun"></div><div class="vw-grid"></div><div class="vw-inner">` +
     (lead ? `<a class="vw-lead" href="${href(lead)}"><div class="vw-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
     `<ul class="vw-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
     `</div></div>`;
@@ -68,7 +68,7 @@ function composeZine(items) {
 function composeTerminal(items) {
   const { lead, rest } = partition(items);
   const line = (i) => `<div class="tm-line">&gt; ${escapeHtml(i.title)}</div>`;
-  return `<div class="sx-terminal"><div class="tm-scan"></div><div class="tm-inner">` +
+  return `<div class="sx-terminal"><img class="tm-bg" src="/img/demo/sc-matrix.webp" alt="" loading="lazy"><div class="tm-scan"></div><div class="tm-inner">` +
     `<div class="tm-head">DRUCK://feed</div>` +
     (lead ? `<a class="tm-lead" href="${href(lead)}"><div class="tm-line tm-hot">&gt; ${escapeHtml(lead.title)}<span class="tm-cur"></span></div></a>` : '') +
     rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<a class="tm-row" href="${href(i)}">${line(i)}</a>`).join('') +
