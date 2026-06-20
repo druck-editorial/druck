@@ -151,21 +151,21 @@ describe('renderFeaturedLooks', () => {
     expect(html).toContain('look-tile');
     expect((html.match(/class="look-tile"/g) ?? []).length).toBe(4);
   });
-  it('links luxury to ms-3', () => {
+  it('links luxury to ms-2', () => {
     const html = renderFeaturedLooks(items);
-    expect(html).toContain('href="#ms-3"');
+    expect(html).toContain('href="#ms-2"');
   });
   it('links brutalist to ms-0', () => {
     const html = renderFeaturedLooks(items);
     expect(html).toContain('href="#ms-0"');
   });
-  it('links broadsheet to ms-2', () => {
+  it('links broadsheet to ms-1', () => {
     const html = renderFeaturedLooks(items);
-    expect(html).toContain('href="#ms-2"');
+    expect(html).toContain('href="#ms-1"');
   });
-  it('links bauhaus to ms-7', () => {
+  it('links bauhaus to ms-6', () => {
     const html = renderFeaturedLooks(items);
-    expect(html).toContain('href="#ms-7"');
+    expect(html).toContain('href="#ms-6"');
   });
   it('renders correct display names', () => {
     const html = renderFeaturedLooks(items);
