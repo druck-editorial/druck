@@ -251,9 +251,10 @@ function lookTag(name) {
 }
 
 const FEATURED_LOOKS = [
+  { key: 'luxury', kind: 'engine', displayName: 'Luxury' },
   { key: 'brutalist', kind: 'engine', displayName: 'Brutalist' },
-  { key: 'vaporwave', kind: 'spectacle', displayName: 'Vaporwave' },
-  { key: 'neubrutalism', kind: 'spectacle', displayName: 'Neubrutalism' },
+  { key: 'broadsheet', kind: 'engine', displayName: 'Broadsheet' },
+  { key: 'bauhaus', kind: 'spectacle', displayName: 'Bauhaus' },
 ];
 
 export function renderFeaturedLooks(items) {
@@ -316,11 +317,11 @@ export function renderShowcase(items) {
     `<a class="sc-close-m" href="#" aria-label="Close showcase">Close</a>` +
     nav +
     '<section class="sc-intro"><div><div class="sc-eye">One feed</div>' +
-    '<h2>Fifteen ways to print the same news.</h2>' +
+    '<h2>Thirteen ways to print the same news.</h2>' +
     '<p>The same stories. Scroll, and watch the front page transform.</p>' +
     '<div class="sc-dn">scroll</div></div></section>' +
     morph +
-    '<section class="sc-outro"><div><div class="sc-big">15 looks</div><p>Zero bytes of JavaScript.</p></div></section>'
+    '<section class="sc-outro"><div><div class="sc-big">13 looks</div><p>Zero bytes of JavaScript.</p></div></section>'
   );
 }
 

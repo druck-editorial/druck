@@ -1,15 +1,19 @@
 /* SPDX-License-Identifier: MIT | Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com> */
 
-.band-showcase .band-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--demo-accent-clay); margin: 0 0 18px; }
-.band-showcase .showcase-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; background: var(--demo-text, #efeef2); color: var(--demo-bg, #101013); font-family: 'IBM Plex Mono', monospace; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; padding: 16px 26px; border-radius: 999px; text-decoration: none; transition: background 0.15s; }
-.band-showcase .showcase-cta:hover { background: #d6ff00; }
-.band-showcase .showcase-cta-prominent { background: #d6ff00; color: #06060a; font-size: 16px; font-weight: 700; padding: 18px 36px; letter-spacing: 0.08em; box-shadow: 0 4px 20px rgba(214,255,0,0.28); }
-.band-showcase .showcase-cta-prominent:hover { background: #c8f000; box-shadow: 0 6px 28px rgba(214,255,0,0.38); }
-.band-showcase .showcase-cta-prominent:focus-visible { outline: 3px solid #06060a; outline-offset: 3px; }
+.wild-looks { max-width: 1200px; margin: clamp(48px, 6vw, 84px) auto 0; padding-top: clamp(32px, 4vw, 52px); border-top: 1px solid rgba(255,255,255,0.14); text-align: center; }
+.wild-looks-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--demo-accent-clay); margin: 0 0 14px; }
+.wild-looks-title { font-family: var(--font-serif, Georgia, 'Times New Roman', serif); font-weight: 600; font-size: clamp(26px, 3.4vw, 46px); line-height: 1.04; margin: 0; color: #f4f1ec; }
+.wild-looks-title em { font-style: italic; color: var(--demo-accent-clay); }
+.showcase-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; background: var(--demo-text, #efeef2); color: var(--demo-bg, #101013); font-family: 'IBM Plex Mono', monospace; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; padding: 16px 26px; border-radius: 999px; text-decoration: none; transition: background 0.15s; }
+.showcase-cta:hover { background: #d6ff00; }
+.showcase-cta-prominent { background: #d6ff00; color: #06060a; font-size: 16px; font-weight: 700; padding: 18px 36px; letter-spacing: 0.08em; box-shadow: 0 4px 20px rgba(214,255,0,0.28); }
+.showcase-cta-prominent:hover { background: #c8f000; box-shadow: 0 6px 28px rgba(214,255,0,0.38); }
+.showcase-cta-prominent:focus-visible { outline: 3px solid #06060a; outline-offset: 3px; }
 
 .look-tiles-wrap { margin: 28px 0 0; }
-.look-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-@media (max-width: 720px) { .look-tiles { grid-template-columns: 1fr; } }
+.look-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 1080px) { .look-tiles { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .look-tiles { grid-template-columns: 1fr; } }
 .look-tile { position: relative; display: block; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #111118; transition: transform 0.15s, box-shadow 0.15s; }
 .look-tile:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.4); }
 .look-tile-link { position: absolute; inset: 0; z-index: 2; }
@@ -82,16 +86,6 @@
 
 @media (max-width: 760px) { .sx-aqua .aq-body { grid-template-columns: 1fr; } }
 
-.sx-vaporwave { position: relative; overflow: hidden; background: linear-gradient(#1b0b3a, #3a0b52 52%, #ff2d95); font-family: 'Arial Black', Arial, sans-serif; padding: 80px clamp(16px, 5vw, 64px); }
-.sx-vaporwave .vw-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; z-index: 0; }
-.sx-vaporwave .vw-sun { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); width: 220px; height: 220px; border-radius: 50%; background: linear-gradient(#ffe53b, #ff2d95); z-index: 1; }
-.sx-vaporwave .vw-grid { position: absolute; left: -25%; right: -25%; bottom: -40px; height: 50%; background-image: linear-gradient(rgba(0,255,231,0.55) 2px, transparent 2px), linear-gradient(90deg, rgba(0,255,231,0.55) 2px, transparent 2px); background-size: 40px 30px; transform: perspective(200px) rotateX(62deg); transform-origin: bottom; z-index: 1; }
-.sx-vaporwave .vw-inner { position: relative; max-width: 800px; margin: 0 auto; text-align: center; z-index: 1; }
-.sx-vaporwave .vw-k { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: #00ffe7; margin-bottom: 14px; }
-.sx-vaporwave .vw-lead { text-decoration: none; display: block; }
-.sx-vaporwave .vw-lead h2 { margin: 0 0 36px; color: #fff; font-size: clamp(34px, 6vw, 72px); text-transform: uppercase; letter-spacing: 0.04em; line-height: 0.95; text-shadow: 3px 3px 0 #00ffe7, -3px -3px 0 #ff2d95; }
-.sx-vaporwave .vw-list { list-style: none; margin: 0; padding: 0; }
-.sx-vaporwave .vw-list a { display: block; padding: 11px 0; color: #fff; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 16px; border-bottom: 1px solid rgba(0,255,231,0.4); }
 
 
 .sx-riso { position: relative; background: #f3ead2; font-family: 'Arial Black', Arial, sans-serif; padding: 56px clamp(16px, 4vw, 48px); }
@@ -143,11 +137,3 @@
 .sx-tabloid .tb-list { list-style: none; margin: 0; padding: 0; }
 .sx-tabloid .tb-list a { display: block; padding: 12px 0; color: #111; text-decoration: none; font-family: Arial, sans-serif; font-weight: 800; font-size: 18px; text-transform: uppercase; border-bottom: 2px solid #111; }
 
-.sx-neubrutalism { background: #f7f4ff; font-family: Arial, Helvetica, sans-serif; padding: 56px clamp(16px, 4vw, 48px); }
-.sx-neubrutalism .nb-inner { max-width: 900px; margin: 0 auto; }
-.sx-neubrutalism .nb-card { position: relative; display: block; background: #fff; border: 3px solid #111; box-shadow: 8px 8px 0 #111; border-radius: 6px; padding: 26px; text-decoration: none; color: #111; }
-.sx-neubrutalism .nb-badge { position: absolute; top: -16px; right: -8px; background: #b9ff3d; border: 3px solid #111; border-radius: 999px; font-weight: 900; font-size: 12px; padding: 5px 12px; transform: rotate(6deg); }
-.sx-neubrutalism .nb-k { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; background: #c9b8ff; border: 2px solid #111; display: inline-block; padding: 2px 8px; margin-bottom: 12px; }
-.sx-neubrutalism .nb-card h2 { margin: 0; font-weight: 900; font-size: clamp(30px, 5vw, 60px); letter-spacing: -0.02em; line-height: 0.95; }
-.sx-neubrutalism .nb-list { list-style: none; margin: 24px 0 0; padding: 0; }
-.sx-neubrutalism .nb-list a { display: block; background: #fff; border: 3px solid #111; box-shadow: 4px 4px 0 #111; border-radius: 6px; padding: 14px 18px; margin-bottom: 14px; color: #111; text-decoration: none; font-weight: 800; }

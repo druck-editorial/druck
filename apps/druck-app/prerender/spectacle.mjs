@@ -24,14 +24,6 @@ function composeAqua(items) {
     `</div></div></div>`;
 }
 
-function composeVaporwave(items) {
-  const { lead, rest } = partition(items);
-  return `<div class="sx-vaporwave"><img class="vw-bg" src="/img/demo/sc-vapor.webp" alt="" loading="lazy"><div class="vw-sun"></div><div class="vw-grid"></div><div class="vw-inner">` +
-    (lead ? `<a class="vw-lead" href="${href(lead)}"><div class="vw-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
-    `<ul class="vw-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
-    `</div></div>`;
-}
-
 function composeRiso(items) {
   const { lead, rest } = partition(items);
   return `<div class="sx-riso"><div class="ri-inner">` +
@@ -75,21 +67,11 @@ function composeTabloid(items) {
     `</div></div>`;
 }
 
-function composeNeubrutalism(items) {
-  const { lead, rest } = partition(items);
-  return `<div class="sx-neubrutalism"><div class="nb-inner">` +
-    (lead ? `<a class="nb-card" href="${href(lead)}"><span class="nb-badge">HOT</span><span class="nb-k">${escapeHtml(lead.category)}</span><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
-    `<ul class="nb-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
-    `</div></div>`;
-}
-
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
-  { key: 'vaporwave', name: 'Vaporwave', render: composeVaporwave },
   { key: 'riso', name: 'Risograph', render: composeRiso },
   { key: 'bloomberg', name: 'Bloomberg', render: composeBloomberg },
   { key: 'letterpress', name: 'Letterpress', render: composeLetterpress },
   { key: 'bauhaus', name: 'Bauhaus', render: composeBauhaus },
   { key: 'tabloid', name: 'Tabloid', render: composeTabloid },
-  { key: 'neubrutalism', name: 'Neubrutalism', render: composeNeubrutalism },
 ];

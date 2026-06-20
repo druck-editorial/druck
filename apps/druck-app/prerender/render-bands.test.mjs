@@ -146,28 +146,33 @@ describe('renderFeaturedLooks', () => {
     { title: 'Two', subtitle: 'S2', category: 'startup', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/b.webp', shareUrl: 'https://e.com/b/' },
     { title: 'Three', subtitle: 'S3', category: 'science', publishedAt: 'Jun 09, 2026', heroImage: 'https://e.com/c.webp', shareUrl: 'https://e.com/c/' },
   ];
-  it('returns a look-tiles container with three tiles', () => {
+  it('returns a look-tiles container with four tiles', () => {
     const html = renderFeaturedLooks(items);
     expect(html).toContain('look-tile');
-    expect((html.match(/class="look-tile"/g) ?? []).length).toBe(3);
+    expect((html.match(/class="look-tile"/g) ?? []).length).toBe(4);
+  });
+  it('links luxury to ms-3', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('href="#ms-3"');
   });
   it('links brutalist to ms-0', () => {
     const html = renderFeaturedLooks(items);
     expect(html).toContain('href="#ms-0"');
   });
-  it('links vaporwave to ms-8', () => {
+  it('links broadsheet to ms-2', () => {
     const html = renderFeaturedLooks(items);
-    expect(html).toContain('href="#ms-8"');
+    expect(html).toContain('href="#ms-2"');
   });
-  it('links neubrutalism to ms-14', () => {
+  it('links bauhaus to ms-11', () => {
     const html = renderFeaturedLooks(items);
-    expect(html).toContain('href="#ms-14"');
+    expect(html).toContain('href="#ms-11"');
   });
   it('renders correct display names', () => {
     const html = renderFeaturedLooks(items);
+    expect(html).toContain('Luxury');
     expect(html).toContain('Brutalist');
-    expect(html).toContain('Vaporwave');
-    expect(html).toContain('Neubrutalism');
+    expect(html).toContain('Broadsheet');
+    expect(html).toContain('Bauhaus');
   });
 });
 
@@ -183,7 +188,7 @@ describe('renderShowcase', () => {
     expect(html).toContain('druck-front-page--brutalist');
     expect(html).toContain('druck-front-page--almanac');
     expect(html).toContain('sx-aqua');
-    expect(html).toContain('sx-vaporwave');
+    expect(html).toContain('sx-bloomberg');
     expect(html).toContain('class="sc-close"');
   });
 
