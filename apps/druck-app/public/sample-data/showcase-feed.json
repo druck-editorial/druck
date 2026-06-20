@@ -1,13 +1,13 @@
 [
   {
-    "title": "Ukraine signs minerals deal with US after months of negotiations",
-    "subtitle": "Kyiv and Washington reached a long-delayed agreement giving American firms preferred access to Ukrainian rare-earth deposits in exchange for continued military support.",
-    "metaDescription": "Kyiv and Washington reached a long-delayed agreement giving American firms preferred access to Ukrainian rare-earth deposits in exchange for continued military s",
-    "slug": "ukraine-minerals-deal-us",
+    "title": "James Webb telescope captures a galaxy cluster forming just 800 million years after the Big Bang",
+    "subtitle": "The JWST's NIRCam imaged 47 proto-galaxies gravitationally bound at redshift 7.2, the earliest confirmed cluster precursor ever observed.",
+    "metaDescription": "The JWST's NIRCam imaged 47 proto-galaxies gravitationally bound at redshift 7.2, the earliest confirmed cluster precursor ever observed.",
+    "slug": "jwst-galaxy-cluster-800m-years",
     "format": "feature",
-    "category": "world",
+    "category": "science",
     "publishedAt": "Jun 19, 2026",
-    "heroImage": "/img/demo/scales-justice.webp",
+    "heroImage": "/img/demo/insight-window.webp",
     "shareUrl": "https://sonto.tech/druck/",
     "hot": true
   },
@@ -30,7 +30,7 @@
     "format": "feature",
     "category": "science",
     "publishedAt": "Jun 18, 2026",
-    "heroImage": "/img/demo/insight-window.webp",
+    "heroImage": "/img/demo/backpack-circuit.webp",
     "shareUrl": "https://sonto.tech/druck/",
     "hot": true
   },
@@ -131,7 +131,7 @@
     "format": "feature",
     "category": "science",
     "publishedAt": "Jun 19, 2026",
-    "heroImage": "/img/demo/backpack-circuit.webp",
+    "heroImage": "/img/demo/backpack-cathedral.webp",
     "shareUrl": "https://sonto.tech/druck/"
   },
   {
