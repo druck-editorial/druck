@@ -284,6 +284,7 @@ export function renderShowcase(items) {
     `<div class="sc-nav-list">${navItems}</div>` +
     `</nav>`;
   return (
+    `<a class="sc-close-m" href="#" aria-label="Close showcase">Close</a>` +
     nav +
     '<section class="sc-intro"><div><div class="sc-eye">One feed</div>' +
     '<h2>Twenty ways to print the same news.</h2>' +

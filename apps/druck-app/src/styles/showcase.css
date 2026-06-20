@@ -23,6 +23,10 @@
 .sc-nav-tag { font: 400 9px/1 'IBM Plex Mono', monospace; letter-spacing: 0.08em; color: rgba(155,255,90,0.45); flex: none; }
 @media (max-width: 900px) { .sc-nav { display: none; } }
 
+.sc-close-m { display: none; }
+@media (max-width: 900px) { .sc-close-m { display: block; position: fixed; top: 14px; right: 16px; z-index: 1200; background: #9bff5a; color: #06060a; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 16px; border-radius: 999px; text-decoration: none; min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; } }
+@media (max-width: 900px) { .sc-close-m:focus-visible { outline: 2px solid #06060a; outline-offset: 2px; } }
+
 .ms { min-height: 100vh; scroll-snap-align: start; position: relative; padding-top: 54px; background: #06060a; }
 .ms-label { position: sticky; top: 0; z-index: 10; background: #000; color: #9bff5a; font: 600 12px/1 'IBM Plex Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; padding: 10px 16px; }
 .ms-look { max-width: 1180px; margin: 0 auto; }
