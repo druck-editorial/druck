@@ -269,10 +269,11 @@ export function renderFeaturedLooks(items) {
       html = SPECTACLE[spectacleIndex].render(items);
     }
     return (
-      `<a class="look-tile" href="#ms-${index}">` +
+      `<div class="look-tile">` +
       `<div class="look-tile-frame">${html}</div>` +
       `<div class="look-tile-cap"><span class="look-tile-name">${escapeHtml(displayName)}</span><span class="look-tile-go">Open</span></div>` +
-      `</a>`
+      `<a class="look-tile-link" href="#ms-${index}" aria-label="Open the ${escapeHtml(displayName)} look"></a>` +
+      `</div>`
     );
   });
   return `<div class="look-tiles">${tiles.join('')}</div>`;
