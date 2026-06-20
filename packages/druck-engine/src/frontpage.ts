@@ -165,9 +165,39 @@ function composeBrutalist(rows: FrontPageRow[], _opts?: RenderOptions): string {
   return parts.join('');
 }
 
+function composeSwiss(rows: FrontPageRow[], _opts?: RenderOptions): string {
+  const { lead, cells, brief } = partitionRows(rows);
+  const parts: string[] = [];
+  if (lead) {
+    parts.push(
+      `<div class="dfsw-top"><span class="dfsw-wm">Druck</span><span class="dfsw-meta">${escapeHtml(lead.publishedAt)}</span></div>` +
+      '<div class="dfsw-acc"></div>' +
+      '<div class="dfsw-lead"><div class="dfsw-head">' +
+      `<div class="dfsw-cat">${escapeHtml(lead.category)}</div>` +
+      `<a class="dfsw-title" href="${safeHref(lead)}"><h2>${escapeHtml(lead.title)}</h2></a>` +
+      `<p class="dfsw-dek">${escapeHtml(lead.subtitle)}</p></div>` +
+      `<a class="dfsw-img" href="${safeHref(lead)}"><img src="${safeImg(lead)}" alt="${escapeHtml(lead.heroImageAlt ?? lead.title)}" loading="lazy" width="1200" height="675"></a>` +
+      '</div>'
+    );
+  }
+  if (cells.length) {
+    parts.push('<div class="dfsw-grid">' + cells.map((c) =>
+      `<a class="dfsw-cell" href="${safeHref(c)}"><div class="dfsw-k">${escapeHtml(c.category)}</div>` +
+      `<h3>${escapeHtml(c.title)}</h3><p>${escapeHtml(c.subtitle)}</p></a>`
+    ).join('') + '</div>');
+  }
+  if (brief.length) {
+    parts.push('<ol class="dfsw-brief">' + brief.map((b) =>
+      `<li><a href="${safeHref(b)}"><span class="dfsw-bt">${escapeHtml(b.title)}</span><time>${escapeHtml(b.publishedAt)}</time></a></li>`
+    ).join('') + '</ol>');
+  }
+  return parts.join('');
+}
+
 const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   classic: composeClassic,
   brutalist: composeBrutalist,
+  swiss: composeSwiss,
 };
 
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {

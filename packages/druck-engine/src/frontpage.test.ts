@@ -112,9 +112,9 @@ describe('renderFrontPage look dispatch', () => {
 
   it('falls back to classic with no scoping class for an unimplemented look', () => {
     const classic = renderFrontPage(buildFrontPage(eleven), { look: 'classic' });
-    const swiss = renderFrontPage(buildFrontPage(eleven), { look: 'swiss' });
-    expect(swiss).toBe(classic);
-    expect(swiss).not.toContain('druck-front-page--swiss');
+    const unknown = renderFrontPage(buildFrontPage(eleven), { look: 'unknown' as any });
+    expect(unknown).toBe(classic);
+    expect(unknown).not.toContain('druck-front-page--unknown');
   });
 });
 
@@ -151,6 +151,22 @@ describe('composeBrutalist', () => {
       item(1), item(2), item(3),
     ];
     const html = renderFrontPage(buildFrontPage(items), { look: 'brutalist' });
+    expect(html).not.toContain('<script>x</script>');
+    expect(html).toContain('&lt;script&gt;');
+    expect(html).not.toContain('javascript:alert(1)');
+  });
+});
+
+describe('engine look: swiss', () => {
+  it('scopes the wrapper, renders structure, and escapes', () => {
+    const items = [
+      item(0, { hot: true, title: '<script>x</script>', shareUrl: 'javascript:alert(1)' }),
+      item(1), item(2), item(3), item(4), item(5),
+    ];
+    const html = renderFrontPage(buildFrontPage(items), { look: 'swiss' });
+    expect(html).toContain('druck-front-page--swiss');
+    expect(html).toContain('dfsw-lead');
+    expect(html).toContain('dfsw-grid');
     expect(html).not.toContain('<script>x</script>');
     expect(html).toContain('&lt;script&gt;');
     expect(html).not.toContain('javascript:alert(1)');

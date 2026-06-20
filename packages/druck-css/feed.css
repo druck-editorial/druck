@@ -438,3 +438,140 @@
     border-right: 0;
   }
 }
+
+/* Swiss look */
+.druck-front-page--swiss {
+  --sw-accent: #e2231a;
+  background: #fff;
+  color: #0a0a0a;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 34px clamp(16px, 4vw, 40px) 60px;
+}
+.druck-front-page--swiss .dfsw-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 3px solid #0a0a0a;
+  padding-bottom: 10px;
+}
+.druck-front-page--swiss .dfsw-wm {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+.druck-front-page--swiss .dfsw-meta {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #555;
+}
+.druck-front-page--swiss .dfsw-acc {
+  height: 3px;
+  background: var(--sw-accent);
+}
+.druck-front-page--swiss .dfsw-lead {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 34px;
+  padding: 38px 0;
+  border-bottom: 1px solid #d4d4d4;
+}
+.druck-front-page--swiss .dfsw-cat {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sw-accent);
+  margin-bottom: 16px;
+}
+.druck-front-page--swiss .dfsw-title {
+  color: inherit;
+  text-decoration: none;
+}
+.druck-front-page--swiss .dfsw-title h2 {
+  margin: 0;
+  font-size: clamp(34px, 5vw, 62px);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.druck-front-page--swiss .dfsw-dek {
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #222;
+  max-width: 40ch;
+}
+.druck-front-page--swiss .dfsw-img img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+.druck-front-page--swiss .dfsw-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 34px;
+  padding-top: 34px;
+}
+.druck-front-page--swiss .dfsw-cell {
+  border-top: 2px solid #0a0a0a;
+  padding-top: 14px;
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+.druck-front-page--swiss .dfsw-k {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 10px;
+}
+.druck-front-page--swiss .dfsw-cell h3 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.druck-front-page--swiss .dfsw-cell p {
+  margin: 9px 0 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #333;
+}
+.druck-front-page--swiss .dfsw-brief {
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 0;
+}
+.druck-front-page--swiss .dfsw-brief li {
+  border-top: 1px solid #d4d4d4;
+}
+.druck-front-page--swiss .dfsw-brief a {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  padding: 12px 0;
+  color: inherit;
+  text-decoration: none;
+}
+.druck-front-page--swiss .dfsw-bt {
+  font-size: 16px;
+  font-weight: 700;
+}
+.druck-front-page--swiss .dfsw-brief time {
+  margin-left: auto;
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+@media (max-width: 800px) {
+  .druck-front-page--swiss .dfsw-lead,
+  .druck-front-page--swiss .dfsw-grid {
+    grid-template-columns: 1fr;
+  }
+}
