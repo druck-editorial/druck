@@ -314,14 +314,14 @@ export function renderShowcase(items) {
     `<div class="sc-nav-list">${navItems}</div>` +
     `</nav>`;
   return (
-    `<a class="sc-close-m" href="#" aria-label="Close showcase">Close</a>` +
+    `<a class="sc-close-m" href="#" aria-label="Close showcase" data-i18n="sc-close-m">Close</a>` +
     nav +
-    '<section class="sc-intro"><div><div class="sc-eye">One feed</div>' +
-    '<h2>Eight ways to print the same news.</h2>' +
-    '<p>The same stories. Scroll, and watch the front page transform.</p>' +
-    '<div class="sc-dn">scroll</div></div></section>' +
+    '<section class="sc-intro"><div><div class="sc-eye" data-i18n="sc-eye">One feed</div>' +
+    '<h2 data-i18n="sc-intro-h2">Eight ways to print the same news.</h2>' +
+    '<p data-i18n="sc-intro-p">The same stories. Scroll, and watch the front page transform.</p>' +
+    '<div class="sc-dn" data-i18n="sc-scroll">scroll</div></div></section>' +
     morph +
-    '<section class="sc-outro"><div><div class="sc-big">8 looks</div><p>Zero bytes of JavaScript.</p></div></section>'
+    '<section class="sc-outro"><div><div class="sc-big" data-i18n="sc-outro-big">8 looks</div><p data-i18n="sc-outro-p">Zero bytes of JavaScript.</p></div></section>'
   );
 }
 
