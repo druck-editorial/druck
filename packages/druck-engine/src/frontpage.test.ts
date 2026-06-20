@@ -232,18 +232,3 @@ describe('engine look: bento', () => {
     expect(html).not.toContain('javascript:alert(1)');
   });
 });
-
-describe('engine look: almanac', () => {
-  it('scopes the wrapper, renders columns, and escapes', () => {
-    const items = [
-      item(0, { hot: true, title: '<script>x</script>', shareUrl: 'javascript:alert(1)' }),
-      item(1), item(2), item(3), item(4), item(5),
-    ];
-    const html = renderFrontPage(buildFrontPage(items), { look: 'almanac' });
-    expect(html).toContain('druck-front-page--almanac');
-    expect(html).toContain('dfal-cols');
-    expect(html).toContain('dfal-top');
-    expect(html).not.toContain('<script>x</script>');
-    expect(html).not.toContain('javascript:alert(1)');
-  });
-});

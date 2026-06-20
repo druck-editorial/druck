@@ -163,9 +163,9 @@ describe('renderFeaturedLooks', () => {
     const html = renderFeaturedLooks(items);
     expect(html).toContain('href="#ms-2"');
   });
-  it('links bauhaus to ms-11', () => {
+  it('links bauhaus to ms-7', () => {
     const html = renderFeaturedLooks(items);
-    expect(html).toContain('href="#ms-11"');
+    expect(html).toContain('href="#ms-7"');
   });
   it('renders correct display names', () => {
     const html = renderFeaturedLooks(items);
@@ -186,8 +186,8 @@ describe('renderShowcase', () => {
     const html = renderShowcase(items);
     expect(html).toContain('class="sc-intro"');
     expect(html).toContain('druck-front-page--brutalist');
-    expect(html).toContain('druck-front-page--almanac');
-    expect(html).toContain('sx-aqua');
+    expect(html).toContain('druck-front-page--bento');
+    expect(html).toContain('sx-tabloid');
     expect(html).toContain('sx-bloomberg');
     expect(html).toContain('class="sc-close"');
   });

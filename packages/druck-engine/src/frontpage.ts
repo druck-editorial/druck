@@ -273,22 +273,6 @@ function composeBento(rows: FrontPageRow[], _opts?: RenderOptions): string {
   return `<div class="dfbn-head"><span class="dfbn-wm">Druck</span></div><div class="dfbn-grid">${tiles.join('')}</div>`;
 }
 
-function composeAlmanac(rows: FrontPageRow[], _opts?: RenderOptions): string {
-  const { lead, cells, brief } = partitionRows(rows);
-  const parts: string[] = ['<div class="dfal-top">The Druck Almanac</div><div class="dfal-est">Compiled from the wire</div>'];
-  if (lead) {
-    parts.push(`<a class="dfal-leadtitle" href="${safeHref(lead)}"><h2>${escapeHtml(lead.title)}</h2></a>`);
-    parts.push('<div class="dfal-orn">&sect; &mdash; &sect;</div>');
-  }
-  const stories = [...cells, ...brief];
-  if (stories.length) {
-    parts.push('<div class="dfal-cols">' + stories.map((s) =>
-      `<div class="dfal-entry"><a href="${safeHref(s)}"><b>${escapeHtml(s.title)}</b></a> ${escapeHtml(s.subtitle)}</div>`
-    ).join('') + '</div>');
-  }
-  return parts.join('');
-}
-
 const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   classic: composeClassic,
   brutalist: composeBrutalist,
@@ -297,7 +281,6 @@ const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   luxury: composeLuxury,
   noir: composeNoir,
   bento: composeBento,
-  almanac: composeAlmanac,
 };
 
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {

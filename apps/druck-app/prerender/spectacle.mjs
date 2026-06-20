@@ -12,25 +12,6 @@ export function partition(items) {
 }
 
 const href = (item) => escapeHtml(safeUrl(item.shareUrl ?? '') || '#');
-const img = (item) => escapeHtml(safeUrl(item.heroImage ?? '') || 'data:,');
-
-function composeAqua(items) {
-  const { lead, rest } = partition(items);
-  return `<div class="sx-aqua"><div class="aq-win">` +
-    `<div class="aq-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="aq-t">Druck</span></div>` +
-    `<div class="aq-body">` +
-    (lead ? `<a class="aq-lead" href="${href(lead)}"><img src="${img(lead)}" alt="" loading="lazy" width="1200" height="675"><div class="aq-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2><p>${escapeHtml(lead.subtitle)}</p><span class="aq-btn">Read</span></a>` : '') +
-    `<ul class="aq-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}"><span class="aq-dot"></span>${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
-    `</div></div></div>`;
-}
-
-function composeRiso(items) {
-  const { lead, rest } = partition(items);
-  return `<div class="sx-riso"><div class="ri-inner">` +
-    (lead ? `<a class="ri-lead" href="${href(lead)}"><div class="ri-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
-    `<ul class="ri-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
-    `</div></div>`;
-}
 
 function composeBloomberg(items) {
   const { lead, rest } = partition(items);
@@ -39,15 +20,6 @@ function composeBloomberg(items) {
     `<div class="bb-top"><span>DRUCK TERMINAL</span><span>TOP STORIES</span></div>` +
     (lead ? `<a class="bb-row bb-lead" href="${href(lead)}"><span class="bb-t">${escapeHtml(lead.title)}</span><span class="bb-c bb-hot">HOT</span></a>` : '') +
     rest.slice(0, SHOWCASE_LIST_MAX).map(row).join('') +
-    `</div></div>`;
-}
-
-function composeLetterpress(items) {
-  const { lead, rest } = partition(items);
-  return `<div class="sx-letterpress"><div class="lp-inner">` +
-    `<div class="lp-k">Broadside</div>` +
-    (lead ? `<a class="lp-lead" href="${href(lead)}"><h2>${escapeHtml(lead.title)}</h2></a><div class="lp-rule"></div>` : '') +
-    `<ul class="lp-list">${rest.slice(0, SHOWCASE_LIST_MAX).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
     `</div></div>`;
 }
 
@@ -68,10 +40,7 @@ function composeTabloid(items) {
 }
 
 export const SPECTACLE = [
-  { key: 'aqua', name: 'Aqua', render: composeAqua },
-  { key: 'riso', name: 'Risograph', render: composeRiso },
   { key: 'bloomberg', name: 'Bloomberg', render: composeBloomberg },
-  { key: 'letterpress', name: 'Letterpress', render: composeLetterpress },
   { key: 'bauhaus', name: 'Bauhaus', render: composeBauhaus },
   { key: 'tabloid', name: 'Tabloid', render: composeTabloid },
 ];
