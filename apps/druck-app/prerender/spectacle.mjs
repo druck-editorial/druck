@@ -83,6 +83,15 @@ function composeBloomberg(items) {
     `</div></div>`;
 }
 
+function composeLetterpress(items) {
+  const { lead, rest } = partition(items);
+  return `<div class="sx-letterpress"><div class="lp-inner">` +
+    `<div class="lp-k">Broadside</div>` +
+    (lead ? `<a class="lp-lead" href="${href(lead)}"><h2>${escapeHtml(lead.title)}</h2></a><div class="lp-rule"></div>` : '') +
+    `<ul class="lp-list">${rest.slice(0, 6).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
@@ -92,4 +101,5 @@ export const SPECTACLE = [
   { key: 'zine', name: 'Ransom-note zine', render: composeZine },
   { key: 'terminal', name: 'Terminal', render: composeTerminal },
   { key: 'bloomberg', name: 'Bloomberg', render: composeBloomberg },
+  { key: 'letterpress', name: 'Letterpress', render: composeLetterpress },
 ];
