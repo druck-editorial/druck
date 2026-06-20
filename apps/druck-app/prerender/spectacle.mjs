@@ -100,6 +100,14 @@ function composeBauhaus(items) {
     `</div></div>`;
 }
 
+function composeTabloid(items) {
+  const { lead, rest } = partition(items);
+  return `<div class="sx-tabloid"><div class="tb-mast">Druck</div><div class="tb-inner">` +
+    (lead ? `<a class="tb-lead" href="${href(lead)}"><div class="tb-k">Exclusive</div><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
+    `<ul class="tb-list">${rest.slice(0, 6).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
@@ -111,4 +119,5 @@ export const SPECTACLE = [
   { key: 'bloomberg', name: 'Bloomberg', render: composeBloomberg },
   { key: 'letterpress', name: 'Letterpress', render: composeLetterpress },
   { key: 'bauhaus', name: 'Bauhaus', render: composeBauhaus },
+  { key: 'tabloid', name: 'Tabloid', render: composeTabloid },
 ];
