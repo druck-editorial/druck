@@ -250,6 +250,34 @@ function lookTag(name) {
   return '';
 }
 
+const FEATURED_LOOKS = [
+  { key: 'brutalist', kind: 'engine', displayName: 'Brutalist' },
+  { key: 'vaporwave', kind: 'spectacle', displayName: 'Vaporwave' },
+  { key: 'neubrutalism', kind: 'spectacle', displayName: 'Neubrutalism' },
+];
+
+export function renderFeaturedLooks(items) {
+  const tiles = FEATURED_LOOKS.map(({ key, kind, displayName }) => {
+    let index;
+    let html;
+    if (kind === 'engine') {
+      index = SHOWCASE_ENGINE_LOOKS.indexOf(key);
+      html = renderFrontPage(buildFrontPage(items), { look: key });
+    } else {
+      const spectacleIndex = SPECTACLE.findIndex((s) => s.key === key);
+      index = SHOWCASE_ENGINE_LOOKS.length + spectacleIndex;
+      html = SPECTACLE[spectacleIndex].render(items);
+    }
+    return (
+      `<a class="look-tile" href="#ms-${index}">` +
+      `<div class="look-tile-frame">${html}</div>` +
+      `<div class="look-tile-cap"><span class="look-tile-name">${escapeHtml(displayName)}</span><span class="look-tile-go">Open</span></div>` +
+      `</a>`
+    );
+  });
+  return `<div class="look-tiles">${tiles.join('')}</div>`;
+}
+
 export function renderShowcase(items) {
   const engineSections = SHOWCASE_ENGINE_LOOKS.map((look) => ({
     name: `${look} (engine)`,
@@ -326,6 +354,7 @@ export async function buildLandingHtml(template, fixturesDir, auditSummary = nul
   ]);
   const frontPage = renderFrontPage(buildFrontPage(snapshot.data));
   const showcase = renderShowcase(showcaseFeed.data);
+  const featured = renderFeaturedLooks(showcaseFeed.data);
   const heroFrontPage = renderHeroFrontPagePane(heroFeed.data, lang);
   const heroJson = tokenizeJsonForFeedPane(heroFeed.raw);
   const surfacesSheets = renderSurfacesSheets(feature.data, lang);
@@ -346,6 +375,7 @@ export async function buildLandingHtml(template, fixturesDir, auditSummary = nul
     .replace('<!--druck:ledgerline-bubbles-->', () => renderLedgerlineBubbles(tgPosts.data))
     .replace('<!--druck:front-page-->', () => frontPage)
     .replace('<!--druck:showcase-->', () => showcase)
+    .replace('<!--druck:featured-looks-->', () => featured)
     .replace('<!--druck:range-panels-->', () => rangePanels)
     .replace('<!--druck:colophon-scores-->', () => renderColophonScores(auditSummary));
 }

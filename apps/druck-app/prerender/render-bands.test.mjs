@@ -7,6 +7,7 @@ import {
   tokenizeJsonForFeedPane,
   buildLandingHtml,
   renderColophonScores,
+  renderFeaturedLooks,
   renderShowcase,
 } from './render-bands.mjs';
 
@@ -23,6 +24,7 @@ const MARKER_TEMPLATE = [
   '<!--druck:ledgerline-bubbles-->',
   '<!--druck:front-page-->',
   '<!--druck:showcase-->',
+  '<!--druck:featured-looks-->',
   '<!--druck:range-panels-->',
   '<!--druck:colophon-scores-->',
 ].join('\n');
@@ -97,6 +99,8 @@ describe('buildLandingHtml', () => {
     expect(html).toContain('data-index=');
     expect(html).toContain('sc-intro');
     expect(html).toContain('druck-front-page--brutalist');
+    expect(html).toContain('look-tiles');
+    expect(html).toContain('look-tile-frame');
   });
 
   test('throws on a missing fixture directory', async () => {
@@ -133,6 +137,37 @@ describe('renderColophonScores', () => {
     const html = renderColophonScores(null);
     expect(html.match(/class="ring"/g)).toHaveLength(4);
     expect(html).toContain('not yet measured');
+  });
+});
+
+describe('renderFeaturedLooks', () => {
+  const items = [
+    { title: 'Lead', subtitle: 'S', category: 'ai', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/a.webp', shareUrl: 'https://e.com/a/', hot: true },
+    { title: 'Two', subtitle: 'S2', category: 'startup', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/b.webp', shareUrl: 'https://e.com/b/' },
+    { title: 'Three', subtitle: 'S3', category: 'science', publishedAt: 'Jun 09, 2026', heroImage: 'https://e.com/c.webp', shareUrl: 'https://e.com/c/' },
+  ];
+  it('returns a look-tiles container with three tiles', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('look-tile');
+    expect((html.match(/class="look-tile"/g) ?? []).length).toBe(3);
+  });
+  it('links brutalist to ms-0', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('href="#ms-0"');
+  });
+  it('links vaporwave to ms-10', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('href="#ms-10"');
+  });
+  it('links neubrutalism to ms-19', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('href="#ms-19"');
+  });
+  it('renders correct display names', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('Brutalist');
+    expect(html).toContain('Vaporwave');
+    expect(html).toContain('Neubrutalism');
   });
 });
 
