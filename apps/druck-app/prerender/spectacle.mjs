@@ -63,6 +63,16 @@ function composeZine(items) {
     `</div></div>`;
 }
 
+function composeTerminal(items) {
+  const { lead, rest } = partition(items);
+  const line = (i) => `<div class="tm-line">&gt; ${escapeHtml(i.title)}</div>`;
+  return `<div class="sx-terminal"><div class="tm-scan"></div><div class="tm-inner">` +
+    `<div class="tm-head">DRUCK://feed</div>` +
+    (lead ? `<a class="tm-lead" href="${href(lead)}"><div class="tm-line tm-hot">&gt; ${escapeHtml(lead.title)}<span class="tm-cur"></span></div></a>` : '') +
+    rest.slice(0, 7).map((i) => `<a class="tm-row" href="${href(i)}">${line(i)}</a>`).join('') +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
@@ -70,4 +80,5 @@ export const SPECTACLE = [
   { key: 'memphis', name: 'Memphis', render: composeMemphis },
   { key: 'riso', name: 'Risograph', render: composeRiso },
   { key: 'zine', name: 'Ransom-note zine', render: composeZine },
+  { key: 'terminal', name: 'Terminal', render: composeTerminal },
 ];

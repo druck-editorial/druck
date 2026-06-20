@@ -107,3 +107,12 @@
 .sx-zine .zn-w3 { transform: rotate(3deg); font-family: 'IBM Plex Mono', monospace; }
 .sx-zine .zn-list { list-style: none; margin: 0; padding: 0; }
 .sx-zine .zn-list a { display: block; padding: 11px 0; color: #111; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid #111; }
+
+.sx-terminal { position: relative; overflow: hidden; background: #04140a; color: #39ff8b; font-family: 'IBM Plex Mono', ui-monospace, monospace; padding: 48px clamp(16px, 4vw, 48px); text-shadow: 0 0 6px rgba(57,255,139,0.6); }
+.sx-terminal .tm-scan { position: absolute; inset: 0; background: repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.28) 2px 3px); pointer-events: none; }
+.sx-terminal .tm-inner { position: relative; max-width: 900px; margin: 0 auto; }
+.sx-terminal .tm-head { font-size: 12px; letter-spacing: 0.1em; opacity: 0.8; border-bottom: 1px solid #1c6b3e; padding-bottom: 10px; margin-bottom: 18px; }
+.sx-terminal .tm-lead, .sx-terminal .tm-row { display: block; text-decoration: none; color: inherit; }
+.sx-terminal .tm-line { font-size: clamp(16px, 2vw, 22px); line-height: 1.7; }
+.sx-terminal .tm-hot { font-size: clamp(22px, 3vw, 34px); }
+.sx-terminal .tm-cur { display: inline-block; width: 10px; height: 1em; background: #39ff8b; vertical-align: -2px; margin-left: 4px; }
