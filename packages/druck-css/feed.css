@@ -277,12 +277,10 @@
   .df-hero-card { min-height: clamp(260px, 48vh, 380px); }
 }
 
-/* Shared front-page look primitives (zero-JS) */
 .druck-front-page {
   --dfx-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
-/* Brutalist look */
 .druck-front-page--brutalist {
   --ink: #0b0b0b;
   --paper: #efece3;
@@ -439,7 +437,6 @@
   }
 }
 
-/* Swiss look */
 .druck-front-page--swiss {
   --sw-accent: #e2231a;
   background: #fff;
@@ -579,7 +576,6 @@
     grid-template-columns: 1fr;
   }
 }
-/* Helvetica look */
 .druck-front-page--helvetica {
   background: #fff;
   color: #000;
@@ -653,7 +649,6 @@
     gap: 4px;
   }
 }
-/* Broadsheet look */
 .druck-front-page--broadsheet {
   background: #f6f1e6;
   color: #1a1611;
@@ -739,7 +734,6 @@
     columns: 1;
   }
 }
-/* Luxury look */
 .druck-front-page--luxury {
   background: #faf8f5;
   color: #211d1a;
@@ -827,7 +821,6 @@
     gap: 28px;
   }
 }
-/* Noir look */
 .druck-front-page--noir {
   background: #0c0b0a;
   color: #e8e2d6;
@@ -917,7 +910,6 @@
     gap: 28px;
   }
 }
-/* Kinetic bento look */
 .druck-front-page--bento {
   background: #0e1016;
   color: #fff;
@@ -1014,7 +1006,6 @@
   .druck-front-page--bento .dfbn-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
   .druck-front-page--bento .dfbn-hero { grid-column: auto; grid-row: auto; min-height: 240px; }
 }
-/* Almanac look */
 .druck-front-page--almanac {
   background: #efe7d0;
   color: #352c1c;

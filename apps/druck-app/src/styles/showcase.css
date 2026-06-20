@@ -1,17 +1,14 @@
 /* SPDX-License-Identifier: MIT | Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com> */
 
-/* Teaser band */
 .band-showcase .band-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--demo-accent-clay); margin: 0 0 18px; }
 .band-showcase .showcase-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; background: var(--demo-text, #efeef2); color: var(--demo-bg, #101013); font-family: 'IBM Plex Mono', monospace; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; padding: 16px 26px; border-radius: 999px; text-decoration: none; transition: background 0.15s; }
 .band-showcase .showcase-cta::after { content: '->'; }
 .band-showcase .showcase-cta:hover { background: #d6ff00; }
 
-/* Overlay (zero-JS :target launch) */
 .sc-overlay { display: none; }
 #showcase:target { display: block; position: fixed; inset: 0; z-index: 1000; background: #06060a; overflow-y: scroll; scroll-snap-type: y proximity; }
 .sc-close { position: fixed; top: 18px; right: 20px; z-index: 1100; font: 600 13px/1 'IBM Plex Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #06060a; background: #d6ff00; border-radius: 999px; padding: 10px 16px; text-decoration: none; }
 
-/* Scroll-morph sections */
 .ms { min-height: 100vh; scroll-snap-align: start; position: relative; padding-top: 54px; background: #06060a; }
 .ms-label { position: sticky; top: 0; z-index: 10; background: #000; color: #9bff5a; font: 600 12px/1 'IBM Plex Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; padding: 10px 16px; }
 .ms-look { max-width: 1180px; margin: 0 auto; }
@@ -20,7 +17,6 @@
 @media (prefers-reduced-motion: reduce) { .ms-look.reveal { animation: none; } }
 @supports not (animation-timeline: view()) { .ms-look.reveal { animation: none; } }
 
-/* Intro / outro */
 .sc-intro, .sc-outro { min-height: 100vh; scroll-snap-align: start; display: grid; place-items: center; text-align: center; color: #fff; padding: 40px; }
 .sc-intro { background: radial-gradient(120% 80% at 50% 0%, #1a1a26, #06060a); }
 .sc-outro { background: radial-gradient(120% 80% at 50% 100%, #1a1a26, #06060a); }
@@ -32,7 +28,6 @@
 .sc-big { font: 600 clamp(60px, 12vw, 150px)/1 'IBM Plex Mono', monospace; color: #9bff5a; }
 .sc-outro p { color: #b6b4c0; margin-top: 14px; }
 
-/* Aqua */
 .sx-aqua { background: repeating-linear-gradient(#eef3fb, #eef3fb 1px, #e2eaf6 1px, #e2eaf6 2px); font-family: 'Lucida Grande', 'Helvetica Neue', sans-serif; padding: 40px clamp(16px, 4vw, 48px) 64px; }
 .sx-aqua .aq-win { max-width: 1000px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 1px solid #93a9c8; box-shadow: 0 18px 48px rgba(40,70,120,0.3); background: #fff; }
 .sx-aqua .aq-bar { height: 36px; background: linear-gradient(#fbfdff, #c1d2eb); display: flex; align-items: center; gap: 7px; padding: 0 14px; border-bottom: 1px solid #93a9c8; }
@@ -53,7 +48,6 @@
 .sx-aqua .aq-list a { display: flex; align-items: center; gap: 10px; padding: 11px 0; color: #1f3350; text-decoration: none; font-size: 15px; }
 .sx-aqua .aq-dot { width: 9px; height: 9px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #bfe0ff, #3b7fd0); flex: none; }
 
-/* Aero */
 .sx-aero { background: linear-gradient(160deg, #62a6db, #2e6aa6 55%, #143963); font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; padding: 64px clamp(16px, 5vw, 64px); position: relative; }
 .sx-aero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 50% at 50% -10%, rgba(255,255,255,0.4), transparent); }
 .sx-aero .ae-glass { position: relative; max-width: 760px; margin: 0 auto; background: rgba(255,255,255,0.16); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.5); border-radius: 18px; padding: 40px 44px; color: #fff; overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.7); }
@@ -68,7 +62,6 @@
 
 @media (max-width: 760px) { .sx-aqua .aq-body { grid-template-columns: 1fr; } }
 
-/* Vaporwave */
 .sx-vaporwave { position: relative; overflow: hidden; background: linear-gradient(#1b0b3a, #3a0b52 52%, #ff2d95); font-family: 'Arial Black', Arial, sans-serif; padding: 80px clamp(16px, 5vw, 64px); }
 .sx-vaporwave .vw-sun { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); width: 220px; height: 220px; border-radius: 50%; background: linear-gradient(#ffe53b, #ff2d95); }
 .sx-vaporwave .vw-grid { position: absolute; left: -25%; right: -25%; bottom: -40px; height: 50%; background-image: linear-gradient(rgba(0,255,231,0.55) 2px, transparent 2px), linear-gradient(90deg, rgba(0,255,231,0.55) 2px, transparent 2px); background-size: 40px 30px; transform: perspective(200px) rotateX(62deg); transform-origin: bottom; }
@@ -79,7 +72,6 @@
 .sx-vaporwave .vw-list { list-style: none; margin: 0; padding: 0; }
 .sx-vaporwave .vw-list a { display: block; padding: 11px 0; color: #fff; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 16px; border-bottom: 1px solid rgba(0,255,231,0.4); }
 
-/* Memphis */
 .sx-memphis { position: relative; overflow: hidden; background: #fdf4e3; font-family: Arial, Helvetica, sans-serif; padding: 56px clamp(16px, 4vw, 48px); }
 .sx-memphis::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(#111 2px, transparent 2px); background-size: 28px 28px; opacity: 0.08; }
 .sx-memphis .mp-sq { position: absolute; top: 30px; right: 60px; width: 70px; height: 70px; background: #ffbf00; transform: rotate(15deg); }
@@ -94,7 +86,6 @@
 .sx-memphis .mp-list a { display: block; padding: 12px 0; color: #1b1b1b; text-decoration: none; font-weight: 700; border-bottom: 3px solid #111; }
 @media (max-width: 700px) { .sx-memphis .mp-list { grid-template-columns: 1fr; } }
 
-/* Risograph */
 .sx-riso { position: relative; background: #f3ead2; font-family: 'Arial Black', Arial, sans-serif; padding: 56px clamp(16px, 4vw, 48px); }
 .sx-riso::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, #ff3d77 1.4px, transparent 1.8px); background-size: 9px 9px; opacity: 0.45; mix-blend-mode: multiply; }
 .sx-riso .ri-inner { position: relative; max-width: 900px; margin: 0 auto; }
@@ -104,7 +95,6 @@
 .sx-riso .ri-list { list-style: none; margin: 0; padding: 0; }
 .sx-riso .ri-list a { display: block; padding: 11px 0; color: #2b3aef; text-decoration: none; font-family: Arial, sans-serif; font-weight: 700; font-size: 17px; border-bottom: 2px solid rgba(43,58,239,0.3); mix-blend-mode: multiply; }
 
-/* Ransom-note zine */
 .sx-zine { position: relative; background: #fbfbf7; font-family: Arial, sans-serif; padding: 56px clamp(16px, 4vw, 48px); }
 .sx-zine .zn-tape { position: absolute; top: 30px; right: 80px; width: 90px; height: 28px; background: rgba(180,170,120,0.5); transform: rotate(12deg); }
 .sx-zine .zn-inner { max-width: 900px; margin: 0 auto; }
