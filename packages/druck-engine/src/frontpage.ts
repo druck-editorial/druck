@@ -234,12 +234,39 @@ function composeBroadsheet(rows: FrontPageRow[], _opts?: RenderOptions): string 
   return parts.join('');
 }
 
+function composeHeroBlocks(rows: FrontPageRow[], prefix: string): string {
+  const { lead, cells, brief } = partitionRows(rows);
+  const parts: string[] = [];
+  if (lead) {
+    parts.push(
+      `<a class="${prefix}-hero" href="${safeHref(lead)}">` +
+      `<img src="${safeImg(lead)}" alt="${escapeHtml(lead.heroImageAlt ?? lead.title)}" loading="lazy" width="1600" height="900">` +
+      `<span class="${prefix}-scrim"></span>` +
+      `<span class="${prefix}-htext"><span class="${prefix}-kick">${escapeHtml(lead.category)}</span>` +
+      `<h2>${escapeHtml(lead.title)}</h2></span></a>`
+    );
+  }
+  const stories = [...cells, ...brief].slice(0, 6);
+  if (stories.length) {
+    parts.push(`<div class="${prefix}-body">` + stories.map((s) =>
+      `<a class="${prefix}-story" href="${safeHref(s)}"><span class="${prefix}-k">${escapeHtml(s.category)}</span>` +
+      `<h3>${escapeHtml(s.title)}</h3><p>${escapeHtml(s.subtitle)}</p></a>`
+    ).join('') + '</div>');
+  }
+  return parts.join('');
+}
+
+function composeLuxury(rows: FrontPageRow[], _opts?: RenderOptions): string {
+  return composeHeroBlocks(rows, 'dflx');
+}
+
 const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   classic: composeClassic,
   brutalist: composeBrutalist,
   swiss: composeSwiss,
   helvetica: composeHelvetica,
   broadsheet: composeBroadsheet,
+  luxury: composeLuxury,
 };
 
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {
