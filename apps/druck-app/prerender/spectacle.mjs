@@ -38,8 +38,17 @@ function composeVaporwave(items) {
     `</div></div>`;
 }
 
+function composeMemphis(items) {
+  const { lead, rest } = partition(items);
+  return `<div class="sx-memphis"><span class="mp-sq"></span><span class="mp-ci"></span><span class="mp-tr"></span><div class="mp-inner">` +
+    (lead ? `<a class="mp-lead" href="${href(lead)}"><div class="mp-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2><p>${escapeHtml(lead.subtitle)}</p></a>` : '') +
+    `<ul class="mp-list">${rest.slice(0, 6).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
   { key: 'vaporwave', name: 'Vaporwave', render: composeVaporwave },
+  { key: 'memphis', name: 'Memphis', render: composeMemphis },
 ];

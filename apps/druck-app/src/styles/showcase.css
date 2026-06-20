@@ -78,3 +78,18 @@
 .sx-vaporwave .vw-lead h2 { margin: 0 0 36px; color: #fff; font-size: clamp(34px, 6vw, 72px); text-transform: uppercase; letter-spacing: 0.04em; line-height: 0.95; text-shadow: 3px 3px 0 #00ffe7, -3px -3px 0 #ff2d95; }
 .sx-vaporwave .vw-list { list-style: none; margin: 0; padding: 0; }
 .sx-vaporwave .vw-list a { display: block; padding: 11px 0; color: #fff; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 16px; border-bottom: 1px solid rgba(0,255,231,0.4); }
+
+/* Memphis */
+.sx-memphis { position: relative; overflow: hidden; background: #fdf4e3; font-family: Arial, Helvetica, sans-serif; padding: 56px clamp(16px, 4vw, 48px); }
+.sx-memphis::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(#111 2px, transparent 2px); background-size: 28px 28px; opacity: 0.08; }
+.sx-memphis .mp-sq { position: absolute; top: 30px; right: 60px; width: 70px; height: 70px; background: #ffbf00; transform: rotate(15deg); }
+.sx-memphis .mp-ci { position: absolute; bottom: 50px; left: 40px; width: 50px; height: 50px; border-radius: 50%; border: 10px solid #ff5a5f; }
+.sx-memphis .mp-tr { position: absolute; top: 140px; left: 55%; width: 0; height: 0; border-left: 26px solid transparent; border-right: 26px solid transparent; border-bottom: 44px solid #2ec4b6; }
+.sx-memphis .mp-inner { position: relative; max-width: 900px; margin: 0 auto; }
+.sx-memphis .mp-k { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #3d5af1; margin-bottom: 10px; font-weight: 700; }
+.sx-memphis .mp-lead { text-decoration: none; color: #1b1b1b; display: block; }
+.sx-memphis .mp-lead h2 { margin: 0 0 10px; font-weight: 900; font-size: clamp(32px, 5vw, 60px); color: #3d5af1; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.95; }
+.sx-memphis .mp-lead p { margin: 0; color: #444; font-size: 16px; max-width: 44ch; }
+.sx-memphis .mp-list { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+.sx-memphis .mp-list a { display: block; padding: 12px 0; color: #1b1b1b; text-decoration: none; font-weight: 700; border-bottom: 3px solid #111; }
+@media (max-width: 700px) { .sx-memphis .mp-list { grid-template-columns: 1fr; } }
