@@ -120,6 +120,24 @@ describe('druck-feed front-page mode', () => {
     expect(container?.getAttribute('role')).toBe('list');
   });
 
+  it('re-renders with the look scoping class when look changes, without refetching', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(okResponse(ITEMS));
+    vi.stubGlobal('fetch', fetchMock);
+    const el = document.createElement('druck-feed');
+    el.setAttribute('layout', 'front-page');
+    el.setAttribute('src', 'https://example.com/feed.json');
+    document.body.appendChild(el);
+    await waitForEvent(el, 'druck:feed-rendered');
+
+    const rerendered = waitForEvent(el, 'druck:feed-rendered');
+    el.setAttribute('look', 'brutalist');
+    await rerendered;
+
+    expect(el.shadowRoot!.innerHTML).toContain('druck-front-page--brutalist');
+    expect(el.shadowRoot!.innerHTML).toContain('dfb-mast');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it('list layout sets data-layout and drops data-columns', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(okResponse(ITEMS)));
     const el = document.createElement('druck-feed');

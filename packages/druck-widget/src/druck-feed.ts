@@ -9,7 +9,7 @@ const FETCH_TIMEOUT_MS = 4000;
 
 class DruckFeedElement extends HTMLElement {
   static get observedAttributes(): string[] {
-    return ['src', 'lang', 'theme', 'accent', CSS_URL_ATTR, 'columns', 'layout', 'fallback-src'];
+    return ['src', 'lang', 'theme', 'accent', CSS_URL_ATTR, 'columns', 'layout', 'fallback-src', 'look'];
   }
 
   #shadow: ShadowRoot;
@@ -17,6 +17,7 @@ class DruckFeedElement extends HTMLElement {
   #cssLink: HTMLLinkElement;
   #cssReady: Promise<void>;
   #renderGeneration = 0;
+  #lastItems: ArticleData[] | null = null;
 
   constructor() {
     super();
@@ -49,6 +50,10 @@ class DruckFeedElement extends HTMLElement {
       this.#applyContainerAttrs();
     } else if (name === 'columns') {
       this.#feedContainer.setAttribute('data-columns', _new || '3');
+    } else if (name === 'look') {
+      if (this.#lastItems && this.isConnected) {
+        void this.#render(this.#lastItems, ++this.#renderGeneration);
+      }
     }
   }
 
@@ -104,11 +109,13 @@ class DruckFeedElement extends HTMLElement {
   async #render(items: ArticleData[], gen: number): Promise<void> {
     await this.#cssReady;
     if (gen !== this.#renderGeneration) return;
+    this.#lastItems = items;
     this.#applyContainerAttrs();
     const opts: RenderOptions = {
       lang: this.getAttribute('lang') ?? undefined,
       theme: (this.getAttribute('theme') as RenderOptions['theme']) ?? undefined,
       accentColor: this.getAttribute('accent') ?? undefined,
+      look: (this.getAttribute('look') as RenderOptions['look']) ?? undefined,
     };
     const layout = this.getAttribute('layout');
     if (layout === 'front-page') {
