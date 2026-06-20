@@ -470,6 +470,10 @@
   height: 3px;
   background: var(--sw-accent);
 }
+.druck-front-page--swiss .dfsw-head {
+  display: flex;
+  flex-direction: column;
+}
 .druck-front-page--swiss .dfsw-lead {
   display: grid;
   grid-template-columns: 7fr 5fr;
