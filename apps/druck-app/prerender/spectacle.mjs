@@ -46,9 +46,18 @@ function composeMemphis(items) {
     `</div></div>`;
 }
 
+function composeRiso(items) {
+  const { lead, rest } = partition(items);
+  return `<div class="sx-riso"><div class="ri-inner">` +
+    (lead ? `<a class="ri-lead" href="${href(lead)}"><div class="ri-k">${escapeHtml(lead.category)}</div><h2>${escapeHtml(lead.title)}</h2></a>` : '') +
+    `<ul class="ri-list">${rest.slice(0, 6).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
   { key: 'vaporwave', name: 'Vaporwave', render: composeVaporwave },
   { key: 'memphis', name: 'Memphis', render: composeMemphis },
+  { key: 'riso', name: 'Risograph', render: composeRiso },
 ];
