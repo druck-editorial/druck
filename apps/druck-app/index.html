@@ -50,6 +50,7 @@
   <link rel="stylesheet" href="/src/styles/landing.css">
   <link rel="stylesheet" href="/src/styles/article-global.css">
   <link rel="stylesheet" href="/src/styles/feed-global.css">
+  <link rel="stylesheet" href="/src/styles/showcase.css">
   <script>
     (function() {
       try {
@@ -239,6 +240,13 @@
       <p class="frame-caption" data-i18n="frontpage-caption"><code class="caption-code">&lt;druck-feed layout="front-page" src="https://sonto.tech/data/druck-feed.json"&gt;</code> &mdash; a magazine front page from one JSON file. Cards link to the real articles.</p>
     </section>
 
+    <section class="band band-showcase" aria-labelledby="showcase-heading">
+      <p class="band-eyebrow">One feed, twenty ways</p>
+      <h2 class="band-title" id="showcase-heading">The same feed, <em>twenty magazines.</em></h2>
+      <p class="band-lede">Druck ranks the stories once, then prints them as twenty different publications. Open the showcase and scroll &mdash; the front page changes its mind about what kind of paper it is. Zero JavaScript: the launch is a CSS <code>:target</code>, the motion is CSS scroll-timeline.</p>
+      <a class="showcase-cta" href="#showcase">See all 20</a>
+    </section>
+
     <section class="band band-range" data-surface="paper" aria-labelledby="range-heading">
       <div class="chapter-panel">
         <span class="chapter-marker" data-i18n="chapter-range"><span class="cm-dot"></span> 05 / RANGE</span>
@@ -366,5 +374,6 @@
   </main>
 
   <script type="module" src="/src/main.ts"></script>
+  <div id="showcase" class="sc-overlay" role="dialog" aria-label="Twenty looks showcase"><!--druck:showcase--></div>
 </body>
 </html>

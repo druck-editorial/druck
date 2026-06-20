@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { buildFrontPage, escapeHtml, renderArticle, renderCard, renderFrontPage, safeUrl } from '@druck-editorial/engine';
 import { GITHUB_PROFILE, GITHUB_URL, INSTALL_CMD, WIDGET_CDN_URL } from './constants.mjs';
+import { SPECTACLE } from './spectacle.mjs';
 
 function widgetGzipKb() {
   try {
@@ -237,6 +238,35 @@ async function renderRangePanels(fixturesDir) {
   ).join('');
 }
 
+const SHOWCASE_ENGINE_LOOKS = ['brutalist', 'swiss', 'helvetica', 'broadsheet', 'luxury', 'noir', 'bento', 'almanac'];
+
+export function renderShowcase(items) {
+  const engineSections = SHOWCASE_ENGINE_LOOKS.map((look) => ({
+    name: `${look} (engine)`,
+    html: renderFrontPage(buildFrontPage(items), { look }),
+  }));
+  const spectacleSections = SPECTACLE.map(({ key, name, render }) => ({
+    name: `${name} (spectacle)`,
+    html: render(items),
+  }));
+  const sections = [...engineSections, ...spectacleSections];
+  const morph = sections
+    .map((s, i) =>
+      `<section class="ms"><div class="ms-label">${String(i + 1).padStart(2, '0')} / ${escapeHtml(s.name)}</div>` +
+      `<div class="ms-look reveal">${s.html}</div></section>`,
+    )
+    .join('');
+  return (
+    '<a class="sc-close" href="#" aria-label="Close showcase">Close</a>' +
+    '<section class="sc-intro"><div><div class="sc-eye">One feed</div>' +
+    '<h2>Twenty ways to print the same news.</h2>' +
+    '<p>The same stories. Scroll, and watch the front page transform.</p>' +
+    '<div class="sc-dn">scroll</div></div></section>' +
+    morph +
+    '<section class="sc-outro"><div><div class="sc-big">20 looks</div><p>Zero bytes of JavaScript.</p></div></section>'
+  );
+}
+
 async function renderFrontPageBand(fixturesDir) {
   const snapshot = await readFixture(fixturesDir, 'sonto-snapshot.json');
   return renderFrontPage(buildFrontPage(snapshot.data));
@@ -263,13 +293,15 @@ function renderLedgerlineBubbles(tgPosts) {
 }
 
 export async function buildLandingHtml(template, fixturesDir, auditSummary = null, lang = 'en') {
-  const [heroFeed, feature, frontPage, rangePanels, tgPosts] = await Promise.all([
+  const [heroFeed, feature, snapshot, rangePanels, tgPosts] = await Promise.all([
     readFixture(fixturesDir, 'hero-feed.json', lang),
     readFixture(fixturesDir, 'feature.json', lang),
-    renderFrontPageBand(fixturesDir),
+    readFixture(fixturesDir, 'sonto-snapshot.json'),
     renderRangePanels(fixturesDir),
     readFixture(fixturesDir, 'tg-posts.json', lang),
   ]);
+  const frontPage = renderFrontPage(buildFrontPage(snapshot.data));
+  const showcase = renderShowcase(snapshot.data);
   const heroFrontPage = renderHeroFrontPagePane(heroFeed.data, lang);
   const heroJson = tokenizeJsonForFeedPane(heroFeed.raw);
   const surfacesSheets = renderSurfacesSheets(feature.data, lang);
@@ -289,6 +321,7 @@ export async function buildLandingHtml(template, fixturesDir, auditSummary = nul
     .replace('<!--druck:surfaces-sheets-->', () => surfacesSheets)
     .replace('<!--druck:ledgerline-bubbles-->', () => renderLedgerlineBubbles(tgPosts.data))
     .replace('<!--druck:front-page-->', () => frontPage)
+    .replace('<!--druck:showcase-->', () => showcase)
     .replace('<!--druck:range-panels-->', () => rangePanels)
     .replace('<!--druck:colophon-scores-->', () => renderColophonScores(auditSummary));
 }

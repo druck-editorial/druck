@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it, test } from 'vitest';
 import { join } from 'node:path';
 import {
   tokenizeJsonForPane,
   tokenizeJsonForFeedPane,
   buildLandingHtml,
   renderColophonScores,
+  renderShowcase,
 } from './render-bands.mjs';
 
 const MARKER_TEMPLATE = [
@@ -129,5 +130,22 @@ describe('renderColophonScores', () => {
     const html = renderColophonScores(null);
     expect(html.match(/class="ring"/g)).toHaveLength(4);
     expect(html).toContain('not yet measured');
+  });
+});
+
+describe('renderShowcase', () => {
+  const items = [
+    { title: 'Lead', subtitle: 'S', category: 'ai', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/a.webp', shareUrl: 'https://e.com/a/', hot: true },
+    { title: 'Two', subtitle: 'S2', category: 'startup', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/b.webp', shareUrl: 'https://e.com/b/' },
+    { title: 'Three', subtitle: 'S3', category: 'science', publishedAt: 'Jun 09, 2026', heroImage: 'https://e.com/c.webp', shareUrl: 'https://e.com/c/' },
+  ];
+  it('renders engine and spectacle look sections inside the overlay', () => {
+    const html = renderShowcase(items);
+    expect(html).toContain('class="sc-intro"');
+    expect(html).toContain('druck-front-page--brutalist');
+    expect(html).toContain('druck-front-page--almanac');
+    expect(html).toContain('sx-aqua');
+    expect(html).toContain('sx-aero');
+    expect(html).toContain('class="sc-close"');
   });
 });
