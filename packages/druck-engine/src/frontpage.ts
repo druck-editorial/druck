@@ -264,6 +264,33 @@ function composeNoir(rows: FrontPageRow[], _opts?: RenderOptions): string {
   return composeHeroBlocks(rows, 'dfnr');
 }
 
+function composeBento(rows: FrontPageRow[], _opts?: RenderOptions): string {
+  const { lead, cells, brief } = partitionRows(rows);
+  const tiles: string[] = [];
+  if (lead) {
+    tiles.push(
+      `<a class="dfbn-tile dfbn-hero" href="${safeHref(lead)}">` +
+      `<img src="${safeImg(lead)}" alt="${escapeHtml(lead.heroImageAlt ?? lead.title)}" loading="lazy" width="1200" height="800">` +
+      '<span class="dfbn-ov"></span>' +
+      `<span class="dfbn-tag">${escapeHtml(lead.category)}</span>` +
+      `<h3>${escapeHtml(lead.title)}</h3></a>`
+    );
+  }
+  cells.forEach((c) => {
+    tiles.push(
+      `<a class="dfbn-tile" href="${safeHref(c)}"><span class="dfbn-tag">${escapeHtml(c.category)}</span>` +
+      `<h4>${escapeHtml(c.title)}</h4></a>`
+    );
+  });
+  brief.slice(0, 3).forEach((b) => {
+    tiles.push(
+      `<a class="dfbn-tile dfbn-mini" href="${safeHref(b)}"><span class="dfbn-tag">${escapeHtml(b.category)}</span>` +
+      `<h4>${escapeHtml(b.title)}</h4></a>`
+    );
+  });
+  return `<div class="dfbn-head"><span class="dfbn-wm">Druck</span></div><div class="dfbn-grid">${tiles.join('')}</div>`;
+}
+
 const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   classic: composeClassic,
   brutalist: composeBrutalist,
@@ -272,6 +299,7 @@ const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   broadsheet: composeBroadsheet,
   luxury: composeLuxury,
   noir: composeNoir,
+  bento: composeBento,
 };
 
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {

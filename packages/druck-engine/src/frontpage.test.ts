@@ -232,3 +232,18 @@ describe('engine look: noir', () => {
     expect(html).not.toContain('javascript:alert(1)');
   });
 });
+
+describe('engine look: bento', () => {
+  it('scopes the wrapper, renders tiles, and escapes', () => {
+    const items = [
+      item(0, { hot: true, title: '<script>x</script>', shareUrl: 'javascript:alert(1)' }),
+      item(1), item(2), item(3), item(4), item(5),
+    ];
+    const html = renderFrontPage(buildFrontPage(items), { look: 'bento' });
+    expect(html).toContain('druck-front-page--bento');
+    expect(html).toContain('dfbn-grid');
+    expect(html).toContain('dfbn-hero');
+    expect(html).not.toContain('<script>x</script>');
+    expect(html).not.toContain('javascript:alert(1)');
+  });
+});
