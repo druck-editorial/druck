@@ -54,10 +54,20 @@ function composeRiso(items) {
     `</div></div>`;
 }
 
+function composeZine(items) {
+  const { lead, rest } = partition(items);
+  const cut = (t) => t.split(' ').map((w, i) => `<span class="zn-w zn-w${i % 4}">${escapeHtml(w)}</span>`).join(' ');
+  return `<div class="sx-zine"><span class="zn-tape"></span><div class="zn-inner">` +
+    (lead ? `<a class="zn-lead" href="${href(lead)}"><h2>${cut(lead.title)}</h2></a>` : '') +
+    `<ul class="zn-list">${rest.slice(0, 6).map((i) => `<li><a href="${href(i)}">${escapeHtml(i.title)}</a></li>`).join('')}</ul>` +
+    `</div></div>`;
+}
+
 export const SPECTACLE = [
   { key: 'aqua', name: 'Aqua', render: composeAqua },
   { key: 'aero', name: 'Aero', render: composeAero },
   { key: 'vaporwave', name: 'Vaporwave', render: composeVaporwave },
   { key: 'memphis', name: 'Memphis', render: composeMemphis },
   { key: 'riso', name: 'Risograph', render: composeRiso },
+  { key: 'zine', name: 'Ransom-note zine', render: composeZine },
 ];

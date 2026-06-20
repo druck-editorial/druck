@@ -103,3 +103,17 @@
 .sx-riso .ri-lead h2 { margin: 0 0 28px; color: #2b3aef; mix-blend-mode: multiply; font-size: clamp(34px, 6vw, 76px); text-transform: uppercase; line-height: 0.9; letter-spacing: -0.03em; text-shadow: 4px 4px 0 #ff3d77; }
 .sx-riso .ri-list { list-style: none; margin: 0; padding: 0; }
 .sx-riso .ri-list a { display: block; padding: 11px 0; color: #2b3aef; text-decoration: none; font-family: Arial, sans-serif; font-weight: 700; font-size: 17px; border-bottom: 2px solid rgba(43,58,239,0.3); mix-blend-mode: multiply; }
+
+/* Ransom-note zine */
+.sx-zine { position: relative; background: #fbfbf7; font-family: Arial, sans-serif; padding: 56px clamp(16px, 4vw, 48px); }
+.sx-zine .zn-tape { position: absolute; top: 30px; right: 80px; width: 90px; height: 28px; background: rgba(180,170,120,0.5); transform: rotate(12deg); }
+.sx-zine .zn-inner { max-width: 900px; margin: 0 auto; }
+.sx-zine .zn-lead { text-decoration: none; }
+.sx-zine .zn-lead h2 { margin: 0 0 28px; display: flex; flex-wrap: wrap; gap: 6px; }
+.sx-zine .zn-w { display: inline-block; padding: 2px 10px; font-weight: 900; line-height: 1; font-size: clamp(24px, 4vw, 48px); background: #111; color: #fff; }
+.sx-zine .zn-w0 { transform: rotate(-3deg); font-family: Georgia, serif; }
+.sx-zine .zn-w1 { transform: rotate(2deg); background: #ffe600; color: #111; }
+.sx-zine .zn-w2 { transform: rotate(-2deg); background: #ff2d6f; font-family: Times, serif; }
+.sx-zine .zn-w3 { transform: rotate(3deg); font-family: 'IBM Plex Mono', monospace; }
+.sx-zine .zn-list { list-style: none; margin: 0; padding: 0; }
+.sx-zine .zn-list a { display: block; padding: 11px 0; color: #111; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid #111; }
