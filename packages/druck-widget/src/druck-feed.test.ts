@@ -84,7 +84,6 @@ describe('druck-feed front-page mode', () => {
     el.setAttribute('layout', 'front-page');
     el.setAttribute('src', 'https://example.com/feed.json');
     document.body.appendChild(el);
-    await vi.waitFor(() => { expect(el.shadowRoot).not.toBeNull(); });
     expect(el.shadowRoot!.innerHTML).toContain('<slot>');
     expect(el.shadowRoot!.innerHTML).not.toContain('df-row--hero');
     await waitForEvent(el, 'druck:feed-rendered');
@@ -92,12 +91,12 @@ describe('druck-feed front-page mode', () => {
     expect(el.shadowRoot!.innerHTML).not.toContain('<slot>');
   });
 
-  it('keeps light DOM visible when no src is set (no shadow attached)', () => {
-    // no async waiting needed — connectedCallback does nothing without src
+  it('keeps light DOM visible when no src is set (shadow shows slot)', () => {
     const el = document.createElement('druck-feed');
     el.innerHTML = '<div class="druck-front-page">static</div>';
     document.body.appendChild(el);
-    expect(el.shadowRoot).toBeNull();
+    expect(el.shadowRoot).not.toBeNull();
+    expect(el.shadowRoot!.innerHTML).toContain('<slot>');
   });
 
   it('front-page layout has no role="list" on the container', async () => {
@@ -119,6 +118,24 @@ describe('druck-feed front-page mode', () => {
     await waitForEvent(el, 'druck:feed-rendered');
     const container = el.shadowRoot!.querySelector('.druck-feed');
     expect(container?.getAttribute('role')).toBe('list');
+  });
+
+  it('re-renders with the look scoping class when look changes, without refetching', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(okResponse(ITEMS));
+    vi.stubGlobal('fetch', fetchMock);
+    const el = document.createElement('druck-feed');
+    el.setAttribute('layout', 'front-page');
+    el.setAttribute('src', 'https://example.com/feed.json');
+    document.body.appendChild(el);
+    await waitForEvent(el, 'druck:feed-rendered');
+
+    const rerendered = waitForEvent(el, 'druck:feed-rendered');
+    el.setAttribute('look', 'brutalist');
+    await rerendered;
+
+    expect(el.shadowRoot!.innerHTML).toContain('druck-front-page--brutalist');
+    expect(el.shadowRoot!.innerHTML).toContain('dfb-mast');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it('list layout sets data-layout and drops data-columns', async () => {

@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Artem Iagovdik <artyom.yagovdik@gmail.com>
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it, test } from 'vitest';
 import { join } from 'node:path';
 import {
   tokenizeJsonForPane,
   tokenizeJsonForFeedPane,
   buildLandingHtml,
   renderColophonScores,
+  renderFeaturedLooks,
+  renderShowcase,
 } from './render-bands.mjs';
 
 const MARKER_TEMPLATE = [
@@ -21,6 +23,8 @@ const MARKER_TEMPLATE = [
   '<!--druck:surfaces-sheets-->',
   '<!--druck:ledgerline-bubbles-->',
   '<!--druck:front-page-->',
+  '<!--druck:showcase-->',
+  '<!--druck:featured-looks-->',
   '<!--druck:range-panels-->',
   '<!--druck:colophon-scores-->',
 ].join('\n');
@@ -93,6 +97,10 @@ describe('buildLandingHtml', () => {
     expect(html).toContain('tg-msg');
     expect(html).toContain('tg-msg-meta');
     expect(html).toContain('data-index=');
+    expect(html).toContain('sc-intro');
+    expect(html).toContain('druck-front-page--brutalist');
+    expect(html).toContain('look-tiles');
+    expect(html).toContain('look-tile-frame');
   });
 
   test('throws on a missing fixture directory', async () => {
@@ -129,5 +137,66 @@ describe('renderColophonScores', () => {
     const html = renderColophonScores(null);
     expect(html.match(/class="ring"/g)).toHaveLength(4);
     expect(html).toContain('not yet measured');
+  });
+});
+
+describe('renderFeaturedLooks', () => {
+  const items = [
+    { title: 'Lead', subtitle: 'S', category: 'ai', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/a.webp', shareUrl: 'https://e.com/a/', hot: true },
+    { title: 'Two', subtitle: 'S2', category: 'startup', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/b.webp', shareUrl: 'https://e.com/b/' },
+    { title: 'Three', subtitle: 'S3', category: 'science', publishedAt: 'Jun 09, 2026', heroImage: 'https://e.com/c.webp', shareUrl: 'https://e.com/c/' },
+  ];
+  it('returns a look-tiles container with four tiles', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('look-tile');
+    expect((html.match(/class="look-tile"/g) ?? []).length).toBe(4);
+  });
+  it('links luxury to ms-2', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('href="#ms-2"');
+  });
+  it('links brutalist to ms-0', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('href="#ms-0"');
+  });
+  it('links broadsheet to ms-1', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('href="#ms-1"');
+  });
+  it('links bauhaus to ms-6', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('href="#ms-6"');
+  });
+  it('renders correct display names', () => {
+    const html = renderFeaturedLooks(items);
+    expect(html).toContain('Luxury');
+    expect(html).toContain('Brutalist');
+    expect(html).toContain('Broadsheet');
+    expect(html).toContain('Bauhaus');
+  });
+});
+
+describe('renderShowcase', () => {
+  const items = [
+    { title: 'Lead', subtitle: 'S', category: 'ai', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/a.webp', shareUrl: 'https://e.com/a/', hot: true },
+    { title: 'Two', subtitle: 'S2', category: 'startup', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/b.webp', shareUrl: 'https://e.com/b/' },
+    { title: 'Three', subtitle: 'S3', category: 'science', publishedAt: 'Jun 09, 2026', heroImage: 'https://e.com/c.webp', shareUrl: 'https://e.com/c/' },
+  ];
+  it('renders all engine look sections inside the overlay', () => {
+    const html = renderShowcase(items);
+    expect(html).toContain('class="sc-intro"');
+    expect(html).toContain('druck-front-page--brutalist');
+    expect(html).toContain('druck-front-page--bento');
+    expect(html).toContain('druck-front-page--tabloid');
+    expect(html).toContain('druck-front-page--bloomberg');
+    expect(html).toContain('druck-front-page--bauhaus');
+    expect(html).toContain('class="sc-close"');
+  });
+
+  it('renders the themes nav with jump-links and section ids', () => {
+    const html = renderShowcase(items);
+    expect(html).toContain('class="sc-nav"');
+    expect(html).toContain('href="#ms-0"');
+    expect(html).toContain('id="ms-0"');
   });
 });

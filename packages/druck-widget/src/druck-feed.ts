@@ -9,17 +9,18 @@ const FETCH_TIMEOUT_MS = 4000;
 
 class DruckFeedElement extends HTMLElement {
   static get observedAttributes(): string[] {
-    return ['src', 'lang', 'theme', 'accent', CSS_URL_ATTR, 'columns', 'layout', 'fallback-src'];
+    return ['src', 'lang', 'theme', 'accent', CSS_URL_ATTR, 'columns', 'layout', 'fallback-src', 'look'];
   }
 
-  #shadow: ShadowRoot | null = null;
-  #feedContainer!: HTMLDivElement;
-  #cssLink!: HTMLLinkElement;
-  #cssReady: Promise<void> = Promise.resolve();
+  #shadow: ShadowRoot;
+  #feedContainer: HTMLDivElement;
+  #cssLink: HTMLLinkElement;
+  #cssReady: Promise<void>;
   #renderGeneration = 0;
+  #lastItems: ArticleData[] | null = null;
 
-  #ensureShadow(): void {
-    if (this.#shadow) return;
+  constructor() {
+    super();
     this.#shadow = this.attachShadow({ mode: 'open' });
     this.#feedContainer = document.createElement('div');
     this.#feedContainer.className = 'druck-feed';
@@ -43,12 +44,16 @@ class DruckFeedElement extends HTMLElement {
   attributeChangedCallback(name: string, _old: string, _new: string): void {
     if (name === 'src' && _new && this.isConnected) {
       void this.#loadAndRender(_new);
-    } else if (name === CSS_URL_ATTR && this.#shadow) {
+    } else if (name === CSS_URL_ATTR) {
       this.#cssLink.href = this.#getCssUrl();
-    } else if ((name === 'lang' || name === 'theme' || name === 'accent') && this.#shadow) {
+    } else if (name === 'lang' || name === 'theme' || name === 'accent') {
       this.#applyContainerAttrs();
-    } else if (name === 'columns' && this.#shadow) {
+    } else if (name === 'columns') {
       this.#feedContainer.setAttribute('data-columns', _new || '3');
+    } else if (name === 'look') {
+      if (this.#lastItems && this.isConnected) {
+        void this.#render(this.#lastItems, ++this.#renderGeneration);
+      }
     }
   }
 
@@ -102,14 +107,15 @@ class DruckFeedElement extends HTMLElement {
   }
 
   async #render(items: ArticleData[], gen: number): Promise<void> {
-    this.#ensureShadow();
     await this.#cssReady;
     if (gen !== this.#renderGeneration) return;
+    this.#lastItems = items;
     this.#applyContainerAttrs();
     const opts: RenderOptions = {
       lang: this.getAttribute('lang') ?? undefined,
       theme: (this.getAttribute('theme') as RenderOptions['theme']) ?? undefined,
       accentColor: this.getAttribute('accent') ?? undefined,
+      look: (this.getAttribute('look') as RenderOptions['look']) ?? undefined,
     };
     const layout = this.getAttribute('layout');
     if (layout === 'front-page') {
@@ -134,7 +140,6 @@ class DruckFeedElement extends HTMLElement {
   }
 
   #renderFailure(message: string): void {
-    this.#ensureShadow();
     const hasPrerendered = this.innerHTML.trim().length > 0;
     if (hasPrerendered) {
       this.#feedContainer.innerHTML = '<slot></slot>';

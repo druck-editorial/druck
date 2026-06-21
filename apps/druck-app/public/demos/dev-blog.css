@@ -8,8 +8,10 @@
   --dl-text-muted: #666;
   --dl-accent: #20756d;
   --dl-hairline: rgba(0,0,0,0.1);
-  --dl-font-logo: 'IBM Plex Mono', ui-monospace, monospace;
-  --dl-font-body: system-ui, -apple-system, sans-serif;
+  --dl-font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --dl-font-logo: var(--dl-font-mono);
+  --dl-font-body: 'General Sans', system-ui, -apple-system, sans-serif;
+  --dl-font-prose: 'Source Serif 4', Georgia, serif;
 }
 
 body {
@@ -62,7 +64,14 @@ body {
 .dl-logo:hover { color: var(--dl-accent); }
 
 .dl-nav { display: flex; gap: 1.25rem; }
-.dl-nav a { color: var(--dl-text-muted); text-decoration: none; font-size: 0.85rem; font-family: var(--dl-font-logo); }
+.dl-nav a {
+  color: var(--dl-text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-family: var(--dl-font-body);
+  letter-spacing: -0.005em;
+  transition: color var(--dl-dur, 150ms) ease;
+}
 .dl-nav a:hover { color: var(--dl-accent); text-decoration: underline; }
 
 .dl-main {
@@ -85,9 +94,9 @@ body {
   --color-hairline: var(--dl-hairline);
   --color-surface: var(--dl-surface);
   --accent: var(--dl-accent);
-  --type-headline-font: system-ui, -apple-system, sans-serif;
-  --type-headline-weight: 700;
-  --type-body-font: system-ui, -apple-system, sans-serif;
+  --type-headline-font: var(--dl-font-prose);
+  --type-headline-weight: 600;
+  --type-body-font: var(--dl-font-prose);
 }
 
 .demo-section-divider {
@@ -110,8 +119,8 @@ body {
   --color-border: var(--dl-hairline);
   --color-text: var(--dl-text);
   --color-text-muted: var(--dl-text-muted);
-  --font-headline: system-ui, -apple-system, sans-serif;
-  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-headline: var(--dl-font-prose);
+  --font-sans: var(--dl-font-body);
 }
 
 .dl-subscribe {
@@ -165,12 +174,16 @@ body {
   color: #fff;
   border: none;
   border-radius: 3px;
+  font-family: var(--dl-font-body);
   font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
+  transition: opacity 150ms ease, transform 150ms ease;
 }
 
-.dl-subscribe-btn:hover { background: #195e57; }
+.dl-subscribe-btn:hover { opacity: 0.9; }
+.dl-subscribe-btn:active { transform: translateY(1px); }
 
 .dl-footer {
   border-top: 1px solid var(--dl-hairline);

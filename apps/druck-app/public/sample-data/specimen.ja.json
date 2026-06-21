@@ -4,6 +4,6 @@
   "headline": "組版はページの声である",
   "body": "日本語の組版では禁則処理が命である。行頭に句読点が来てはならず、括弧の向きも乱れてはならない。イタリックの代わりに太字と色で強調するのが美しい。",
   "quote": "「読まれる前に、ページは語り始めている」",
-  "rule": "word-break: keep-all; line-break: strict;",
+  "rule": "line-break: strict;",
   "ruleLabel": "禁則処理と字送り"
 }

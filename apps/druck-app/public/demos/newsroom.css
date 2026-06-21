@@ -10,6 +10,8 @@
   --nw-accent: #1a5bc4;
   --nw-hairline: rgba(26,58,107,0.12);
   --nw-font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --nw-font-serif: 'Source Serif 4', Georgia, serif;
+  --nw-font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 body {
@@ -78,6 +80,7 @@ body {
   color: var(--nw-text-muted);
   border-bottom: 1px solid var(--nw-hairline);
   background: var(--nw-surface);
+  font-variant-numeric: tabular-nums;
 }
 
 .nw-breadcrumbs a { color: var(--nw-accent); text-decoration: none; }
@@ -113,9 +116,9 @@ body {
   margin: 0 auto;
   padding: 0.75rem 2rem;
   font-family: var(--nw-font-sans);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--nw-text-muted);
   border-bottom: 1px solid var(--nw-hairline);
@@ -141,8 +144,8 @@ body {
   --color-hairline: var(--nw-hairline);
   --color-surface: var(--nw-surface);
   --accent: var(--nw-accent);
-  --type-headline-font: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --type-headline-weight: 800;
+  --type-headline-font: var(--nw-font-serif);
+  --type-headline-weight: 600;
 }
 
 .nw-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
@@ -156,12 +159,14 @@ body {
 }
 
 .nw-sidebar-heading {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--nw-text-muted);
   margin: 0 0 0.75rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--nw-hairline);
 }
 
 .nw-sidebar-name { font-weight: 700; margin: 0 0 0.2rem; font-size: 0.9rem; }
@@ -188,6 +193,7 @@ body {
   margin: 2rem auto 0;
   font-size: 0.78rem;
   color: var(--nw-text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .demo-embed-footer {
@@ -198,8 +204,9 @@ body {
 }
 
 .demo-embed-label {
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--nw-text-muted);
   margin: 0 0 0.75rem;
@@ -211,8 +218,10 @@ body {
   background: #f0f3f8;
   border: 1px solid var(--nw-hairline);
   border-radius: 4px;
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-family: var(--nw-font-mono);
   font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.6;
   color: var(--nw-text);
   overflow-x: auto;
   white-space: pre;
@@ -229,5 +238,11 @@ body {
   .demo-embed-footer { padding: 1rem; }
 }
 
-.nw-main .article-title { font-size: clamp(26px, 3.2vw, 40px); }
+.nw-main .article-title {
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-family: var(--nw-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+}
 .nw-main .article-hero::before { display: none; }

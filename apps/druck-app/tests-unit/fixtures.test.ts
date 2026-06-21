@@ -21,7 +21,7 @@ describe('sample-data fixtures', () => {
     });
   }
 
-  for (const name of fixtureFiles.filter((n) => !n.startsWith('specimen.') && n !== 'tg-posts.json')) {
+  for (const name of fixtureFiles.filter((n) => !n.startsWith('specimen.') && !n.startsWith('tg-posts.'))) {
     test(`${name} carries required article fields`, () => {
       const data = JSON.parse(readFileSync(join(FIXTURES_DIR, name), 'utf8'));
       const items = Array.isArray(data) ? data : [data];

@@ -2,19 +2,21 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --ll-bg: #f0f2f5;
+  --ll-bg: #f4f7fb;
   --ll-surface: #ffffff;
-  --ll-header-bg: #166c45;
-  --ll-text: #0d1b14;
-  --ll-text-muted: #52735e;
-  --ll-accent: #166c45;
-  --ll-hairline: rgba(22,108,69,0.14);
-  --ll-tg-bg: #1c2a20;
-  --ll-tg-bubble: #2a3d30;
-  --ll-tg-text: #dff0e6;
-  --ll-tg-time: #7aaa8a;
-  --ll-font-sans: 'Space Grotesk', system-ui, sans-serif;
-  --ll-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ll-header-bg: #1c6cb0;
+  --ll-text: #0e1621;
+  --ll-text-muted: #5a6b7b;
+  --ll-accent: #1c6cb0;
+  --ll-hairline: rgba(28,108,176,0.14);
+  --ll-tg-bg: #17212b;
+  --ll-tg-bubble: #2b5278;
+  --ll-tg-text: #eaf2fb;
+  --ll-tg-time: #8aa6bf;
+  --ll-ink: #0f1922;
+  --ll-font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --ll-font-sans: 'General Sans', system-ui, sans-serif;
+  --ll-font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 body {
@@ -32,7 +34,7 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(22,108,69,0.95);
+  background: rgba(28,108,176,0.96);
   color: #fff;
   text-align: center;
   font-family: var(--ll-font-sans);
@@ -45,27 +47,85 @@ body {
 
 .druck-attribution:hover { text-decoration: underline; }
 
-.ll-header {
-  background: var(--ll-header-bg);
+.ll-masthead {
+  background: var(--ll-ink);
   margin-top: 1.75rem;
+  padding: 0.85rem 2rem 1rem;
+  border-bottom: 2px solid var(--ll-header-bg);
+}
+
+.ll-utility {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  gap: 1rem;
+  font-family: var(--ll-font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8aa0b2;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.ll-edition { font-variant-numeric: tabular-nums; }
+
+.ll-brandrow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 0.75rem;
 }
 
 .ll-logo {
-  font-family: var(--ll-font-sans);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
+  font-family: var(--ll-font-serif);
+  font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1;
+  color: #f4f6f8;
   text-decoration: none;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.015em;
 }
 
-.ll-nav { display: flex; gap: 1.5rem; }
-.ll-nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.82rem; font-weight: 500; }
+.ll-nav { display: flex; gap: 1.5rem; padding-bottom: 0.4rem; }
+.ll-nav a {
+  font-family: var(--ll-font-sans);
+  color: rgba(244,246,248,0.78);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: color 160ms ease;
+}
 .ll-nav a:hover { color: #fff; }
+
+.ll-ticker {
+  background: #13202c;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--ll-font-sans);
+}
+.ll-ticker-track {
+  display: flex;
+  gap: 1.9rem;
+  padding: 0.55rem 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ll-ticker-track::-webkit-scrollbar { display: none; }
+.ll-tick {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  white-space: nowrap;
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+}
+.ll-tick-sym { color: #8aa0b2; font-weight: 600; letter-spacing: 0.03em; }
+.ll-tick-val { color: #e7eef4; font-weight: 600; }
+.ll-tick-chg--up { color: #3ad29f; }
+.ll-tick-chg--down { color: #ff7a85; }
 
 .ll-layout {
   display: grid;
@@ -103,7 +163,7 @@ body {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2fa56e, #14593a);
+  background: linear-gradient(135deg, #2AABEE, #229ED9);
   color: #fff;
   font: italic 700 18px/1 'Source Serif 4', Georgia, serif;
   padding-bottom: 2px;
@@ -170,8 +230,10 @@ body {
 }
 
 .ll-how-title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: var(--ll-font-serif);
+  font-size: clamp(1.4rem, 1.1rem + 1.1vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
   margin: 0 0 2rem;
   color: var(--ll-text);
 }
@@ -207,8 +269,8 @@ body {
 .tg-mapping-code {
   margin: 0;
   padding: 0.85rem 1rem;
-  background: #0f1f18;
-  color: #a8d4b8;
+  background: #0e1722;
+  color: #9cc4e4;
   font-family: var(--ll-font-mono);
   font-size: 0.72rem;
   line-height: 1.55;
@@ -224,13 +286,13 @@ body {
   margin: 0;
   padding: 0.5rem 0.75rem;
   border-left: 3px solid var(--ll-accent);
-  background: rgba(22,108,69,0.06);
+  background: rgba(28,108,176,0.07);
 }
 
 .ll-json-fragment {
   margin: 0;
   padding: 0.85rem 1rem;
-  background: #f0f4f0;
+  background: #eef4fa;
   border: 1px solid var(--ll-hairline);
   font-family: var(--ll-font-mono);
   font-size: 0.72rem;
@@ -266,7 +328,7 @@ body {
 .demo-embed-code {
   margin: 0;
   padding: 1rem 1.25rem;
-  background: #e8ede8;
+  background: #e9eef4;
   border: 1px solid var(--ll-hairline);
   border-radius: 4px;
   font-family: var(--ll-font-mono);
@@ -295,7 +357,9 @@ body {
   .ll-main { padding: 1rem; }
   .ll-how { padding: 2rem 1rem; }
   .ll-how-steps { grid-template-columns: 1fr; }
-  .ll-header { padding: 0.75rem 1rem; }
+  .ll-masthead { padding: 0.7rem 1rem 0.85rem; }
+  .ll-ticker-track { padding: 0.5rem 1rem; gap: 1.4rem; }
+  .ll-utility { letter-spacing: 0.12em; }
   .demo-embed-footer { padding: 1rem; }
   .demo-embed-code { white-space: pre-wrap; overflow-wrap: anywhere; }
   .tg-mapping-code, .ll-json-fragment { white-space: pre-wrap; overflow-wrap: anywhere; }

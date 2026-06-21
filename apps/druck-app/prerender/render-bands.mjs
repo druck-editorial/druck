@@ -237,9 +237,76 @@ async function renderRangePanels(fixturesDir) {
   ).join('');
 }
 
-async function renderFrontPageBand(fixturesDir) {
-  const snapshot = await readFixture(fixturesDir, 'sonto-snapshot.json');
-  return renderFrontPage(buildFrontPage(snapshot.data));
+const SHOWCASE_ENGINE_LOOKS = ['brutalist', 'broadsheet', 'luxury', 'noir', 'bento', 'bloomberg', 'bauhaus', 'tabloid'];
+
+function shortLookName(name) {
+  return name.replace(/ \(engine\)$/, '');
+}
+
+function lookTag(name) {
+  return name.endsWith('(engine)') ? 'eng' : '';
+}
+
+const FEATURED_LOOKS = [
+  { key: 'luxury', displayName: 'Luxury' },
+  { key: 'brutalist', displayName: 'Brutalist' },
+  { key: 'broadsheet', displayName: 'Broadsheet' },
+  { key: 'bauhaus', displayName: 'Bauhaus' },
+];
+
+export function renderFeaturedLooks(items) {
+  const tiles = FEATURED_LOOKS.map(({ key, displayName }) => {
+    const index = SHOWCASE_ENGINE_LOOKS.indexOf(key);
+    const html = renderFrontPage(buildFrontPage(items), { look: key });
+    return (
+      `<div class="look-tile">` +
+      `<div class="look-tile-frame">${html}</div>` +
+      `<div class="look-tile-cap"><span class="look-tile-name">${escapeHtml(displayName)}</span><span class="look-tile-go">Open</span></div>` +
+      `<a class="look-tile-link" href="#ms-${index}" aria-label="Open the ${escapeHtml(displayName)} look"></a>` +
+      `</div>`
+    );
+  });
+  return `<div class="look-tiles">${tiles.join('')}</div>`;
+}
+
+export function renderShowcase(items) {
+  const sections = SHOWCASE_ENGINE_LOOKS.map((look) => ({
+    name: `${look} (engine)`,
+    html: renderFrontPage(buildFrontPage(items), { look }),
+  }));
+  const morph = sections
+    .map((s, i) =>
+      `<section class="ms" id="ms-${i}"><div class="ms-label">${String(i + 1).padStart(2, '0')} / ${escapeHtml(s.name)}</div>` +
+      `<div class="ms-look reveal">${s.html}</div></section>`,
+    )
+    .join('');
+  const navItems = sections
+    .map((s, i) =>
+      `<a class="sc-nav-item" href="#ms-${i}">` +
+      `<span class="sc-nav-n">${String(i + 1).padStart(2, '0')}</span>` +
+      `<span class="sc-nav-name">${escapeHtml(shortLookName(s.name))}</span>` +
+      `<span class="sc-nav-tag">${lookTag(s.name)}</span>` +
+      `</a>`,
+    )
+    .join('');
+  const nav =
+    `<nav class="sc-nav" aria-label="Jump to a look">` +
+    `<div class="sc-nav-head">` +
+    `<span class="sc-nav-title">Looks</span>` +
+    `<a class="sc-close" href="#" aria-label="Close showcase">Close</a>` +
+    `</div>` +
+    `<div class="sc-nav-list">${navItems}</div>` +
+    `</nav>`;
+  return (
+    `<a class="sc-close-m" href="#" aria-label="Close showcase" data-i18n="sc-close-m">Close</a>` +
+    nav +
+    '<section class="sc-intro"><div><div class="sc-eye" data-i18n="sc-eye">One feed</div>' +
+    '<h2 data-i18n="sc-intro-h2">Eight ways to print the same news.</h2>' +
+    '<p data-i18n="sc-intro-p">The same stories. Scroll, and watch the front page transform.</p>' +
+    '<div class="sc-dn" data-i18n="sc-scroll">scroll</div></div></section>' +
+    morph +
+    '<section class="sc-outro"><div><div class="sc-big" data-i18n="sc-outro-big">8 looks</div><p data-i18n="sc-outro-p">Zero bytes of JavaScript.</p></div></section>'
+  );
 }
 
 const TG_EYE_SVG =
@@ -263,13 +330,17 @@ function renderLedgerlineBubbles(tgPosts) {
 }
 
 export async function buildLandingHtml(template, fixturesDir, auditSummary = null, lang = 'en') {
-  const [heroFeed, feature, frontPage, rangePanels, tgPosts] = await Promise.all([
+  const [heroFeed, feature, snapshot, rangePanels, tgPosts, showcaseFeed] = await Promise.all([
     readFixture(fixturesDir, 'hero-feed.json', lang),
     readFixture(fixturesDir, 'feature.json', lang),
-    renderFrontPageBand(fixturesDir),
+    readFixture(fixturesDir, 'sonto-snapshot.json'),
     renderRangePanels(fixturesDir),
     readFixture(fixturesDir, 'tg-posts.json', lang),
+    readFixture(fixturesDir, 'showcase-feed.json'),
   ]);
+  const frontPage = renderFrontPage(buildFrontPage(snapshot.data));
+  const showcase = renderShowcase(showcaseFeed.data);
+  const featured = renderFeaturedLooks(showcaseFeed.data);
   const heroFrontPage = renderHeroFrontPagePane(heroFeed.data, lang);
   const heroJson = tokenizeJsonForFeedPane(heroFeed.raw);
   const surfacesSheets = renderSurfacesSheets(feature.data, lang);
@@ -289,6 +360,8 @@ export async function buildLandingHtml(template, fixturesDir, auditSummary = nul
     .replace('<!--druck:surfaces-sheets-->', () => surfacesSheets)
     .replace('<!--druck:ledgerline-bubbles-->', () => renderLedgerlineBubbles(tgPosts.data))
     .replace('<!--druck:front-page-->', () => frontPage)
+    .replace('<!--druck:showcase-->', () => showcase)
+    .replace('<!--druck:featured-looks-->', () => featured)
     .replace('<!--druck:range-panels-->', () => rangePanels)
     .replace('<!--druck:colophon-scores-->', () => renderColophonScores(auditSummary));
 }

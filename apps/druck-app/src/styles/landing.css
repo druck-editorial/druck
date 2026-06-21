@@ -228,7 +228,6 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .specimen-panel[lang="ja"] .specimen-headline, .specimen-panel[lang="ja"] .specimen-body, .specimen-panel[lang="ja"] .specimen-quote {
   font-family: 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
   font-style: normal;
-  word-break: keep-all;
   line-break: strict;
 }
 .specimen-panel[lang="ja"] .specimen-body { line-height: 1.88; letter-spacing: 0.012em; }
