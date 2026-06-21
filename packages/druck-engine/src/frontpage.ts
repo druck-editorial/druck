@@ -244,6 +244,84 @@ function composeBento(rows: FrontPageRow[], _opts?: RenderOptions): string {
   return `<div class="dfbn-head"><span class="dfbn-wm">Druck</span></div><div class="dfbn-grid">${tiles.join('')}</div>`;
 }
 
+function composeBloomberg(rows: FrontPageRow[], _opts?: RenderOptions): string {
+  const { lead, cells, brief } = partitionRows(rows);
+  const row = (item: FrontPageItem, isLead = false): string =>
+    `<a class="dfbb-row${isLead ? ' dfbb-lead' : ''}" href="${safeHref(item)}">` +
+    `<span class="dfbb-c${isLead && item.hot ? ' dfbb-hot' : ''}">${escapeHtml(isLead && item.hot ? 'HOT' : item.category)}</span>` +
+    `<span class="dfbb-t">${escapeHtml(item.title)}</span>` +
+    `<time class="dfbb-time">${escapeHtml(item.publishedAt)}</time></a>`;
+  const parts: string[] = [
+    '<div class="dfbb-top"><span>DRUCK TERMINAL</span><span>TOP STORIES</span></div>',
+  ];
+  if (lead) parts.push(row(lead, true));
+  parts.push([...cells, ...brief].map((s) => row(s)).join(''));
+  return `<div class="dfbb-inner">${parts.join('')}</div>`;
+}
+
+function composeBauhaus(rows: FrontPageRow[], _opts?: RenderOptions): string {
+  const { lead, cells, brief } = partitionRows(rows);
+  const inner: string[] = [];
+  if (lead) {
+    inner.push(
+      `<a class="dfbh-hero" href="${safeHref(lead)}">` +
+      `<span class="dfbh-art"><img src="${safeImg(lead)}" alt="${escapeHtml(lead.heroImageAlt ?? lead.title)}" loading="lazy" width="1200" height="800"></span>` +
+      `<span class="dfbh-plate"><span class="dfbh-k">${escapeHtml(lead.category)}</span>` +
+      `<h2>${escapeHtml(lead.title)}</h2><span class="dfbh-sub">${escapeHtml(lead.subtitle)}</span></span></a>`,
+    );
+  }
+  const stories = [...cells, ...brief];
+  if (stories.length) {
+    inner.push(
+      '<ul class="dfbh-list">' +
+      stories.map((s) =>
+        `<li><a href="${safeHref(s)}"><span class="dfbh-lk">${escapeHtml(s.category)}</span>${escapeHtml(s.title)}</a></li>`,
+      ).join('') +
+      '</ul>',
+    );
+  }
+  return (
+    '<span class="dfbh-sq"></span><span class="dfbh-circ"></span><span class="dfbh-tri"></span><span class="dfbh-bar"></span>' +
+    `<div class="dfbh-inner">${inner.join('')}</div>`
+  );
+}
+
+function composeTabloid(rows: FrontPageRow[], _opts?: RenderOptions): string {
+  const { lead, cells, brief } = partitionRows(rows);
+  const parts: string[] = [
+    '<div class="dftb-mast"><span class="dftb-wm">Druck</span><span class="dftb-strap">The People&#39;s Front Page</span></div>',
+  ];
+  const inner: string[] = [];
+  if (lead) {
+    inner.push(
+      `<a class="dftb-splash" href="${safeHref(lead)}">` +
+      (lead.hasImage
+        ? `<span class="dftb-art"><img src="${safeImg(lead)}" alt="${escapeHtml(lead.heroImageAlt ?? lead.title)}" loading="lazy" width="1200" height="800"></span>`
+        : '') +
+      '<span class="dftb-splash-text"><span class="dftb-k">Exclusive</span>' +
+      `<h2>${escapeHtml(lead.title)}</h2><span class="dftb-deck">${escapeHtml(lead.subtitle)}</span></span></a>`,
+    );
+  }
+  if (cells.length) {
+    inner.push(
+      '<div class="dftb-shouts">' +
+      cells.map((c) =>
+        `<a class="dftb-shout" href="${safeHref(c)}"><span class="dftb-sk">${escapeHtml(c.category)}</span><h3>${escapeHtml(c.title)}</h3></a>`,
+      ).join('') +
+      '</div>',
+    );
+  }
+  if (brief.length) {
+    inner.push(
+      '<div class="dftb-more"><span class="dftb-more-label">More inside</span><ul class="dftb-list">' +
+      brief.map((b) => `<li><a href="${safeHref(b)}">${escapeHtml(b.title)}</a></li>`).join('') +
+      '</ul></div>',
+    );
+  }
+  parts.push(`<div class="dftb-inner">${inner.join('')}</div>`);
+  return parts.join('');
+}
+
 const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   classic: composeClassic,
   brutalist: composeBrutalist,
@@ -251,6 +329,9 @@ const COMPOSERS: Partial<Record<FrontPageLook, FrontPageComposer>> = {
   luxury: composeLuxury,
   noir: composeNoir,
   bento: composeBento,
+  bloomberg: composeBloomberg,
+  bauhaus: composeBauhaus,
+  tabloid: composeTabloid,
 };
 
 export function renderFrontPage(rows: FrontPageRow[], opts?: RenderOptions): string {

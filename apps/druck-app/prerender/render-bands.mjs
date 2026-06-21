@@ -6,7 +6,6 @@ import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { buildFrontPage, escapeHtml, renderArticle, renderCard, renderFrontPage, safeUrl } from '@druck-editorial/engine';
 import { GITHUB_PROFILE, GITHUB_URL, INSTALL_CMD, WIDGET_CDN_URL } from './constants.mjs';
-import { SPECTACLE } from './spectacle.mjs';
 
 function widgetGzipKb() {
   try {
@@ -238,37 +237,27 @@ async function renderRangePanels(fixturesDir) {
   ).join('');
 }
 
-const SHOWCASE_ENGINE_LOOKS = ['brutalist', 'broadsheet', 'luxury', 'noir', 'bento'];
+const SHOWCASE_ENGINE_LOOKS = ['brutalist', 'broadsheet', 'luxury', 'noir', 'bento', 'bloomberg', 'bauhaus', 'tabloid'];
 
 function shortLookName(name) {
-  return name.replace(/ \(engine\)$/, '').replace(/ \(spectacle\)$/, '');
+  return name.replace(/ \(engine\)$/, '');
 }
 
 function lookTag(name) {
-  if (name.endsWith('(engine)')) return 'eng';
-  if (name.endsWith('(spectacle)')) return 'spec';
-  return '';
+  return name.endsWith('(engine)') ? 'eng' : '';
 }
 
 const FEATURED_LOOKS = [
-  { key: 'luxury', kind: 'engine', displayName: 'Luxury' },
-  { key: 'brutalist', kind: 'engine', displayName: 'Brutalist' },
-  { key: 'broadsheet', kind: 'engine', displayName: 'Broadsheet' },
-  { key: 'bauhaus', kind: 'spectacle', displayName: 'Bauhaus' },
+  { key: 'luxury', displayName: 'Luxury' },
+  { key: 'brutalist', displayName: 'Brutalist' },
+  { key: 'broadsheet', displayName: 'Broadsheet' },
+  { key: 'bauhaus', displayName: 'Bauhaus' },
 ];
 
 export function renderFeaturedLooks(items) {
-  const tiles = FEATURED_LOOKS.map(({ key, kind, displayName }) => {
-    let index;
-    let html;
-    if (kind === 'engine') {
-      index = SHOWCASE_ENGINE_LOOKS.indexOf(key);
-      html = renderFrontPage(buildFrontPage(items), { look: key });
-    } else {
-      const spectacleIndex = SPECTACLE.findIndex((s) => s.key === key);
-      index = SHOWCASE_ENGINE_LOOKS.length + spectacleIndex;
-      html = SPECTACLE[spectacleIndex].render(items);
-    }
+  const tiles = FEATURED_LOOKS.map(({ key, displayName }) => {
+    const index = SHOWCASE_ENGINE_LOOKS.indexOf(key);
+    const html = renderFrontPage(buildFrontPage(items), { look: key });
     return (
       `<div class="look-tile">` +
       `<div class="look-tile-frame">${html}</div>` +
@@ -281,15 +270,10 @@ export function renderFeaturedLooks(items) {
 }
 
 export function renderShowcase(items) {
-  const engineSections = SHOWCASE_ENGINE_LOOKS.map((look) => ({
+  const sections = SHOWCASE_ENGINE_LOOKS.map((look) => ({
     name: `${look} (engine)`,
     html: renderFrontPage(buildFrontPage(items), { look }),
   }));
-  const spectacleSections = SPECTACLE.map(({ key, name, render }) => ({
-    name: `${name} (spectacle)`,
-    html: render(items),
-  }));
-  const sections = [...engineSections, ...spectacleSections];
   const morph = sections
     .map((s, i) =>
       `<section class="ms" id="ms-${i}"><div class="ms-label">${String(i + 1).padStart(2, '0')} / ${escapeHtml(s.name)}</div>` +

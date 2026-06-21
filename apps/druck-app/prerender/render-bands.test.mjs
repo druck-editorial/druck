@@ -182,13 +182,14 @@ describe('renderShowcase', () => {
     { title: 'Two', subtitle: 'S2', category: 'startup', publishedAt: 'Jun 10, 2026', heroImage: 'https://e.com/b.webp', shareUrl: 'https://e.com/b/' },
     { title: 'Three', subtitle: 'S3', category: 'science', publishedAt: 'Jun 09, 2026', heroImage: 'https://e.com/c.webp', shareUrl: 'https://e.com/c/' },
   ];
-  it('renders engine and spectacle look sections inside the overlay', () => {
+  it('renders all engine look sections inside the overlay', () => {
     const html = renderShowcase(items);
     expect(html).toContain('class="sc-intro"');
     expect(html).toContain('druck-front-page--brutalist');
     expect(html).toContain('druck-front-page--bento');
-    expect(html).toContain('sx-tabloid');
-    expect(html).toContain('sx-bloomberg');
+    expect(html).toContain('druck-front-page--tabloid');
+    expect(html).toContain('druck-front-page--bloomberg');
+    expect(html).toContain('druck-front-page--bauhaus');
     expect(html).toContain('class="sc-close"');
   });
 

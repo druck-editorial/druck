@@ -795,3 +795,362 @@
   .druck-front-page--bento .dfbn-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
   .druck-front-page--bento .dfbn-hero { grid-column: auto; grid-row: auto; min-height: 240px; }
 }
+
+.druck-front-page--bloomberg {
+  background: #0a0a0a;
+  color: #ffae3b;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  padding: 36px clamp(16px, 4vw, 48px) 48px;
+}
+.druck-front-page--bloomberg .dfbb-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.druck-front-page--bloomberg .dfbb-top {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #3a2e12;
+  padding-bottom: 8px;
+  letter-spacing: 0.06em;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.druck-front-page--bloomberg .dfbb-row {
+  display: grid;
+  grid-template-columns: 92px 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 9px 0;
+  border-bottom: 1px solid #1a1a1a;
+  text-decoration: none;
+}
+.druck-front-page--bloomberg .dfbb-c {
+  color: #4ec06a;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.druck-front-page--bloomberg .dfbb-hot {
+  color: #ff5a4d;
+}
+.druck-front-page--bloomberg .dfbb-t {
+  color: #dcdcdc;
+  font-size: 15px;
+}
+.druck-front-page--bloomberg .dfbb-lead .dfbb-t {
+  color: #ffae3b;
+  font-size: clamp(18px, 2.4vw, 26px);
+}
+.druck-front-page--bloomberg .dfbb-time {
+  color: #6b6b6b;
+  font-size: 12px;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .druck-front-page--bloomberg .dfbb-row {
+    grid-template-columns: 1fr auto;
+  }
+  .druck-front-page--bloomberg .dfbb-c {
+    grid-column: 1 / -1;
+  }
+}
+
+.druck-front-page--bauhaus {
+  position: relative;
+  overflow: hidden;
+  background: #f4f1ea;
+  color: #1b1b1b;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 52px clamp(16px, 4vw, 48px);
+}
+.druck-front-page--bauhaus .dfbh-sq {
+  position: absolute;
+  top: -28px;
+  right: 9%;
+  width: 120px;
+  height: 120px;
+  background: #f5c400;
+}
+.druck-front-page--bauhaus .dfbh-circ {
+  position: absolute;
+  bottom: -56px;
+  left: -36px;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: #e2231a;
+}
+.druck-front-page--bauhaus .dfbh-tri {
+  position: absolute;
+  bottom: 26px;
+  right: -34px;
+  width: 0;
+  height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 134px solid #1d4ed8;
+  transform: rotate(20deg);
+}
+.druck-front-page--bauhaus .dfbh-bar {
+  position: absolute;
+  top: 38%;
+  left: -70px;
+  width: 300px;
+  height: 30px;
+  background: #1b1b1b;
+  transform: rotate(-24deg);
+}
+.druck-front-page--bauhaus .dfbh-inner {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  z-index: 1;
+}
+.druck-front-page--bauhaus .dfbh-hero {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  text-decoration: none;
+  border: 5px solid #1b1b1b;
+  background: #fff;
+  box-shadow: 10px 10px 0 rgba(27, 27, 27, 0.18);
+}
+.druck-front-page--bauhaus .dfbh-art {
+  position: relative;
+  overflow: hidden;
+  min-height: 250px;
+  border-right: 5px solid #1b1b1b;
+}
+.druck-front-page--bauhaus .dfbh-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.druck-front-page--bauhaus .dfbh-plate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 26px 28px;
+  background: #f4f1ea;
+}
+.druck-front-page--bauhaus .dfbh-k {
+  align-self: flex-start;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #e2231a;
+  padding: 3px 10px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+.druck-front-page--bauhaus .dfbh-plate h2 {
+  margin: 0;
+  color: #1b1b1b;
+  font-weight: 900;
+  font-size: clamp(26px, 3.2vw, 50px);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+}
+.druck-front-page--bauhaus .dfbh-sub {
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #444;
+}
+.druck-front-page--bauhaus .dfbh-list {
+  list-style: none;
+  margin: 30px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 26px;
+}
+.druck-front-page--bauhaus .dfbh-list a {
+  display: block;
+  padding: 12px 0;
+  color: #1b1b1b;
+  text-decoration: none;
+  font-weight: 700;
+  border-bottom: 3px solid #1b1b1b;
+}
+.druck-front-page--bauhaus .dfbh-lk {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1d4ed8;
+  margin-bottom: 3px;
+}
+@media (max-width: 700px) {
+  .druck-front-page--bauhaus .dfbh-hero {
+    grid-template-columns: 1fr;
+  }
+  .druck-front-page--bauhaus .dfbh-art {
+    border-right: 0;
+    border-bottom: 5px solid #1b1b1b;
+  }
+  .druck-front-page--bauhaus .dfbh-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.druck-front-page--tabloid {
+  background: #fff;
+  color: #111;
+  font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  padding-bottom: 48px;
+}
+.druck-front-page--tabloid .dftb-mast {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: #e2231a;
+  color: #fff;
+  padding: 10px clamp(16px, 4vw, 48px);
+}
+.druck-front-page--tabloid .dftb-wm {
+  font-weight: 900;
+  font-size: clamp(40px, 7vw, 88px);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+.druck-front-page--tabloid .dftb-strap {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.druck-front-page--tabloid .dftb-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px clamp(16px, 4vw, 48px) 0;
+}
+.druck-front-page--tabloid .dftb-splash {
+  display: block;
+  text-decoration: none;
+  color: #111;
+  border-bottom: 4px solid #111;
+  padding-bottom: 22px;
+  margin-bottom: 24px;
+}
+.druck-front-page--tabloid .dftb-art {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 18px;
+  background: #eee;
+}
+.druck-front-page--tabloid .dftb-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.druck-front-page--tabloid .dftb-k {
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #e2231a;
+  padding: 4px 10px;
+  margin-bottom: 10px;
+}
+.druck-front-page--tabloid .dftb-splash h2 {
+  margin: 0;
+  font-weight: 900;
+  font-size: clamp(40px, 8vw, 104px);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+}
+.druck-front-page--tabloid .dftb-deck {
+  display: block;
+  margin-top: 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 400;
+  line-height: 1.4;
+  color: #333;
+}
+.druck-front-page--tabloid .dftb-shouts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 2px solid #111;
+}
+.druck-front-page--tabloid .dftb-shout {
+  text-decoration: none;
+  color: #111;
+  padding: 18px 18px 22px;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+}
+.druck-front-page--tabloid .dftb-shout:nth-child(3n) {
+  border-right: 0;
+}
+.druck-front-page--tabloid .dftb-sk {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e2231a;
+  margin-bottom: 8px;
+}
+.druck-front-page--tabloid .dftb-shout h3 {
+  margin: 0;
+  font-weight: 900;
+  font-size: clamp(20px, 2.4vw, 30px);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+.druck-front-page--tabloid .dftb-more {
+  padding-top: 22px;
+}
+.druck-front-page--tabloid .dftb-more-label {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e2231a;
+  margin-bottom: 8px;
+}
+.druck-front-page--tabloid .dftb-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.druck-front-page--tabloid .dftb-list a {
+  display: block;
+  padding: 12px 0;
+  color: #111;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #111;
+}
+@media (max-width: 700px) {
+  .druck-front-page--tabloid .dftb-shouts {
+    grid-template-columns: 1fr;
+  }
+  .druck-front-page--tabloid .dftb-shout {
+    border-right: 0;
+  }
+}

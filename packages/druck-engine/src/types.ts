@@ -139,7 +139,10 @@ export type FrontPageLook =
   | 'brutalist'
   | 'luxury'
   | 'noir'
-  | 'bento';
+  | 'bento'
+  | 'bloomberg'
+  | 'bauhaus'
+  | 'tabloid';
 
 export interface RenderOptions {
   lang?: string;

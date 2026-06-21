@@ -216,3 +216,48 @@ describe('engine look: bento', () => {
     expect(html).not.toContain('javascript:alert(1)');
   });
 });
+
+describe('engine look: bloomberg', () => {
+  it('scopes the wrapper, renders the terminal rows, and escapes', () => {
+    const items = [
+      item(0, { hot: true, title: '<script>x</script>', shareUrl: 'javascript:alert(1)' }),
+      item(1), item(2), item(3), item(4), item(5),
+    ];
+    const html = renderFrontPage(buildFrontPage(items), { look: 'bloomberg' });
+    expect(html).toContain('druck-front-page--bloomberg');
+    expect(html).toContain('dfbb-row dfbb-lead');
+    expect(html).toContain('DRUCK TERMINAL');
+    expect(html).not.toContain('<script>x</script>');
+    expect(html).not.toContain('javascript:alert(1)');
+  });
+});
+
+describe('engine look: bauhaus', () => {
+  it('scopes the wrapper, renders hero + list, and escapes', () => {
+    const items = [
+      item(0, { hot: true, title: '<script>x</script>', shareUrl: 'javascript:alert(1)' }),
+      item(1), item(2), item(3), item(4), item(5),
+    ];
+    const html = renderFrontPage(buildFrontPage(items), { look: 'bauhaus' });
+    expect(html).toContain('druck-front-page--bauhaus');
+    expect(html).toContain('dfbh-hero');
+    expect(html).toContain('dfbh-list');
+    expect(html).not.toContain('<script>x</script>');
+    expect(html).not.toContain('javascript:alert(1)');
+  });
+});
+
+describe('engine look: tabloid', () => {
+  it('scopes the wrapper, renders splash + shouts, and escapes', () => {
+    const items = [
+      item(0, { hot: true, title: '<script>x</script>', shareUrl: 'javascript:alert(1)' }),
+      item(1), item(2), item(3), item(4), item(5),
+    ];
+    const html = renderFrontPage(buildFrontPage(items), { look: 'tabloid' });
+    expect(html).toContain('druck-front-page--tabloid');
+    expect(html).toContain('dftb-splash');
+    expect(html).toContain('dftb-shouts');
+    expect(html).not.toContain('<script>x</script>');
+    expect(html).not.toContain('javascript:alert(1)');
+  });
+});

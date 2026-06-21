@@ -1,6 +1,6 @@
 {
   "name": "@druck-editorial/engine",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Editorial rendering engine: structured article JSON in, magazine-quality pages out.",
   "author": "Artem Iagovdik <artyom.yagovdik@gmail.com>",
   "license": "MIT",
