@@ -2,17 +2,17 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --ll-bg: #f0f2f5;
+  --ll-bg: #f4f7fb;
   --ll-surface: #ffffff;
-  --ll-header-bg: #166c45;
-  --ll-text: #0d1b14;
-  --ll-text-muted: #52735e;
-  --ll-accent: #166c45;
-  --ll-hairline: rgba(22,108,69,0.14);
-  --ll-tg-bg: #1c2a20;
-  --ll-tg-bubble: #2a3d30;
-  --ll-tg-text: #dff0e6;
-  --ll-tg-time: #7aaa8a;
+  --ll-header-bg: #1c6cb0;
+  --ll-text: #0e1621;
+  --ll-text-muted: #5a6b7b;
+  --ll-accent: #1c6cb0;
+  --ll-hairline: rgba(28,108,176,0.14);
+  --ll-tg-bg: #17212b;
+  --ll-tg-bubble: #2b5278;
+  --ll-tg-text: #eaf2fb;
+  --ll-tg-time: #8aa6bf;
   --ll-font-sans: 'Space Grotesk', system-ui, sans-serif;
   --ll-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
@@ -32,7 +32,7 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(22,108,69,0.95);
+  background: rgba(28,108,176,0.96);
   color: #fff;
   text-align: center;
   font-family: var(--ll-font-sans);
@@ -64,7 +64,7 @@ body {
 }
 
 .ll-nav { display: flex; gap: 1.5rem; }
-.ll-nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.82rem; font-weight: 500; }
+.ll-nav a { color: rgba(255,255,255,0.92); text-decoration: none; font-size: 0.82rem; font-weight: 500; }
 .ll-nav a:hover { color: #fff; }
 
 .ll-layout {
@@ -103,7 +103,7 @@ body {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2fa56e, #14593a);
+  background: linear-gradient(135deg, #2AABEE, #229ED9);
   color: #fff;
   font: italic 700 18px/1 'Source Serif 4', Georgia, serif;
   padding-bottom: 2px;
@@ -207,8 +207,8 @@ body {
 .tg-mapping-code {
   margin: 0;
   padding: 0.85rem 1rem;
-  background: #0f1f18;
-  color: #a8d4b8;
+  background: #0e1722;
+  color: #9cc4e4;
   font-family: var(--ll-font-mono);
   font-size: 0.72rem;
   line-height: 1.55;
@@ -224,13 +224,13 @@ body {
   margin: 0;
   padding: 0.5rem 0.75rem;
   border-left: 3px solid var(--ll-accent);
-  background: rgba(22,108,69,0.06);
+  background: rgba(28,108,176,0.07);
 }
 
 .ll-json-fragment {
   margin: 0;
   padding: 0.85rem 1rem;
-  background: #f0f4f0;
+  background: #eef4fa;
   border: 1px solid var(--ll-hairline);
   font-family: var(--ll-font-mono);
   font-size: 0.72rem;
@@ -266,7 +266,7 @@ body {
 .demo-embed-code {
   margin: 0;
   padding: 1rem 1.25rem;
-  background: #e8ede8;
+  background: #e9eef4;
   border: 1px solid var(--ll-hairline);
   border-radius: 4px;
   font-family: var(--ll-font-mono);
