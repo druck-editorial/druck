@@ -55,6 +55,8 @@ const STRINGS = {
     },
     tg: {
       nav: ['Briefs', 'Data', 'Archive'],
+      edition: 'Vol. IV · No. 128',
+      tagline: 'Daily markets intelligence',
       subscribers: '4,812 subscribers',
       howTitle: 'How the posts became JSON',
       step1: '1. The post',
@@ -109,6 +111,8 @@ const STRINGS = {
     },
     tg: {
       nav: ['Briefings', 'Daten', 'Archiv'],
+      edition: 'Vol. IV · Nr. 128',
+      tagline: 'Tägliche Markt-Intelligence',
       subscribers: '4.812 Abonnenten',
       howTitle: 'Wie aus den Posts JSON wurde',
       step1: '1. Der Post',
@@ -387,6 +391,32 @@ export async function newsroom(fixturesDir, lang = 'en') {
   };
 }
 
+const TG_TICKER = [
+  { sym: 'BTC', val: '71,204', dir: 'up', chg: '1.8%' },
+  { sym: 'ETH', val: '3,842', dir: 'up', chg: '0.9%' },
+  { sym: 'S&P 500', val: '5,621', dir: 'down', chg: '0.3%' },
+  { sym: 'GOLD', val: '2,411', dir: 'up', chg: '0.4%' },
+  { sym: 'EUR/USD', val: '1.084', dir: 'down', chg: '0.2%' },
+  { sym: 'US 10Y', val: '4.21%', dir: 'up', chg: '0.05' },
+];
+
+function renderTicker(items) {
+  const cells = items
+    .map((q) => {
+      const up = q.dir === 'up';
+      const arrow = up ? '&#9650;' : '&#9660;';
+      return (
+        '<span class="ll-tick">' +
+        `<span class="ll-tick-sym">${escapeHtml(q.sym)}</span>` +
+        `<span class="ll-tick-val">${escapeHtml(q.val)}</span>` +
+        `<span class="ll-tick-chg ll-tick-chg--${up ? 'up' : 'down'}">${arrow} ${escapeHtml(q.chg)}</span>` +
+        '</span>'
+      );
+    })
+    .join('');
+  return `<div class="ll-ticker" role="img" aria-label="Market snapshot"><div class="ll-ticker-track">${cells}</div></div>`;
+}
+
 function renderTgPost(post) {
   return (
     '<div class="tg-bubble">' +
@@ -436,10 +466,17 @@ export async function telegramBrief(fixturesDir, lang = 'en') {
   const postBubbles = posts.map(renderTgPost).join('');
 
   const body =
-    '<header class="ll-header">' +
+    '<header class="ll-masthead">' +
+    '<div class="ll-utility">' +
+    `<span class="ll-edition">${escapeHtml(t.edition)}</span>` +
+    `<span class="ll-tagline">${escapeHtml(t.tagline)}</span>` +
+    '</div>' +
+    '<div class="ll-brandrow">' +
     '<a class="ll-logo" href="/">LEDGERLINE</a>' +
     `<nav class="ll-nav" aria-label="Site navigation">${navLinks(t.nav)}</nav>` +
+    '</div>' +
     '</header>' +
+    renderTicker(TG_TICKER) +
     '<div class="ll-layout">' +
     '<aside class="ll-rail">' +
     '<div class="ll-channel-header">' +

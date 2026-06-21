@@ -8,8 +8,8 @@
   --at-text-muted: #7a7570;
   --at-accent: #1c1a18;
   --at-hairline: rgba(0,0,0,0.1);
-  --at-font-logo: 'Bodoni Moda', 'Times New Roman', serif;
-  --at-font-nav: 'Space Grotesk', system-ui, sans-serif;
+  --at-font-logo: 'Source Serif 4', Georgia, serif;
+  --at-font-nav: 'General Sans', system-ui, sans-serif;
 }
 
 body {
@@ -54,18 +54,19 @@ body {
 
 .at-issue {
   font-family: var(--at-font-nav);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--at-text-muted);
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.9rem;
 }
 
 .at-logo {
   display: block;
   font-family: var(--at-font-logo);
   font-size: clamp(2.2rem, 6vw, 4.5rem);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.55em;
   color: var(--at-text);
   text-decoration: none;
@@ -97,10 +98,10 @@ body {
   --color-hairline: var(--at-hairline);
   --color-surface: var(--at-surface);
   --accent: var(--at-accent);
-  --type-headline-font: 'Bodoni Moda', 'Times New Roman', serif;
+  --type-headline-font: 'Source Serif 4', Georgia, serif;
   --type-headline-weight: 600;
-  --type-headline-tracking: -0.02em;
-  --type-accent-font: 'Bodoni Moda', serif;
+  --type-headline-tracking: -0.018em;
+  --type-accent-font: 'Source Serif 4', Georgia, serif;
 }
 
 .demo-section-divider {
@@ -124,8 +125,8 @@ body {
   --color-border: var(--at-hairline);
   --color-text: var(--at-text);
   --color-text-muted: var(--at-text-muted);
-  --font-headline: 'Bodoni Moda', 'Times New Roman', serif;
-  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-headline: 'Source Serif 4', Georgia, serif;
+  --font-sans: 'General Sans', system-ui, sans-serif;
 }
 
 .at-footer {
@@ -159,7 +160,7 @@ body {
   background: #f0ede8;
   border: 1px solid var(--at-hairline);
   border-radius: 2px;
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
   font-size: 0.76rem;
   color: var(--at-text);
   overflow-x: auto;
