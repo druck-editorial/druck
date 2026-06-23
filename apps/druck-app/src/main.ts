@@ -5,7 +5,6 @@ import { initLang } from './i18n/translations.js';
 import { initThemeToggle } from './islands/theme.js';
 import { initCopyButton } from './islands/copy.js';
 import { initProgressRail } from './islands/rail.js';
-import { initSequence } from './islands/sequence.js';
 import { initSwitcher } from './islands/switcher.js';
 import { initSurfaces } from './islands/surfaces.js';
 import { initSurfacesBand } from './islands/surfacesBand.js';
@@ -33,9 +32,6 @@ for (const button of document.querySelectorAll<HTMLElement>('[data-island="copy"
 
 const rail = document.querySelector<HTMLElement>('[data-island="rail"]');
 if (rail) initProgressRail(rail);
-
-const stage = document.querySelector<HTMLElement>('[data-island="sequence"]');
-if (stage) initSequence(stage);
 
 const rangeStage = document.querySelector<HTMLElement>('.range-stage');
 const rangePanels = rangeStage ? [...rangeStage.querySelectorAll<HTMLElement>('.specimen-panel')] : [];

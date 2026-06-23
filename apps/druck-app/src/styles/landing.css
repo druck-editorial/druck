@@ -170,11 +170,6 @@ html[data-surface="ink"] .band-lede { color: var(--ink-text-secondary); }
 .hero-mag .article-kicker { margin-bottom: 0; }
 .hero-mag .article-deck { margin: 0 0 14px; font-size: 14px; max-width: none; text-align: left; }
 
-.hx { opacity: 1; }
-.hero-stage[data-state="playing"] .hx { opacity: 0; transform: translateY(10px); }
-.hero-stage[data-state="playing"] .hx.on,
-.hero-stage[data-state="done"] .hx { opacity: 1; transform: none; transition: opacity var(--seq-step-ms) var(--ease-out), transform var(--seq-step-ms) var(--ease-out); }
-.hero-stage[data-state="static"] .hx { opacity: 1; transform: none; }
 
 
 .format-switch, .lang-switch, .accent-switch { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
@@ -416,7 +411,7 @@ html.js .scene-step:not(.revealed) { opacity: 0; transform: translateY(14px); }
   .colophon-snippet .demo-cta-ghost { align-self: flex-start; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hx, .json-pane .jl, .skip-link, body { transition: none; }
+  .json-pane .jl, .skip-link, body { transition: none; }
   .specimen-panel.is-exiting,
   .specimen-panel.is-entering {
     animation: none;

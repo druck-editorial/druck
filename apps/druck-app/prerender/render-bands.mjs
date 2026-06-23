@@ -86,14 +86,9 @@ export function renderHeroFrontPagePane(items, lang = 'en') {
   const html = renderFrontPage(buildFrontPage(items), { lang });
   const ms = performance.now() - t0;
   const formatted = ms < 1 ? ms.toFixed(2) : ms < 10 ? ms.toFixed(1) : Math.round(ms).toString();
-  const stepped = html
-    .replace('<div class="df-row df-row--hero">', '<div class="df-row df-row--hero hx" data-step="1">')
-    .replace('<div class="df-row df-row--feature">', '<div class="df-row df-row--feature hx" data-step="2">')
-    .replace('<div class="df-row df-row--triple">', '<div class="df-row df-row--triple hx" data-step="3">')
-    .replace('<div class="df-row df-row--brief">', '<div class="df-row df-row--brief hx" data-step="4">');
-  const demoted = stepped.replace(/<h3\b/g, '<div').replace(/<\/h3>/g, '</div>');
+  const demoted = html.replace(/<h3\b/g, '<div').replace(/<\/h3>/g, '</div>');
   const eager = demoted.replace(/<img class="df-hero-img"([^>]*) loading="lazy"/, '<img class="df-hero-img"$1 loading="eager" fetchpriority="high"');
-  return { html: eager + '<div class="hx" data-step="5" aria-hidden="true" style="display:none;"></div>', ms: formatted };
+  return { html: eager, ms: formatted };
 }
 
 function extractHeroCard(frontPageHtml) {
@@ -260,7 +255,7 @@ export function renderFeaturedLooks(items) {
     const html = renderFrontPage(buildFrontPage(items), { look: key });
     return (
       `<div class="look-tile">` +
-      `<div class="look-tile-frame">${html}</div>` +
+      `<div class="look-tile-frame" inert>${html}</div>` +
       `<div class="look-tile-cap"><span class="look-tile-name">${escapeHtml(displayName)}</span><span class="look-tile-go">Open</span></div>` +
       `<a class="look-tile-link" href="#ms-${index}" aria-label="Open the ${escapeHtml(displayName)} look"></a>` +
       `</div>`
@@ -277,7 +272,7 @@ export function renderShowcase(items) {
   const morph = sections
     .map((s, i) =>
       `<section class="ms" id="ms-${i}"><div class="ms-label">${String(i + 1).padStart(2, '0')} / ${escapeHtml(s.name)}</div>` +
-      `<div class="ms-look reveal">${s.html}</div></section>`,
+      `<div class="ms-look reveal" inert>${s.html}</div></section>`,
     )
     .join('');
   const navItems = sections
